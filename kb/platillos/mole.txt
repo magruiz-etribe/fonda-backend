@@ -1,0 +1,92 @@
+# Mole
+
+## Nombres comunes
+- mole
+- mole poblano
+- mole rojo
+- mole negro
+- mole oaxaqueño
+- mole verde
+- mole de la abuela
+
+## Ingredientes base
+Estos van en casi cualquier mole rojo/negro, salvo que el fondero indique lo contrario.
+
+- chile_ancho
+- chile_mulato
+- chile_pasilla
+- jitomate
+- cebolla
+- ajo
+- chocolate_de_mesa
+- caldo_de_pollo
+- sal
+- aceite
+
+## Variantes
+
+### Poblano
+- **Nombre EN:** mole poblano
+- **Ingredientes extra:**
+  - chile_chipotle
+  - almendra
+  - cacahuate
+  - ajonjoli
+  - pasitas
+  - canela
+  - clavo
+  - comino
+  - pan
+  - tortilla
+- **Alérgenos presentes:** frutos secos (almendra, cacahuate), ajonjolí, gluten (por el pan).
+- **Contiene gluten:** sí, por el pan que se muele en la salsa.
+- **Descripción:** Salsa espesa y compleja del estado de Puebla, hecha con chiles secos, especias, frutos secos, chocolate y pan; sabor profundo y ligeramente dulce.
+
+### Negro (oaxaqueño)
+- **Nombre EN:** Oaxacan black mole
+- **Ingredientes extra:**
+  - chile_chilhuacle_negro
+  - chile_mulato_oscuro
+  - chocolate_oaxaqueño
+  - tortilla_quemada
+  - pasitas
+  - almendra
+  - ajonjoli
+  - clavo
+  - canela
+- **Alérgenos presentes:** frutos secos (almendra), ajonjolí.
+- **Contiene gluten:** no por defecto; sí si la receta del fondero incluye pan.
+- **Descripción:** Mole oaxaqueño muy oscuro y profundo, ligeramente amargo por la tortilla quemada y los chiles negros; el más complejo de los moles regionales.
+
+### Verde
+- **Nombre EN:** green mole
+- **Ingredientes extra:**
+  - tomatillo
+  - pepita_de_calabaza
+  - cilantro
+  - epazote
+  - chile_serrano
+- **Alérgenos presentes:** ninguno por defecto. Las pepitas de calabaza no se consideran fruto seco alérgeno común, pero si el fondero usa cacahuate o ajonjolí en su receta, sí decláralo.
+- **Contiene gluten:** no.
+- **Descripción:** Mole fresco a base de tomatillo, pepita de calabaza y hierbas; más ligero y herbáceo que los moles oscuros.
+
+### Rojo (genérico, comida corrida)
+- **Nombre EN:** red mole
+- **Ingredientes extra:**
+  - chile_guajillo
+  - ajonjoli
+  - cacahuate
+  - canela
+  - clavo
+- **Alérgenos presentes:** frutos secos (cacahuate), ajonjolí.
+- **Contiene gluten:** no por defecto.
+- **Descripción:** Mole rojo de fonda, más sencillo que el poblano; chiles guajillo/ancho con un toque de cacahuate y especias.
+
+## Notas para el agente
+- Pregunta SIEMPRE qué tipo de mole prepara: poblano, negro, verde, rojo u otro regional.
+- Para cualquier mole con frutos secos (almendra, cacahuate, nuez), declara explícitamente como alérgeno.
+- Si el mole lleva ajonjolí (sésamo), declara como alérgeno: es uno de los principales alérgenos regulados.
+- Si la receta del fondero incluye pan o tortilla molida, declara gluten.
+- Si el caldo es comercial (cubo, concentrado), advierte posible gluten, lácteos o soya y pregunta el ingrediente exacto.
+- Algunos chocolates de mesa contienen leche; si el fondero declara lácteos, decláralos también.
+- Respeta los ingredientes que el fondero declare; no impongas la receta del KB.
