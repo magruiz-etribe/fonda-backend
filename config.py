@@ -28,7 +28,7 @@ KB_PATH: Final[str] = os.environ.get("KB_PATH", _DEFAULT_KB_PATH)
 MAX_HISTORY_TURNS: Final[int] = 5
 MAX_REPLY_LEN: Final[int] = 4000
 
-CLASSIFIER_MAX_TOKENS: Final[int] = 200
+CLASSIFIER_MAX_TOKENS: Final[int] = 400
 ENTITY_MAPPER_MAX_TOKENS: Final[int] = 250
 GEN_MAX_TOKENS: Final[int] = 800
 IMAGE_MAX_TOKENS: Final[int] = 1000

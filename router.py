@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import logging
-import re
-from typing import Final
+from typing import Any, Final
 
 import bedrock_client
 import classifier
@@ -12,6 +11,7 @@ import generation
 import image_analyzer
 import retrieval
 import validation
+from classifier import TurnDecision
 from generation import GenInput
 from state import (
     CUSTOM_ENTITY,
@@ -27,19 +27,6 @@ logger = logging.getLogger(__name__)
 
 _GENERIC_FALLBACK: Final[str] = config.GENERIC_FALLBACK_REPLY
 
-_APPROVAL_RE = re.compile(
-    r"\b(s[íi]|claro|ok|okay|de acuerdo|conforme|me gusta|qued[oó] bien|"
-    r"perfecto|exacto|correcto|aprobado|aprobada|as[íi] est[áa] bien)\b",
-    re.IGNORECASE,
-)
-_REJECTION_RE = re.compile(
-    r"\b(no|cambia|c[áa]mbialo|qu[íi]ta|qu[íi]talo|no me gusta|mejor|"
-    r"corrige|incorrecto|mal)\b",
-    re.IGNORECASE,
-)
-
-_TRANSLATION_MARKERS = ("nombre en", "nombre en inglés", "alérgenos", "alergenos")
-
 
 def handle(
     message: str,
@@ -51,26 +38,23 @@ def handle(
         _process_image(image_b64, state)
 
     image_summary = state.image_analysis.raw if state.image_analysis else None
-    cls = classifier.classify(state, message, history, image_summary)
+    decision = classifier.classify(state, message, history, image_summary)
 
-    if cls.intent_changed and state.intent and state.intent != cls.intent:
+    if decision.intent_changed and state.intent and state.intent != decision.intent:
         logger.info(
             "intent_change",
-            extra={"from": state.intent, "to": cls.intent},
+            extra={"from": state.intent, "to": decision.intent},
         )
         pause_current(state)
 
-    state.intent = cls.intent
+    state.intent = decision.intent
 
-    if cls.intent == "traducir":
-        _resolve_approval(message, state)
+    if decision.intent == "traducir":
+        _apply_traducir_updates(decision, state)
 
-    reply = _dispatch(cls.intent, message, state, history)
+    reply = _dispatch(decision.intent, message, state, history)
 
-    if cls.intent == "traducir":
-        _post_translation_bookkeeping(message, reply, state)
-
-    if _current_task_finished(cls.intent, state) and state.paused_task is not None:
+    if _current_task_finished(decision.intent, state) and state.paused_task is not None:
         resume_msg = resume_paused(state)
         if resume_msg:
             reply = f"{reply}\n\n{resume_msg}"
@@ -101,10 +85,68 @@ def _process_image(image_b64: str, state: AgentState) -> None:
                 image_dishes=analysis.detected_dishes,
             )
             primary = entities[0]
-            extras = entities[1:]
-            state.current_dish = CurrentDish(entity=primary, variant=None, user_ingredients=[])
+            extras = [e for e in entities[1:] if e != CUSTOM_ENTITY]
+            state.current_dish = CurrentDish(
+                entity=primary, variant=None, user_ingredients=[]
+            )
             if extras:
                 state.dish_queue = extras + state.dish_queue
+
+
+def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
+    """Aplica determinísticamente al state lo que el classifier dictaminó para
+    el intent traducir: cambio de platillo, promoción de __custom__, variante,
+    ingredientes nuevos, aprobación/rechazo de la última traducción."""
+    cd = state.current_dish
+
+    if d.dish_change and d.new_entity:
+        if cd is not None and d.new_entity != cd.entity:
+            logger.info(
+                "dish_change",
+                extra={"from": cd.entity, "to": d.new_entity},
+            )
+        state.current_dish = CurrentDish(
+            entity=d.new_entity,
+            variant=d.variant,
+            user_ingredients=[],
+        )
+        cd = state.current_dish
+    elif cd is None and d.new_entity:
+        state.current_dish = CurrentDish(
+            entity=d.new_entity,
+            variant=d.variant,
+            user_ingredients=[],
+        )
+        cd = state.current_dish
+    elif (
+        cd is not None
+        and cd.entity == CUSTOM_ENTITY
+        and d.new_entity
+        and d.new_entity != CUSTOM_ENTITY
+    ):
+        logger.info("current_dish_promoted", extra={"from": cd.entity, "to": d.new_entity})
+        cd.entity = d.new_entity
+        if d.variant and not cd.variant:
+            cd.variant = d.variant
+
+    if cd is not None:
+        if d.variant and not cd.variant:
+            cd.variant = d.variant
+        for ing in d.ingredients_added:
+            ing_clean = ing.strip().lower()
+            if ing_clean and ing_clean not in cd.user_ingredients:
+                cd.user_ingredients.append(ing_clean)
+
+    if state.completed and state.completed[-1].approved is None:
+        last = state.completed[-1]
+        if d.user_signal == "approve":
+            last.approved = True
+            _advance_after_approval(state)
+        elif d.user_signal == "reject":
+            last.approved = False
+
+    if state.current_dish is not None and state.mode is None:
+        state.mode = "menu" if state.dish_queue else "platillo"
 
 
 def _dispatch(
@@ -127,31 +169,60 @@ def _handle_traducir(
     state: AgentState,
     history: list[dict[str, str]],
 ) -> str:
-    if state.current_dish is None:
-        entities = entity_mapper.map_dishes(message)
-        primary = entities[0]
-        extras = entities[1:]
-        state.current_dish = CurrentDish(
-            entity=primary, variant=None, user_ingredients=[]
-        )
-        if extras:
-            state.dish_queue = extras + state.dish_queue
-        if state.mode is None:
-            state.mode = "menu" if state.dish_queue else "platillo"
-
     cd = state.current_dish
-    _maybe_capture_ingredients(message, cd)
+    kb = retrieval.get_dish_context(cd.entity) if cd else ""
 
-    kb = retrieval.get_dish_context(cd.entity)
-
-    return _generate_with_validation(
+    visible, meta = _generate_with_validation(
         intent="traducir",
         message=message,
         state=state,
         history=history,
         kb_context=kb,
-        user_ingredients=cd.user_ingredients,
+        user_ingredients=cd.user_ingredients if cd else [],
     )
+
+    if meta and meta.get("final_translation") is True and cd is not None:
+        _record_translation(meta, cd, state)
+
+    return visible
+
+
+def _record_translation(
+    meta: dict[str, Any],
+    cd: CurrentDish,
+    state: AgentState,
+) -> None:
+    """Persiste la traducción producida por Nova Lite (vía bloque <META>) en
+    state.completed con dedup por entidad pendiente."""
+    translation_en = str(meta.get("translation_en", "")).strip()
+    description_en = str(meta.get("description_en", "")).strip()
+    raw_allergens = meta.get("allergens") or []
+    allergens: list[str] = []
+    if isinstance(raw_allergens, list):
+        allergens = [
+            str(a).strip()
+            for a in raw_allergens
+            if isinstance(a, (str, int, float)) and str(a).strip()
+        ]
+
+    label = cd.entity if cd.entity != CUSTOM_ENTITY else "platillo personalizado"
+
+    if state.completed and state.completed[-1].approved is None and state.completed[-1].dish == label:
+        last = state.completed[-1]
+        last.translation_en = translation_en or last.translation_en
+        last.description_en = description_en or last.description_en
+        last.allergens = allergens or last.allergens
+        last.ingredients = list(cd.user_ingredients) or last.ingredients
+        return
+
+    state.completed.append(CompletedDish(
+        dish=label,
+        ingredients=list(cd.user_ingredients),
+        translation_en=translation_en,
+        description_en=description_en,
+        allergens=allergens,
+        approved=None,
+    ))
 
 
 def _handle_static(
@@ -161,7 +232,7 @@ def _handle_static(
     topic: str,
 ) -> str:
     kb = retrieval.get_static(topic)  # type: ignore[arg-type]
-    return _generate_with_validation(
+    visible, _ = _generate_with_validation(
         intent=topic,
         message=message,
         state=state,
@@ -169,6 +240,7 @@ def _handle_static(
         kb_context=kb,
         user_ingredients=[],
     )
+    return visible
 
 
 def _handle_fallback(
@@ -176,7 +248,7 @@ def _handle_fallback(
     state: AgentState,
     history: list[dict[str, str]],
 ) -> str:
-    return _generate_with_validation(
+    visible, _ = _generate_with_validation(
         intent="fallback",
         message=message,
         state=state,
@@ -184,6 +256,7 @@ def _handle_fallback(
         kb_context="",
         user_ingredients=[],
     )
+    return visible
 
 
 def _generate_with_validation(
@@ -193,7 +266,7 @@ def _generate_with_validation(
     history: list[dict[str, str]],
     kb_context: str,
     user_ingredients: list[str],
-) -> str:
+) -> tuple[str, dict[str, Any] | None]:
     gi = GenInput(
         state=state,
         intent=intent,
@@ -202,14 +275,16 @@ def _generate_with_validation(
         history=history,
     )
     try:
-        reply = generation.generate(gi)
+        raw = generation.generate(gi)
     except bedrock_client.BedrockError as e:
         logger.warning("generation_failed_first", extra={"error": str(e)})
-        return _GENERIC_FALLBACK
+        return _GENERIC_FALLBACK, None
 
-    ok, reason = validation.validate(reply, kb_context, user_ingredients)
+    visible, meta = generation.parse_and_strip_meta(raw)
+
+    ok, reason = validation.validate(visible, kb_context, user_ingredients)
     if ok:
-        return reply
+        return visible, meta
 
     logger.info("validation_failed_first", extra={"reason": reason})
     gi2 = GenInput(
@@ -225,47 +300,18 @@ def _generate_with_validation(
         ),
     )
     try:
-        reply2 = generation.generate(gi2)
+        raw2 = generation.generate(gi2)
     except bedrock_client.BedrockError as e:
         logger.warning("generation_failed_second", extra={"error": str(e)})
-        return _GENERIC_FALLBACK
+        return _GENERIC_FALLBACK, None
 
-    ok2, reason2 = validation.validate(reply2, kb_context, user_ingredients)
+    visible2, meta2 = generation.parse_and_strip_meta(raw2)
+    ok2, reason2 = validation.validate(visible2, kb_context, user_ingredients)
     if ok2:
-        return reply2
+        return visible2, meta2
 
     logger.info("validation_failed_second", extra={"reason": reason2})
-    return _GENERIC_FALLBACK
-
-
-def _maybe_capture_ingredients(message: str, cd: CurrentDish) -> None:
-    """Heuristic: if the user appears to be listing ingredients (uses commas
-    or 'lleva ...' / 'tiene ...' / 'con ...'), capture them. Best-effort, the
-    LLM ultimately uses the raw message too."""
-    if cd.user_ingredients:
-        return
-    lowered = message.lower()
-    triggers = ("lleva", "tiene", "con ", "ingredientes", ",")
-    if not any(t in lowered for t in triggers):
-        return
-    candidates = re.split(r",|\sy\s|;", message)
-    cleaned = [c.strip(" .") for c in candidates if c.strip()]
-    cleaned = [c for c in cleaned if 2 <= len(c) <= 60 and " " not in c[:1]]
-    if 2 <= len(cleaned) <= 20:
-        cd.user_ingredients = cleaned
-
-
-def _resolve_approval(message: str, state: AgentState) -> None:
-    if not state.completed:
-        return
-    last = state.completed[-1]
-    if last.approved is not None:
-        return
-    if _APPROVAL_RE.search(message):
-        last.approved = True
-        _advance_after_approval(state)
-    elif _REJECTION_RE.search(message):
-        last.approved = False
+    return _GENERIC_FALLBACK, None
 
 
 def _advance_after_approval(state: AgentState) -> None:
@@ -277,65 +323,6 @@ def _advance_after_approval(state: AgentState) -> None:
         )
     else:
         state.mode = None
-
-
-def _post_translation_bookkeeping(
-    message: str,
-    reply: str,
-    state: AgentState,
-) -> None:
-    """If the assistant produced what looks like a final translation, persist
-    it into state.completed with approved=None until the next user turn."""
-    cd = state.current_dish
-    if cd is None:
-        return
-    if not _looks_like_final_translation(reply):
-        return
-    if state.completed and state.completed[-1].approved is None and \
-            state.completed[-1].dish == _user_dish_label(message, cd):
-        return
-
-    allergens = _extract_allergens(reply)
-    state.completed.append(CompletedDish(
-        dish=_user_dish_label(message, cd),
-        ingredients=list(cd.user_ingredients),
-        translation_en=_extract_field(reply, "nombre en") or "",
-        description_en=_extract_field(reply, "descripción en")
-        or _extract_field(reply, "descripcion en")
-        or "",
-        allergens=allergens,
-        approved=None,
-    ))
-
-
-def _looks_like_final_translation(reply: str) -> bool:
-    lowered = reply.lower()
-    return sum(1 for m in _TRANSLATION_MARKERS if m in lowered) >= 2
-
-
-def _extract_field(reply: str, key_prefix: str) -> str | None:
-    pattern = rf"{re.escape(key_prefix)}[^:]*:\s*(.+?)(?:\n|$)"
-    m = re.search(pattern, reply, re.IGNORECASE)
-    if not m:
-        return None
-    return m.group(1).strip(" *_-")
-
-
-def _extract_allergens(reply: str) -> list[str]:
-    m = re.search(r"al[ée]rgenos?\s*[:\-]\s*(.+?)(?:\n|$)", reply, re.IGNORECASE)
-    if not m:
-        return []
-    parts = re.split(r"[,;/]", m.group(1))
-    return [p.strip(" .*_-") for p in parts if p.strip()]
-
-
-def _user_dish_label(message: str, cd: CurrentDish) -> str:
-    text = (message or "").strip()
-    if 0 < len(text) <= 120:
-        return text
-    if cd.entity == CUSTOM_ENTITY:
-        return "platillo personalizado"
-    return cd.entity
 
 
 def _current_task_finished(intent: str, state: AgentState) -> bool:

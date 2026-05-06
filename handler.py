@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import json
 import logging
+import os
 from typing import Any, Final
 
 import config
@@ -18,6 +19,21 @@ logger.setLevel(logging.INFO)
 
 _MAX_BODY_BYTES: Final[int] = 10 * 1024 * 1024
 
+# CORS headers se incluyen en TODA respuesta porque con REST API + Lambda Proxy
+# Integration, API Gateway no inyecta los headers automáticamente: solo configura
+# el preflight OPTIONS via MOCK. Para HTTP API esto sería redundante pero inocuo.
+_CORS_ALLOW_ORIGIN: Final[str] = os.environ.get("CORS_ALLOW_ORIGIN", "*")
+_CORS_ALLOW_HEADERS: Final[str] = os.environ.get(
+    "CORS_ALLOW_HEADERS",
+    "Content-Type,Authorization,X-Api-Key,X-Amz-Date,X-Amz-Security-Token",
+)
+_CORS_ALLOW_METHODS: Final[str] = "POST,OPTIONS"
+_CORS_HEADERS: Final[dict[str, str]] = {
+    "Access-Control-Allow-Origin": _CORS_ALLOW_ORIGIN,
+    "Access-Control-Allow-Methods": _CORS_ALLOW_METHODS,
+    "Access-Control-Allow-Headers": _CORS_ALLOW_HEADERS,
+}
+
 
 class _BadRequest(Exception):
     pass
@@ -25,6 +41,9 @@ class _BadRequest(Exception):
 
 def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     request_id = getattr(context, "aws_request_id", "unknown")
+
+    if _is_preflight(event):
+        return _response(204, None)
 
     try:
         body = _parse_body(event)
@@ -134,9 +153,19 @@ def _optional_str(body: dict[str, Any], key: str) -> str | None:
     return val or None
 
 
-def _response(status: int, body: dict[str, Any]) -> dict[str, Any]:
+def _is_preflight(event: dict[str, Any]) -> bool:
+    method = (
+        event.get("requestContext", {}).get("http", {}).get("method")
+        or event.get("httpMethod")
+        or ""
+    )
+    return method.upper() == "OPTIONS"
+
+
+def _response(status: int, body: dict[str, Any] | None) -> dict[str, Any]:
+    headers = {"Content-Type": "application/json; charset=utf-8", **_CORS_HEADERS}
     return {
         "statusCode": status,
-        "headers": {"Content-Type": "application/json; charset=utf-8"},
-        "body": json.dumps(body, ensure_ascii=False),
+        "headers": headers,
+        "body": "" if body is None else json.dumps(body, ensure_ascii=False),
     }
