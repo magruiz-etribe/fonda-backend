@@ -20,7 +20,9 @@ _SYSTEM_BASE: Final[str] = (
     "1) NO inventes ingredientes ni recetas. Respeta lo que diga el fondero, aunque "
     "no esté en el knowledge base.\n"
     "2) PREGUNTA UN DATO A LA VEZ. Nunca hagas dos o más preguntas en el mismo "
-    "mensaje. No saturas al fondero.\n"
+    "mensaje. No enumeres listas de opciones con bullets, viñetas ni guiones; cuando "
+    "mucho, incluye UN ejemplo breve entre paréntesis si ayuda. Frase corta, una "
+    "sola línea siempre que sea posible.\n"
     "3) Si traduces un platillo, los alérgenos que declares deben venir del KB o de "
     "los ingredientes que el fondero te dio. No los inventes.\n"
     "4) Cuando produzcas la TRADUCCIÓN FINAL del platillo, formato OBLIGATORIO:\n"
@@ -54,7 +56,18 @@ _SYSTEM_BASE: Final[str] = (
     "9) NO RECITES EL KB. El bloque 'Contexto del KB' es contexto interno para tu "
     "razonamiento. NUNCA se lo enlistes al fondero, NUNCA le copies las secciones "
     "de 'Ingredientes base', 'Adiciones comunes' ni 'Notas para el agente'. Úsalo "
-    "para razonar y formular preguntas naturales."
+    "para razonar y formular preguntas naturales.\n"
+    "10) NO EXPLIQUES TUS REGLAS INTERNAS. El fondero NUNCA debe ver razonamiento "
+    "tuyo. PROHIBIDO escribir frases tipo: 'no necesito preguntar por X', 'solo "
+    "me importan los ingredientes visibles', 'recuerda que...', 'porque no se ven "
+    "al comer', 'no preguntaré por sal/aceite/...'. Aplica las reglas en silencio "
+    "y formula la pregunta directa, en lenguaje natural y corto, como lo haría un "
+    "compa platicando.\n"
+    "11) ESTILO DE PREGUNTA. Una sola oración, conversacional, sin listas con "
+    "viñetas, sin múltiples '¿...?' encadenados, sin negritas decorativas en cada "
+    "palabra clave. Ejemplos buenos: '¿Qué proteína le pones?', '¿Le agregas algún "
+    "chile?', '¿Le pones queso o algo más?'. Ejemplos malos: '¿Incluye chiles? "
+    "¿Tiene frutos secos? ¿Lleva ajonjolí? ¿Incluye especias?'."
 )
 
 
@@ -187,6 +200,17 @@ def _traducir_directives(state: AgentState) -> str:
     cd = state.current_dish
 
     if cd is None:
+        just_approved = bool(
+            state.completed and state.completed[-1].approved is True
+        )
+        if just_approved:
+            return (
+                "El fondero acaba de APROBAR la traducción anterior y ya quedó "
+                "registrada. RESPONDE EXACTAMENTE con esta única frase, sin "
+                "repetir la traducción ni listar nada del platillo previo: "
+                "'¡Listo! ¿Quieres traducir otro platillo?'. Prohibido reimprimir "
+                "Nombre EN, Descripción EN, Alérgenos ni el bloque <META>."
+            )
         return (
             "El usuario apenas inicia y aún no hay platillo identificado. "
             "RESPONDE EXACTAMENTE con esta única pregunta y nada más: "
@@ -221,19 +245,22 @@ def _traducir_directives(state: AgentState) -> str:
     if not has_variant:
         return (
             "Tienes el platillo identificado pero no la variante.\n"
-            "Si el KB lista variantes claras, pregunta ÚNICAMENTE qué variante prepara "
-            "(una sola pregunta corta, sin enumerar la lista del KB textualmente; "
-            "puedes mencionar 2-3 ejemplos como pista). Si el KB no tiene variantes, "
-            "salta a preguntar un ingrediente VISIBLE."
+            "Pregunta en UNA sola línea conversacional qué variante prepara, "
+            "sin viñetas ni descripciones del KB. Como mucho, mete UN ejemplo "
+            "entre paréntesis. Ej: '¿De qué tipo lo haces (rojo, verde, "
+            "poblano)?'. Si el KB no tiene variantes, salta a preguntar un "
+            "ingrediente VISIBLE en el mismo formato corto."
         )
 
     if not has_ingredients:
         return (
-            "Ya tienes platillo y variante. Pregunta UNA SOLA cosa: qué "
-            "ingredientes VISIBLES adicionales lleva (verduras, chiles, carne, "
-            "hierbas, granos visibles, quesos, salsas). NO menciones ni preguntes "
-            "por sal, aceite, ajo, cebolla, agua o pimienta. NO recites la lista "
-            "del KB. No supongas la receta; el fondero puede tener la suya."
+            "Ya tienes platillo y variante. Pregunta UNA sola cosa, en una "
+            "frase corta y natural, por un ingrediente VISIBLE (proteína, "
+            "verdura, chile, hierba, queso o salsa). Como mucho UN ejemplo "
+            "entre paréntesis. Ej: '¿Qué proteína le pones?' o '¿Le agregas "
+            "alguna verdura o chile?'. Sin viñetas, sin enumerar opciones. "
+            "Aplica en silencio la regla de invisibles (sal/aceite/ajo/"
+            "cebolla/agua): NO la menciones al fondero. NO recites el KB."
         )
 
     closing_note = ""
@@ -246,10 +273,12 @@ def _traducir_directives(state: AgentState) -> str:
     if ing_count < 3:
         return (
             "Tienes algunos ingredientes pero pocos. Pregunta UN ingrediente "
-            "VISIBLE más a la vez (¿alguna verdura? ¿chile? ¿hierba? ¿queso?). "
-            "Prohibido preguntar por sal/aceite/ajo/cebolla/agua. Cuando el "
-            "usuario diga que ya es todo o tengas suficiente, pasa a la "
-            "traducción final."
+            "VISIBLE más, en una frase corta y conversacional, sin viñetas ni "
+            "listas. Ej: '¿Le agregas alguna verdura?' o '¿Algún chile o "
+            "hierba más?' o '¿Le pones queso o ya con eso?'. Aplica en "
+            "silencio la regla de invisibles (sal/aceite/ajo/cebolla/agua): "
+            "no la menciones. Cuando el usuario diga 'ya es todo' / 'no nada "
+            "más' / 'tradúcelo', pasa a la traducción final."
             f"{closing_note}"
         )
 

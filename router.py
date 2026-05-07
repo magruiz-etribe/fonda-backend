@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+import re
+import unicodedata
 from typing import Any, Final
 
 import bedrock_client
@@ -28,6 +30,74 @@ logger = logging.getLogger(__name__)
 _GENERIC_FALLBACK: Final[str] = config.GENERIC_FALLBACK_REPLY
 
 
+# Backup determinístico para cuando el classifier no etiqueta como
+# approve/reject pero el mensaje del fondero es claramente afirmativo o
+# negativo en respuesta a "¿queda conforme?". Conservador a propósito:
+# solo aplica cuando hay last_completed pendiente y el mensaje cae 1:1 en
+# un patrón corto, para no pisar al classifier en casos ambiguos.
+_AFFIRMATIVE_PATTERNS: Final[tuple[re.Pattern[str], ...]] = tuple(
+    re.compile(p) for p in (
+        r"^si$",
+        r"^sii+$",
+        r"^si si$",
+        r"^si+ esta bien$",
+        r"^si+ estoy conforme$",
+        r"^si+,? (esta|esto|asi) bien$",
+        r"^si+,? me gusta$",
+        r"^si+,? correcto$",
+        r"^si+,? perfecto$",
+        r"^estoy conforme$",
+        r"^esta bien$",
+        r"^asi (esta|es)( bien)?$",
+        r"^ok$",
+        r"^okay$",
+        r"^okey$",
+        r"^sale$",
+        r"^va$",
+        r"^andale$",
+        r"^claro$",
+        r"^perfecto$",
+        r"^correcto$",
+        r"^me gusta$",
+        r"^conforme$",
+    )
+)
+
+_NEGATIVE_PATTERNS: Final[tuple[re.Pattern[str], ...]] = tuple(
+    re.compile(p) for p in (
+        r"^no$",
+        r"^no,? cambiale$",
+        r"^cambiale$",
+        r"^no esta bien$",
+        r"^no me gusta$",
+        r"^no me convence$",
+        r"^ese no es$",
+    )
+)
+
+
+def _normalize(s: str) -> str:
+    s = s.strip().lower()
+    s = "".join(
+        c for c in unicodedata.normalize("NFD", s)
+        if unicodedata.category(c) != "Mn"
+    )
+    s = re.sub(r"[¿?¡!.,;:]+", "", s)
+    s = re.sub(r"\s+", " ", s)
+    return s
+
+
+def _deterministic_signal(message: str) -> str | None:
+    norm = _normalize(message)
+    if not norm or len(norm) > 32:
+        return None
+    if any(p.match(norm) for p in _AFFIRMATIVE_PATTERNS):
+        return "approve"
+    if any(p.match(norm) for p in _NEGATIVE_PATTERNS):
+        return "reject"
+    return None
+
+
 def handle(
     message: str,
     state: AgentState,
@@ -50,6 +120,7 @@ def handle(
     state.intent = decision.intent
 
     if decision.intent == "traducir":
+        _backfill_user_signal(decision, state, message)
         _apply_traducir_updates(decision, state)
 
     reply = _dispatch(decision.intent, message, state, history)
@@ -91,6 +162,30 @@ def _process_image(image_b64: str, state: AgentState) -> None:
             )
             if extras:
                 state.dish_queue = extras + state.dish_queue
+
+
+def _backfill_user_signal(
+    d: TurnDecision,
+    state: AgentState,
+    message: str,
+) -> None:
+    """Si hay traducción pendiente y el classifier no etiquetó approve/reject
+    pero el mensaje del fondero es 1:1 una afirmación/negación corta,
+    rellenamos el user_signal de forma determinística. Defensa para los
+    casos en que Nova Micro se queda con user_signal=null en mensajes
+    obvios como 'si' / 'no'."""
+    if d.user_signal is not None:
+        return
+    if not state.completed or state.completed[-1].approved is not None:
+        return
+    fallback = _deterministic_signal(message)
+    if fallback is None:
+        return
+    logger.info(
+        "user_signal_backfill",
+        extra={"signal": fallback, "msg": message[:64]},
+    )
+    d.user_signal = fallback  # type: ignore[assignment]
 
 
 def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
