@@ -4,7 +4,7 @@ import json
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any, Final
+from typing import Any, Final, Literal
 
 import bedrock_client
 import config
@@ -50,6 +50,75 @@ def generate(gi: GenInput) -> str:
             "temperature": 0.3,
         },
     )
+
+
+TraducirLightMode = Literal["farewell", "post_approve"]
+
+_LIGHT_SYSTEM: Final[dict[str, str]] = {
+    "farewell": (
+        "Ayudas a un fondero de CDMX por chat como quien tiene buena voluntad pero sin ser técnico. "
+        "El mensaje más reciente del fondero es una DESPEDIDA o cierre amable cuando ya terminó "
+        "(ej.: «no, es todo», «ya está gracias», «no más por hoy», «con eso me doy», "
+        "«cerramos aquí», o rechazo cortés a seguir porque no necesita más). "
+        "Responde con UNA o dos frases MUY cortas en español de México, tono cercano.\n"
+        "PROHIBIDO usar inglés. PROHIBIDO **Nombre EN**, **Descripción EN**, **Allergens:**, "
+        "ni bloques <META>. NO vuelvas a dar la traducción del platillo."
+    ),
+    "post_approve": (
+        "El fondero de CDMX acaba de quedar bien con la última traducción en inglés que vio "
+        "(no debe volver a leer ese bloque en tu respuesta).\n"
+        "Escribe UNA sola frase natural en español de México tipo: ¿quiere otro platillo para "
+        "traducir o le ayudo en otra cosa? — sin formulas rígidas. "
+        "PROHIBIDO inglés en tu respuesta, PROHIBIDO tres líneas de menú, PROHIBIDO <META>. "
+        "Sin listas ni viñetas."
+    ),
+}
+
+
+def generate_traducir_light(
+    message: str,
+    history: list[dict[str, str]],
+    mode: TraducirLightMode,
+) -> str:
+    """Respuesta corta para despedidas o cierre tras conforme sin pasar por el prompt pesado."""
+    system = _LIGHT_SYSTEM[mode]
+    recent = history[-8:] if len(history) > 8 else history
+    hist_txt = (
+        "\n".join(
+            f"- {h.get('role', '?')}: {str(h.get('text', '') or '')[:420]}" for h in recent
+        )
+        or "(sin historial)"
+    )
+    user_block = (
+        f"Contexto muy breve:\n{hist_txt}\n\n"
+        f"Lo que acaba de mandar:\n\"{message}\""
+    )
+    msgs = [{"role": "user", "content": [{"text": user_block}]}]
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_LITE_MODEL_ID,
+            system,
+            msgs,
+            inference_config={
+                "maxTokens": config.TRADUCIR_LIGHT_MAX_TOKENS,
+                "temperature": 0.6,
+            },
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning(
+            "traducir_light_bedrock_error",
+            extra={"error": str(e), "mode": mode},
+        )
+        if mode == "farewell":
+            return (
+                "Va, muchas gracias. Si más adelante quiere otro platillo "
+                "o ayuda para el menú, aquí andamos."
+            )
+        return (
+            "Perfecto, ¿quería pasar otro platillo para traducir o le ayudo en algo más?"
+        )
+    out = sanitize_traducir_visible_for_user((raw or "").strip())
+    return out[: config.MAX_REPLY_LEN]
 
 
 def parse_and_strip_meta(reply: str) -> tuple[str, dict[str, Any] | None]:

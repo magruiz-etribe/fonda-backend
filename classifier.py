@@ -14,8 +14,10 @@ from state import CUSTOM_ENTITY, AgentState
 logger = logging.getLogger(__name__)
 
 
-UserSignal = Literal["approve", "reject", "want_translation"]
-_VALID_SIGNALS: Final[frozenset[str]] = frozenset({"approve", "reject", "want_translation"})
+UserSignal = Literal["approve", "reject", "want_translation", "farewell"]
+_VALID_SIGNALS: Final[frozenset[str]] = frozenset(
+    {"approve", "reject", "want_translation", "farewell"}
+)
 
 _CLASSIFIER_PROMPT_PATH: Final[str] = "classifier_system.txt"
 

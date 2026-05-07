@@ -58,6 +58,11 @@ def handle(
         _process_image(image_b64, state)
 
     image_summary = state.image_analysis.raw if state.image_analysis else None
+    had_conforme_pending = bool(
+        state.completed
+        and state.completed[-1].approved is None
+        and (state.completed[-1].translation_en or "").strip()
+    )
     decision = classifier.classify(state, message, history, image_summary)
 
     logger.info(
@@ -102,7 +107,7 @@ def handle(
         },
     )
 
-    reply = _dispatch(decision.intent, message, state, history)
+    reply = _dispatch(decision, message, state, history, had_conforme_pending)
 
     if _current_task_finished(decision.intent, state) and state.paused_task is not None:
         resume_msg = resume_paused(state)
@@ -156,6 +161,7 @@ def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
         conforme_pending
         and bool(d.dish_change and d.new_entity)
         and d.user_signal != "reject"
+        and d.user_signal != "farewell"
     )
 
     # Cerrar traducción pendiente ANTES de asignar el platillo nuevo: si viene
@@ -165,6 +171,13 @@ def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
         last = state.completed[-1]
         if d.user_signal == "reject":
             last.approved = False
+        elif d.user_signal == "farewell":
+            last.approved = True
+            logger.info(
+                "farewell_implied_close_pending_translation",
+                extra={"dish": last.dish},
+            )
+            _advance_after_approval(state)
         elif d.user_signal == "approve" or implicit_approve:
             last.approved = True
             if implicit_approve and d.user_signal != "approve":
@@ -219,13 +232,17 @@ def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
 
 
 def _dispatch(
-    intent: str,
+    decision: TurnDecision,
     message: str,
     state: AgentState,
     history: list[dict[str, str]],
+    had_conforme_pending: bool,
 ) -> str:
+    intent = decision.intent
     if intent == "traducir":
-        return _handle_traducir(message, state, history)
+        return _handle_traducir(
+            message, state, history, decision, had_conforme_pending
+        )
     if intent == "higiene":
         return _handle_static(message, state, history, "higiene")
     if intent == "maps":
@@ -237,7 +254,24 @@ def _handle_traducir(
     message: str,
     state: AgentState,
     history: list[dict[str, str]],
+    decision: TurnDecision,
+    had_conforme_pending: bool,
 ) -> str:
+    if decision.user_signal == "farewell":
+        logger.info("traducir_light_reply", extra={"mode": "farewell"})
+        return generation.generate_traducir_light(message, history, mode="farewell")
+
+    no_new_dish = not (decision.dish_change and decision.new_entity)
+    if (
+        decision.user_signal == "approve"
+        and had_conforme_pending
+        and no_new_dish
+    ):
+        logger.info("traducir_light_reply", extra={"mode": "post_approve"})
+        return generation.generate_traducir_light(
+            message, history, mode="post_approve"
+        )
+
     cd = state.current_dish
     kb = retrieval.get_dish_context(cd.entity) if cd else ""
 
