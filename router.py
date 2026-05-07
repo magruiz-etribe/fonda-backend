@@ -147,6 +147,33 @@ def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
     """Aplica determinísticamente al state lo que el classifier dictaminó para
     el intent traducir: cambio de platillo, promoción de __custom__, variante,
     ingredientes nuevos, aprobación/rechazo de la última traducción."""
+    conforme_pending = bool(
+        state.completed
+        and state.completed[-1].approved is None
+        and (state.completed[-1].translation_en or "").strip()
+    )
+    implicit_approve = (
+        conforme_pending
+        and bool(d.dish_change and d.new_entity)
+        and d.user_signal != "reject"
+    )
+
+    # Cerrar traducción pendiente ANTES de asignar el platillo nuevo: si viene
+    # approve explícito o cambio claro de platillo, `_advance_after_approval` limpia
+    # trabajo anterior y luego el bloque dish_change define el siguiente `current_dish`.
+    if conforme_pending:
+        last = state.completed[-1]
+        if d.user_signal == "reject":
+            last.approved = False
+        elif d.user_signal == "approve" or implicit_approve:
+            last.approved = True
+            if implicit_approve and d.user_signal != "approve":
+                logger.info(
+                    "implicit_approve_on_dish_change",
+                    extra={"from_dish": last.dish, "to_entity": d.new_entity},
+                )
+            _advance_after_approval(state)
+
     cd = state.current_dish
 
     if d.dish_change and d.new_entity:
@@ -187,14 +214,6 @@ def _apply_traducir_updates(d: TurnDecision, state: AgentState) -> None:
             if ing_clean and ing_clean not in cd.user_ingredients:
                 cd.user_ingredients.append(ing_clean)
 
-    if state.completed and state.completed[-1].approved is None:
-        last = state.completed[-1]
-        if d.user_signal == "approve":
-            last.approved = True
-            _advance_after_approval(state)
-        elif d.user_signal == "reject":
-            last.approved = False
-
     if state.current_dish is not None and state.mode is None:
         state.mode = "menu" if state.dish_queue else "platillo"
 
@@ -222,14 +241,6 @@ def _handle_traducir(
     cd = state.current_dish
     kb = retrieval.get_dish_context(cd.entity) if cd else ""
 
-    # Si ya hay traducción esperando conforme y el modelo espía un segundo
-    # <META>, no debe pisar estado ni duplicar la ficha (evita ciclos raros).
-    skip_record = bool(
-        state.completed
-        and state.completed[-1].approved is None
-        and (state.completed[-1].translation_en or "").strip()
-    )
-
     visible, meta = _generate(
         intent="traducir",
         message=message,
@@ -238,12 +249,14 @@ def _handle_traducir(
         kb_context=kb,
     )
 
-    if (
-        meta
-        and meta.get("final_translation") is True
-        and cd is not None
-        and not skip_record
-    ):
+    visible = generation.sanitize_traducir_visible_for_user(visible)
+    if meta is None or meta.get("final_translation") is not True:
+        inferred = generation.infer_final_translation_meta(visible)
+        if inferred:
+            meta = inferred
+            logger.info("translation_meta_inferred_from_visible_lines")
+
+    if meta and meta.get("final_translation") is True and cd is not None:
         _record_translation(meta, cd, state)
 
     return visible

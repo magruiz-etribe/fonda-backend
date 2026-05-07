@@ -30,7 +30,10 @@ class GenInput:
     correction_note: str | None = None
 
 
-_META_RE = re.compile(r"<META>\s*(.+?)\s*</META>", re.DOTALL)
+_META_RE = re.compile(
+    r"<META\b[^>]*>\s*(.+?)\s*</META\s*>",
+    re.DOTALL | re.IGNORECASE,
+)
 
 
 def generate(gi: GenInput) -> str:
@@ -50,22 +53,125 @@ def generate(gi: GenInput) -> str:
 
 
 def parse_and_strip_meta(reply: str) -> tuple[str, dict[str, Any] | None]:
-    """Extrae bloque <META>{...}</META> del reply y lo separa de la parte
-    visible. Devuelve (texto_visible, meta_dict_or_None)."""
+    """Quita todos los bloques <META>...</META> del texto y devuelve el último
+    JSON válido con final_translation:true (si existe). Cualquier otro META
+    (schemas inventados) se descarta tras log."""
     if not reply:
         return reply, None
-    m = _META_RE.search(reply)
-    if not m:
-        return reply, None
+    chosen: dict[str, Any] | None = None
+    last_invalid_idx: int | None = None
+    for m in _META_RE.finditer(reply):
+        blob = m.group(1).strip()
+        try:
+            parsed = json.loads(blob)
+        except json.JSONDecodeError as e:
+            logger.warning(
+                "meta_block_invalid_json",
+                extra={"error": str(e), "snippet": blob[:120]},
+            )
+            last_invalid_idx = m.start()
+            continue
+        if not isinstance(parsed, dict):
+            last_invalid_idx = m.start()
+            continue
+        if parsed.get("final_translation") is True:
+            chosen = parsed
+        else:
+            logger.info(
+                "meta_block_ignored_non_final",
+                extra={"sample_keys": list(parsed.keys())[:8]},
+            )
     visible = _META_RE.sub("", reply).strip()
-    try:
-        parsed = json.loads(m.group(1))
-    except json.JSONDecodeError as e:
-        logger.warning("meta_block_invalid_json", extra={"error": str(e)})
-        return visible, None
-    if not isinstance(parsed, dict):
-        return visible, None
-    return visible, parsed
+    meta = chosen
+    if meta is None and last_invalid_idx is not None:
+        logger.warning(
+            "meta_only_invalid_or_non_final_reply",
+            extra={"reply_tail": reply[max(0, last_invalid_idx - 40) :][:200]},
+        )
+    return visible, meta
+
+
+def infer_final_translation_meta(visible: str) -> dict[str, Any] | None:
+    """Si Nova mostró las tres líneas de TRADUCCIÓN FINAL pero olvidó <META>,
+    reconstruye el dict para registrar estado y cerrar ciclo conforme."""
+    if not visible or "**Nombre EN:**" not in visible:
+        return None
+    if "**Descripción EN:**" not in visible or "**Allergens:**" not in visible:
+        return None
+    tn = _extract_between_labels(
+        visible,
+        r"\*\*Nombre\s*EN:\*\*",
+        r"\*\*Descripción\s*EN:\*\*",
+    )
+    td = _extract_between_labels(
+        visible,
+        r"\*\*Descripción\s*EN:\*\*",
+        r"\*\*Allergens:\*\*",
+    )
+    ta = _extract_between_labels(
+        visible,
+        r"\*\*Allergens:\*\*",
+        None,
+    )
+    if not tn or not td or ta is None:
+        return None
+    tn_f = _one_line(tn)
+    td_f = " ".join(td.split())
+    ta_f = _one_line(ta)
+    allergens = _parse_allergen_tokens(ta_f)
+    return {
+        "final_translation": True,
+        "translation_en": tn_f,
+        "description_en": td_f,
+        "allergens": allergens,
+    }
+
+
+def _extract_between_labels(
+    text: str,
+    start_pat: str,
+    end_pat: str | None,
+) -> str | None:
+    ms = re.search(start_pat, text, flags=re.IGNORECASE | re.DOTALL)
+    if not ms:
+        return None
+    tail = text[ms.end() :]
+    if end_pat is None:
+        chunk = re.split(r"\n\s*(?:¿|\n)", tail, maxsplit=1)[0]
+        return chunk.strip() if chunk.strip() else None
+    me = re.search(end_pat, tail, flags=re.IGNORECASE | re.DOTALL)
+    if not me:
+        return None
+    return tail[: me.start()].strip()
+
+
+def _one_line(s: str) -> str:
+    return " ".join(s.replace("\r", " ").split()).strip()
+
+
+def _parse_allergen_tokens(line: str) -> list[str]:
+    low = line.strip().lower()
+    if not low or low in ("none", "none.", "ninguno", "ninguna"):
+        return []
+    parts = re.split(r"[,;]", line)
+    out: list[str] = []
+    for p in parts:
+        t = p.strip().lower()
+        if t and t not in out:
+            out.append(t)
+    return out
+
+
+def sanitize_traducir_visible_for_user(visible: str) -> str:
+    """Quita restos de META y negritas de estilo (**palabra**) durante entrevista
+    (cuando NO hay bloque TRADUCCIÓN FINAL con etiquetas estándar)."""
+    if not visible:
+        return visible
+    v = _META_RE.sub("", visible).strip()
+    v = re.sub(r"<META\b[^>]*>[\s\S]*?</META\s*>", "", v, flags=re.IGNORECASE).strip()
+    if "**Nombre EN:**" not in v:
+        v = re.sub(r"\*\*([^*]+)\*\*", r"\1", v)
+    return v.replace("`", "").strip()
 
 
 def _build_user_text(gi: GenInput) -> str:
@@ -156,20 +262,19 @@ def _traducir_directives(state: AgentState) -> str:
     )
     if pending_approval:
         return (
-            "ESTADO ACTUAL: el turno anterior ya mostró al fondero la "
-            "TRADUCCIÓN FINAL (**Nombre EN:** / **Descripción EN:** / **Allergens:** + "
-            "<META>) con pregunta de cierre (¿Queda conforme?).\n"
-            "REGLAS OBLIGATORIAS EN ESTE TURNO:\n"
-            "- PROHIBIDO volver a mostrar las tres líneas **Nombre EN:** / "
-            "**Descripción EN:** / **Allergens:** y PROHIBIDO incluir otro "
-            "<META> con final_translation aquí.\n"
-            "- Si confirmación breve típica (sí/gracias/correcto/perfecto/"
-            "claro/listo/de acuerdo, etc.), responde UNA sola frase corta EN "
-            "ESPAÑOL: '¡Perfecto! ¿Cuál platillo traducimos ahora?'.\n"
-            "- Si pide cambios o corrige contenido sin ser un OK claro, pregunta "
-            "solo qué ajustar, sin reproducir todo el bloque de traducción.\n"
-            "- NO entres de nuevo en entrevista de ingredientes hasta que él "
-            "pida otro platillo."
+            "ESTADO: el cliente ya recibió las tres líneas de TRADUCCIÓN FINAL (inglés "
+            "+ **Allergens:** + META).\n"
+            "EN ESTE TURNO NO vuelvas a pegar ese bloque completo NI otro META final salvo "
+            "que pida un CAMBIO concreto al texto en inglés (entonces sí: bloque corregido + "
+            "META de final_translation).\n"
+            "Si solo asiente, agradece o cierra (sí, va, listo, perfecto, gracias, quedó, etc.): "
+            "UNA frase corta en español, tono humano, sin trámite; ej. '¡Listo! ¿Cuál otro "
+            "platillo le armamos en inglés?' — no hagas nueva pregunta rígida de conformación.\n"
+            "Si en el mismo mensaje ya viene OTRO platillo nuevo, celebra breve y entra "
+            "derecho al flujo de ese platillo (una pregunta útil máximo), sin exigir que "
+            "\"aprueben\" antes el anterior por escrito.\n"
+            "Si rechaza algo, pregunta qué cambiar antes de repetir todo el inglés.\n"
+            "Sin entrevistar de nuevo para alérgenos."
         )
 
     if cd is None:
@@ -178,27 +283,19 @@ def _traducir_directives(state: AgentState) -> str:
         )
         if just_approved:
             return (
-                "El fondero acaba de APROBAR la traducción anterior y ya quedó "
-                "registrada. PROHIBIDO reimprimir Nombre EN, Descripción EN, "
-                "Alérgenos ni el bloque <META> del platillo anterior. \n"
-                "Si en su último mensaje YA mencionó otro platillo (aunque "
-                "venga prefijado por 'si', 'va', 'sale', 'ok'), NO repitas la "
-                "pregunta de cierre: salta directo al flujo del nuevo platillo "
-                "y empieza a preguntar el primer ingrediente VISIBLE de ese "
-                "platillo, en una frase corta y natural. Ej (si dijo 'sí, "
-                "vamos con las enchiladas'): '¡Listo! Ahora con tus "
-                "enchiladas: ¿qué proteína les pones?'. \n"
-                "Si su último mensaje NO menciona ningún platillo nuevo "
-                "(solo 'sí', 'sí gracias', 'sí por favor', 'no', etc.), "
-                "RESPONDE EXACTAMENTE con esta única frase: '¡Listo! ¿Cuál "
-                "platillo traducimos ahora?'."
+                "Acaba de quedar atrás una traducción (aprobación o siguiente paso). "
+                "PROHIBIDO reimprimir el bloque inglés anterior.\n"
+                "Si ya nombró otro platillo, entra derecho sin repreguntas vacías "
+                "(máximo UNA aclaración concreta). Ej.: 'Órale, ¿tus enchiladas qué llevan "
+                "de protagonista?'.\n"
+                "Si no nombró otro platillo, saluda breve al siguiente pedido "
+                "(una sola línea tipo '¿Cuál platillo necesitas en inglés hoy?', "
+                "no hace falta copiar verbatim una plantilla)."
             )
         return (
-            "El usuario apenas inicia y aún no hay platillo identificado. "
-            "RESPONDE EXACTAMENTE con esta única pregunta y nada más: "
-            "'¿Qué platillo quieres traducir?'. "
-            "Prohibido preguntar por ingredientes, variante o cualquier otra cosa "
-            "en este turno."
+            "Sin platillo cargado en sistema aún. Pregunta con naturalidad qué platillo "
+            "quiere en el menú en inglés (una sola línea corta y amable — no hagas checklist "
+            "de ingredientes en este mismo turno)."
         )
 
     is_custom = cd.entity == CUSTOM_ENTITY
@@ -207,12 +304,11 @@ def _traducir_directives(state: AgentState) -> str:
     ing_count = len(cd.user_ingredients)
 
     _coherent = (
-        "\n\nCOHERENCIA (entrevista): contrasta con «Últimos turnos» y no re-preguntes lo que "
-        "el fondero ya aclaró (verduras, hierbas, cremas/quesos visibles, 'ocultos'). "
-        "Jamás pidas lista o confirmación de categorías de alérgenos: infiérelos tú (si dudas "
-        "→ none en la TRADUCCIÓN FINAL). No abrumes con 'Gracias.' al inicio en muchos envíos "
-        "seguidos del mismo platillo. Si en el diálogo reciente ya nombró varios ingredientes "
-        "aunque el estado liste pocos, úsalos y avanza a cierre o TRADUCCIÓN FINAL sin bucle."
+        "\n\nCOHERENCIA: lee «Últimos turnos». No hagas segunda vuelta de lo mismo: si algo "
+        "ya quedó claro inclúyelo en tu cabeza y avanza—si ya alcanza para traducción lista, "
+        "no inventes preguntitas extra sólo porque el flujo típico pide tres pasos. "
+        "Alérgenos: no menciones al cliente; sólo aparecen discretamente en formato final "
+        "(si incierto→none)."
     )
 
     if is_custom:

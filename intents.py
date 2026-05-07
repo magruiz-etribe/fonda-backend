@@ -4,9 +4,9 @@ from typing import Final
 
 INTENTS: Final[dict[str, str]] = {
     "traducir": (
-        "El usuario quiere traducir uno o varios platillos al inglés, "
-        "describir su contenido en inglés y declarar alérgenos. "
-        "Aplica también si el usuario manda foto de un platillo o de un menú impreso."
+        "El usuario quiere tener en inglés el nombre/describir su platillo para menú. "
+        "Los alérgenos son campo técnico al cerrar formato, sin ser el centro de la charla. "
+        "Foto de platillo o menú ⇒ aquí también."
     ),
     "maps": (
         "El usuario pide ayuda para registrar o configurar su negocio en Google Maps "
