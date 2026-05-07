@@ -36,6 +36,10 @@ _SYSTEM_BASE: Final[str] = (
     "jitomate, cebolla, arroz, papa, chile, cilantro NO SON alérgenos por sí "
     "mismos: NO los pongas en la línea de Alérgenos. Si no aplica ninguna "
     "categoría, escribe exactamente: 'Alérgenos: ninguno'.\n"
+    "   PROHIBIDO preguntar al fondero por alérgenos (ej. '¿tiene lácteos?', "
+    "'¿contiene gluten?'). TÚ los infieres a partir de los ingredientes que él "
+    "ya te dijo y del KB. Si dudas, declara 'ninguno'. El fondero no debe "
+    "tener que pensar en alérgenos.\n"
     "4) Cuando produzcas la TRADUCCIÓN FINAL del platillo, formato OBLIGATORIO:\n"
     "   - Nombre EN: <nombre>\n"
     "   - Descripción EN: <descripción 1-2 frases, SOLO con ingredientes visibles al "
@@ -225,10 +229,19 @@ def _traducir_directives(state: AgentState) -> str:
         if just_approved:
             return (
                 "El fondero acaba de APROBAR la traducción anterior y ya quedó "
-                "registrada. RESPONDE EXACTAMENTE con esta única frase, sin "
-                "repetir la traducción ni listar nada del platillo previo: "
-                "'¡Listo! ¿Quieres traducir otro platillo?'. Prohibido reimprimir "
-                "Nombre EN, Descripción EN, Alérgenos ni el bloque <META>."
+                "registrada. PROHIBIDO reimprimir Nombre EN, Descripción EN, "
+                "Alérgenos ni el bloque <META> del platillo anterior. \n"
+                "Si en su último mensaje YA mencionó otro platillo (aunque "
+                "venga prefijado por 'si', 'va', 'sale', 'ok'), NO repitas la "
+                "pregunta de cierre: salta directo al flujo del nuevo platillo "
+                "y empieza a preguntar el primer ingrediente VISIBLE de ese "
+                "platillo, en una frase corta y natural. Ej (si dijo 'sí, "
+                "vamos con las enchiladas'): '¡Listo! Ahora con tus "
+                "enchiladas: ¿qué proteína les pones?'. \n"
+                "Si su último mensaje NO menciona ningún platillo nuevo "
+                "(solo 'sí', 'sí gracias', 'sí por favor', 'no', etc.), "
+                "RESPONDE EXACTAMENTE con esta única frase: '¡Listo! ¿Cuál "
+                "platillo traducimos ahora?'."
             )
         return (
             "El usuario apenas inicia y aún no hay platillo identificado. "
@@ -279,7 +292,11 @@ def _traducir_directives(state: AgentState) -> str:
             "entre paréntesis. Ej: '¿Qué proteína le pones?' o '¿Le agregas "
             "alguna verdura o chile?'. Sin viñetas, sin enumerar opciones. "
             "Aplica en silencio la regla de invisibles (sal/aceite/ajo/"
-            "cebolla/agua): NO la menciones al fondero. NO recites el KB."
+            "cebolla/agua): NO la menciones al fondero. NO recites el KB. "
+            "Si el último mensaje del fondero ya cierra la entrevista ('así "
+            "es', 'es todo', 'nada más', 'tradúcelo', 'ya está'), NO sigas "
+            "preguntando: pasa DIRECTO a la TRADUCCIÓN FINAL aunque solo "
+            "tengas el platillo sin ingredientes."
         )
 
     closing_note = ""
@@ -291,13 +308,17 @@ def _traducir_directives(state: AgentState) -> str:
 
     if ing_count < 3:
         return (
-            "Tienes algunos ingredientes pero pocos. Pregunta UN ingrediente "
-            "VISIBLE más, en una frase corta y conversacional, sin viñetas ni "
-            "listas. Ej: '¿Le agregas alguna verdura?' o '¿Algún chile o "
-            "hierba más?' o '¿Le pones queso o ya con eso?'. Aplica en "
-            "silencio la regla de invisibles (sal/aceite/ajo/cebolla/agua): "
-            "no la menciones. Cuando el usuario diga 'ya es todo' / 'no nada "
-            "más' / 'tradúcelo', pasa a la traducción final."
+            "Tienes algunos ingredientes pero pocos. Si el último mensaje del "
+            "fondero cierra la entrevista ('ya es todo', 'no es todo lo que se "
+            "pone', 'no nada más', 'tradúcelo', 'ya está', 'eso es todo', 'con "
+            "eso ya', 'así es', 'no le pongo más'), GENERA INMEDIATAMENTE la "
+            "TRADUCCIÓN FINAL con formato + bloque <META>: prohibido seguir "
+            "preguntando, prohibido pedir confirmación de alérgenos, prohibido "
+            "pedir un ingrediente más. Si NO está cerrando, pregunta UN "
+            "ingrediente VISIBLE más en una frase corta y natural, sin viñetas "
+            "ni listas (ej: '¿Le agregas alguna verdura?' o '¿Algún chile o "
+            "hierba más?' o '¿Le pones queso o ya con eso?'). Aplica en "
+            "silencio la regla de invisibles (sal/aceite/ajo/cebolla/agua)."
             f"{closing_note}"
         )
 
