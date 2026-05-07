@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build zip
-        run: zip -r function.zip *.py kb
+        run: zip -r function.zip *.py kb prompts
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
