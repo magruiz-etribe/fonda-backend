@@ -107,12 +107,27 @@ def _invoke(
     for attempt in (1, 2):
         try:
             resp = _client.converse(**kwargs)
-            return _extract_text(resp)
+            text = _extract_text(resp)
+            logger.info(
+                "bedrock_converse_ok",
+                extra={
+                    "attempt": attempt,
+                    "model_id": model_id,
+                    "reply_len": len(text),
+                    "stop_reason": resp.get("stopReason"),
+                },
+            )
+            return text
         except _RETRYABLE as e:
             last = e
             logger.warning(
                 "bedrock_converse_retryable_error",
-                extra={"attempt": attempt, "model_id": model_id, "error": str(e)},
+                extra={
+                    "attempt": attempt,
+                    "model_id": model_id,
+                    "error_type": type(e).__name__,
+                    "error": str(e),
+                },
             )
             if attempt == 2:
                 break

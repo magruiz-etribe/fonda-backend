@@ -110,6 +110,19 @@ def handle(
     image_summary = state.image_analysis.raw if state.image_analysis else None
     decision = classifier.classify(state, message, history, image_summary)
 
+    logger.info(
+        "classifier_decision",
+        extra={
+            "intent": decision.intent,
+            "intent_changed": decision.intent_changed,
+            "dish_change": decision.dish_change,
+            "new_entity": decision.new_entity,
+            "variant": decision.variant,
+            "ingredients_added": decision.ingredients_added,
+            "user_signal": decision.user_signal,
+        },
+    )
+
     if decision.intent_changed and state.intent and state.intent != decision.intent:
         logger.info(
             "intent_change",
@@ -122,6 +135,21 @@ def handle(
     if decision.intent == "traducir":
         _backfill_user_signal(decision, state, message)
         _apply_traducir_updates(decision, state)
+
+    logger.info(
+        "dispatch_start",
+        extra={
+            "intent": decision.intent,
+            "has_current_dish": state.current_dish is not None,
+            "current_entity": state.current_dish.entity if state.current_dish else None,
+            "current_variant": state.current_dish.variant if state.current_dish else None,
+            "ing_count": len(state.current_dish.user_ingredients) if state.current_dish else 0,
+            "completed_count": len(state.completed),
+            "pending_approval": (
+                bool(state.completed) and state.completed[-1].approved is None
+            ),
+        },
+    )
 
     reply = _dispatch(decision.intent, message, state, history)
 
@@ -354,6 +382,21 @@ def _handle_fallback(
     return visible
 
 
+def _return_fallback(
+    reason: str,
+    intent: str,
+    **extra: Any,
+) -> tuple[str, dict[str, Any] | None]:
+    """Único punto de retorno del GENERIC_FALLBACK en el pipeline de generación.
+    Filtra por `fallback_returned` en CloudWatch para ver TODOS los fallbacks
+    con su razón y etapa."""
+    logger.warning(
+        "fallback_returned",
+        extra={"fallback_reason": reason, "intent": intent, **extra},
+    )
+    return _GENERIC_FALLBACK, None
+
+
 def _generate_with_validation(
     intent: str,
     message: str,
@@ -369,19 +412,51 @@ def _generate_with_validation(
         kb_context=kb_context,
         history=history,
     )
+
+    logger.info(
+        "generation_attempt",
+        extra={
+            "attempt": 1,
+            "intent": intent,
+            "kb_len": len(kb_context),
+            "history_len": len(history),
+            "user_ingredients_count": len(user_ingredients),
+        },
+    )
     try:
         raw = generation.generate(gi)
     except bedrock_client.BedrockError as e:
-        logger.warning("generation_failed_first", extra={"error": str(e)})
-        return _GENERIC_FALLBACK, None
+        logger.warning(
+            "generation_failed_first",
+            extra={"error_type": type(e).__name__, "error": str(e)},
+        )
+        return _return_fallback(
+            "generation_bedrock_error_first",
+            intent,
+            error_type=type(e).__name__,
+            error=str(e),
+        )
 
     visible, meta = generation.parse_and_strip_meta(raw)
+    logger.info(
+        "generation_done",
+        extra={
+            "attempt": 1,
+            "raw_len": len(raw),
+            "visible_len": len(visible),
+            "has_meta": meta is not None,
+            "meta_final_translation": bool(meta and meta.get("final_translation")),
+        },
+    )
 
     ok, reason = validation.validate(visible, kb_context, user_ingredients)
+    logger.info(
+        "validation_result",
+        extra={"attempt": 1, "ok": ok, "reason": reason},
+    )
     if ok:
         return visible, meta
 
-    logger.info("validation_failed_first", extra={"reason": reason})
     gi2 = GenInput(
         state=state,
         intent=intent,
@@ -394,19 +469,51 @@ def _generate_with_validation(
             f"alérgenos respaldados por el contexto del KB o los ingredientes del fondero."
         ),
     )
+    logger.info(
+        "generation_attempt",
+        extra={"attempt": 2, "intent": intent, "correction_reason": reason},
+    )
     try:
         raw2 = generation.generate(gi2)
     except bedrock_client.BedrockError as e:
-        logger.warning("generation_failed_second", extra={"error": str(e)})
-        return _GENERIC_FALLBACK, None
+        logger.warning(
+            "generation_failed_second",
+            extra={"error_type": type(e).__name__, "error": str(e)},
+        )
+        return _return_fallback(
+            "generation_bedrock_error_second",
+            intent,
+            error_type=type(e).__name__,
+            error=str(e),
+            first_validation_reason=reason,
+        )
 
     visible2, meta2 = generation.parse_and_strip_meta(raw2)
+    logger.info(
+        "generation_done",
+        extra={
+            "attempt": 2,
+            "raw_len": len(raw2),
+            "visible_len": len(visible2),
+            "has_meta": meta2 is not None,
+            "meta_final_translation": bool(meta2 and meta2.get("final_translation")),
+        },
+    )
+
     ok2, reason2 = validation.validate(visible2, kb_context, user_ingredients)
+    logger.info(
+        "validation_result",
+        extra={"attempt": 2, "ok": ok2, "reason": reason2},
+    )
     if ok2:
         return visible2, meta2
 
-    logger.info("validation_failed_second", extra={"reason": reason2})
-    return _GENERIC_FALLBACK, None
+    return _return_fallback(
+        "validation_failed_twice",
+        intent,
+        first_validation_reason=reason,
+        second_validation_reason=reason2,
+    )
 
 
 def _advance_after_approval(state: AgentState) -> None:

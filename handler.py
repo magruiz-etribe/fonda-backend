@@ -72,10 +72,25 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
 
     try:
         reply, new_state = router.handle(message, state, image_b64, history)
-    except Exception:
+    except Exception as e:
         logger.exception(
             "router_unhandled_exception",
-            extra={"request_id": request_id, "session_id": session_id},
+            extra={
+                "request_id": request_id,
+                "session_id": session_id,
+                "error_type": type(e).__name__,
+                "error": str(e),
+            },
+        )
+        logger.warning(
+            "fallback_returned",
+            extra={
+                "request_id": request_id,
+                "session_id": session_id,
+                "fallback_reason": "router_unhandled_exception",
+                "error_type": type(e).__name__,
+                "error": str(e),
+            },
         )
         return _response(200, {
             "reply": config.GENERIC_FALLBACK_REPLY,
@@ -88,6 +103,7 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         {"role": "agent", "text": reply},
     ])
 
+    is_fallback_reply = reply.strip() == config.GENERIC_FALLBACK_REPLY.strip()
     logger.info(
         "request_out",
         extra={
@@ -96,6 +112,7 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             "reply_len": len(reply),
             "intent_out": new_state.intent,
             "mode_out": new_state.mode,
+            "is_fallback": is_fallback_reply,
         },
     )
 
