@@ -12,7 +12,6 @@ import entity_mapper
 import generation
 import image_analyzer
 import retrieval
-import validation
 from classifier import TurnDecision
 from generation import GenInput
 from state import (
@@ -295,13 +294,12 @@ def _handle_traducir(
     cd = state.current_dish
     kb = retrieval.get_dish_context(cd.entity) if cd else ""
 
-    visible, meta = _generate_with_validation(
+    visible, meta = _generate(
         intent="traducir",
         message=message,
         state=state,
         history=history,
         kb_context=kb,
-        user_ingredients=cd.user_ingredients if cd else [],
     )
 
     if meta and meta.get("final_translation") is True and cd is not None:
@@ -355,13 +353,12 @@ def _handle_static(
     topic: str,
 ) -> str:
     kb = retrieval.get_static(topic)  # type: ignore[arg-type]
-    visible, _ = _generate_with_validation(
+    visible, _ = _generate(
         intent=topic,
         message=message,
         state=state,
         history=history,
         kb_context=kb,
-        user_ingredients=[],
     )
     return visible
 
@@ -371,13 +368,12 @@ def _handle_fallback(
     state: AgentState,
     history: list[dict[str, str]],
 ) -> str:
-    visible, _ = _generate_with_validation(
+    visible, _ = _generate(
         intent="fallback",
         message=message,
         state=state,
         history=history,
         kb_context="",
-        user_ingredients=[],
     )
     return visible
 
@@ -397,14 +393,18 @@ def _return_fallback(
     return _GENERIC_FALLBACK, None
 
 
-def _generate_with_validation(
+def _generate(
     intent: str,
     message: str,
     state: AgentState,
     history: list[dict[str, str]],
     kb_context: str,
-    user_ingredients: list[str],
 ) -> tuple[str, dict[str, Any] | None]:
+    """Pipeline de generación. Sin validador post-hoc: el prompt de
+    `generation._SYSTEM_BASE` es la única fuente de verdad sobre formato,
+    alérgenos, idioma, etc. Si Bedrock truena se cae a fallback genérico;
+    cualquier otro defecto del modelo se trata aguas arriba afinando el
+    prompt, no aquí."""
     gi = GenInput(
         state=state,
         intent=intent,
@@ -416,22 +416,20 @@ def _generate_with_validation(
     logger.info(
         "generation_attempt",
         extra={
-            "attempt": 1,
             "intent": intent,
             "kb_len": len(kb_context),
             "history_len": len(history),
-            "user_ingredients_count": len(user_ingredients),
         },
     )
     try:
         raw = generation.generate(gi)
     except bedrock_client.BedrockError as e:
         logger.warning(
-            "generation_failed_first",
+            "generation_failed",
             extra={"error_type": type(e).__name__, "error": str(e)},
         )
         return _return_fallback(
-            "generation_bedrock_error_first",
+            "generation_bedrock_error",
             intent,
             error_type=type(e).__name__,
             error=str(e),
@@ -441,79 +439,13 @@ def _generate_with_validation(
     logger.info(
         "generation_done",
         extra={
-            "attempt": 1,
             "raw_len": len(raw),
             "visible_len": len(visible),
             "has_meta": meta is not None,
             "meta_final_translation": bool(meta and meta.get("final_translation")),
         },
     )
-
-    ok, reason = validation.validate(visible, kb_context, user_ingredients)
-    logger.info(
-        "validation_result",
-        extra={"attempt": 1, "ok": ok, "reason": reason},
-    )
-    if ok:
-        return visible, meta
-
-    gi2 = GenInput(
-        state=state,
-        intent=intent,
-        message=message,
-        kb_context=kb_context,
-        history=history,
-        correction_note=(
-            f"La respuesta anterior falló validación: {reason}. "
-            f"Responde en español, sin caracteres extraños, y declara solo "
-            f"alérgenos respaldados por el contexto del KB o los ingredientes del fondero."
-        ),
-    )
-    logger.info(
-        "generation_attempt",
-        extra={"attempt": 2, "intent": intent, "correction_reason": reason},
-    )
-    try:
-        raw2 = generation.generate(gi2)
-    except bedrock_client.BedrockError as e:
-        logger.warning(
-            "generation_failed_second",
-            extra={"error_type": type(e).__name__, "error": str(e)},
-        )
-        return _return_fallback(
-            "generation_bedrock_error_second",
-            intent,
-            error_type=type(e).__name__,
-            error=str(e),
-            first_validation_reason=reason,
-        )
-
-    visible2, meta2 = generation.parse_and_strip_meta(raw2)
-    logger.info(
-        "generation_done",
-        extra={
-            "attempt": 2,
-            "raw_len": len(raw2),
-            "visible_len": len(visible2),
-            "has_meta": meta2 is not None,
-            "meta_final_translation": bool(meta2 and meta2.get("final_translation")),
-        },
-    )
-
-    ok2, reason2 = validation.validate(visible2, kb_context, user_ingredients)
-    logger.info(
-        "validation_result",
-        extra={"attempt": 2, "ok": ok2, "reason": reason2},
-    )
-    if ok2:
-        return visible2, meta2
-
-    return _return_fallback(
-        "validation_failed_twice",
-        intent,
-        first_validation_reason=reason,
-        second_validation_reason=reason2,
-    )
+    return visible, meta
 
 
 def _advance_after_approval(state: AgentState) -> None:
