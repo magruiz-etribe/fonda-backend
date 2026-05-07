@@ -114,6 +114,7 @@ def _build_user_text(
         else "(índice vacío)"
     )
 
+    ventana = config.CLASSIFIER_HISTORIAL_VENTANA_MENSAJES
     ventana_cuerpo, ventana_meta = _format_historial_ventana_classifier(history, ventana)
 
     historial_antiguo_txt = ""
