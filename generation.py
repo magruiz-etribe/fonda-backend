@@ -206,6 +206,15 @@ def _traducir_directives(state: AgentState) -> str:
     has_ingredients = bool(cd.user_ingredients)
     ing_count = len(cd.user_ingredients)
 
+    _coherent = (
+        "\n\nCOHERENCIA (entrevista): contrasta con «Últimos turnos» y no re-preguntes lo que "
+        "el fondero ya aclaró (verduras, hierbas, cremas/quesos visibles, 'ocultos'). "
+        "Jamás pidas lista o confirmación de categorías de alérgenos: infiérelos tú (si dudas "
+        "→ none en la TRADUCCIÓN FINAL). No abrumes con 'Gracias.' al inicio en muchos envíos "
+        "seguidos del mismo platillo. Si en el diálogo reciente ya nombró varios ingredientes "
+        "aunque el estado liste pocos, úsalos y avanza a cierre o TRADUCCIÓN FINAL sin bucle."
+    )
+
     if is_custom:
         if not has_ingredients:
             return (
@@ -214,7 +223,7 @@ def _traducir_directives(state: AgentState) -> str:
                 "del platillo (la proteína o el componente que más se ve al comer). "
                 "NO sugieras ni preguntes por sal, aceite, ajo, cebolla, agua o "
                 "pimienta: se asumen."
-            )
+            ) + _coherent
         return (
             "Modo PERSONALIZADO con ingredientes capturados.\n"
             "Pregunta UN solo ingrediente VISIBLE más (¿le agregas alguna verdura? "
@@ -223,7 +232,7 @@ def _traducir_directives(state: AgentState) -> str:
             "'tradúcelo', genera TRADUCCIÓN FINAL: exactamente tres líneas "
             "**Nombre EN:** / **Descripción EN:** / **Allergens:** en inglés, "
             "etiquetas en **negrita**, + bloque <META> en una línea al final."
-        )
+        ) + _coherent
 
     if not has_variant:
         return (
@@ -233,7 +242,7 @@ def _traducir_directives(state: AgentState) -> str:
             "entre paréntesis. Ej: '¿De qué tipo lo haces (rojo, verde, "
             "poblano)?'. Si el KB no tiene variantes, salta a preguntar un "
             "ingrediente VISIBLE en el mismo formato corto."
-        )
+        ) + _coherent
 
     if not has_ingredients:
         return (
@@ -248,7 +257,7 @@ def _traducir_directives(state: AgentState) -> str:
             "es', 'es todo', 'nada más', 'tradúcelo', 'ya está'), NO sigas "
             "preguntando: pasa DIRECTO a la TRADUCCIÓN FINAL aunque solo "
             "tengas el platillo sin ingredientes."
-        )
+        ) + _coherent
 
     closing_note = ""
     if state.mode == "menu" and state.dish_queue:
@@ -272,7 +281,7 @@ def _traducir_directives(state: AgentState) -> str:
             "hierba más?' o '¿Le pones queso o ya con eso?'). Aplica en "
             "silencio la regla de invisibles (sal/aceite/ajo/cebolla/agua)."
             f"{closing_note}"
-        )
+        ) + _coherent
 
     return (
         "Tienes platillo, variante e ingredientes suficientes (>= 3). "
@@ -284,4 +293,4 @@ def _traducir_directives(state: AgentState) -> str:
         "Si no es claro, pregunta UNA sola vez '¿Le pones algo más o ya con esto "
         "traduzco?'."
         f"{closing_note}"
-    )
+    ) + _coherent

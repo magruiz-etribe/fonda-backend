@@ -90,12 +90,28 @@ def validate_version(state: AgentState) -> AgentState:
 def pause_current(state: AgentState) -> None:
     if state.intent is None and state.current_dish is None and not state.dish_queue:
         return
-    state.paused_task = PausedTask(
+    candidate = PausedTask(
         intent=state.intent,
         mode=state.mode,
         current_dish=state.current_dish,
         dish_queue=list(state.dish_queue),
     )
+    prev = state.paused_task
+    # No pisar una pausa valiosa de traducción (platillo + ingredientes) con un snap
+    # vacío cuando el clasificador hace zig-zag ej. traducir → fallback → traducir.
+    trash_snap = (
+        candidate.current_dish is None
+        and not candidate.dish_queue
+        and candidate.intent != "traducir"
+    )
+    keep_prior = (
+        prev is not None
+        and prev.intent == "traducir"
+        and prev.current_dish is not None
+        and trash_snap
+    )
+    if not keep_prior:
+        state.paused_task = candidate
     state.mode = None
     state.current_dish = None
     state.dish_queue = []

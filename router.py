@@ -27,6 +27,27 @@ logger = logging.getLogger(__name__)
 _GENERIC_FALLBACK: Final[str] = config.GENERIC_FALLBACK_REPLY
 
 
+def _restore_traducir_if_paused(state: AgentState, decision: TurnDecision) -> None:
+    """Si el clasificador dejó intent traducir sin platillo pero teníamos una traducción
+    pausada con current_dish, recupera ese trabajo (p. ej. tras un falso fallback)."""
+    if state.current_dish is not None:
+        return
+    if decision.dish_change or decision.new_entity:
+        return
+    pt = state.paused_task
+    if pt is None or pt.intent != "traducir" or pt.current_dish is None:
+        return
+    state.current_dish = pt.current_dish
+    if pt.mode is not None:
+        state.mode = pt.mode
+    state.dish_queue = list(pt.dish_queue)
+    state.paused_task = None
+    logger.info(
+        "traducir_restored_from_pause",
+        extra={"entity": state.current_dish.entity if state.current_dish else None},
+    )
+
+
 def handle(
     message: str,
     state: AgentState,
@@ -63,6 +84,7 @@ def handle(
     state.intent = decision.intent
 
     if decision.intent == "traducir":
+        _restore_traducir_if_paused(state, decision)
         _apply_traducir_updates(decision, state)
 
     logger.info(
