@@ -35,6 +35,16 @@ _META_RE = re.compile(
     re.DOTALL | re.IGNORECASE,
 )
 
+_ACK_TRANSITION = re.compile(
+    r"\b(vamos\s+con|pasamos\s+a|siguiente\s+plat|otro\s+platillo|traduce|traducir|corrige|cambia)\b",
+    re.IGNORECASE,
+)
+_ACK_ACK = re.compile(
+    r"\b(si|sí|ok|okay|vale|va|sale|dale|listo|perfecto|genial|\bbien\b|correcto|"
+    r"cuadra|gracias|me\s+parece\s+bien|va\s+(?:perfecto|bien))\b",
+    re.IGNORECASE,
+)
+
 
 def generate(gi: GenInput) -> str:
     system = _system_base() + "\n\n" + _intent_directives(gi.intent, gi.state)
@@ -62,13 +72,16 @@ _LIGHT_SYSTEM: Final[dict[str, str]] = {
         "«cerramos aquí», o rechazo cortés a seguir porque no necesita más). "
         "Responde con UNA o dos frases MUY cortas en español de México, tono cercano.\n"
         "PROHIBIDO usar inglés. PROHIBIDO **Nombre EN**, **Descripción EN**, **Allergens:**, "
-        "ni bloques <META>. NO vuelvas a dar la traducción del platillo."
+        "ni bloques <META>. NO vuelvas a dar la traducción del platillo.\n"
+        "PROHIBIDO notas tipo (Meta: …), (Objetivo: …) u objetivos ocultos al final."
     ),
     "post_approve": (
         "El fondero de CDMX acaba de quedar bien con la última traducción en inglés que vio "
         "(no debe volver a leer ese bloque en tu respuesta).\n"
         "Escribe UNA sola frase natural en español de México tipo: ¿quiere otro platillo para "
         "traducir o le ayudo en otra cosa? — sin formulas rígidas. "
+        "PROHIBIDO párrafos entre paréntesis tipo (Meta: …), (Objetivo: …), ni notas sobre "
+        "\"esperando al usuario\". Eso jamás llega al fondero; si lo inventas rompes la confianza.\n"
         "PROHIBIDO inglés en tu respuesta, PROHIBIDO tres líneas de menú, PROHIBIDO <META>. "
         "Sin listas ni viñetas."
     ),
@@ -240,7 +253,49 @@ def sanitize_traducir_visible_for_user(visible: str) -> str:
     v = re.sub(r"<META\b[^>]*>[\s\S]*?</META\s*>", "", v, flags=re.IGNORECASE).strip()
     if "**Nombre EN:**" not in v:
         v = re.sub(r"\*\*([^*]+)\*\*", r"\1", v)
-    return v.replace("`", "").strip()
+    v = v.replace("`", "").strip()
+    return strip_leaked_coaching_text(v)
+
+
+def message_looks_like_pure_translation_ack(message: str) -> bool:
+    """Asentimiento corto a '¿te late así?' sin pedir platillo nuevo ni corrección."""
+    m = (message or "").strip()
+    if not m or len(m) > 94:
+        return False
+    if _ACK_TRANSITION.search(m):
+        return False
+    return bool(_ACK_ACK.search(m))
+
+
+def strip_leaked_coaching_text(text: str) -> str:
+    """Quita notas tipo (Meta: ...), (Objetivo: ...) que algunos modelos filtran."""
+    if not text:
+        return text
+    v = text.strip()
+    for _ in range(8):
+        prev = v
+        v = re.sub(
+            r"\n[^\S\n]*\([^)]*(?:"
+            r"\bmeta\b|\bobjetivo\b|objetivos\b|instrucci[oó]n\s+interna|"
+            r"esperando\s+que\s+(?:el|la)?\s*usuario|\bstage\b|\bstate\b|\bturno\b"
+            r"|nota\s+(?:interna|al\s+sistema))"
+            r"[^)]*\)\s*",
+            "\n",
+            v,
+            flags=re.IGNORECASE,
+        ).strip()
+        v = re.sub(
+            r"\s*\([^)]*(?:"
+            r"\bmeta\b|\bobjetivo\b|\bMETA\b|notas?\s+interna|"
+            r"esperando\s+que\s+(?:el|la)?\s*usuario"
+            r")[^)]*\)\s*$",
+            "",
+            v,
+            flags=re.IGNORECASE | re.DOTALL,
+        ).strip()
+        if v == prev:
+            break
+    return v
 
 
 def _build_user_text(gi: GenInput) -> str:

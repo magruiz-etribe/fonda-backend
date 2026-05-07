@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import logging
 from typing import Any, Final
 
@@ -25,6 +26,29 @@ logger = logging.getLogger(__name__)
 
 
 _GENERIC_FALLBACK: Final[str] = config.GENERIC_FALLBACK_REPLY
+
+
+def _coerce_traducir_approve_short_ack(
+    decision: TurnDecision,
+    message: str,
+    had_conforme_pending: bool,
+) -> TurnDecision:
+    """Si el micro no marca approve pero hay traducción pendiente y el texto es sólo conforme corto."""
+    if decision.intent != "traducir":
+        return decision
+    if decision.user_signal in ("reject", "farewell", "want_translation"):
+        return decision
+    if decision.user_signal == "approve":
+        return decision
+    if decision.dish_change and decision.new_entity:
+        return decision
+    if not had_conforme_pending:
+        return decision
+    if not generation.message_looks_like_pure_translation_ack(message):
+        return decision
+    prior = decision.user_signal
+    logger.info("coerced_traducir_user_signal_approve", extra={"prior_signal": prior})
+    return dataclasses.replace(decision, user_signal="approve")
 
 
 def _restore_traducir_if_paused(state: AgentState, decision: TurnDecision) -> None:
@@ -64,6 +88,10 @@ def handle(
         and (state.completed[-1].translation_en or "").strip()
     )
     decision = classifier.classify(state, message, history, image_summary)
+    if decision.intent == "traducir":
+        decision = _coerce_traducir_approve_short_ack(
+            decision, message, had_conforme_pending
+        )
 
     logger.info(
         "classifier_decision",
@@ -424,6 +452,7 @@ def _generate(
         )
 
     visible, meta = generation.parse_and_strip_meta(raw)
+    visible = generation.strip_leaked_coaching_text(visible)
     logger.info(
         "generation_done",
         extra={
