@@ -61,6 +61,7 @@ def classify(
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
         return TurnDecision(intent=state.intent or "fallback", intent_changed=False)
 
+    return _parse(raw, state.intent)
 
 
 def _format_historial_ventana_classifier(
