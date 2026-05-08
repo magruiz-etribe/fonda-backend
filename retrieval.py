@@ -7,19 +7,18 @@ from functools import lru_cache
 from typing import Final, Literal
 
 import config
-from state import CUSTOM_ENTITY
 
 logger = logging.getLogger(__name__)
 
+StaticTopic = Literal["higiene", "maps"]
 
-StaticTopic = Literal["higiene", "maps", "regionalismos"]
-
-_STATIC_TOPICS: Final[frozenset[str]] = frozenset({"higiene", "maps", "regionalismos"})
+_STATIC_TOPICS: Final[frozenset[str]] = frozenset({"higiene", "maps"})
+_CUSTOM_ENTITY: Final[str] = "custom"
 
 
 @lru_cache(maxsize=128)
 def get_dish_context(entity: str) -> str:
-    if entity == CUSTOM_ENTITY:
+    if entity == _CUSTOM_ENTITY:
         return ""
     return _read_text(os.path.join("platillos", f"{entity}.txt"))
 
@@ -46,7 +45,23 @@ def get_entities_index() -> dict[str, str]:
 
     if not isinstance(data, dict):
         return {}
-    return {str(k): str(v) for k, v in data.items() if isinstance(k, str) and isinstance(v, str)}
+    return {
+        str(k): str(v)
+        for k, v in data.items()
+        if isinstance(k, str) and isinstance(v, str)
+    }
+
+
+def get_context_for_dishes(dishes: list[str]) -> str:
+    """Concatena el contexto KB de todos los platillos del array."""
+    parts: list[str] = []
+    for dish in dishes:
+        if dish == _CUSTOM_ENTITY:
+            continue
+        ctx = get_dish_context(dish)
+        if ctx:
+            parts.append(f"## {dish.capitalize()}\n{ctx}")
+    return "\n\n".join(parts)
 
 
 def _read_text(rel_path: str) -> str:

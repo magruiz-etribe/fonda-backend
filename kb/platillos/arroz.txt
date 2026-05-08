@@ -1,58 +1,6 @@
 # Arroz
 
-## Nombres comunes
-- arroz
-- arroz mexicano
-- arroz a la mexicana
-
-## Ingredientes base
-Estos siempre van, sin importar la variante.
-
-- arroz
-- agua
-- sal
-- aceite
-- ajo
-- cebolla
-
 ## Variantes
-
-### Blanco
-- **Nombre EN:** white rice
-- **Ingredientes extra:** _ninguno_
-- **Alérgenos presentes:** ninguno
-- **Contiene gluten:** no
-- **Descripción:** Arroz cocido con un toque de ajo y cebolla; acompañamiento neutro.
-
-### Rojo
-- **Nombre EN:** red Mexican rice
-- **Ingredientes extra:**
-  - jitomate
-  - caldo_de_pollo
-- **Alérgenos presentes:** ninguno por sí mismo; el caldo de pollo comercial puede aportar gluten, soya o lácteos.
-- **Contiene gluten:** depende del caldo de pollo (cubo o concentrado comercial puede tener gluten).
-- **Descripción:** Arroz frito con jitomate y caldo de pollo, plato típico de comida corrida mexicana.
-
-### Verde
-- **Nombre EN:** green rice
-- **Ingredientes extra:**
-  - chile_poblano
-  - cilantro
-  - caldo_de_pollo
-- **Alérgenos presentes:** ninguno por sí mismo; el caldo de pollo comercial puede aportar gluten, soya o lácteos.
-- **Contiene gluten:** depende del caldo de pollo.
-- **Descripción:** Arroz cocido con chile poblano molido y cilantro, color verde característico.
-
-## Adiciones comunes
-Cosas que algunos fonderos agregan, otros no. Preguntar siempre.
-
-- chicharo
-- zanahoria
-- elote
-- platano_macho
-
-## Notas para el agente
-- Pregunta SIEMPRE qué variante prepara el fondero (blanco / rojo / verde) si no es obvio del mensaje.
-- Si el fondero usa caldo de pollo comercial (cubo, concentrado), advierte que puede contener gluten, lácteos o soya y pregunta el ingrediente exacto.
-- Si el fondero solo usa agua y especias, declara "alérgenos: ninguno".
-- Respeta los ingredientes que el fondero declare; no impongas la receta del KB.
+- Blanco
+- Rojo
+- Verde
