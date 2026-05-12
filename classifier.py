@@ -7,7 +7,7 @@ from typing import Final
 import bedrock_client
 import config
 from prompt_loader import load_prompt
-from retrieval import get_entities_index
+from retrieval import get_entities_index, get_entities_with_variants
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +22,7 @@ class ClassifierResult:
     intent: str
     current_dishes: list[str] = field(default_factory=list)
     translate_now: bool = False
+    pending_variant_for: str | None = None
 
 
 def classify(
@@ -30,7 +31,8 @@ def classify(
     history: list[dict[str, str]],
 ) -> ClassifierResult:
     entities_index = get_entities_index()
-    user_text = _build_user_text(message, current_dishes, history, entities_index)
+    entities_with_variants = get_entities_with_variants()
+    user_text = _build_user_text(message, current_dishes, history, entities_index, entities_with_variants)
     system = load_prompt(_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
@@ -56,6 +58,7 @@ def _build_user_text(
     current_dishes: list[str],
     history: list[dict[str, str]],
     entities_index: dict[str, str],
+    entities_with_variants: list[str],
 ) -> str:
     hist_lines: list[str] = []
     for h in history:
@@ -68,10 +71,12 @@ def _build_user_text(
 
     canonicals = sorted(set(entities_index.values()))
     entities_block = ", ".join(canonicals) if canonicals else "(ninguno)"
+    variants_block = ", ".join(entities_with_variants) if entities_with_variants else "(ninguno)"
 
     return (
         f"Platillos en contexto actual (current_dishes): {current_dishes}\n\n"
         f"Entidades canónicas en KB: {entities_block}\n\n"
+        f"Entidades con variantes en KB: {variants_block}\n\n"
         f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
         f"Mensaje actual del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."
@@ -114,12 +119,18 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
 
     translate_now = bool(data.get("translate_now", False))
 
+    raw_pvf = data.get("pending_variant_for")
+    pending_variant_for: str | None = None
+    if isinstance(raw_pvf, str) and raw_pvf.strip().lower() not in ("", "null", "none"):
+        pending_variant_for = raw_pvf.strip().lower()
+
     logger.info(
         "classifier_result",
         extra={
             "intent": intent,
             "current_dishes": dishes,
             "translate_now": translate_now,
+            "pending_variant_for": pending_variant_for,
             "reasoning": str(data.get("reasoning", ""))[:500],
         },
     )
@@ -128,4 +139,5 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
         intent=intent,
         current_dishes=dishes,
         translate_now=translate_now,
+        pending_variant_for=pending_variant_for,
     )

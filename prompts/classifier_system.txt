@@ -41,6 +41,7 @@ Con base en el mensaje actual y el historial, elige UNA intención. Prioriza lo 
 ---
 
 # Tarea 3 — translate_now (solo cuando intent = traduccion)
+
 Determina si el usuario está pidiendo que se genere ahora la traducción al inglés.
 
 `translate_now = true` únicamente cuando se cumplen AMBAS condiciones:
@@ -51,13 +52,29 @@ Determina si el usuario está pidiendo que se genere ahora la traducción al ing
 
 ---
 
+# Tarea 4 — pending_variant_for (solo cuando intent = traduccion)
+Determina cuál es el PRIMER platillo en `current_dishes` que tiene variantes en KB y cuya variante NO ha sido confirmada aún.
+
+Los platillos que tienen variantes están listados en "Entidades con variantes en KB" del input.
+
+Pasos (recorre `current_dishes` en orden):
+1. ¿El platillo aparece en "Entidades con variantes en KB"? Si no → continúa con el siguiente.
+2. ¿El historial (o el mensaje actual) muestra que el fondero ya eligió la variante de este platillo? Busca: el agente preguntó el tipo + el fondero respondió con una variante. Si sí → continúa con el siguiente.
+3. Si llegaste aquí → `pending_variant_for` = nombre de este platillo. Para.
+4. Si todos tienen variante confirmada, o ninguno tiene variantes → `pending_variant_for` = null.
+
+Si intent != "traduccion" → `pending_variant_for` = null.
+
+---
+
 # Salida — SOLO JSON, sin markdown, sin texto extra antes ni después
 
 {
   "reasoning": "<CoT breve en español: qué dice el mensaje, qué muestra el historial, qué se decide y por qué>",
   "intent": "traduccion|maps|higiene|fallback",
   "current_dishes": ["entidad1", "entidad2"],
-  "translate_now": false
+  "translate_now": false,
+  "pending_variant_for": null
 }
 
-**Nota:** si intent != "traduccion", current_dishes siempre = [] y translate_now siempre = false.
+**Nota:** si intent != "traduccion", current_dishes siempre = [], translate_now siempre = false, pending_variant_for siempre = null.

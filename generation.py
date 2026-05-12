@@ -71,10 +71,13 @@ def _build_user_text(
 
     kb_block = kb_context.strip() or "(sin contexto KB — platillo personalizado o tema sin ficha)"
 
+    pending = f'"{cr.pending_variant_for}"' if cr.pending_variant_for else "null"
+
     return (
         f"Intención: {cr.intent}\n"
         f"Platillos en contexto: {cr.current_dishes}\n"
-        f"translate_now: {str(cr.translate_now).lower()}\n\n"
+        f"translate_now: {str(cr.translate_now).lower()}\n"
+        f"pending_variant_for: {pending}\n\n"
         f"Contexto KB:\n{kb_block}\n\n"
         f"Historial:\n{hist_block}\n\n"
         f"Mensaje del usuario: \"{message}\"\n\n"

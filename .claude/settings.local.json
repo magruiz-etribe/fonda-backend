@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(grep -E \"\\\\.\\(py|json|yaml|yml|txt|md\\)$\")",
-      "Bash(del state.py entity_mapper.py image_analyzer.py intents.py)"
+      "Bash(del state.py entity_mapper.py image_analyzer.py intents.py)",
+      "Bash(python -c ' *)"
     ]
   }
 }

@@ -52,6 +52,28 @@ def get_entities_index() -> dict[str, str]:
     }
 
 
+@lru_cache(maxsize=1)
+def get_entities_with_variants() -> list[str]:
+    """Returns canonical entity names whose KB file contains a '## Variantes' section."""
+    platillos_dir = os.path.join(config.KB_PATH, "platillos")
+    result: list[str] = []
+    try:
+        for fname in os.listdir(platillos_dir):
+            if not fname.endswith(".txt"):
+                continue
+            entity = fname[:-4]
+            full = os.path.join(platillos_dir, fname)
+            try:
+                with open(full, encoding="utf-8") as f:
+                    if "## Variantes" in f.read():
+                        result.append(entity)
+            except OSError:
+                pass
+    except OSError:
+        logger.warning("platillos_dir_missing", extra={"path": platillos_dir})
+    return sorted(result)
+
+
 def get_context_for_dishes(dishes: list[str]) -> str:
     """Concatena el contexto KB de todos los platillos del array."""
     parts: list[str] = []
