@@ -11,7 +11,8 @@ def _required(name: str) -> str:
     return val
 
 
-NOVA_LITE_MODEL_ID: Final[str] = _required("NOVA_LITE_MODEL_ID")
+NOVA_2_LITE_MODEL_ID: Final[str] = _required("NOVA_2_LITE_MODEL_ID")
+NOVA_PRO_MODEL_ID: Final[str] = _required("NOVA_PRO_MODEL_ID")
 
 AWS_REGION: Final[str] = os.environ.get("AWS_REGION", "us-east-1")
 

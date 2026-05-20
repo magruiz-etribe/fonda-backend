@@ -1,0 +1,70 @@
+groups:
+  nuts:
+    label_es: frutos secos
+    label_en: tree nuts and peanuts
+    triggers:
+      - almendra
+      - cacahuate
+      - nuez
+      - pistacho
+      - avellana
+      - macadamia
+      - anacardo
+      - pino
+  sesame:
+    label_es: ajonjolí
+    label_en: sesame
+    triggers:
+      - ajonjoli
+      - tahini
+      - aceite_de_ajonjoli
+  gluten:
+    label_es: gluten
+    label_en: gluten
+    triggers:
+      - pan
+      - harina_de_trigo
+      - trigo
+      - cebada
+      - centeno
+      - pasta
+      - galleta
+      - pan_molido
+  dairy:
+    label_es: lácteos
+    label_en: dairy
+    triggers:
+      - leche
+      - crema
+      - queso
+      - mantequilla
+      - yogurt
+      - crema_agria
+  eggs:
+    label_es: huevo
+    label_en: eggs
+    triggers:
+      - huevo
+      - clara_de_huevo
+      - yema
+  shellfish:
+    label_es: mariscos
+    label_en: shellfish
+    triggers:
+      - camaron
+      - cangrejo
+      - langosta
+      - langostino
+      - almeja
+      - mejillon
+      - pulpo
+      - calamar
+  soy:
+    label_es: soya
+    label_en: soy
+    triggers:
+      - soya
+      - tofu
+      - edamame
+      - miso
+      - salsa_de_soya

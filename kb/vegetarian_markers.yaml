@@ -1,0 +1,48 @@
+meat_proteins:
+  - pollo
+  - caldo_de_pollo
+  - res
+  - caldo_de_res
+  - cerdo
+  - caldo_de_cerdo
+  - manteca
+  - chorizo
+  - jamon
+  - tocino
+  - pavo
+  - carnitas
+  - chicharron
+  - barbacoa
+  - birria
+  - cecina
+  - tasajo
+  - conejo
+  - cabrito
+  - venado
+
+seafood:
+  - camaron
+  - pescado
+  - atun
+  - sardina
+  - cangrejo
+  - langosta
+  - almeja
+  - pulpo
+  - calamar
+  - mejillon
+  - tilapia
+  - robalo
+  - huachinango
+
+animal_products:
+  - leche
+  - crema
+  - queso
+  - mantequilla
+  - yogurt
+  - crema_agria
+  - huevo
+  - clara_de_huevo
+  - yema
+  - miel

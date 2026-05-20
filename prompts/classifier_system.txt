@@ -24,7 +24,6 @@ Con base en el mensaje actual y el historial, elige UNA intención. Prioriza lo 
 
 **ACUMULAR** — el usuario menciona un acompañamiento o complemento al platillo principal → agrégalo al array.
 - Ejemplo: current_dishes=["mole"] + usuario dice "lo acompaño con arroz" → ["mole", "arroz"]
-- Ejemplo: current_dishes=["mole", "arroz"] + usuario dice "también le pongo pollo" → ["mole", "arroz"] (pollo no está en KB de entidades como acompañamiento independiente, pero sí si está en el índice canónico)
 
 **REEMPLAZAR** — el usuario cambia completamente de platillo (nuevo objetivo de traducción, sin relación con el anterior) → reemplaza todo el array.
 - Ejemplo: current_dishes=["mole", "arroz"] + usuario dice "ahora quiero las enchiladas" → ["enchiladas"]
@@ -52,18 +51,52 @@ Determina si el usuario está pidiendo que se genere ahora la traducción al ing
 
 ---
 
-# Tarea 4 — pending_variant_for (solo cuando intent = traduccion)
-Determina cuál es el PRIMER platillo en `current_dishes` que tiene variantes en KB y cuya variante NO ha sido confirmada aún.
+# Tarea 4 — pending_slots (solo cuando intent = traduccion)
+Determina todos los platillos en `current_dishes` que requieren información adicional antes de poder describirlos. Recorre `current_dishes` en orden.
 
-Los platillos que tienen variantes están listados en "Entidades con variantes en KB" del input.
+Para cada platillo, evalúa:
 
-Pasos (recorre `current_dishes` en orden):
-1. ¿El platillo aparece en "Entidades con variantes en KB"? Si no → continúa con el siguiente.
-2. ¿El historial (o el mensaje actual) muestra que el fondero ya eligió la variante de este platillo? Busca: el agente preguntó el tipo + el fondero respondió con una variante. Si sí → continúa con el siguiente.
-3. Si llegaste aquí → `pending_variant_for` = nombre de este platillo. Para.
-4. Si todos tienen variante confirmada, o ninguno tiene variantes → `pending_variant_for` = null.
+1. **¿Tiene variantes? (aparece en "Entidades con variantes en KB")**
+   - ¿Ya se confirmó su variante en el historial? (el agente preguntó el tipo + el fondero respondió) → no agregar.
+   - ¿No se confirmó aún? → agregar `{"entity": nombre_canónico, "slot_name": "variant"}`.
 
-Si intent != "traduccion" → `pending_variant_for` = null.
+2. **¿El fondero indicó un relleno pendiente de confirmar?** (ej. "¿de qué va el relleno?") → agregar `{"entity": nombre_canónico, "slot_name": "filling"}`.
+
+3. **¿El fondero indicó una salsa pendiente de confirmar?** → agregar `{"entity": nombre_canónico, "slot_name": "sauce"}`.
+
+Devuelve la lista ordenada: primero los que bloquean la descripción.
+
+**Nota:** solo incluye `entity` y `slot_name`. Las opciones disponibles las determina el generador con el KB.
+
+Si no hay pendientes → `[]`.
+Si intent != "traduccion" → `[]`.
+
+---
+
+# Tarea 5 — resolved_variants (solo cuando intent = traduccion)
+Extrae del historial qué variante eligió el fondero para cada platillo con variantes en `current_dishes`.
+
+Señales que confirman una variante:
+- El agente preguntó "¿qué tipo de X preparas?" + el fondero respondió con un nombre de variante (ej. "negro", "rojo").
+- El fondero menciona la variante directamente en su mensaje ("es mole negro", "el arroz es rojo").
+
+Formato: `{"platillo": "variante_confirmada"}` en minúsculas.
+Ejemplo: `{"mole": "negro", "arroz": "rojo"}`
+
+Si no hay variantes confirmadas → `{}`.
+Si intent != "traduccion" → `{}`.
+
+---
+
+# Tarea 6 — extra_user_ingredients (solo cuando intent = traduccion)
+Si el fondero menciona ingredientes adicionales que no son el platillo principal ni su variante — por ejemplo "le pongo crema encima", "viene con queso rallado", "tiene aguacate" — extráelos como lista de strings en snake_case sin acentos.
+
+Ejemplos:
+- "lo acompaño con crema y queso" → `["crema", "queso"]`
+- "tiene una tira de aguacate y cilantro fresco" → `["aguacate", "cilantro"]`
+
+Si no hay extras → `[]`.
+Si intent != "traduccion" → `[]`.
 
 ---
 
@@ -74,7 +107,9 @@ Si intent != "traduccion" → `pending_variant_for` = null.
   "intent": "traduccion|maps|higiene|fallback",
   "current_dishes": ["entidad1", "entidad2"],
   "translate_now": false,
-  "pending_variant_for": null
+  "pending_slots": [{"entity": "mole", "slot_name": "variant"}, {"entity": "arroz", "slot_name": "variant"}],
+  "resolved_variants": {"mole": "negro"},
+  "extra_user_ingredients": []
 }
 
-**Nota:** si intent != "traduccion", current_dishes siempre = [], translate_now siempre = false, pending_variant_for siempre = null.
+**Nota:** si intent != "traduccion", todos los campos de traduccion = [], false, [], {}, [].

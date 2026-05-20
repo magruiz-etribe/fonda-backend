@@ -1,0 +1,24 @@
+levels:
+  mild:
+    - chile_ancho
+    - chile_guajillo
+    - chile_pasilla
+    - chile_mulato
+    - chile_mulato_oscuro
+    - chile_cascabel
+    - chile_chilhuacle_negro
+    - pimiento_rojo
+    - paprika
+  medium:
+    - chile_chipotle
+    - chile_serrano
+    - chile_morita
+    - jalapeno
+    - chile_de_arbol
+    - chile_chilhuacle_rojo
+  hot:
+    - chile_habanero
+    - chile_de_agua
+    - chile_manzano
+    - chile_negro_oaxaqueño
+    - chile_ghost

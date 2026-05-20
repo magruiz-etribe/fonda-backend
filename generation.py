@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass, field
 from typing import Any, Final
@@ -39,7 +40,7 @@ def generate(
 
     try:
         raw = bedrock_client.converse(
-            config.NOVA_LITE_MODEL_ID,
+            config.NOVA_PRO_MODEL_ID,
             system,
             messages,
             inference_config={
@@ -71,13 +72,19 @@ def _build_user_text(
 
     kb_block = kb_context.strip() or "(sin contexto KB — platillo personalizado o tema sin ficha)"
 
-    pending = f'"{cr.pending_variant_for}"' if cr.pending_variant_for else "null"
+    slots_data = [
+        {"entity": s.entity, "slot_name": s.slot_name, "options": s.options}
+        for s in cr.pending_slots
+    ]
+    pending_block = json.dumps(slots_data, ensure_ascii=False)
+    resolved_block = json.dumps(cr.resolved_variants, ensure_ascii=False)
 
     return (
         f"Intención: {cr.intent}\n"
         f"Platillos en contexto: {cr.current_dishes}\n"
         f"translate_now: {str(cr.translate_now).lower()}\n"
-        f"pending_variant_for: {pending}\n\n"
+        f"pending_slots: {pending_block}\n"
+        f"resolved_variants: {resolved_block}\n\n"
         f"Contexto KB:\n{kb_block}\n\n"
         f"Historial:\n{hist_block}\n\n"
         f"Mensaje del usuario: \"{message}\"\n\n"

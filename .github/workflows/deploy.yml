@@ -11,8 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Python dependencies
+        run: pip install -q pyyaml -t .
+
       - name: Build zip
-        run: zip -r function.zip *.py kb prompts
+        run: zip -r function.zip *.py kb prompts yaml
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4

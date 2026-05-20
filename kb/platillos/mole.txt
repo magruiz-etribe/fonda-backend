@@ -82,11 +82,3 @@ Estos van en casi cualquier mole rojo/negro, salvo que el fondero indique lo con
 - **Contiene gluten:** no por defecto.
 - **Descripción:** Mole rojo de fonda, más sencillo que el poblano; chiles guajillo/ancho con un toque de cacahuate y especias.
 
-## Notas para el agente
-- Pregunta SIEMPRE qué tipo de mole prepara: poblano, negro, verde, rojo u otro regional.
-- Para cualquier mole con frutos secos (almendra, cacahuate, nuez), declara explícitamente como alérgeno.
-- Si el mole lleva ajonjolí (sésamo), declara como alérgeno: es uno de los principales alérgenos regulados.
-- Si la receta del fondero incluye pan o tortilla molida, declara gluten.
-- Si el caldo es comercial (cubo, concentrado), advierte posible gluten, lácteos o soya y pregunta el ingrediente exacto.
-- Algunos chocolates de mesa contienen leche; si el fondero declara lácteos, decláralos también.
-- Respeta los ingredientes que el fondero declare; no impongas la receta del KB.

@@ -1,0 +1,95 @@
+canonical_name: mole
+common_names:
+  - mole
+  - mole poblano
+  - mole rojo
+  - mole negro
+  - mole oaxaqueño
+  - mole verde
+  - mole de la abuela
+category: salsa
+base_ingredients:
+  - chile_ancho
+  - chile_mulato
+  - chile_pasilla
+  - jitomate
+  - cebolla
+  - ajo
+  - chocolate_de_mesa
+  - caldo_de_pollo
+  - sal
+  - aceite
+variants:
+  poblano:
+    name_es: Mole Poblano
+    name_en: Mole Poblano
+    extra_ingredients:
+      - chile_chipotle
+      - almendra
+      - cacahuate
+      - ajonjoli
+      - pasitas
+      - canela
+      - clavo
+      - comino
+      - pan
+      - tortilla
+    technique: molienda larga con especias tostadas y frutos secos
+    description_es: >
+      Salsa espesa y compleja del estado de Puebla, hecha con chiles secos,
+      especias, frutos secos, chocolate y pan; sabor profundo y ligeramente dulce.
+    description_en: >
+      Rich, complex sauce from Puebla — dried chiles, warm spices, nuts,
+      chocolate, and bread give it a deep, slightly sweet flavor.
+  negro:
+    name_es: Mole Negro
+    name_en: Oaxacan Black Mole
+    extra_ingredients:
+      - chile_chilhuacle_negro
+      - chile_mulato_oscuro
+      - chocolate_oaxaqueño
+      - tortilla_quemada
+      - pasitas
+      - almendra
+      - ajonjoli
+      - clavo
+      - canela
+    technique: tostado de chiles hasta quemar, chocolate oaxaqueño
+    description_es: >
+      Mole oaxaqueño muy oscuro y profundo, ligeramente amargo por la tortilla
+      quemada y los chiles negros; el más complejo de los moles regionales.
+    description_en: >
+      Oaxacan black mole — deeply savory with a slight bitterness from charred
+      tortilla and black chiles; the most complex of Mexico's regional moles.
+  verde:
+    name_es: Mole Verde
+    name_en: Green Mole
+    extra_ingredients:
+      - tomatillo
+      - pepita_de_calabaza
+      - cilantro
+      - epazote
+      - chile_serrano
+    technique: molido en crudo con tomatillo y hierbas frescas
+    description_es: >
+      Mole fresco a base de tomatillo, pepita de calabaza y hierbas;
+      más ligero y herbáceo que los moles oscuros.
+    description_en: >
+      Fresh mole made with tomatillo, pumpkin seeds, and herbs — lighter
+      and more herbal than dark moles.
+  rojo:
+    name_es: Mole Rojo
+    name_en: Red Mole
+    extra_ingredients:
+      - chile_guajillo
+      - ajonjoli
+      - cacahuate
+      - canela
+      - clavo
+    technique: salteado de chiles secos con especias
+    description_es: >
+      Mole rojo de fonda, más sencillo que el poblano; chiles guajillo
+      y ancho con un toque de cacahuate y especias.
+    description_en: >
+      Everyday red mole — simpler than Poblano-style, with guajillo and
+      ancho chiles, peanuts, and spices.

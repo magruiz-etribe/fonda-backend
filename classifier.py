@@ -7,7 +7,7 @@ from typing import Final
 import bedrock_client
 import config
 from prompt_loader import load_prompt
-from retrieval import get_entities_index, get_entities_with_variants
+from retrieval import get_dish_data, get_entities_index, get_entities_with_variants
 
 logger = logging.getLogger(__name__)
 
@@ -18,11 +18,28 @@ _VALID_INTENTS: Final[frozenset[str]] = frozenset(
 
 
 @dataclass
+class PendingSlot:
+    entity: str
+    slot_name: str  # "variant" | "filling" | "sauce" | "protein" | "accompaniment"
+    options: list[str] = field(default_factory=list)
+
+
+@dataclass
 class ClassifierResult:
     intent: str
     current_dishes: list[str] = field(default_factory=list)
     translate_now: bool = False
-    pending_variant_for: str | None = None
+    pending_slots: list[PendingSlot] = field(default_factory=list)
+    resolved_variants: dict[str, str] = field(default_factory=dict)
+    extra_user_ingredients: list[str] = field(default_factory=list)
+
+    @property
+    def pending_variant_for(self) -> str | None:
+        """Backward-compat property: first pending variant slot entity, or None."""
+        for slot in self.pending_slots:
+            if slot.slot_name == "variant":
+                return slot.entity
+        return None
 
 
 def classify(
@@ -38,7 +55,7 @@ def classify(
 
     try:
         raw = bedrock_client.converse(
-            config.NOVA_LITE_MODEL_ID,
+            config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
             inference_config={
@@ -119,10 +136,40 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
 
     translate_now = bool(data.get("translate_now", False))
 
-    raw_pvf = data.get("pending_variant_for")
-    pending_variant_for: str | None = None
-    if isinstance(raw_pvf, str) and raw_pvf.strip().lower() not in ("", "null", "none"):
-        pending_variant_for = raw_pvf.strip().lower()
+    # Parse pending_slots — options are code-populated from YAML, not from the LLM
+    raw_slots = data.get("pending_slots") or []
+    pending_slots: list[PendingSlot] = []
+    if isinstance(raw_slots, list):
+        for slot_data in raw_slots:
+            if not isinstance(slot_data, dict):
+                continue
+            entity = slot_data.get("entity", "")
+            if not isinstance(entity, str) or not entity.strip():
+                continue
+            entity = entity.strip().lower()
+            slot_name = str(slot_data.get("slot_name", "variant")).lower().strip()
+            options: list[str] = []
+            if slot_name == "variant":
+                dish_data = get_dish_data(entity)
+                if dish_data:
+                    options = list(dish_data.get("variants", {}).keys())
+            pending_slots.append(PendingSlot(entity=entity, slot_name=slot_name, options=options))
+
+    # Parse resolved_variants
+    raw_rv = data.get("resolved_variants") or {}
+    resolved_variants: dict[str, str] = {}
+    if isinstance(raw_rv, dict):
+        for k, v in raw_rv.items():
+            if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
+                resolved_variants[k.lower().strip()] = v.lower().strip()
+
+    # Parse extra_user_ingredients
+    raw_eui = data.get("extra_user_ingredients") or []
+    extra_user_ingredients: list[str] = []
+    if isinstance(raw_eui, list):
+        for ing in raw_eui:
+            if isinstance(ing, str) and ing.strip():
+                extra_user_ingredients.append(ing.strip().lower())
 
     logger.info(
         "classifier_result",
@@ -130,7 +177,8 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
             "intent": intent,
             "current_dishes": dishes,
             "translate_now": translate_now,
-            "pending_variant_for": pending_variant_for,
+            "pending_slots": [(s.entity, s.slot_name) for s in pending_slots],
+            "resolved_variants": resolved_variants,
             "reasoning": str(data.get("reasoning", ""))[:500],
         },
     )
@@ -139,5 +187,7 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
         intent=intent,
         current_dishes=dishes,
         translate_now=translate_now,
-        pending_variant_for=pending_variant_for,
+        pending_slots=pending_slots,
+        resolved_variants=resolved_variants,
+        extra_user_ingredients=extra_user_ingredients,
     )
