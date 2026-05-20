@@ -60,7 +60,20 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     )
 
     history = history_store.get_history(session_id, limit=config.HISTORY_LIMIT)
+
+    session_state = history_store.get_session_state(session_id)
+    if "current_dishes" in session_state:
+        current_dishes = session_state["current_dishes"]
+
     result = router.handle(message, current_dishes, history)
+
+    menu_del_dia: list = session_state.get("menu_del_dia", [])
+    if result.menu_entry:
+        menu_del_dia = menu_del_dia + [result.menu_entry]
+    history_store.set_session_state(session_id, {
+        "current_dishes": result.current_dishes,
+        "menu_del_dia": menu_del_dia,
+    })
 
     history_store.append_turns(session_id, [
         {"role": "user", "text": message},
@@ -82,6 +95,8 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         "response": result.response,
         "current_dishes": result.current_dishes,
         "buttons": result.buttons,
+        "flags": result.flags,
+        "menu_del_dia": menu_del_dia,
     })
 
 

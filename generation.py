@@ -26,6 +26,8 @@ class GenResult:
     response: list[str] = field(default_factory=list)
     current_dishes: list[str] = field(default_factory=list)
     buttons: list[str] = field(default_factory=list)
+    flags: dict = field(default_factory=dict)
+    menu_entry: dict | None = None
 
 
 def generate(

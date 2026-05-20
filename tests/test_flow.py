@@ -206,6 +206,11 @@ class TestMoleArrozFlow:
         assert result.current_dishes == []
         # English card is first bubble
         assert "**Black Mole**" in result.response[0]
+        # menu_entry built from English card + last Spanish card in history
+        assert result.menu_entry is not None
+        assert result.menu_entry["name_en"] == "Black Mole"
+        assert result.menu_entry["name_es"] == "Mole Negro"
+        assert isinstance(result.menu_entry["flags"], dict)
 
     @patch("bedrock_client.converse")
     def test_turn5_post_translation_closure(self, mock_cv):

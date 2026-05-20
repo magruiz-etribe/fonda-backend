@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 import time
 from typing import Any, Final, Literal
@@ -58,6 +59,54 @@ def get_history(session_id: str, limit: int = _MAX_HISTORY_RETURN) -> list[dict[
     if limit > 0:
         return turns[-limit:]
     return turns
+
+
+def get_session_state(session_id: str) -> dict:
+    """Returns the session_state dict for a session, or {} if not set."""
+    if not session_id:
+        return {}
+    try:
+        resp = _client.get_item(
+            TableName=config.DDB_TABLE_NAME,
+            Key={"session_id": {"S": session_id}},
+            ProjectionExpression="session_state",
+        )
+    except (ClientError, BotoCoreError) as e:
+        logger.warning(
+            "ddb_get_session_state_failed",
+            extra={"session_id": session_id, "error": str(e)},
+        )
+        return {}
+
+    item = resp.get("Item") or {}
+    raw = item.get("session_state", {}).get("S")
+    if not raw:
+        return {}
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        logger.warning("ddb_session_state_invalid_json", extra={"session_id": session_id})
+        return {}
+
+
+def set_session_state(session_id: str, state: dict) -> None:
+    """Persists session_state to DynamoDB (upserts the item if needed)."""
+    if not session_id:
+        return
+    try:
+        _client.update_item(
+            TableName=config.DDB_TABLE_NAME,
+            Key={"session_id": {"S": session_id}},
+            UpdateExpression="SET session_state = :s",
+            ExpressionAttributeValues={
+                ":s": {"S": json.dumps(state, ensure_ascii=False)},
+            },
+        )
+    except (ClientError, BotoCoreError) as e:
+        logger.warning(
+            "ddb_set_session_state_failed",
+            extra={"session_id": session_id, "error": str(e)},
+        )
 
 
 def append_turns(session_id: str, new_turns: list[dict[str, str]]) -> None:
