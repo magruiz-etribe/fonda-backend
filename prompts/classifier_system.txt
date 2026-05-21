@@ -32,10 +32,14 @@ Con base en el mensaje actual y el historial, elige UNA intención. Prioriza lo 
 
 **EXTRAER** — current_dishes=[] y el usuario menciona un platillo → extráelo y agrégalo.
 
-## Resolución de entidades (usa la lista de canónicas disponibles):
+## Resolución de entidades (usa las listas disponibles):
 - El platillo mencionado coincide con una entidad canónica (o alguno de sus alias comunes) → usa el nombre canónico exacto.
 - El platillo PRINCIPAL no está en la lista canónica → usa "custom".
-- Un ACOMPAÑAMIENTO no está en la lista canónica → NO lo agregues (omítelo silenciosamente).
+- Un ACOMPAÑAMIENTO está en "Entidades con variantes en KB" → agrégalo a `current_dishes` (Tarea 4 le asignará un pending_slot de variante automáticamente).
+- Un ACOMPAÑAMIENTO está en la lista canónica pero sin variantes → agrégalo a `current_dishes`.
+- Un ACOMPAÑAMIENTO no está en ninguna lista → NO lo agregues a `current_dishes`; si es ingrediente o proteína simple, irá en `extra_user_ingredients` (Tarea 6).
+
+⚠️ Evalúa cada acompañamiento de forma INDIVIDUAL. "arroz y pollo" → arroz (KB con variantes → `current_dishes`) + pollo (no KB → `extra_user_ingredients`). Nunca uses "custom" para un acompañamiento; "custom" aplica solo cuando el platillo PRINCIPAL no está en la lista canónica.
 
 ---
 
@@ -94,6 +98,8 @@ Si el fondero menciona ingredientes adicionales que no son el platillo principal
 Ejemplos:
 - "lo acompaño con crema y queso" → `["crema", "queso"]`
 - "tiene una tira de aguacate y cilantro fresco" → `["aguacate", "cilantro"]`
+
+⚠️ NUNCA pongas en `extra_user_ingredients` elementos que estén en "Entidades con variantes en KB" o en la lista canónica — esos van en `current_dishes` (Tarea 2).
 
 Si no hay extras → `[]`.
 Si intent != "traduccion" → `[]`.
