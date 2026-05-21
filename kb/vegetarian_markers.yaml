@@ -1,17 +1,29 @@
+# No vegetarianos: contienen carne, ave, pescado o marisco
 meat_proteins:
   - pollo
+  - pechuga_de_pollo
+  - pollo_deshebrado
+  - pollo_molido
   - caldo_de_pollo
-  - res
+  - carne_de_res
+  - carne_de_cerdo
+  - carne_molida
   - caldo_de_res
-  - cerdo
   - caldo_de_cerdo
+  - res
+  - cerdo
+  - puerco
   - manteca
+  - manteca_de_cerdo
   - chorizo
   - jamon
   - tocino
+  - salchicha
   - pavo
   - carnitas
   - chicharron
+  - chicharron_de_cerdo
+  - chicharron_prensado
   - barbacoa
   - birria
   - cecina
@@ -19,30 +31,51 @@ meat_proteins:
   - conejo
   - cabrito
   - venado
+  - arrachera
 
 seafood:
   - camaron
   - pescado
+  - pescado_blanco
   - atun
-  - sardina
-  - cangrejo
-  - langosta
-  - almeja
-  - pulpo
-  - calamar
-  - mejillon
+  - salmon
+  - mojarra
+  - bacalao
   - tilapia
   - robalo
   - huachinango
+  - sardina
+  - trucha
+  - cangrejo
+  - langosta
+  - langostino
+  - almeja
+  - mejillon
+  - pulpo
+  - calamar
+  - ostion
+  - jaiba
 
+# No veganos: no tienen carne pero sí huevo, lácteos o miel
 animal_products:
-  - leche
-  - crema
-  - queso
-  - mantequilla
-  - yogurt
-  - crema_agria
   - huevo
   - clara_de_huevo
   - yema
+  - mayonesa
+  - leche
+  - leche_condensada
+  - leche_evaporada
+  - queso
+  - queso_fresco
+  - queso_manchego
+  - queso_gratinado
+  - queso_cotija
+  - queso_panela
+  - crema
+  - crema_agria
+  - mantequilla
+  - yogurt
+  - cajeta
   - miel
+  - requesón
+  - requeson

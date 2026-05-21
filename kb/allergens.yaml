@@ -1,45 +1,24 @@
 groups:
-  nuts:
-    label_es: frutos secos
-    label_en: tree nuts and peanuts
-    triggers:
-      - almendra
-      - cacahuate
-      - nuez
-      - pistacho
-      - avellana
-      - macadamia
-      - anacardo
-      - pino
-  sesame:
-    label_es: ajonjolí
-    label_en: sesame
-    triggers:
-      - ajonjoli
-      - tahini
-      - aceite_de_ajonjoli
-  gluten:
-    label_es: gluten
-    label_en: gluten
-    triggers:
-      - pan
-      - harina_de_trigo
-      - trigo
-      - cebada
-      - centeno
-      - pasta
-      - galleta
-      - pan_molido
   dairy:
     label_es: lácteos
     label_en: dairy
     triggers:
       - leche
-      - crema
+      - leche_condensada
+      - leche_evaporada
       - queso
+      - queso_fresco
+      - queso_manchego
+      - queso_gratinado
+      - queso_cotija
+      - queso_panela
+      - crema
+      - crema_agria
       - mantequilla
       - yogurt
-      - crema_agria
+      - cajeta
+      - requesón
+      - requeson
   eggs:
     label_es: huevo
     label_en: eggs
@@ -47,9 +26,89 @@ groups:
       - huevo
       - clara_de_huevo
       - yema
+      - mayonesa
+      - pan_molido
+  peanuts:
+    label_es: cacahuate
+    label_en: peanuts
+    triggers:
+      - cacahuate
+      - mani
+      - crema_de_cacahuate
+  tree_nuts:
+    label_es: nueces de árbol
+    label_en: tree nuts
+    triggers:
+      - almendra
+      - nuez
+      - pistache
+      - pistacho
+      - avellana
+      - macadamia
+      - nuez_de_la_india
+      - pinon
+      - anacardo
+  soy:
+    label_es: soya
+    label_en: soy
+    triggers:
+      - soya
+      - tofu
+      - leche_de_soya
+      - salsa_de_soya
+      - proteina_vegetal
+      - edamame
+      - miso
+  gluten:
+    label_es: gluten
+    label_en: gluten
+    triggers:
+      - pan
+      - pan_molido
+      - bolillo
+      - telera
+      - baguette
+      - pan_dulce
+      - pan_para_hamburguesa
+      - harina_de_trigo
+      - harina_integral
+      - tortilla_de_harina
+      - pasta
+      - fideo
+      - espagueti
+      - macarrones
+      - lasana
+      - galleta
+      - galletas
+      - galletas_saladas
+      - cebada
+      - centeno
+      - avena
+      - malta
+      - semola
+      - bulgur
+      - cuscus
+      - salvado_de_trigo
+      - trigo
+      - triticale
+  fish:
+    label_es: pescado
+    label_en: fish
+    triggers:
+      - pescado
+      - pescado_blanco
+      - atun
+      - salmon
+      - mojarra
+      - bacalao
+      - tilapia
+      - robalo
+      - huachinango
+      - sardina
+      - trucha
   shellfish:
-    label_es: mariscos
-    label_en: shellfish
+    label_es: mariscos y crustáceos
+    label_en: shellfish and crustaceans
     triggers:
       - camaron
       - cangrejo
@@ -59,12 +118,45 @@ groups:
       - mejillon
       - pulpo
       - calamar
-  soy:
-    label_es: soya
-    label_en: soy
+      - ostion
+      - jaiba
+  sesame:
+    label_es: ajonjolí
+    label_en: sesame
     triggers:
-      - soya
-      - tofu
-      - edamame
-      - miso
-      - salsa_de_soya
+      - ajonjoli
+      - tahini
+      - aceite_de_ajonjoli
+      - semillas_de_ajonjoli
+  fruits:
+    label_es: frutas (alergénicas)
+    label_en: allergenic fruits
+    triggers:
+      - fresa
+      - kiwi
+      - pina
+      - mango
+      - platano
+      - platano_frito
+      - durazno
+      - manzana
+      - aguacate
+      - coco
+      - coco_rallado
+  vegetables:
+    label_es: verduras (alergénicas)
+    label_en: allergenic vegetables
+    triggers:
+      - apio
+      - zanahoria
+      - jitomate
+      - papa
+      - pepino
+  chocolate:
+    label_es: chocolate
+    label_en: chocolate
+    triggers:
+      - chocolate
+      - chocolate_de_mesa
+      - chocolate_oaxaqueño
+      - cacao
