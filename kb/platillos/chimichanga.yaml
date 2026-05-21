@@ -1,0 +1,28 @@
+canonical_name: chimichanga
+common_names:
+  - chimichanga
+  - chimichangas
+category: antojito
+base_ingredients:
+  - tortilla_de_harina
+  - carne_de_res
+  - aceite
+  - sal
+  - especias
+variants:
+  chimichanga:
+    name_es: Chimichanga
+    name_en: Chimichanga (Deep-Fried Burrito)
+    extra_ingredients:
+      - frijoles
+      - queso
+      - crema
+      - guacamole
+    technique: burrito armado y frito completo hasta quedar crujiente
+    description_es: >
+      Burrito grande relleno de carne, frijoles y queso, frito completo
+      hasta quedar crujiente por fuera; se sirve con crema y guacamole.
+    description_en: >
+      Large flour tortilla stuffed with meat, beans, and cheese, then
+      deep-fried until golden and crispy — served with sour cream and
+      guacamole.

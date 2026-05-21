@@ -8,7 +8,9 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\" -Force)",
       "Bash(Select-Object Name, Mode)",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\" -Recurse -Force | Select-Object FullName | ForEach-Object { $_.FullName } | Sort-Object)",
-      "Bash(python -m pytest tests/ -q)"
+      "Bash(python -m pytest tests/ -q)",
+      "Bash(python -c \"import retrieval; entities = retrieval.get_entities_with_variants\\(\\); print\\(f'Total entidades con variantes: {len\\(entities\\)}'\\); print\\(entities\\)\")",
+      "Bash(python -c \"import os; os.environ['NOVA_2_LITE_MODEL_ID']='x'; os.environ['NOVA_PRO_MODEL_ID']='x'; os.environ['DDB_TABLE_NAME']='x'; import retrieval; entities = retrieval.get_entities_with_variants\\(\\); print\\(f'Total entidades con variantes: {len\\(entities\\)}'\\); print\\(sorted\\(entities\\)\\)\")"
     ]
   }
 }

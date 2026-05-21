@@ -1,0 +1,30 @@
+canonical_name: ate_con_queso
+common_names:
+  - ate con queso
+  - ate
+  - dulce de ate
+category: postre
+base_ingredients:
+  - guayaba
+  - membrillo
+  - azucar
+  - queso
+variants:
+  ate_con_queso:
+    name_es: Ate con Queso
+    name_en: Fruit Paste with Fresh Cheese
+    extra_ingredients:
+      - queso_manchego
+      - queso_panela
+      - queso_cotija
+      - fresa
+      - mango
+    technique: cocción lenta de fruta con azúcar hasta gelificar
+    description_es: >
+      Dulce de fruta (guayaba, membrillo u otras) cocido con azúcar hasta
+      obtener una pasta firme, servido en rebanadas acompañado de queso fresco
+      o manchego.
+    description_en: >
+      Firm fruit paste (guava, quince, or other fruits) cooked down with sugar,
+      served in slices alongside fresh or manchego cheese — a classic Mexican
+      sweet-savory pairing.

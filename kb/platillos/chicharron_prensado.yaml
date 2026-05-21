@@ -1,0 +1,24 @@
+canonical_name: chicharron_prensado
+common_names:
+  - chicharron prensado
+  - chicharrón prensado
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - piel_de_cerdo
+  - sal
+variants:
+  chicharron_prensado:
+    name_es: Chicharrón Prensado
+    name_en: Pressed Pork Cracklings
+    extra_ingredients:
+      - chile_guajillo
+      - salsa
+      - cebolla
+    technique: compactado y cocción de carne y grasa de cerdo, guisado en salsa
+    description_es: >
+      Carne y grasa de cerdo compactadas y cocinadas, generalmente en salsa
+      roja o verde; se usa como relleno de tacos, gorditas o quesadillas.
+    description_en: >
+      Compressed pork meat and fat braised in red or green salsa — a popular
+      taco, gordita, or quesadilla filling with rich, savory flavor.

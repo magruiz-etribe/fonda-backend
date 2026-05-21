@@ -1,0 +1,41 @@
+canonical_name: tortas_de_huauzontle
+common_names:
+  - tortas de huauzontle
+  - huauzontle
+category: platillo_principal
+base_ingredients:
+  - huauzontle
+  - queso_fresco
+  - huevo
+  - harina_de_trigo
+  - aceite
+  - chile
+variants:
+  en_chile_pasilla:
+    name_es: Tortas de Huauzontle en Chile Pasilla
+    name_en: Huauzontle Patties in Pasilla Chile Sauce
+    extra_ingredients:
+      - chile_pasilla
+      - ajo
+      - caldo_de_pollo
+    technique: capeado en huevo y harina, frito; salsa de chile pasilla hidratado
+    description_es: >
+      Ramitos de huauzontle cocido rellenos de queso fresco, capeados en
+      huevo y fritos; bañados en salsa de chile pasilla con ajo y cebolla.
+    description_en: >
+      Cooked huauzontle (herb similar to amaranth) stuffed with fresh cheese,
+      egg-battered and fried — served in a smoky pasilla chile sauce.
+  en_jitomate:
+    name_es: Tortas de Huauzontle en Jitomate
+    name_en: Huauzontle Patties in Tomato Sauce
+    extra_ingredients:
+      - jitomate
+      - ajo
+      - cebolla
+    technique: capeado en huevo y harina, frito; salsa de jitomate cocido
+    description_es: >
+      Ramitos de huauzontle rellenos de queso, capeados y fritos; bañados en
+      salsa de jitomate con ajo, cebolla y un toque de chile.
+    description_en: >
+      Egg-battered huauzontle and cheese patties fried until golden, served
+      in a tomato sauce with garlic and onion.

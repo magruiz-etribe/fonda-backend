@@ -1,0 +1,67 @@
+canonical_name: aguas_frescas
+common_names:
+  - agua fresca
+  - agua
+  - aguas frescas
+  - jamaica
+  - horchata
+  - agua de limón
+  - agua de pepino
+category: bebida
+base_ingredients:
+  - agua
+  - azucar
+variants:
+  jamaica:
+    name_es: Agua de Jamaica
+    name_en: Hibiscus Water
+    extra_ingredients:
+      - flor_de_jamaica
+    technique: infusión de flor de jamaica en agua caliente, endulzado y enfriado
+    description_es: >
+      Bebida de flor de jamaica (hibisco) infusionada en agua y endulzada;
+      color rojo intenso, sabor floral y ligeramente ácido.
+    description_en: >
+      Hibiscus flower infused water, sweetened and chilled — deep red color
+      with a floral, slightly tart flavor.
+  horchata:
+    name_es: Horchata
+    name_en: Horchata
+    extra_ingredients:
+      - arroz
+      - canela
+      - vainilla
+      - leche
+      - nuez
+    technique: remojo y licuado de arroz con canela, colado y endulzado
+    description_es: >
+      Bebida cremosa hecha con arroz remojado y licuado con canela, vainilla
+      y leche; dulce, fresca y muy popular en fondas.
+    description_en: >
+      Creamy rice-based drink blended with cinnamon and vanilla — sweet, milky,
+      and refreshing.
+  limon_con_chia:
+    name_es: Agua de Limón con Chía
+    name_en: Lime Chia Water
+    extra_ingredients:
+      - limon
+      - semillas_de_chia
+    technique: jugo de limón con agua, azúcar y semillas de chía hidratadas
+    description_es: >
+      Agua fresca de limón con semillas de chía hidratadas; refrescante,
+      ligeramente ácida y con textura característica de la chía.
+    description_en: >
+      Fresh lime water with hydrated chia seeds — refreshing, lightly tart,
+      with the characteristic texture of chia.
+  pepino_con_limon:
+    name_es: Agua de Pepino con Limón
+    name_en: Cucumber Lime Water
+    extra_ingredients:
+      - pepino
+      - limon
+    technique: licuado de pepino con agua y limón, colado
+    description_es: >
+      Agua fresca de pepino y limón; muy refrescante, ligera y de sabor
+      suave y limpio.
+    description_en: >
+      Blended cucumber and lime water — refreshing, light, and clean-flavored.

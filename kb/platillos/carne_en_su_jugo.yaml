@@ -1,0 +1,26 @@
+canonical_name: carne_en_su_jugo
+common_names:
+  - carne en su jugo
+category: caldo
+base_ingredients:
+  - carne_de_res
+  - tocino
+  - frijoles
+  - cebolla
+  - sal
+variants:
+  carne_en_su_jugo:
+    name_es: Carne en su Jugo
+    name_en: Beef in Its Own Juice
+    extra_ingredients:
+      - cilantro
+      - tomate_verde
+      - limon
+      - chile_serrano
+    technique: cocción rápida en caldo de tomate verde con tocino
+    description_es: >
+      Carne de res rebanada finamente cocida en caldo ligero de tomate verde
+      con frijoles y tocino; especialidad de Jalisco de sabor fresco y caldoso.
+    description_en: >
+      Thinly sliced beef cooked in a light tomatillo broth with beans and bacon —
+      a Jalisco specialty, fresh and brothy.

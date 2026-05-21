@@ -1,0 +1,30 @@
+canonical_name: carne_con_verdolagas
+common_names:
+  - carne de cerdo con verdolagas
+  - verdolagas con puerco
+  - verdolagas
+category: guisado
+base_ingredients:
+  - carne_de_cerdo
+  - verdolagas
+  - tomatillo
+  - chile_verde
+  - cebolla
+  - ajo
+  - sal
+  - aceite
+variants:
+  carne_con_verdolagas:
+    name_es: Carne de Cerdo con Verdolagas
+    name_en: Pork with Purslane in Green Sauce
+    extra_ingredients:
+      - cilantro
+      - chile_serrano
+    technique: cocción de la carne en salsa verde con verdolagas
+    description_es: >
+      Carne de cerdo cocida en salsa verde de tomatillo junto con verdolagas,
+      planta de hojas tiernas con sabor ligeramente ácido; guisado verde
+      tradicional de fonda.
+    description_en: >
+      Pork simmered in tomatillo green sauce with purslane — a mildly tart,
+      tender herb that balances the rich pork in this classic fonda stew.

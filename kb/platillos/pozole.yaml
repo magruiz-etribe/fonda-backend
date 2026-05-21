@@ -1,0 +1,67 @@
+canonical_name: pozole
+common_names:
+  - pozole
+  - pozole blanco
+  - pozole rojo
+  - pozole verde
+category: caldo
+base_ingredients:
+  - maiz_cacahuazintle
+  - carne_de_cerdo
+  - ajo
+  - cebolla
+  - sal
+variants:
+  blanco:
+    name_es: Pozole Blanco
+    name_en: White Pozole
+    extra_ingredients:
+      - lechuga
+      - rabano
+      - oregano_seco
+      - limon
+      - tostadas
+    technique: cocción lenta de maíz y carne en caldo claro sin chile base
+    description_es: >
+      Maíz cacahuazintle y carne de cerdo o pollo cocidos en caldo claro
+      sin chile en su base; se garnisha con lechuga, rábano, orégano y limón.
+    description_en: >
+      Hominy and pork (or chicken) in a clear, mild broth — garnished with
+      shredded cabbage, radish, oregano, and lime at the table.
+  rojo:
+    name_es: Pozole Rojo
+    name_en: Red Pozole
+    extra_ingredients:
+      - chile_guajillo
+      - chile_ancho
+      - chile_pasilla
+      - lechuga
+      - rabano
+      - oregano_seco
+      - limon
+      - tostadas
+    technique: caldo de chile guajillo y ancho hidratados, cocción lenta
+    description_es: >
+      Maíz cacahuazintle y carne cocidos en caldo rojo de chiles secos
+      (guajillo y ancho); sabor profundo y ligeramente ahumado.
+    description_en: >
+      Hominy and pork cooked in a rich red broth of rehydrated guajillo and
+      ancho chiles — deep, slightly smoky, and boldly flavored.
+  verde:
+    name_es: Pozole Verde
+    name_en: Green Pozole
+    extra_ingredients:
+      - tomatillo
+      - chile_serrano
+      - pepita_de_calabaza
+      - cilantro
+      - lechuga
+      - rabano
+      - limon
+    technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
+    description_es: >
+      Maíz y carne cocidos en caldo verde de tomatillo, chile serrano y pepitas;
+      sabor fresco, herbáceo y ligeramente ácido.
+    description_en: >
+      Hominy and pork in a green tomatillo and pumpkin seed broth —
+      fresh, herbal, and mildly tangy.

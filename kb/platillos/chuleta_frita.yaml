@@ -1,0 +1,25 @@
+canonical_name: chuleta_frita
+common_names:
+  - chuleta frita
+  - chuleta de cerdo
+  - chuleta
+category: platillo_principal
+base_ingredients:
+  - chuleta_de_cerdo
+  - aceite
+  - sal
+  - pimienta
+variants:
+  chuleta_frita:
+    name_es: Chuleta Frita
+    name_en: Fried Pork Chop
+    extra_ingredients:
+      - ajo
+      - limon
+    technique: sazonado sencillo, frito en sartén hasta dorar
+    description_es: >
+      Corte de cerdo sazonado con ajo, sal y pimienta, frito en sartén
+      o comal hasta quedar dorado y jugoso.
+    description_en: >
+      Pork chop seasoned with garlic, salt, and pepper, pan-fried until
+      golden and juicy.

@@ -1,0 +1,31 @@
+canonical_name: capirotada
+common_names:
+  - capirotada
+category: postre
+base_ingredients:
+  - pan
+  - piloncillo
+  - canela
+  - clavo
+  - agua
+variants:
+  capirotada:
+    name_es: Capirotada
+    name_en: Mexican Bread Pudding
+    extra_ingredients:
+      - leche_evaporada
+      - naranja
+      - pasitas
+      - almendra
+      - coco_rallado
+      - miel
+      - mantequilla
+      - anis
+    technique: jarabe de piloncillo con especias, capas de pan tostado y frutos
+    description_es: >
+      Budín de pan tradicional bañado en jarabe de piloncillo con canela y clavo;
+      se prepara con capas de bolillo tostado, pasas, nueces y frutas secas.
+    description_en: >
+      Traditional Mexican bread pudding layered with toasted bolillo, raisins,
+      almonds, and dried fruit — soaked in a piloncillo syrup spiced with cinnamon
+      and cloves.

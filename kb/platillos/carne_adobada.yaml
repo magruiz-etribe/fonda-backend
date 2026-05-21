@@ -1,0 +1,29 @@
+canonical_name: carne_adobada
+common_names:
+  - carne adobada
+  - adobada
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - chile_guajillo
+  - chile_ancho
+  - vinagre
+  - ajo
+  - sal
+variants:
+  carne_adobada:
+    name_es: Carne Adobada
+    name_en: Adobo-Marinated Meat
+    extra_ingredients:
+      - oregano_mexicano
+      - comino
+      - laurel
+      - pimienta_negra
+      - cebolla
+    technique: marinado en adobo de chile seco, cocción a la plancha o en cazuela
+    description_es: >
+      Carne marinada en salsa de chile guajillo y especias secas (adobo),
+      cocinada hasta quedar con un sabor profundo, ligeramente ácido y especiado.
+    description_en: >
+      Meat marinated in a dried guajillo chile adobo with oregano, cumin, and
+      spices — cooked until richly flavored, slightly tangy, and deeply seasoned.

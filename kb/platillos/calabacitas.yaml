@@ -1,0 +1,41 @@
+canonical_name: calabacitas
+common_names:
+  - calabacitas
+  - calabacitas a la mexicana
+  - calabacitas con puerco
+category: guisado
+base_ingredients:
+  - calabaza
+  - cebolla
+  - ajo
+  - sal
+  - aceite
+variants:
+  a_la_mexicana:
+    name_es: Calabacitas a la Mexicana
+    name_en: Mexican-Style Zucchini
+    extra_ingredients:
+      - jitomate
+      - chile_serrano
+      - elote
+    technique: salteado de calabaza con jitomate, cebolla y elote
+    description_es: >
+      Calabaza picada salteada con jitomate, cebolla, chile y granos de elote;
+      guisado sencillo, colorido y de sabor fresco.
+    description_en: >
+      Diced zucchini sautéed with tomato, onion, chile, and corn kernels —
+      a simple, colorful, and fresh-flavored side stew.
+  con_puerco:
+    name_es: Calabacitas con Puerco
+    name_en: Zucchini and Pork Stew
+    extra_ingredients:
+      - carne_de_cerdo
+      - jitomate
+      - elote
+    technique: sofrito de carne de cerdo con calabaza y jitomate
+    description_es: >
+      Guiso de calabaza picada con granos de elote y trozos de carne de cerdo
+      en salsa de jitomate; sustancioso y de sabor casero.
+    description_en: >
+      Zucchini and corn kernel stew with chunks of pork in tomato sauce —
+      hearty and home-cooked.

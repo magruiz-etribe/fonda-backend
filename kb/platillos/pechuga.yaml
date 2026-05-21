@@ -1,0 +1,114 @@
+canonical_name: pechuga
+common_names:
+  - pechuga
+  - pechuga de pollo
+  - pechuga asada
+  - pechuga empanizada
+  - milanesa de pollo
+  - milanesa
+  - pollo a la mexicana
+  - pechuga rellena
+  - pollo deshebrado
+category: platillo_principal
+base_ingredients:
+  - pechuga_de_pollo
+  - sal
+  - pimienta
+  - ajo
+  - limon
+  - aceite
+variants:
+  asada:
+    name_es: Pechuga Asada
+    name_en: Grilled Chicken Breast
+    extra_ingredients:
+      - ensalada_de_lechuga
+      - arroz
+      - frijoles
+    technique: marinado sencillo, cocción a la plancha o comal
+    description_es: >
+      Pechuga de pollo cocinada a la plancha con sal, pimienta, ajo y limón;
+      ligera, jugosa y de sabor natural. Se sirve con arroz, frijoles y ensalada.
+    description_en: >
+      Chicken breast grilled with simple seasoning of salt, pepper, garlic,
+      and lime — light and juicy, served with rice, beans, and salad.
+  empanizada:
+    name_es: Pechuga Empanizada
+    name_en: Breaded Chicken Breast
+    extra_ingredients:
+      - huevo
+      - pan_molido
+      - harina_de_trigo
+      - arroz
+      - frijoles
+    technique: empanizado en harina, huevo y pan molido; frito en aceite
+    description_es: >
+      Pechuga cubierta con harina, huevo y pan molido, frita hasta quedar
+      dorada y crujiente; suave por dentro.
+    description_en: >
+      Chicken breast coated in flour, egg, and breadcrumbs, fried until
+      golden and crispy outside, tender inside.
+  milanesa:
+    name_es: Milanesa de Pollo
+    name_en: Chicken Milanesa
+    extra_ingredients:
+      - huevo
+      - pan_molido
+      - harina_de_trigo
+      - arroz
+      - frijoles
+    technique: pechuga aplanada, empanizada y frita
+    description_es: >
+      Pechuga aplanada, empanizada y frita; más delgada que la empanizada,
+      muy popular en tortas o platos combinados.
+    description_en: >
+      Thinly pounded, breaded, and fried chicken breast — lighter and crispier
+      than standard breaded chicken, popular in sandwiches.
+  en_salsa_verde:
+    name_es: Pechuga en Salsa Verde
+    name_en: Chicken Breast in Green Sauce
+    extra_ingredients:
+      - tomatillo
+      - chile_serrano
+      - papa
+      - nopales
+      - arroz
+    technique: cocción de la pechuga bañada en salsa verde de tomatillo
+    description_es: >
+      Pechuga cocida y bañada en salsa verde de tomatillo con chile serrano;
+      sabor fresco y ligeramente ácido.
+    description_en: >
+      Chicken breast cooked in a tomatillo and serrano chile green sauce —
+      fresh and mildly tangy.
+  en_salsa_roja:
+    name_es: Pechuga en Salsa Roja
+    name_en: Chicken Breast in Red Sauce
+    extra_ingredients:
+      - jitomate
+      - chile_guajillo
+      - papa
+      - nopales
+      - arroz
+    technique: cocción de la pechuga en salsa roja de jitomate y chile
+    description_es: >
+      Pechuga cocida y bañada en salsa roja de jitomate con ajo y cebolla;
+      sabor clásico de fonda.
+    description_en: >
+      Chicken breast cooked in a red tomato and chile sauce with garlic
+      and onion — a classic fonda flavor.
+  rellena:
+    name_es: Pechuga Rellena
+    name_en: Stuffed Chicken Breast
+    extra_ingredients:
+      - jamon
+      - queso
+      - espinaca
+      - arroz
+      - frijoles
+    technique: pechuga abierta y rellena, cocinada al horno o en sartén
+    description_es: >
+      Pechuga abierta y rellena de jamón y queso (o verduras), cocinada
+      al horno o en sartén; suave y cremosa por dentro.
+    description_en: >
+      Chicken breast butterflied and stuffed with ham and cheese (or
+      vegetables), then baked or pan-cooked — tender with a rich filling.

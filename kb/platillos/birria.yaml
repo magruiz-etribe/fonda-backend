@@ -1,0 +1,32 @@
+canonical_name: birria
+common_names:
+  - birria
+  - birria de res
+  - birria de chivo
+category: platillo_principal
+base_ingredients:
+  - carne_de_res
+  - chiles_secos
+  - ajo
+  - cebolla
+  - vinagre
+  - especias
+  - sal
+variants:
+  birria:
+    name_es: Birria
+    name_en: Traditional Birria Stew
+    extra_ingredients:
+      - cebolla
+      - cilantro
+      - oregano
+      - comino
+    technique: marinado en adobo de chile, cocción lenta en caldo
+    description_es: >
+      Carne de res (o chivo) marinada en adobo de chiles secos y especias,
+      cocida lentamente en caldo hasta quedar muy suave; se sirve en consomé
+      acompañada de cebolla, cilantro y limón.
+    description_en: >
+      Beef (or goat) marinated in dried chile adobo and slow-braised in broth
+      until fall-apart tender — served in its rich consommé with onion, cilantro,
+      and lime.
