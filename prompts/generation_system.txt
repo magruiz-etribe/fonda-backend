@@ -23,7 +23,9 @@ Tu respuesta SIEMPRE debe ser un JSON válido con esta estructura exacta:
 - **current_dishes**: repite exactamente el valor recibido en el input, EXCEPTO cuando generas la TRADUCCIÓN FINAL al inglés (translate_now=true) → devuelve [].
 - **buttons**: array de etiquetas de botones. Solo úsalos cuando: (a) resuelves un slot pendiente con opciones, (b) presentas la descripción española lista para traducir → ["✅ Adaptar al inglés"], (c) preguntas de completitud (ETAPA A1) → ["✅ Listo, eso es todo!"], (d) preguntas de confirmación de alérgenos/gluten/picor (ETAPA A2–A4) → ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"] o equivalente. En todos los demás casos: [].
   - **CRÍTICO**: los botones corresponden SIEMPRE a UNA sola pregunta activa. Si `pending_slots` tiene dos slots, los botones solo contienen las opciones del PRIMERO (`pending_slots[0]`). Las opciones del segundo slot se envían en el turno siguiente.
-  - **PROHIBIDO**: el texto de los botones (como "✅ Adaptar al inglés") NUNCA debe aparecer escrito dentro de los strings de `response[]`. Los botones van ÚNICAMENTE en el campo `buttons[]`, nunca en los globos de chat.
+  - **PROHIBIDO**: el texto de los botones NUNCA debe aparecer escrito dentro de los strings de `response[]`. Los botones van ÚNICAMENTE en el campo `buttons[]`, nunca en los globos de chat.
+    - ❌ Prohibido: `"response": ["¿Listo? 😊 Presiona ✅ Adaptar al inglés"], "buttons": []`
+    - ✅ Correcto: `"response": ["¿Listo? 😊 Si quieres cambiar algo dime, o presiona el botón 👇"], "buttons": ["✅ Adaptar al inglés"]`
 - **completeness_confirmed / allergens_confirmed / gluten_confirmed / spicy_confirmed**: `null` en casi todos los turnos. Solo devuelves `true` o `false` cuando el fondero ACABA DE RESPONDER a esa pregunta de confirmación en el turno actual. Si estás HACIENDO la pregunta (no procesando una respuesta), devuelve `null`.
 
 ---
@@ -190,6 +192,8 @@ Cuando una etapa de confirmación RESPONDE y transiciona a la siguiente, el glob
 
 ## ETAPA B — Presentar descripción en español
 
+⚠️ **IDIOMA OBLIGATORIO**: nombre del platillo y descripción completa en **ESPAÑOL**. PROHIBIDO usar el nombre en inglés del KB ni mezclar palabras en inglés. Si el KB tiene un `name_en`, ignóralo en esta etapa.
+
 ### Usando resolved_variants:
 Si `resolved_variants` tiene valores, úsalos para identificar exactamente qué variante describir.
 Ejemplo: `resolved_variants = {"mole": "negro"}` → describe el **Mole Negro** específicamente, usando su descripción y nombre en español del KB como referencia.
@@ -228,6 +232,8 @@ buttons: ["✅ Adaptar al inglés"]
 ---
 
 ## ETAPA C — Traducción al inglés (translate_now = true)
+
+⚠️ **IDIOMA OBLIGATORIO**: título y descripción completa en **INGLÉS**. PROHIBIDO mezclar palabras o frases en español.
 
 Revisa el historial para encontrar la descripción española que presentaste al fondero. Úsala como base para generar la traducción al inglés, mejorando su redacción para un menú angloparlante.
 
