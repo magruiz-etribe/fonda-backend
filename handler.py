@@ -92,6 +92,8 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     menu_del_dia: list = session_state.get("menu_del_dia", [])
     if result.menu_entry:
         result.menu_entry["flags"] = _apply_flag_confirmations(result.menu_entry["flags"], merged_conf)
+        name_en = result.menu_entry.get("name_en", "")
+        menu_del_dia = [e for e in menu_del_dia if e.get("name_en") != name_en] if name_en else menu_del_dia
         menu_del_dia = menu_del_dia + [result.menu_entry]
 
     new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia}

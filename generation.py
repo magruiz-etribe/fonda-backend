@@ -135,42 +135,66 @@ def _is_confirmation(message: str) -> bool:
     return bool(_CONFIRM_RE.match(message.strip()))
 
 
+def _next_stage(ti: dict, after: str) -> tuple[str, str]:
+    """Return (stage_code, label) for the stage that follows `after`."""
+    order = ["A2", "A3", "A4", "B"]
+    checks: dict[str, bool] = {
+        "A2": bool(ti.get("allergen_triggers")),
+        "A3": bool(ti.get("gluten_triggers")),
+        "A4": bool(ti.get("spicy_triggers")),
+    }
+    descs: dict[str, str] = {
+        "A2": "la pregunta de alergenos (ETAPA A2)",
+        "A3": "la pregunta de ingredientes con posible gluten (ETAPA A3)",
+        "A4": "la pregunta de ingredientes picantes (ETAPA A4)",
+        "B":  "la descripcion en espanol (ETAPA B)",
+    }
+    start = order.index(after) + 1 if after in order else 0
+    for stage in order[start:]:
+        if stage == "B" or checks.get(stage):
+            return stage, descs[stage]
+    return "B", descs["B"]
+
+
 def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
-    """Determine current confirmation stage and whether user is asking or responding."""
+    """Inject explicit stage directive so the model never has to guess what to do."""
     responding = _is_confirmation(message)
 
     if cs.get("completeness_confirmed") is None:
         if responding:
+            nxt, ndesc = _next_stage(ti, "A1")
             return (
-                "⚠️ ETAPA A1 — PROCESA RESPUESTA: si el fondero confirma → completeness_confirmed: true "
-                "y ejecuta inmediatamente la siguiente etapa pertinente en 1 globo. "
-                "Si agrega ingredientes → completeness_confirmed: null y pide más.\n"
+                f"ETAPA A1 PROCESA RESPUESTA: si confirma → completeness_confirmed: true, "
+                f"siguiente paso obligatorio ETAPA {nxt}, en este turno 1 globo = SOLO {ndesc}. "
+                f"Si agrega ingredientes → completeness_confirmed: null y pide mas.\n"
             )
-        return "⚠️ ETAPA A1 — HAZ LA PREGUNTA de completitud. 1 globo. PROHIBIDO generar descripción.\n"
+        return "ETAPA A1 HAZ PREGUNTA: pregunta completitud. 1 globo. PROHIBIDO generar descripcion.\n"
 
     if ti.get("allergen_triggers") and cs.get("allergens_confirmed") is None:
         if responding:
+            nxt, ndesc = _next_stage(ti, "A2")
             return (
-                "⚠️ ETAPA A2 — PROCESA RESPUESTA: allergens_confirmed: true si confirma, false si niega. "
-                "Luego 1 globo = SOLO la pregunta de la siguiente etapa (A3/A4/B), sin texto de transición.\n"
+                f"ETAPA A2 PROCESA RESPUESTA: allergens_confirmed true si confirma, false si niega. "
+                f"Siguiente paso obligatorio ETAPA {nxt}. En este turno 1 globo = SOLO {ndesc}.\n"
             )
-        return "⚠️ ETAPA A2 — HAZ LA PREGUNTA de alérgenos con el formato exacto de ETAPA A2. 1 globo.\n"
+        return "ETAPA A2 HAZ PREGUNTA: usa formato exacto de ETAPA A2. 1 globo.\n"
 
     if ti.get("gluten_triggers") and cs.get("gluten_confirmed") is None:
         if responding:
+            nxt, ndesc = _next_stage(ti, "A3")
             return (
-                "⚠️ ETAPA A3 — PROCESA RESPUESTA: gluten_confirmed: true si confirma, false si niega. "
-                "Luego 1 globo = SOLO la pregunta de la siguiente etapa (A4/B), sin texto de transición.\n"
+                f"ETAPA A3 PROCESA RESPUESTA: gluten_confirmed true si confirma, false si niega. "
+                f"Siguiente paso obligatorio ETAPA {nxt}. En este turno 1 globo = SOLO {ndesc}.\n"
             )
-        return "⚠️ ETAPA A3 — HAZ LA PREGUNTA de ingredientes con el formato exacto de ETAPA A3. 1 globo.\n"
+        return "ETAPA A3 HAZ PREGUNTA: usa formato exacto de ETAPA A3. 1 globo.\n"
 
     if ti.get("spicy_triggers") and cs.get("spicy_confirmed") is None:
         if responding:
             return (
-                "⚠️ ETAPA A4 — PROCESA RESPUESTA: spicy_confirmed: true si confirma, false si niega. "
-                "Luego ejecuta ETAPA B en 1 globo.\n"
+                "ETAPA A4 PROCESA RESPUESTA: spicy_confirmed true si confirma, false si niega. "
+                "Siguiente paso obligatorio ETAPA B. En este turno 1 globo = SOLO la descripcion en espanol (ETAPA B).\n"
             )
-        return "⚠️ ETAPA A4 — HAZ LA PREGUNTA de ingredientes picantes con el formato exacto de ETAPA A4. 1 globo.\n"
+        return "ETAPA A4 HAZ PREGUNTA: usa formato exacto de ETAPA A4. 1 globo.\n"
 
     return ""
 
