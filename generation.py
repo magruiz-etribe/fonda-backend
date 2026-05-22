@@ -46,9 +46,10 @@ def generate(
     history: list[dict[str, str]],
     confirmation_state: dict | None = None,
     trigger_info: dict | None = None,
+    platform: str = "",
 ) -> GenResult:
     system = load_prompt(_PROMPT)
-    user_text = _build_user_text(cr, message, kb_context, history, confirmation_state, trigger_info)
+    user_text = _build_user_text(cr, message, kb_context, history, confirmation_state, trigger_info, platform)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
@@ -75,6 +76,7 @@ def _build_user_text(
     history: list[dict[str, str]],
     confirmation_state: dict | None = None,
     trigger_info: dict | None = None,
+    platform: str = "",
 ) -> str:
     hist_lines: list[str] = []
     for h in history:
@@ -114,9 +116,11 @@ def _build_user_text(
         if not cr.pending_slots and not cr.translate_now:
             stage_directive = _build_stage_directive(cs, ti, message)
 
+    platform_line = f"platform: {platform}\n" if platform else ""
     return (
         f"{stage_directive}"
         f"Intención: {cr.intent}\n"
+        f"{platform_line}"
         f"Platillos en contexto: {cr.current_dishes}\n"
         f"translate_now: {str(cr.translate_now).lower()}\n"
         f"pending_slots: {pending_block}\n"

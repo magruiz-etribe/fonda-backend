@@ -101,7 +101,7 @@ def handle(
                 short.flags = _clean_flags(dish_flags)
                 return short
 
-        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen)
+        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen, cr.platform)
         result.intent = cr.intent
         result.flags = _clean_flags(dish_flags)
         if cr.intent == "maps":
