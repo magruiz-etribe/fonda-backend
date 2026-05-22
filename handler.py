@@ -122,7 +122,8 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         "buttons": result.buttons,
         "flags": result.flags,
         "menu_del_dia": menu_del_dia,
-        "link": result.link,
+        "intent": result.intent,
+        "links": result.links,
     })
 
 

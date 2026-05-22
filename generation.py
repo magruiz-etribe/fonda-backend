@@ -32,6 +32,7 @@ class GenResult:
     menu_entry: dict | None = None
     link: dict | None = None
     links: list[dict] = field(default_factory=list)
+    intent: str = ""
     completeness_confirmed: bool | None = None
     allergens_confirmed: bool | None = None
     gluten_confirmed: bool | None = None
