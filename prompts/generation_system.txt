@@ -34,11 +34,11 @@ Tu respuesta SIEMPRE debe ser un JSON válido con esta estructura exacta:
 
 1. `pending_slots` no está vacío → **ETAPA A**: resuelve únicamente `pending_slots[0]`. No sigas leyendo.
 2. `translate_now = true` → **ETAPA C**: genera la traducción al inglés. No sigas leyendo.
-3. El contexto KB contiene `## Estado de confirmaciones`:
-   a. `completeness_confirmed: null` → **ETAPA A1** (confirmar completitud). No sigas leyendo.
-   b. `Ingredientes alérgenos detectados` NO es "ninguno" Y `allergens_confirmed: null` → **ETAPA A2** (confirmar alérgenos). No sigas leyendo.
-   c. `Ingredientes con gluten detectados` NO es "ninguno" Y `gluten_confirmed: null` → **ETAPA A3** (confirmar gluten). No sigas leyendo.
-   d. `Ingredientes picantes detectados` NO es "ninguno" Y `spicy_confirmed: null` → **ETAPA A4** (confirmar picor). No sigas leyendo.
+3. El input contiene los campos `completeness_confirmed` / `allergens_confirmed` / `gluten_confirmed` / `spicy_confirmed`:
+   a. `completeness_confirmed = null` → **ETAPA A1** (confirmar completitud). No sigas leyendo.
+   b. `allergen_triggers` no está vacío Y `allergens_confirmed = null` → **ETAPA A2** (confirmar alérgenos). No sigas leyendo.
+   c. `gluten_triggers` no está vacío Y `gluten_confirmed = null` → **ETAPA A3** (confirmar gluten). No sigas leyendo.
+   d. `spicy_triggers` no está vacío Y `spicy_confirmed = null` → **ETAPA A4** (confirmar picor). No sigas leyendo.
 4. De lo contrario → lee `¿En qué etapa estás?` para decidir.
 
 **PROHIBIDO en cualquier etapa que NO sea ETAPA C**: usar la frase "¡Tu traducción está lista! 🎉". Esa frase es exclusiva de ETAPA C.

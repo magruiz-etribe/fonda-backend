@@ -39,9 +39,11 @@ def generate(
     message: str,
     kb_context: str,
     history: list[dict[str, str]],
+    confirmation_state: dict | None = None,
+    trigger_info: dict | None = None,
 ) -> GenResult:
     system = load_prompt(_PROMPT)
-    user_text = _build_user_text(cr, message, kb_context, history)
+    user_text = _build_user_text(cr, message, kb_context, history, confirmation_state, trigger_info)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
@@ -66,6 +68,8 @@ def _build_user_text(
     message: str,
     kb_context: str,
     history: list[dict[str, str]],
+    confirmation_state: dict | None = None,
+    trigger_info: dict | None = None,
 ) -> str:
     hist_lines: list[str] = []
     for h in history:
@@ -85,17 +89,41 @@ def _build_user_text(
     pending_block = json.dumps(slots_data, ensure_ascii=False)
     resolved_block = json.dumps(cr.resolved_variants, ensure_ascii=False)
 
+    # Confirmation state block — only injected for traduccion flows with dishes
+    conf_block = ""
+    if confirmation_state is not None:
+        cs = confirmation_state
+        ti = trigger_info or {}
+        conf_block = (
+            f"completeness_confirmed: {_fmt_bool(cs.get('completeness_confirmed'))}\n"
+            f"allergens_confirmed: {_fmt_bool(cs.get('allergens_confirmed'))}\n"
+            f"gluten_confirmed: {_fmt_bool(cs.get('gluten_confirmed'))}\n"
+            f"spicy_confirmed: {_fmt_bool(cs.get('spicy_confirmed'))}\n"
+            f"allergen_triggers: {json.dumps(ti.get('allergen_triggers', []), ensure_ascii=False)}\n"
+            f"gluten_triggers: {json.dumps(ti.get('gluten_triggers', []), ensure_ascii=False)}\n"
+            f"spicy_triggers: {json.dumps(ti.get('spicy_triggers', []), ensure_ascii=False)}\n"
+        )
+
     return (
         f"Intención: {cr.intent}\n"
         f"Platillos en contexto: {cr.current_dishes}\n"
         f"translate_now: {str(cr.translate_now).lower()}\n"
         f"pending_slots: {pending_block}\n"
-        f"resolved_variants: {resolved_block}\n\n"
+        f"resolved_variants: {resolved_block}\n"
+        f"{conf_block}\n"
         f"Contexto KB:\n{kb_block}\n\n"
         f"Historial:\n{hist_block}\n\n"
         f"Mensaje del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."
     )
+
+
+def _fmt_bool(val: bool | None) -> str:
+    if val is True:
+        return "true"
+    if val is False:
+        return "false"
+    return "null"
 
 
 def _parse(raw: str) -> GenResult:
@@ -134,6 +162,20 @@ def _parse(raw: str) -> GenResult:
         for b in raw_buttons:
             if isinstance(b, str) and b.strip():
                 buttons.append(b.strip())
+
+    # Strip any button label that leaked into a response bubble
+    if buttons:
+        button_labels = {b.strip() for b in buttons}
+        cleaned: list[str] = []
+        for bubble in response:
+            lines = bubble.split("\n")
+            while lines and lines[-1].strip() in button_labels:
+                lines.pop()
+            stripped = "\n".join(lines).strip()
+            if stripped:
+                cleaned.append(stripped)
+        if cleaned:
+            response = cleaned
 
     logger.info(
         "generation_ok",

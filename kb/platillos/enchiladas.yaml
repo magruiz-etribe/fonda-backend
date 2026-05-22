@@ -57,6 +57,7 @@ variants:
     name_en: Swiss-Style Enchiladas
     extra_ingredients:
       - tomatillo
+      - chile_serrano
       - crema
       - queso_gratinado
       - cilantro

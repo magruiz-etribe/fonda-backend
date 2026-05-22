@@ -29,11 +29,18 @@ def handle(
         cr = cls_module.classify(message, current_dishes, history)
         kb_context = _get_kb_context(cr)
         dish_flags: dict = {}
+        conf_state_for_gen = None
+        trigger_info_for_gen = None
         if cr.intent == "traduccion" and cr.current_dishes:
             dish_flags = _compute_dish_flags(cr)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
-            kb_context = _append_flags_to_context(kb_context, dish_flags, confirmation_state)
-        result = gen_module.generate(cr, message, kb_context, history)
+            kb_context = _append_flags_to_context(kb_context, dish_flags)
+            conf_state_for_gen = confirmation_state
+            trigger_info_for_gen = {
+                k: dish_flags.get(k, [])
+                for k in ("allergen_triggers", "gluten_triggers", "spicy_triggers")
+            }
+        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen)
         result.flags = _clean_flags(dish_flags)
         if cr.translate_now and not result.current_dishes:
             result.menu_entry = _build_menu_entry(result, history, dish_flags)
@@ -77,43 +84,19 @@ def _clean_flags(flags: dict) -> dict:
     }
 
 
-def _append_flags_to_context(
-    ctx: str,
-    dish_flags: dict,
-    confirmation_state: dict | None = None,
-) -> str:
-    """Appends computed dietary flags and confirmation state to the KB context string."""
+def _append_flags_to_context(ctx: str, dish_flags: dict) -> str:
+    """Appends general dietary flags summary to the KB context string."""
     if not dish_flags:
         return ctx
-    allergen_triggers = ", ".join(dish_flags.get("allergen_triggers", [])) or "ninguno"
-    gluten_triggers = ", ".join(dish_flags.get("gluten_triggers", [])) or "ninguno"
-    spicy_triggers = ", ".join(dish_flags.get("spicy_triggers", [])) or "ninguno"
-    cs = confirmation_state or {}
     lines = [
         "\n## Banderas dietéticas (calculadas automáticamente)",
         f"- Tiene alérgenos: {'Sí' if dish_flags.get('allergens') else 'No'}",
-        f"- Ingredientes alérgenos detectados: {allergen_triggers}",
         f"- Sin gluten: {'Sí' if dish_flags.get('gluten_free') else 'No'}",
-        f"- Ingredientes con gluten detectados: {gluten_triggers}",
         f"- Vegetariano: {'Sí' if dish_flags.get('vegetarian') else 'No'}",
         f"- Vegano: {'Sí' if dish_flags.get('vegan') else 'No'}",
         f"- Nivel picante: {dish_flags.get('spicy_level', 'none')}",
-        f"- Ingredientes picantes detectados: {spicy_triggers}",
-        "\n## Estado de confirmaciones",
-        f"- completeness_confirmed: {_fmt_confirmation(cs.get('completeness_confirmed'))}",
-        f"- allergens_confirmed: {_fmt_confirmation(cs.get('allergens_confirmed'))}",
-        f"- gluten_confirmed: {_fmt_confirmation(cs.get('gluten_confirmed'))}",
-        f"- spicy_confirmed: {_fmt_confirmation(cs.get('spicy_confirmed'))}",
     ]
     return ctx + "\n" + "\n".join(lines)
-
-
-def _fmt_confirmation(val: bool | None) -> str:
-    if val is True:
-        return "true"
-    if val is False:
-        return "false"
-    return "null"
 
 
 _CARD_RE = re.compile(r'^\*\*(.+?)\*\*[^\n]*\n?(.*)', re.DOTALL)

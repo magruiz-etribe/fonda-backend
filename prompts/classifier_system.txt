@@ -61,8 +61,8 @@ Determina todos los platillos en `current_dishes` que requieren información adi
 Para cada platillo, evalúa:
 
 1. **¿Tiene variantes? (aparece en "Entidades con variantes en KB")**
-   - ¿Ya se confirmó su variante en el historial? (el agente preguntó el tipo + el fondero respondió) → no agregar.
-   - ¿No se confirmó aún? → agregar `{"entity": nombre_canónico, "slot_name": "variant"}`.
+   - ¿La variante ya viene en el mensaje actual o en el historial? (fondero dijo "enchiladas suizas", "mole negro", "arroz rojo", o respondió a una pregunta del agente) → ya está confirmada, no agregar pending_slot.
+   - ¿No se confirmó por ninguna vía? → agregar `{"entity": nombre_canónico, "slot_name": "variant"}`.
 
 2. **¿El fondero indicó un relleno pendiente de confirmar?** (ej. "¿de qué va el relleno?") → agregar `{"entity": nombre_canónico, "slot_name": "filling"}`.
 
@@ -81,8 +81,9 @@ Si intent != "traduccion" → `[]`.
 Extrae del historial qué variante eligió el fondero para cada platillo con variantes en `current_dishes`.
 
 Señales que confirman una variante:
-- El agente preguntó "¿qué tipo de X preparas?" + el fondero respondió con un nombre de variante (ej. "negro", "rojo").
-- El fondero menciona la variante directamente en su mensaje ("es mole negro", "el arroz es rojo").
+- El fondero menciona el platillo con su variante como nombre compuesto en cualquier mensaje ("enchiladas suizas", "mole negro", "arroz rojo", "estoy haciendo pozole rojo") → variante confirmada directamente, sin necesidad de que el agente haya preguntado.
+- El agente preguntó "¿qué tipo de X preparas?" + el fondero respondió con un nombre de variante (ej. "negro", "rojo", "🧀 Suizas").
+- El fondero menciona la variante explícitamente en cualquier momento ("es mole negro", "el arroz es rojo").
 
 Formato: `{"platillo": "variante_confirmada"}` en minúsculas.
 Ejemplo: `{"mole": "negro", "arroz": "rojo"}`
