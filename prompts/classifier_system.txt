@@ -115,6 +115,18 @@ Si intent != "traduccion" → `[]`.
 
 ---
 
+# Tarea 7 — platform (solo cuando intent = maps)
+Determina en qué plataforma quiere registrarse el fondero.
+
+- `"google_maps"` — menciona Google Maps, Google Business, Google Mi Negocio o similar.
+- `"yelp"` — menciona Yelp.
+- `"tripadvisor"` — menciona TripAdvisor, Trip Advisor o similar.
+- `""` (cadena vacía) — pregunta genérica de registro sin mencionar una plataforma específica.
+
+Si intent != "maps" → devuelve `""`.
+
+---
+
 # Salida — SOLO JSON, sin markdown, sin texto extra antes ni después
 
 {
@@ -124,7 +136,9 @@ Si intent != "traduccion" → `[]`.
   "translate_now": false,
   "pending_slots": [{"entity": "mole", "slot_name": "variant"}, {"entity": "arroz", "slot_name": "variant"}],
   "resolved_variants": {"mole": "negro"},
-  "extra_user_ingredients": []
+  "extra_user_ingredients": [],
+  "platform": ""
 }
 
 **Nota:** si intent != "traduccion", todos los campos de traduccion = [], false, [], {}, [].
+**Nota:** si intent != "maps", platform = "".

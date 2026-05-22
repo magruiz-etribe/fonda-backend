@@ -18,10 +18,34 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
     buttons=[],
 )
 
-_MAPS_LINK: Final[dict[str, Any]] = {
+_MAPS_PAGE_LINK: Final[dict[str, Any]] = {
     "label": "Regístrate en Google Maps",
     "url": "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2",
     "type": "page",
+}
+
+_MAPS_PDF_LINK: Final[dict[str, Any]] = {
+    "label": "Guía: Menú del Día en Google Maps",
+    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Google%20Maps.pdf",
+    "type": "pdf",
+}
+
+_YELP_PDF_LINK: Final[dict[str, Any]] = {
+    "label": "Guía: Menú del Día en Yelp",
+    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Yelp.pdf",
+    "type": "pdf",
+}
+
+_TRIPADVISOR_PDF_LINK: Final[dict[str, Any]] = {
+    "label": "Guía: Menú del Día en TripAdvisor",
+    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Tripadvisor.pdf",
+    "type": "pdf",
+}
+
+_PLATFORM_LINKS: Final[dict[str, list[dict]]] = {
+    "google_maps": [_MAPS_PAGE_LINK, _MAPS_PDF_LINK],
+    "yelp": [_YELP_PDF_LINK],
+    "tripadvisor": [_TRIPADVISOR_PDF_LINK],
 }
 
 # Phrases that unambiguously mean "done, nothing to add" in A1 context.
@@ -79,7 +103,7 @@ def handle(
         result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen)
         result.flags = _clean_flags(dish_flags)
         if cr.intent == "maps":
-            result.link = _MAPS_LINK
+            result.links = _PLATFORM_LINKS.get(cr.platform, [])
         if cr.translate_now and not result.current_dishes:
             result.menu_entry = _build_menu_entry(result, history, dish_flags)
         return result

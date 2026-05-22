@@ -32,6 +32,7 @@ class ClassifierResult:
     pending_slots: list[PendingSlot] = field(default_factory=list)
     resolved_variants: dict[str, str] = field(default_factory=dict)
     extra_user_ingredients: list[str] = field(default_factory=list)
+    platform: str = ""
 
     @property
     def pending_variant_for(self) -> str | None:
@@ -120,6 +121,13 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
             extra={"raw_intent": str(intent)[:64]},
         )
         intent = "fallback"
+
+    if intent == "maps":
+        raw_platform = data.get("platform", "")
+        platform = str(raw_platform).strip().lower() if raw_platform else ""
+        if platform not in ("google_maps", "yelp", "tripadvisor"):
+            platform = ""
+        return ClassifierResult(intent=intent, current_dishes=[], platform=platform)
 
     if intent != "traduccion":
         return ClassifierResult(intent=intent, current_dishes=[])

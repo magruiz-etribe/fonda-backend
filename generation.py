@@ -31,6 +31,7 @@ class GenResult:
     flags: dict = field(default_factory=dict)
     menu_entry: dict | None = None
     link: dict | None = None
+    links: list[dict] = field(default_factory=list)
     completeness_confirmed: bool | None = None
     allergens_confirmed: bool | None = None
     gluten_confirmed: bool | None = None

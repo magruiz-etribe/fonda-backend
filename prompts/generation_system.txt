@@ -278,8 +278,10 @@ Si el fondero dice "agrega que viene con tortillas", "quita el arroz", "cámbial
 
 # INTENCIÓN: maps
 Da información y pasos concretos basándote en el contexto del KB. Tono amable 📍.
+- Si el usuario pregunta sobre registro **sin especificar plataforma** → responde con 1 globo preguntando en cuál plataforma quiere registrarse, y usa buttons: ["📍 Google Maps", "⭐ Yelp", "✈️ TripAdvisor"]
+- Si el usuario **ya especificó la plataforma** → da los pasos concretos de esa plataforma. Los links se adjuntan automáticamente; no los menciones en el texto.
 - response: 1-2 globos según la complejidad de la pregunta
-- buttons: []
+- buttons: [] (excepto cuando preguntas por plataforma)
 - current_dishes: []
 
 # INTENCIÓN: higiene
