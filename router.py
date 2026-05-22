@@ -23,6 +23,28 @@ _MAPS_LINK: Final[dict[str, Any]] = {
     "url": "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2",
 }
 
+# Phrases that unambiguously mean "done, nothing to add" in A1 context.
+_COMPLETION_PHRASES: frozenset[str] = frozenset({
+    "✅ listo, eso es todo!",
+    "✅ listo, eso es todo",
+    "listo, eso es todo!",
+    "listo, eso es todo",
+    "listo",
+    "eso es todo",
+    "claro",
+    "ninguno",
+    "correcto",
+    "exacto",
+    "no",
+    "si",
+    "sí",
+    "ok",
+    "✅",
+    "❌",
+})
+
+_CONFIRM_BTNS: Final[list[str]] = ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
+
 
 def handle(
     message: str,
@@ -45,6 +67,14 @@ def handle(
                 k: dish_flags.get(k, [])
                 for k in ("allergen_triggers", "gluten_triggers", "spicy_triggers")
             }
+        if (cr.intent == "traduccion" and cr.current_dishes
+                and not cr.pending_slots and not cr.translate_now
+                and confirmation_state is not None):
+            short = _try_short_circuit(cr, confirmation_state, trigger_info_for_gen or {}, message)
+            if short is not None:
+                short.flags = _clean_flags(dish_flags)
+                return short
+
         result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen)
         result.flags = _clean_flags(dish_flags)
         if cr.intent == "maps":
@@ -55,6 +85,150 @@ def handle(
     except Exception as e:
         logger.exception("router_unhandled_exception", extra={"error": str(e)})
         return _FALLBACK_RESULT
+
+
+def _is_pure_completion(message: str) -> bool:
+    """True when the message is an unambiguous 'done / that's all' with no ingredient additions."""
+    normalized = message.strip().rstrip("!.?, ").lower()
+    return normalized in _COMPLETION_PHRASES
+
+
+def _is_yes(message: str) -> bool:
+    """True for affirmative A2/A3/A4 responses, False for negative."""
+    s = message.strip().lower()
+    return not (s.startswith("❌") or re.match(r"^(no\b|ninguno)", s))
+
+
+def _fmt_trigger_list(triggers: list[str]) -> str:
+    return ", ".join(t.replace("_", " ") for t in triggers)
+
+
+def _ask_a2(triggers: list[str]) -> str:
+    tl = _fmt_trigger_list(triggers)
+    return (
+        f"He detectado que tu platillo puede contener ingredientes alérgenos: **{tl}**. "
+        "¿Confirmas que tu platillo tiene al menos uno de estos? 🌿"
+    )
+
+
+def _ask_a3(triggers: list[str]) -> str:
+    tl = _fmt_trigger_list(triggers)
+    return (
+        f"He detectado que tu platillo puede contener algunos de estos ingredientes: **{tl}**. "
+        "¿Confirmas que tu platillo tiene al menos uno? 🌾"
+    )
+
+
+def _ask_a4(triggers: list[str]) -> str:
+    tl = _fmt_trigger_list(triggers)
+    return (
+        f"He detectado que tu platillo puede contener algunos de estos ingredientes: **{tl}**. "
+        "¿Confirmas que tu platillo tiene al menos uno? 🌶️"
+    )
+
+
+def _try_short_circuit(
+    cr: cls_module.ClassifierResult,
+    confirmation_state: dict,
+    trigger_info: dict,
+    message: str,
+) -> GenResult | None:
+    """Return a deterministic GenResult for A1–A4 confirmation stages, or None to call LLM."""
+    cs = confirmation_state
+    allergen_tr: list[str] = trigger_info.get("allergen_triggers") or []
+    gluten_tr: list[str] = trigger_info.get("gluten_triggers") or []
+    spicy_tr: list[str] = trigger_info.get("spicy_triggers") or []
+
+    # ── A1 PROCESA RESPUESTA ─────────────────────────────────────────────────
+    # User responded with an unambiguous "done" to the A1 completeness question.
+    if cs.get("completeness_confirmed") is None and _is_pure_completion(message):
+        if allergen_tr:
+            return GenResult(
+                response=[_ask_a2(allergen_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                completeness_confirmed=True,
+            )
+        if gluten_tr:
+            return GenResult(
+                response=[_ask_a3(gluten_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                completeness_confirmed=True,
+            )
+        if spicy_tr:
+            return GenResult(
+                response=[_ask_a4(spicy_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                completeness_confirmed=True,
+            )
+        # No triggers at all → fall through to LLM for ETAPA B (Spanish description).
+        return None
+
+    # Stages A2–A4 only apply once completeness is confirmed.
+    if not cs.get("completeness_confirmed"):
+        return None
+
+    allergens_handled = (not allergen_tr) or (cs.get("allergens_confirmed") is not None)
+    gluten_handled = (not gluten_tr) or (cs.get("gluten_confirmed") is not None)
+    is_responding = gen_module._is_confirmation(message)
+
+    # ── A2 ───────────────────────────────────────────────────────────────────
+    if allergen_tr and cs.get("allergens_confirmed") is None:
+        if not is_responding:
+            return GenResult(
+                response=[_ask_a2(allergen_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+            )
+        confirmed = _is_yes(message)
+        if gluten_tr:
+            return GenResult(
+                response=[_ask_a3(gluten_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                allergens_confirmed=confirmed,
+            )
+        if spicy_tr:
+            return GenResult(
+                response=[_ask_a4(spicy_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                allergens_confirmed=confirmed,
+            )
+        return None  # next is ETAPA B — let LLM generate description
+
+    # ── A3 ───────────────────────────────────────────────────────────────────
+    if allergens_handled and gluten_tr and cs.get("gluten_confirmed") is None:
+        if not is_responding:
+            return GenResult(
+                response=[_ask_a3(gluten_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+            )
+        confirmed = _is_yes(message)
+        if spicy_tr:
+            return GenResult(
+                response=[_ask_a4(spicy_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+                gluten_confirmed=confirmed,
+            )
+        return None  # next is ETAPA B — let LLM generate description
+
+    # ── A4 ───────────────────────────────────────────────────────────────────
+    if allergens_handled and gluten_handled and spicy_tr and cs.get("spicy_confirmed") is None:
+        if not is_responding:
+            return GenResult(
+                response=[_ask_a4(spicy_tr)],
+                current_dishes=cr.current_dishes,
+                buttons=_CONFIRM_BTNS,
+            )
+        # A4 PROCESA RESPUESTA → ETAPA B: let LLM generate description.
+        return None
+
+    return None
 
 
 def _get_kb_context(cr: cls_module.ClassifierResult) -> str:
