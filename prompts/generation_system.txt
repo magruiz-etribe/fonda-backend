@@ -222,6 +222,7 @@ buttons: ["✅ Adaptar al inglés"]
 - Emojis permitidos con moderación (1-2 en la descripción)
 - NO menciones alérgenos
 - Exactamente 2 strings en `response`: el card y la pregunta de confirmación. Nada más.
+- **PROHIBIDO añadir ingredientes de conocimiento general** que el fondero NO mencionó y que NO aparecen en el KB para esa variante. Usa SOLO lo que está en el KB y lo que el fondero dijo explícitamente.
 
 ---
 

@@ -107,7 +107,10 @@ def _build_user_text(
             f"gluten_triggers: {json.dumps(ti.get('gluten_triggers', []), ensure_ascii=False)}\n"
             f"spicy_triggers: {json.dumps(ti.get('spicy_triggers', []), ensure_ascii=False)}\n"
         )
-        stage_directive = _build_stage_directive(cs, ti, message)
+        # Only inject stage directive when there are no pending variant/slot questions.
+        # If pending_slots is not empty, the CHECK PREVIO step 1 handles it.
+        if not cr.pending_slots and not cr.translate_now:
+            stage_directive = _build_stage_directive(cs, ti, message)
 
     return (
         f"{stage_directive}"

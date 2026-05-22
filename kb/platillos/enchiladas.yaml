@@ -61,13 +61,14 @@ variants:
       - crema
       - queso_gratinado
       - cilantro
-    technique: salsa verde cremosa, gratinadas al horno
+      - pollo
+    technique: salsa verde cremosa, rellenas de pollo, gratinadas al horno
     description_es: >
-      Tortillas bañadas en salsa verde cremosa y gratinadas con queso, usualmente rellenas con pollo;
-      su acabado dorado al horno las distingue de las enchiladas verdes.
+      Tortillas rellenas de pollo, bañadas en salsa verde cremosa y gratinadas
+      con queso; su acabado dorado al horno las distingue de las enchiladas verdes.
     description_en: >
-      Tortillas in a creamy tomatillo sauce, oven-gratinéed with melted cheese, usually filled with chicken;
-      cheese until golden — the Swiss-style variation.
+      Corn tortillas filled with chicken, bathed in a creamy tomatillo sauce
+      and oven-gratinéed with melted cheese until golden — the Swiss-style variation.
   potosinas:
     name_es: Enchiladas Potosinas
     name_en: Potosí-Style Enchiladas
