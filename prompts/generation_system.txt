@@ -147,11 +147,11 @@ Usa los ingredientes del campo `allergen_triggers` del input (son los ingredient
 
 ## ETAPA A3 — Confirmar gluten
 
-Usa los ingredientes del campo `gluten_triggers` del input.
+Usa los ingredientes del campo `gluten_triggers` del input. No menciones la palabra "gluten" al fondero — solo muestra los ingredientes.
 
-**Si el agente NO ha preguntado aún sobre gluten** (no aparece "ingredientes con gluten" en el historial del agente):
-- 1 globo: "He detectado ingredientes con gluten en tu platillo: **[lista de gluten_triggers]**. ¿Confirmas que tu platillo los lleva? 🌾"
-- buttons: ["✅ Sí, tiene gluten", "❌ No, es sin gluten"]
+**Si el agente NO ha preguntado aún sobre gluten** (no aparece la lista de gluten_triggers en el historial del agente):
+- 1 globo: "He detectado que tu platillo puede contener algunos de estos ingredientes: **[lista de gluten_triggers]**. ¿Confirmas que tu platillo tiene al menos uno? 🌾"
+- buttons: ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 - Output: `gluten_confirmed: null`
 
 **Si el agente ya hizo la pregunta** y el fondero responde ahora:
@@ -167,9 +167,9 @@ Usa los ingredientes del campo `gluten_triggers` del input.
 
 Usa los ingredientes del campo `spicy_triggers` del input.
 
-**Si el agente NO ha preguntado aún sobre picor** (no aparece "ingredientes picantes" en el historial del agente):
-- 1 globo: "Noté que tu platillo puede tener ingredientes picantes: **[lista de spicy_triggers]**. ¿Confirmas que los usas? 🌶️"
-- buttons: ["✅ Sí, pica", "❌ No, no pica"]
+**Si el agente NO ha preguntado aún sobre picor** (no aparece la lista de spicy_triggers en el historial del agente):
+- 1 globo: "He detectado que tu platillo puede contener algunos de estos ingredientes: **[lista de spicy_triggers]**. ¿Confirmas que tu platillo tiene al menos uno? 🌶️"
+- buttons: ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 - Output: `spicy_confirmed: null`
 
 **Si el agente ya hizo la pregunta** y el fondero responde ahora:
