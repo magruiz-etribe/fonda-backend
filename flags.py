@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import unicodedata
 from functools import lru_cache
 from typing import Literal
 
@@ -26,13 +27,13 @@ def compute_flags(
 
     Returns dict with: allergens, gluten_free, vegetarian, vegan, spicy_level.
     """
-    all_ingr = {i.lower().strip() for i in (ingredients + (extras or []))}
+    all_ingr = {_normalize(i) for i in (ingredients + (extras or []))}
 
     allergens: list[str] = []
     allergen_triggers: set[str] = set()
     gluten_triggers: set[str] = set()
     for group_name, group in _allergens().get("groups", {}).items():
-        triggers = {t.lower() for t in group.get("triggers", [])}
+        triggers = {_normalize(t) for t in group.get("triggers", [])}
         matched = all_ingr & triggers
         if matched:
             allergens.append(group_name)
@@ -42,16 +43,16 @@ def compute_flags(
                 allergen_triggers |= matched
 
     veg = _vegetarian_markers()
-    breakers_meat = {i.lower() for i in veg.get("meat_proteins", [])}
-    breakers_sea  = {i.lower() for i in veg.get("seafood", [])}
-    breakers_ani  = {i.lower() for i in veg.get("animal_products", [])}
+    breakers_meat = {_normalize(i) for i in veg.get("meat_proteins", [])}
+    breakers_sea  = {_normalize(i) for i in veg.get("seafood", [])}
+    breakers_ani  = {_normalize(i) for i in veg.get("animal_products", [])}
     is_vegetarian = not bool(all_ingr & (breakers_meat | breakers_sea))
     is_vegan      = not bool(all_ingr & (breakers_meat | breakers_sea | breakers_ani))
 
     spicy_level: SpicyLevel = "none"
     spicy_triggers: set[str] = set()
     for level in ("hot", "medium", "mild"):
-        markers = {i.lower() for i in _spicy_markers().get("levels", {}).get(level, [])}
+        markers = {_normalize(i) for i in _spicy_markers().get("levels", {}).get(level, [])}
         matched_spicy = all_ingr & markers
         if matched_spicy:
             spicy_triggers |= matched_spicy
@@ -83,6 +84,14 @@ def _spicy_markers() -> dict:
 @lru_cache(maxsize=1)
 def _vegetarian_markers() -> dict:
     return _load_ref("vegetarian_markers.yaml")
+
+
+def _normalize(s: str) -> str:
+    """Lowercase + strip accents for robust ingredient matching."""
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', s.lower().strip())
+        if unicodedata.category(c) != 'Mn'
+    )
 
 
 def _load_ref(filename: str) -> dict:
