@@ -21,6 +21,7 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
 _MAPS_LINK: Final[dict[str, Any]] = {
     "label": "Regístrate en Google Maps",
     "url": "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2",
+    "type": "page",
 }
 
 # Phrases that unambiguously mean "done, nothing to add" in A1 context.
