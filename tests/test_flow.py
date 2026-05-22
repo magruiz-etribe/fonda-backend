@@ -310,6 +310,9 @@ class TestNonTranslationIntents:
         )
         assert result.current_dishes == []
         assert result.buttons == []
+        assert result.link is not None
+        assert result.link["url"] == "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2"
+        assert "label" in result.link
 
     @patch("bedrock_client.converse")
     def test_higiene_intent(self, mock_cv):

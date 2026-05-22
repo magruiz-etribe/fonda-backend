@@ -18,6 +18,7 @@ _FALLBACK: Final[dict[str, Any]] = {
     "response": ["Disculpa, tuve un problema. ¿Puedes repetir tu mensaje? 😊"],
     "current_dishes": [],
     "buttons": [],
+    "link": None,
 }
 
 
@@ -28,6 +29,7 @@ class GenResult:
     buttons: list[str] = field(default_factory=list)
     flags: dict = field(default_factory=dict)
     menu_entry: dict | None = None
+    link: dict | None = None
     completeness_confirmed: bool | None = None
     allergens_confirmed: bool | None = None
     gluten_confirmed: bool | None = None
@@ -91,6 +93,7 @@ def _build_user_text(
 
     # Confirmation state block — only injected for traduccion flows with dishes
     conf_block = ""
+    stage_directive = ""
     if confirmation_state is not None:
         cs = confirmation_state
         ti = trigger_info or {}
@@ -103,8 +106,18 @@ def _build_user_text(
             f"gluten_triggers: {json.dumps(ti.get('gluten_triggers', []), ensure_ascii=False)}\n"
             f"spicy_triggers: {json.dumps(ti.get('spicy_triggers', []), ensure_ascii=False)}\n"
         )
+        # Compute stage in code so the model doesn't have to decide
+        if cs.get('completeness_confirmed') is None:
+            stage_directive = "⚠️ ETAPA OBLIGATORIA: A1 — Pregunta si el platillo lleva algo más. PROHIBIDO generar descripción.\n"
+        elif ti.get('allergen_triggers') and cs.get('allergens_confirmed') is None:
+            stage_directive = "⚠️ ETAPA OBLIGATORIA: A2 — Confirma alérgenos. PROHIBIDO generar descripción.\n"
+        elif ti.get('gluten_triggers') and cs.get('gluten_confirmed') is None:
+            stage_directive = "⚠️ ETAPA OBLIGATORIA: A3 — Confirma gluten. PROHIBIDO generar descripción.\n"
+        elif ti.get('spicy_triggers') and cs.get('spicy_confirmed') is None:
+            stage_directive = "⚠️ ETAPA OBLIGATORIA: A4 — Confirma picor. PROHIBIDO generar descripción.\n"
 
     return (
+        f"{stage_directive}"
         f"Intención: {cr.intent}\n"
         f"Platillos en contexto: {cr.current_dishes}\n"
         f"translate_now: {str(cr.translate_now).lower()}\n"

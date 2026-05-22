@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Final
+from typing import Any, Final
 
 import classifier as cls_module
 import flags as flags_module
@@ -17,6 +17,11 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
     current_dishes=[],
     buttons=[],
 )
+
+_MAPS_LINK: Final[dict[str, Any]] = {
+    "label": "Regístrate en Google Maps",
+    "url": "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2",
+}
 
 
 def handle(
@@ -42,6 +47,8 @@ def handle(
             }
         result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen)
         result.flags = _clean_flags(dish_flags)
+        if cr.intent == "maps":
+            result.link = _MAPS_LINK
         if cr.translate_now and not result.current_dishes:
             result.menu_entry = _build_menu_entry(result, history, dish_flags)
         return result
