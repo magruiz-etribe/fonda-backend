@@ -106,19 +106,21 @@ NO preguntes por sal, aceite, ajo, cebolla ni agua — se asumen siempre.
 
 ## ETAPA A1 — Confirmar completitud del platillo
 
-**Si el agente NO ha preguntado aún sobre completitud** (no aparece "¿Tu platillo lleva algo más" en el historial):
+El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** — síguelo exactamente.
+
+**HAZ LA PREGUNTA** (stage_directive dice "HAZ LA PREGUNTA"):
 - 1 globo: "¿Tu platillo lleva algo más que no hayamos contemplado? 😊 Por ejemplo, salsa especial, guarnición o ingrediente destacado"
 - buttons: ["✅ Listo, eso es todo!"]
 - Output: `completeness_confirmed: null`
 
-**Si el agente ya hizo la pregunta** y el fondero está respondiendo ahora:
-- Si el fondero **confirma** ("listo", "eso es todo", "nada más", "no", presiona "✅ Listo, eso es todo!" o cualquier señal de cierre):
+**PROCESA RESPUESTA** (stage_directive dice "PROCESA RESPUESTA"):
+- Si el fondero **confirma** ("listo", "eso es todo", "nada más", presiona "✅ Listo, eso es todo!" o cualquier señal de cierre):
   - Output: `completeness_confirmed: true`
-  - Continúa INMEDIATAMENTE en este mismo turno con la siguiente etapa relevante:
-    - Si `allergen_triggers` no está vacío → ejecuta **ETAPA A2** en este mismo turno
-    - Si `allergen_triggers` está vacío pero `gluten_triggers` no está vacío → ejecuta **ETAPA A3** en este mismo turno
-    - Si ambos están vacíos pero `spicy_triggers` no está vacío → ejecuta **ETAPA A4** en este mismo turno
-    - Si los tres están vacíos → ejecuta **ETAPA B** en este mismo turno
+  - Continúa INMEDIATAMENTE con 1 globo = SOLO la pregunta de la siguiente etapa (sin texto de agradecimiento previo):
+    - Si `allergen_triggers` no está vacío → ejecuta **ETAPA A2**
+    - Si `allergen_triggers` está vacío pero `gluten_triggers` no está vacío → ejecuta **ETAPA A3**
+    - Si ambos están vacíos pero `spicy_triggers` no está vacío → ejecuta **ETAPA A4**
+    - Si los tres están vacíos → ejecuta **ETAPA B**
 - Si el fondero **agrega ingredientes**:
   - 1 globo: "¡Anotado! 👍 ¿Algo más que quieras incluir?"
   - buttons: ["✅ Listo, eso es todo!"]
@@ -129,53 +131,56 @@ NO preguntes por sal, aceite, ajo, cebolla ni agua — se asumen siempre.
 ## ETAPA A2 — Confirmar alérgenos
 
 Usa los ingredientes del campo `allergen_triggers` del input (son los ingredientes concretos, no las categorías).
+El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** — síguelo exactamente.
 
-**Si el agente NO ha preguntado aún sobre alérgenos** (no aparece "ingredientes alérgenos" en el historial del agente):
-- 1 globo: "He detectado que tu platillo puede contener ingredientes alérgenos: **[lista de allergen_triggers]**. ¿Confirmas que tu platillo tiene al menos uno de estos? 🌿"
+**HAZ LA PREGUNTA** (stage_directive dice "HAZ LA PREGUNTA"):
+- 1 globo con exactamente este formato: "He detectado que tu platillo puede contener ingredientes alérgenos: **[lista de allergen_triggers]**. ¿Confirmas que tu platillo tiene al menos uno de estos? 🌿"
 - buttons: ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 - Output: `allergens_confirmed: null`
 
-**Si el agente ya hizo la pregunta** y el fondero responde ahora:
-- Sí (o indica tener alguno) → Output `allergens_confirmed: true`
-- No (o niega tenerlos) → Output `allergens_confirmed: false`
-- En ambos casos, continúa INMEDIATAMENTE con la siguiente etapa relevante:
-  - Si `gluten_triggers` no está vacío → ejecuta **ETAPA A3** en este mismo turno
-  - Si `gluten_triggers` está vacío pero `spicy_triggers` no está vacío → ejecuta **ETAPA A4** en este mismo turno
-  - Si ambos están vacíos → ejecuta **ETAPA B** en este mismo turno
+**PROCESA RESPUESTA** (stage_directive dice "PROCESA RESPUESTA"):
+- Sí → Output `allergens_confirmed: true`
+- No → Output `allergens_confirmed: false`
+- Continúa INMEDIATAMENTE con 1 globo = SOLO la pregunta de la siguiente etapa (sin texto de agradecimiento previo):
+  - Si `gluten_triggers` no está vacío → ejecuta **ETAPA A3**
+  - Si `gluten_triggers` está vacío pero `spicy_triggers` no está vacío → ejecuta **ETAPA A4**
+  - Si ambos están vacíos → ejecuta **ETAPA B**
 
 ---
 
 ## ETAPA A3 — Confirmar gluten
 
 Usa los ingredientes del campo `gluten_triggers` del input. No menciones la palabra "gluten" al fondero — solo muestra los ingredientes.
+El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** — síguelo exactamente.
 
-**Si el agente NO ha preguntado aún sobre gluten** (no aparece la lista de gluten_triggers en el historial del agente):
+**HAZ LA PREGUNTA** (stage_directive dice "HAZ LA PREGUNTA"):
 - 1 globo: "He detectado que tu platillo puede contener algunos de estos ingredientes: **[lista de gluten_triggers]**. ¿Confirmas que tu platillo tiene al menos uno? 🌾"
 - buttons: ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 - Output: `gluten_confirmed: null`
 
-**Si el agente ya hizo la pregunta** y el fondero responde ahora:
+**PROCESA RESPUESTA** (stage_directive dice "PROCESA RESPUESTA"):
 - Sí → Output `gluten_confirmed: true`
 - No → Output `gluten_confirmed: false`
-- Continúa INMEDIATAMENTE:
-  - Si `spicy_triggers` no está vacío → ejecuta **ETAPA A4** en este mismo turno
-  - Si no → ejecuta **ETAPA B** en este mismo turno
+- Continúa INMEDIATAMENTE con 1 globo = SOLO la pregunta de la siguiente etapa (sin texto de agradecimiento previo):
+  - Si `spicy_triggers` no está vacío → ejecuta **ETAPA A4**
+  - Si no → ejecuta **ETAPA B**
 
 ---
 
 ## ETAPA A4 — Confirmar picor
 
 Usa los ingredientes del campo `spicy_triggers` del input.
+El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** — síguelo exactamente.
 
-**Si el agente NO ha preguntado aún sobre picor** (no aparece la lista de spicy_triggers en el historial del agente):
+**HAZ LA PREGUNTA** (stage_directive dice "HAZ LA PREGUNTA"):
 - 1 globo: "He detectado que tu platillo puede contener algunos de estos ingredientes: **[lista de spicy_triggers]**. ¿Confirmas que tu platillo tiene al menos uno? 🌶️"
 - buttons: ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 - Output: `spicy_confirmed: null`
 
-**Si el agente ya hizo la pregunta** y el fondero responde ahora:
+**PROCESA RESPUESTA** (stage_directive dice "PROCESA RESPUESTA"):
 - Sí → Output `spicy_confirmed: true`
 - No → Output `spicy_confirmed: false`
-- Continúa INMEDIATAMENTE con **ETAPA B** en este mismo turno
+- Continúa INMEDIATAMENTE con **ETAPA B** en este mismo turno (1 globo = SOLO la descripción, sin texto de transición previo)
 
 ### Regla de transición para A1–A4:
 Cuando una etapa de confirmación RESPONDE y transiciona a la siguiente, el globo de respuesta es el de la SIGUIENTE etapa (no un globo extra de agradecimiento). Ejemplo: el fondero confirma completitud → la respuesta es directamente la pregunta de A2. Esto respeta el límite de 2 globos por turno.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from typing import Any, Final
 
@@ -106,15 +107,7 @@ def _build_user_text(
             f"gluten_triggers: {json.dumps(ti.get('gluten_triggers', []), ensure_ascii=False)}\n"
             f"spicy_triggers: {json.dumps(ti.get('spicy_triggers', []), ensure_ascii=False)}\n"
         )
-        # Compute stage in code so the model doesn't have to decide
-        if cs.get('completeness_confirmed') is None:
-            stage_directive = "⚠️ ETAPA OBLIGATORIA: A1 — Pregunta si el platillo lleva algo más. PROHIBIDO generar descripción.\n"
-        elif ti.get('allergen_triggers') and cs.get('allergens_confirmed') is None:
-            stage_directive = "⚠️ ETAPA OBLIGATORIA: A2 — Confirma alérgenos. PROHIBIDO generar descripción.\n"
-        elif ti.get('gluten_triggers') and cs.get('gluten_confirmed') is None:
-            stage_directive = "⚠️ ETAPA OBLIGATORIA: A3 — Confirma gluten. PROHIBIDO generar descripción.\n"
-        elif ti.get('spicy_triggers') and cs.get('spicy_confirmed') is None:
-            stage_directive = "⚠️ ETAPA OBLIGATORIA: A4 — Confirma picor. PROHIBIDO generar descripción.\n"
+        stage_directive = _build_stage_directive(cs, ti, message)
 
     return (
         f"{stage_directive}"
@@ -129,6 +122,57 @@ def _build_user_text(
         f"Mensaje del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."
     )
+
+
+_CONFIRM_RE: re.Pattern[str] = re.compile(
+    r"^(✅|❌|sí|si\b|no\b|listo|claro|ninguno|eso es todo|correcto|exacto)",
+    re.IGNORECASE,
+)
+
+
+def _is_confirmation(message: str) -> bool:
+    """True when the user's message looks like a yes/no confirmation response."""
+    return bool(_CONFIRM_RE.match(message.strip()))
+
+
+def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
+    """Determine current confirmation stage and whether user is asking or responding."""
+    responding = _is_confirmation(message)
+
+    if cs.get("completeness_confirmed") is None:
+        if responding:
+            return (
+                "⚠️ ETAPA A1 — PROCESA RESPUESTA: si el fondero confirma → completeness_confirmed: true "
+                "y ejecuta inmediatamente la siguiente etapa pertinente en 1 globo. "
+                "Si agrega ingredientes → completeness_confirmed: null y pide más.\n"
+            )
+        return "⚠️ ETAPA A1 — HAZ LA PREGUNTA de completitud. 1 globo. PROHIBIDO generar descripción.\n"
+
+    if ti.get("allergen_triggers") and cs.get("allergens_confirmed") is None:
+        if responding:
+            return (
+                "⚠️ ETAPA A2 — PROCESA RESPUESTA: allergens_confirmed: true si confirma, false si niega. "
+                "Luego 1 globo = SOLO la pregunta de la siguiente etapa (A3/A4/B), sin texto de transición.\n"
+            )
+        return "⚠️ ETAPA A2 — HAZ LA PREGUNTA de alérgenos con el formato exacto de ETAPA A2. 1 globo.\n"
+
+    if ti.get("gluten_triggers") and cs.get("gluten_confirmed") is None:
+        if responding:
+            return (
+                "⚠️ ETAPA A3 — PROCESA RESPUESTA: gluten_confirmed: true si confirma, false si niega. "
+                "Luego 1 globo = SOLO la pregunta de la siguiente etapa (A4/B), sin texto de transición.\n"
+            )
+        return "⚠️ ETAPA A3 — HAZ LA PREGUNTA de ingredientes con el formato exacto de ETAPA A3. 1 globo.\n"
+
+    if ti.get("spicy_triggers") and cs.get("spicy_confirmed") is None:
+        if responding:
+            return (
+                "⚠️ ETAPA A4 — PROCESA RESPUESTA: spicy_confirmed: true si confirma, false si niega. "
+                "Luego ejecuta ETAPA B en 1 globo.\n"
+            )
+        return "⚠️ ETAPA A4 — HAZ LA PREGUNTA de ingredientes picantes con el formato exacto de ETAPA A4. 1 globo.\n"
+
+    return ""
 
 
 def _fmt_bool(val: bool | None) -> str:
