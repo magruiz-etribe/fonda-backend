@@ -23,6 +23,7 @@ def handle(
     message: str,
     current_dishes: list[str],
     history: list[dict[str, str]],
+    confirmation_state: dict | None = None,
 ) -> GenResult:
     try:
         cr = cls_module.classify(message, current_dishes, history)
@@ -31,9 +32,9 @@ def handle(
         if cr.intent == "traduccion" and cr.current_dishes:
             dish_flags = _compute_dish_flags(cr)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
-            kb_context = _append_flags_to_context(kb_context, dish_flags)
+            kb_context = _append_flags_to_context(kb_context, dish_flags, confirmation_state)
         result = gen_module.generate(cr, message, kb_context, history)
-        result.flags = dish_flags
+        result.flags = _clean_flags(dish_flags)
         if cr.translate_now and not result.current_dishes:
             result.menu_entry = _build_menu_entry(result, history, dish_flags)
         return result
@@ -65,20 +66,54 @@ def _compute_dish_flags(cr: cls_module.ClassifierResult) -> dict:
     return flags_module.compute_flags(all_ingr, list(cr.extra_user_ingredients))
 
 
-def _append_flags_to_context(ctx: str, dish_flags: dict) -> str:
-    """Appends computed dietary flags block to the KB context string."""
+def _clean_flags(flags: dict) -> dict:
+    """Return the 5 presentable flags, stripping internal trigger lists."""
+    return {
+        "allergens": bool(flags.get("allergens")),
+        "gluten_free": bool(flags.get("gluten_free", True)),
+        "vegetarian": bool(flags.get("vegetarian", True)),
+        "vegan": bool(flags.get("vegan", True)),
+        "spicy_level": flags.get("spicy_level", "none"),
+    }
+
+
+def _append_flags_to_context(
+    ctx: str,
+    dish_flags: dict,
+    confirmation_state: dict | None = None,
+) -> str:
+    """Appends computed dietary flags and confirmation state to the KB context string."""
     if not dish_flags:
         return ctx
-    allergens = ", ".join(dish_flags.get("allergens", [])) or "ninguno"
+    allergen_triggers = ", ".join(dish_flags.get("allergen_triggers", [])) or "ninguno"
+    gluten_triggers = ", ".join(dish_flags.get("gluten_triggers", [])) or "ninguno"
+    spicy_triggers = ", ".join(dish_flags.get("spicy_triggers", [])) or "ninguno"
+    cs = confirmation_state or {}
     lines = [
         "\n## Banderas dietéticas (calculadas automáticamente)",
-        f"- Alérgenos: {allergens}",
+        f"- Tiene alérgenos: {'Sí' if dish_flags.get('allergens') else 'No'}",
+        f"- Ingredientes alérgenos detectados: {allergen_triggers}",
         f"- Sin gluten: {'Sí' if dish_flags.get('gluten_free') else 'No'}",
+        f"- Ingredientes con gluten detectados: {gluten_triggers}",
         f"- Vegetariano: {'Sí' if dish_flags.get('vegetarian') else 'No'}",
         f"- Vegano: {'Sí' if dish_flags.get('vegan') else 'No'}",
-        f"- Picante: {dish_flags.get('spicy_level', 'none')}",
+        f"- Nivel picante: {dish_flags.get('spicy_level', 'none')}",
+        f"- Ingredientes picantes detectados: {spicy_triggers}",
+        "\n## Estado de confirmaciones",
+        f"- completeness_confirmed: {_fmt_confirmation(cs.get('completeness_confirmed'))}",
+        f"- allergens_confirmed: {_fmt_confirmation(cs.get('allergens_confirmed'))}",
+        f"- gluten_confirmed: {_fmt_confirmation(cs.get('gluten_confirmed'))}",
+        f"- spicy_confirmed: {_fmt_confirmation(cs.get('spicy_confirmed'))}",
     ]
     return ctx + "\n" + "\n".join(lines)
+
+
+def _fmt_confirmation(val: bool | None) -> str:
+    if val is True:
+        return "true"
+    if val is False:
+        return "false"
+    return "null"
 
 
 _CARD_RE = re.compile(r'^\*\*(.+?)\*\*[^\n]*\n?(.*)', re.DOTALL)
@@ -117,5 +152,5 @@ def _build_menu_entry(
         "name_en": name_en,
         "description_es": description_es,
         "description_en": description_en,
-        "flags": dish_flags,
+        "flags": _clean_flags(dish_flags),
     }

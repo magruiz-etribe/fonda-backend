@@ -28,6 +28,10 @@ class GenResult:
     buttons: list[str] = field(default_factory=list)
     flags: dict = field(default_factory=dict)
     menu_entry: dict | None = None
+    completeness_confirmed: bool | None = None
+    allergens_confirmed: bool | None = None
+    gluten_confirmed: bool | None = None
+    spicy_confirmed: bool | None = None
 
 
 def generate(
@@ -140,4 +144,20 @@ def _parse(raw: str) -> GenResult:
         },
     )
 
-    return GenResult(response=response, current_dishes=dishes, buttons=buttons)
+    return GenResult(
+        response=response,
+        current_dishes=dishes,
+        buttons=buttons,
+        completeness_confirmed=_parse_bool_or_none(data.get("completeness_confirmed")),
+        allergens_confirmed=_parse_bool_or_none(data.get("allergens_confirmed")),
+        gluten_confirmed=_parse_bool_or_none(data.get("gluten_confirmed")),
+        spicy_confirmed=_parse_bool_or_none(data.get("spicy_confirmed")),
+    )
+
+
+def _parse_bool_or_none(val: Any) -> bool | None:
+    if val is True:
+        return True
+    if val is False:
+        return False
+    return None

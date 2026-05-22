@@ -65,15 +65,38 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     if "current_dishes" in session_state:
         current_dishes = session_state["current_dishes"]
 
-    result = router.handle(message, current_dishes, history)
+    _CONF_KEYS = ("completeness_confirmed", "allergens_confirmed", "gluten_confirmed", "spicy_confirmed")
+    confirmation_state = {k: session_state.get(k) for k in _CONF_KEYS}
+
+    result = router.handle(message, current_dishes, history, confirmation_state)
+
+    # Merge new confirmations from this turn into the running state
+    prev_primary = (session_state.get("current_dishes") or [""])[0]
+    curr_primary = (result.current_dishes or [""])[0]
+    primary_changed = bool(curr_primary) and curr_primary != prev_primary
+
+    if result.current_dishes and not primary_changed:
+        merged_conf: dict = {k: v for k, v in confirmation_state.items() if v is not None}
+    else:
+        merged_conf = {}  # reset when dish flow ends or primary dish changes
+
+    for key, val in [
+        ("completeness_confirmed", result.completeness_confirmed),
+        ("allergens_confirmed", result.allergens_confirmed),
+        ("gluten_confirmed", result.gluten_confirmed),
+        ("spicy_confirmed", result.spicy_confirmed),
+    ]:
+        if val is not None:
+            merged_conf[key] = val
 
     menu_del_dia: list = session_state.get("menu_del_dia", [])
     if result.menu_entry:
+        result.menu_entry["flags"] = _apply_flag_confirmations(result.menu_entry["flags"], merged_conf)
         menu_del_dia = menu_del_dia + [result.menu_entry]
-    history_store.set_session_state(session_id, {
-        "current_dishes": result.current_dishes,
-        "menu_del_dia": menu_del_dia,
-    })
+
+    new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia}
+    new_state.update(merged_conf)
+    history_store.set_session_state(session_id, new_state)
 
     history_store.append_turns(session_id, [
         {"role": "user", "text": message},
@@ -151,6 +174,18 @@ def _is_preflight(event: dict[str, Any]) -> bool:
         or ""
     )
     return method.upper() == "OPTIONS"
+
+
+def _apply_flag_confirmations(flags: dict, conf: dict) -> dict:
+    """Override clean flags based on what the fondero confirmed."""
+    flags = dict(flags)
+    if conf.get("allergens_confirmed") is False:
+        flags["allergens"] = False
+    if conf.get("gluten_confirmed") is False:
+        flags["gluten_free"] = True
+    if conf.get("spicy_confirmed") is False:
+        flags["spicy_level"] = "none"
+    return flags
 
 
 def _response(status: int, body: dict[str, Any] | None) -> dict[str, Any]:

@@ -29,10 +29,17 @@ def compute_flags(
     all_ingr = {i.lower().strip() for i in (ingredients + (extras or []))}
 
     allergens: list[str] = []
+    allergen_triggers: set[str] = set()
+    gluten_triggers: set[str] = set()
     for group_name, group in _allergens().get("groups", {}).items():
         triggers = {t.lower() for t in group.get("triggers", [])}
-        if all_ingr & triggers:
+        matched = all_ingr & triggers
+        if matched:
             allergens.append(group_name)
+            if group_name == "gluten":
+                gluten_triggers |= matched
+            else:
+                allergen_triggers |= matched
 
     veg = _vegetarian_markers()
     breakers_meat = {i.lower() for i in veg.get("meat_proteins", [])}
@@ -42,18 +49,24 @@ def compute_flags(
     is_vegan      = not bool(all_ingr & (breakers_meat | breakers_sea | breakers_ani))
 
     spicy_level: SpicyLevel = "none"
+    spicy_triggers: set[str] = set()
     for level in ("hot", "medium", "mild"):
         markers = {i.lower() for i in _spicy_markers().get("levels", {}).get(level, [])}
-        if all_ingr & markers:
-            spicy_level = level  # type: ignore[assignment]
-            break
+        matched_spicy = all_ingr & markers
+        if matched_spicy:
+            spicy_triggers |= matched_spicy
+            if spicy_level == "none":
+                spicy_level = level  # type: ignore[assignment]
 
     return {
-        "allergens": sorted(allergens),
+        "allergens": bool(allergen_triggers),
+        "allergen_triggers": sorted(allergen_triggers),
         "gluten_free": "gluten" not in allergens,
+        "gluten_triggers": sorted(gluten_triggers),
         "vegetarian": is_vegetarian,
         "vegan": is_vegan,
         "spicy_level": spicy_level,
+        "spicy_triggers": sorted(spicy_triggers),
     }
 
 
