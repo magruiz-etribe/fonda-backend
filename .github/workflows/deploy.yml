@@ -2,7 +2,7 @@ name: Deploy Lambda
 
 on:
   push:
-    branches: [main]
+    branches: [QA]
   workflow_dispatch:
 
 jobs:
@@ -27,5 +27,5 @@ jobs:
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
-            --function-name prod-menu-del-dia \
+            --function-name qa-menu-del-dia \
             --zip-file fileb://function.zip
