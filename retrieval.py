@@ -220,14 +220,24 @@ def resolve_variants_from_conversation(
     """Merge LLM-resolved variants with matches found in conversation text."""
     merged = dict(resolved_variants)
     for dish in dishes:
-        if dish in merged:
-            continue
         data = get_dish_data(dish)
         if not data:
             continue
         variants = data.get("variants") or {}
         if not variants:
             continue
+
+        existing = merged.get(dish)
+        if existing:
+            if existing in variants:
+                continue  # Already a valid YAML key
+            # LLM sometimes uses spaces instead of underscores (e.g. "con jamon" vs "con_jamon")
+            normalized = existing.replace(" ", "_")
+            if normalized in variants:
+                merged[dish] = normalized
+                continue
+            # Key is invalid; fall through to re-resolve from conversation text
+
         matched = match_variant_in_text(variants, conversation)
         if matched:
             merged[dish] = matched

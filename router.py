@@ -108,7 +108,8 @@ def handle(
         result.flags = _clean_flags(dish_flags)
         if cr.intent == "maps":
             result.links = _PLATFORM_LINKS.get(cr.platform, [])
-        if cr.translate_now and not result.current_dishes:
+        if cr.translate_now:
+            result.current_dishes = []  # always clear after translation (LLM sometimes forgets)
             result.menu_entry = _build_menu_entry(result, history, dish_flags)
         return result
     except Exception as e:
