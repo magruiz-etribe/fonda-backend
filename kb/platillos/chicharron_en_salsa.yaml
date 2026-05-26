@@ -24,11 +24,9 @@ variants:
       - cilantro
     technique: rehidratado del chicharrón en salsa de jitomate y chile seco
     description_es: >
-      Chicharrón de cerdo rehidratado y cocido en salsa roja de jitomate
-      y chile seco; textura suave y sabor profundo.
+      preparado con chicharrón de cerdo cocido en salsa roja de jitomate y chile seco
     description_en: >
-      Pork rinds softened and simmered in a red tomato-and-dried-chile sauce —
-      tender texture with deep, savory flavor.
+      Pork rinds softened and simmered in a red tomato-and-dried-chile sauce — tender texture with deep, savory flavor.
   verde:
     name_es: Chicharrón en Salsa Verde
     name_en: Pork Rinds in Green Sauce
@@ -39,8 +37,6 @@ variants:
       - chile_de_arbol
     technique: rehidratado del chicharrón en salsa verde de tomatillo
     description_es: >
-      Chicharrón de cerdo rehidratado en salsa verde de tomatillo y chile
-      serrano; sabor fresco, ligeramente ácido y picante.
+      preparado con chicharrón de cerdo cocido en salsa verde de tomatillo y chile serrano.
     description_en: >
-      Pork rinds softened in a tomatillo and serrano chile green sauce —
-      fresh, slightly tart, and mildly spicy.
+      Pork rinds softened in a tomatillo and serrano chile green sauce — fresh, slightly tart, and mildly spicy.

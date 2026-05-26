@@ -15,7 +15,7 @@ base_ingredients:
 variants:
   con_guarniciones:
     name_es: Carne Asada con Guarniciones
-    name_en: Grilled Beef Platter with Sides
+    name_en: Grilled beef platter with sides
     extra_ingredients:
       - cebollitas_cambray
       - nopales
@@ -23,14 +23,12 @@ variants:
       - salsa
     technique: cocción a la parrilla o plancha con sazón sencillo
     description_es: >
-      Carne de res cocinada a la plancha o parrilla con sazón simple, servida
-      con cebollitas, nopales, guacamole y salsa.
+      Carne de res cocinada a la plancha o parrilla con sazón simple, con acompañamientos tradicionales
     description_en: >
-      Grilled beef served with green onions, cactus strips, guacamole,
-      and salsa — the classic Mexican grilled platter.
+      Grilled beef served with green onions, cactus strips, guacamole, and salsa — the classic Mexican grilled platter.
   tacos:
     name_es: Tacos de Carne Asada
-    name_en: Grilled Beef Tacos
+    name_en: Grilled beef tacos
     extra_ingredients:
       - tortilla_de_maiz
       - cebolla
@@ -39,14 +37,12 @@ variants:
       - guacamole
     technique: carne a la plancha, servida en tortilla de maíz
     description_es: >
-      Carne asada servida en tortillas de maíz suaves con cebolla, cilantro
-      y salsa; sencillos y muy populares.
+      Carne asada de res servida en tortillas suaves
     description_en: >
-      Grilled beef in warm corn tortillas with onion, cilantro, and salsa —
-      simple and incredibly popular.
+      Grilled beef in warm corn tortillas with onion, cilantro, and salsa — simple and incredibly popular.
   torta:
     name_es: Torta de Carne Asada
-    name_en: Grilled Beef Sandwich (Mexican Torta)
+    name_en: Grilled beef sandwich (Mexican-style torta)
     extra_ingredients:
       - bolillo
       - aguacate
@@ -56,14 +52,12 @@ variants:
       - jalapeno
     technique: carne a la plancha, armado en bolillo tostado con complementos
     description_es: >
-      Carne asada en pan bolillo crujiente con aguacate, frijoles, queso,
-      jitomate y jalapeño.
+      Carne asada servida en pan crujiente, con múltiples complementos
     description_en: >
-      Grilled beef on a crusty bolillo roll with avocado, beans, cheese,
-      tomato, and jalapeño — a hearty Mexican sandwich.
+      Grilled beef on a crusty bolillo roll with avocado, beans, cheese, tomato, and jalapeño — a hearty Mexican sandwich.
   burritos:
     name_es: Burritos de Carne Asada
-    name_en: Grilled Beef Burritos
+    name_en: Grilled beef burritos
     extra_ingredients:
       - tortilla_de_harina
       - arroz
@@ -73,14 +67,12 @@ variants:
       - frijoles
     technique: carne a la plancha, envuelta en tortilla de harina grande
     description_es: >
-      Carne asada con arroz, frijoles y queso envuelta en tortilla grande
-      de harina.
+      Carne asada envuelta en tortilla grande de harina
     description_en: >
-      Grilled beef with rice, beans, and cheese wrapped in a large flour
-      tortilla.
+      Grilled beef with rice, beans, and cheese wrapped in a large flour tortilla.
   gringas:
     name_es: Gringas de Carne Asada
-    name_en: Flour Tortilla Quesadilla with Grilled Beef
+    name_en: Flour tortilla quesadilla with grilled beef
     extra_ingredients:
       - tortilla_de_harina
       - queso
@@ -89,8 +81,6 @@ variants:
       - cilantro
     technique: quesadilla de tortilla de harina con queso fundido y carne
     description_es: >
-      Quesadilla de tortilla de harina con carne asada y queso derretido;
-      crujiente y muy sabrosa.
+      Quesadilla grande con carne asada y queso derretido
     description_en: >
-      Flour tortilla quesadilla filled with grilled beef and melted cheese —
-      crispy and richly flavored.
+      Flour tortilla quesadilla filled with grilled beef and melted cheese — crispy and richly flavored.

@@ -1,0 +1,34 @@
+canonical_name: nopales
+common_names:
+  - Nopales en salsa
+  - nopales navegantes
+category: guarnicion
+base_ingredients:
+  - nopales
+  - jitomate_o_tomate_verde
+  - chile_serrano_o_jalape_o
+  - ajo
+  - cilantro
+  - sal
+  - agua_o_caldo
+variants:
+  en_salsa:
+    name_es: Nopales en salsa
+    name_en: Cactus in Sauce
+    extra_ingredients:
+      - queso
+    technique: 
+    description_es: >
+      Nopales cocinados en salsa roja o verde.
+    description_en: >
+      Nopales cocinados en salsa roja o verde.
+  navegantes:
+    name_es: Nopales Navegantes
+    name_en: Mixed Cactus Salad
+    extra_ingredients:
+      - queso
+    technique: 
+    description_es: >
+      nopales cocidos y salteados, combinados con ingredientes como jitomate, cebolla, chile y, en algunas versiones, queso o carne.
+    description_en: >
+      nopales cocidos y salteados, combinados con ingredientes como jitomate, cebolla, chile y, en algunas versiones, queso o carne.

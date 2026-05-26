@@ -1,0 +1,25 @@
+canonical_name: sopes
+common_names:
+  - sopes
+category: antojito
+base_ingredients:
+  - masa_de_maiz
+  - frijoles
+  - aceite
+variants:
+  sopes:
+    name_es: Sopes
+    name_en: Fried Sopes
+    extra_ingredients:
+      - lechuga
+      - crema
+      - queso
+      - carne
+      - pollo
+      - salsa
+      - cebolla
+    technique: 
+    description_es: >
+      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.
+    description_en: >
+      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.

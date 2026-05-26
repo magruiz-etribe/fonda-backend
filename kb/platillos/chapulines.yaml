@@ -10,15 +10,11 @@ base_ingredients:
 variants:
   chapulines:
     name_es: Chapulines
-    name_en: Toasted Grasshoppers
+    name_en: Grasshoppers
     extra_ingredients:
       - chile_seco
     technique: tostado o frito, sazonado con ajo, limón y chile
     description_es: >
-      Chapulines tostados o fritos sazonados con ajo, limón, chile y sal;
-      sabor salado y ligeramente ahumado. Se sirven como botana, en tacos,
-      quesadillas o como acompañamiento.
+      Se preparan tostados o fritos y se sazonan comúnmente con ajo, limón, chile y sal. sabor salado y ligeramente ahumado. Se consumen como botana, en tacos, quesadillas o como acompañamiento de distintos platillos.
     description_en: >
-      Toasted or fried grasshoppers seasoned with garlic, lime, chile, and salt —
-      crunchy, savory, and slightly smoky. Served as a snack or in tacos and
-      quesadillas.
+      Toasted or fried grasshoppers seasoned with garlic, lime, chile, and salt — crunchy, savory, and slightly smoky. Served as a snack or in tacos and quesadillas.

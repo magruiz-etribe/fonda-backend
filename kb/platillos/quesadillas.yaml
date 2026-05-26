@@ -1,0 +1,34 @@
+canonical_name: quesadillas
+common_names:
+  - quesadilla
+  - quesadilla frita
+category: antojito
+base_ingredients:
+  - masa_de_maiz
+  - relleno
+  - aceite
+variants:
+  frita:
+    name_es: Quesadilla Frita
+    name_en: Fried Quesadilla
+    extra_ingredients:
+      - relleno_a_elegir
+      - salsa
+      - queso
+    technique: 
+    description_es: >
+      Tortilla de maíz doblada y rellena normalmente de queso, papa, hongos o carne. Se fríe en aceite hasta quedar dorada y crujiente.
+    description_en: >
+      Tortilla de maíz doblada y rellena normalmente de queso, papa, hongos o carne. Se fríe en aceite hasta quedar dorada y crujiente.
+  clasica:
+    name_es: Quesadilla
+    name_en: Quesadillas
+    extra_ingredients:
+      - relleno_a_elegir
+      - salsa
+      - queso
+    technique: 
+    description_es: >
+      Tortilla doblada con queso o guisos.
+    description_en: >
+      Tortilla doblada con queso o guisos.

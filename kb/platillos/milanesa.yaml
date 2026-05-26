@@ -1,0 +1,22 @@
+canonical_name: milanesa
+common_names:
+  - carne empanizada
+category: platillo_principal
+base_ingredients:
+  - carne
+  - pan_molido
+  - huevo
+  - leche
+  - sal_y_pimienta
+variants:
+  milanesa:
+    name_es: Milanesa
+    name_en: Breaded Cutlet
+    extra_ingredients:
+      - papas_a_la_francesa
+      - ensalada
+    technique: 
+    description_es: >
+      Filete fino de res o cerdo cubierto con pan molido y huevo, frito hasta quedar dorado.
+    description_en: >
+      Filete fino de res o cerdo cubierto con pan molido y huevo, frito hasta quedar dorado.

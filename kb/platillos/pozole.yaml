@@ -14,7 +14,7 @@ base_ingredients:
 variants:
   blanco:
     name_es: Pozole Blanco
-    name_en: White Pozole
+    name_en: White pozole
     extra_ingredients:
       - lechuga
       - rabano
@@ -23,14 +23,12 @@ variants:
       - tostadas
     technique: cocción lenta de maíz y carne en caldo claro sin chile base
     description_es: >
-      Maíz cacahuazintle y carne de cerdo o pollo cocidos en caldo claro
-      sin chile en su base; se garnisha con lechuga, rábano, orégano y limón.
+      maíz cacahuazintle nixtamalizado cocido, junto con carne de cerdo o pollo, en un caldo claro sin chile en su base.
     description_en: >
-      Hominy and pork (or chicken) in a clear, mild broth — garnished with
-      shredded cabbage, radish, oregano, and lime at the table.
+      Hominy and pork (or chicken) in a clear, mild broth — garnished with shredded cabbage, radish, oregano, and lime at the table.
   rojo:
     name_es: Pozole Rojo
-    name_en: Red Pozole
+    name_en: Red pozole
     extra_ingredients:
       - chile_guajillo
       - chile_ancho
@@ -42,14 +40,12 @@ variants:
       - tostadas
     technique: caldo de chile guajillo y ancho hidratados, cocción lenta
     description_es: >
-      Maíz cacahuazintle y carne cocidos en caldo rojo de chiles secos
-      (guajillo y ancho); sabor profundo y ligeramente ahumado.
+      maíz cacahuazintle nixtamalizado cocido y carne de cerdo o pollo, cocidos en un caldo al que se añade una salsa de chiles secos, principalmente guajillo, ancho o pasilla, previamente hidratados y molidos
     description_en: >
-      Hominy and pork cooked in a rich red broth of rehydrated guajillo and
-      ancho chiles — deep, slightly smoky, and boldly flavored.
+      Hominy and pork cooked in a rich red broth of rehydrated guajillo and ancho chiles — deep, slightly smoky, and boldly flavored.
   verde:
     name_es: Pozole Verde
-    name_en: Green Pozole
+    name_en: green pozole
     extra_ingredients:
       - tomatillo
       - chile_serrano
@@ -60,8 +56,6 @@ variants:
       - limon
     technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
     description_es: >
-      Maíz y carne cocidos en caldo verde de tomatillo, chile serrano y pepitas;
-      sabor fresco, herbáceo y ligeramente ácido.
+      maíz cacahuazintle nixtamalizado cocido y carne (generalmente cerdo o pollo), cocidos en un caldo al que se incorpora una salsa verde hecha a base de tomatillo, chile verde, pepitas (semillas de calabaza), cilantro y otras hierbas.
     description_en: >
-      Hominy and pork in a green tomatillo and pumpkin seed broth —
-      fresh, herbal, and mildly tangy.
+      Hominy and pork in a green tomatillo and pumpkin seed broth — fresh, herbal, and mildly tangy.

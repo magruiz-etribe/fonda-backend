@@ -1,0 +1,36 @@
+canonical_name: ensaladas
+common_names:
+  - ensalada de atún
+  - ensalada de pepino
+category: guarnicion
+base_ingredients:
+  - at_n
+  - mayonesa
+  - chile
+  - cebolla
+variants:
+  de_atun:
+    name_es: Ensalada De Atún
+    name_en: Tuna Salad
+    extra_ingredients:
+      - verduras
+    technique: 
+    description_es: >
+      atún mezclado con verduras picadas como jitomate, cebolla, zanahoria, chícharos o papa. Generalmente se combina con mayonesa, limón y especias para darle sabor.
+    description_en: >
+      atún mezclado con verduras picadas como jitomate, cebolla, zanahoria, chícharos o papa. Generalmente se combina con mayonesa, limón y especias para darle sabor.
+  de_pepino:
+    name_es: Ensalada De Pepino
+    name_en: Cucumber Salad
+    extra_ingredients:
+      - chile
+      - cebolla
+      - jitomate
+      - queso
+      - crema
+      - vinagre
+    technique: 
+    description_es: >
+      pepino en rodajas o cubos, mezclado con ingredientes como jitomate, cebolla, limón y sal, puede incluir chile, queso, crema, hierbas frescas o vinagre.
+    description_en: >
+      pepino en rodajas o cubos, mezclado con ingredientes como jitomate, cebolla, limón y sal, puede incluir chile, queso, crema, hierbas frescas o vinagre.

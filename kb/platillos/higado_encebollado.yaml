@@ -1,0 +1,20 @@
+canonical_name: higado_encebollado
+common_names:
+  - Hígado con cebolla
+category: platillo_principal
+base_ingredients:
+  - higado
+  - cebolla
+  - aceite
+  - sal_y_pimienta
+variants:
+  higado_encebollado:
+    name_es: Hígado Encebollado
+    name_en: Liver with Onions
+    extra_ingredients:
+      - salsa
+    technique: 
+    description_es: >
+      hígado de res o cerdo cocinado a la plancha o salteado junto con cebolla caramelizada y especias. suele acompañarse con arroz, frijoles o tortillas.
+    description_en: >
+      hígado de res o cerdo cocinado a la plancha o salteado junto con cebolla caramelizada y especias. suele acompañarse con arroz, frijoles o tortillas.

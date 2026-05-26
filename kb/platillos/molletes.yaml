@@ -1,0 +1,24 @@
+canonical_name: molletes
+common_names:
+  - molletes
+  - molletes con frijoles
+category: antojito
+base_ingredients:
+  - bolillo
+  - frijoles
+  - queso
+variants:
+  molletes:
+    name_es: Molletes
+    name_en: Open-faced Beans and Cheese on Bolillo
+    extra_ingredients:
+      - mantequilla
+      - pico_de_gallo
+      - jamon
+      - chorizo
+      - tocino
+    technique: bolillo abierto con frijoles y queso gratinado
+    description_es: >
+      Pan bolillo abierto con frijoles y queso gratinado, servido normalmente con pico de gallo.
+    description_en: >
+      Pan bolillo abierto con frijoles y queso gratinado, servido normalmente con pico de gallo.

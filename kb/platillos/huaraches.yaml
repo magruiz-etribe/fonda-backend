@@ -1,0 +1,23 @@
+canonical_name: huaraches
+common_names:
+  - Huarache
+category: antojito
+base_ingredients:
+  - masa_de_maiz
+  - frijoles
+variants:
+  huarache:
+    name_es: Huarache
+    name_en: Huarache Corn Cake
+    extra_ingredients:
+      - carne
+      - huevo
+      - queso
+      - cebolla
+      - salsa
+      - nopales
+    technique: 
+    description_es: >
+      Base alargada de masa de maíz con frijoles, carne, salsa, queso y nopales.
+    description_en: >
+      Base alargada de masa de maíz con frijoles, carne, salsa, queso y nopales.

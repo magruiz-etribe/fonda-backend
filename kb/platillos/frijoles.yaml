@@ -1,0 +1,34 @@
+canonical_name: frijoles
+common_names:
+  - frijoles rancheros
+  - frijoles cocidos
+category: guarnicion
+base_ingredients:
+  - frijoles
+  - tocino
+  - chorizo
+  - chile
+  - cebolla
+  - sal
+  - ajo
+variants:
+  charros:
+    name_es: Frijoles Charros
+    name_en: cowboy Beans
+    extra_ingredients:
+      - carnitas
+    technique: 
+    description_es: >
+      Frijoles cocinados con tocino, chorizo y chile
+    description_en: >
+      Frijoles cocinados con tocino, chorizo y chile
+  de_olla:
+    name_es: Frijoles De Olla
+    name_en: Stewed Beans
+    extra_ingredients:
+      - epazote
+    technique: 
+    description_es: >
+      son frijoles cocidos en agua con ajo, cebolla y sal. Se sirven como acompañamiento o plato principal y pueden prepararse con distintas variedades de frijol.
+    description_en: >
+      son frijoles cocidos en agua con ajo, cebolla y sal. Se sirven como acompañamiento o plato principal y pueden prepararse con distintas variedades de frijol.

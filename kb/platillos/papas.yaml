@@ -1,0 +1,32 @@
+canonical_name: papas
+common_names:
+  - papas con chorizo
+  - papas fritas o  papas a la francesa
+category: guarnicion
+base_ingredients:
+  - papas
+  - chorizo
+  - cebolla
+  - aceite
+variants:
+  con_chorizo:
+    name_es: Papas con chorizo
+    name_en: Potatoes with Chorizo
+    extra_ingredients:
+      - pan_o_tortilla
+      - salsa
+    technique: 
+    description_es: >
+      Cubos de papa cocidos y salteados con chorizo de cerdo picado.
+    description_en: >
+      Cubos de papa cocidos y salteados con chorizo de cerdo picado.
+  a_la_francesa:
+    name_es: Papas a la francesa
+    name_en: French Fries
+    extra_ingredients:
+      - aderezos_varios
+    technique: 
+    description_es: >
+      Papas cortadas en tiras o cubos y fritas en aceite caliente hasta quedar crujientes.
+    description_en: >
+      Papas cortadas en tiras o cubos y fritas en aceite caliente hasta quedar crujientes.

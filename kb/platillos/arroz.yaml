@@ -9,11 +9,11 @@ common_names:
 category: guarnicion
 base_ingredients:
   - arroz
+  - agua
+  - sal
   - aceite
   - ajo
   - cebolla
-  - sal
-  - caldo_de_pollo
 variants:
   rojo:
     name_es: Arroz Rojo
@@ -24,11 +24,9 @@ variants:
       - chicharos
     technique: sofrito de arroz con jitomate licuado y cocción en caldo
     description_es: >
-      Arroz cocido en salsa de jitomate con ajo y cebolla; acompañamiento
-      clásico de fonda, ligeramente sabroso y de color rojizo.
+      Arroz frito con jitomate y caldo de pollo, plato típico de comida corrida mexicana.
     description_en: >
-      Mexican red rice cooked in blended tomato with garlic and onion —
-      the classic fonda side dish, savory and vibrant.
+      Mexican red rice cooked in blended tomato with garlic and onion — the classic fonda side dish, savory and vibrant.
   blanco:
     name_es: Arroz Blanco
     name_en: White Rice
@@ -36,11 +34,9 @@ variants:
       - perejil
     technique: sofrito sencillo sin jitomate, cocción en caldo claro
     description_es: >
-      Arroz cocido en caldo claro con ajo y cebolla; versión sencilla
-      y neutra que acompaña guisos con salsa intensa.
+      Arroz cocido con un toque de ajo y cebolla; acompañamiento neutro.
     description_en: >
-      Plain white rice cooked in a light broth with garlic and onion —
-      a neutral side that pairs well with saucy dishes.
+      Plain white rice cooked in a light broth with garlic and onion — a neutral side that pairs well with saucy dishes.
   verde:
     name_es: Arroz Verde
     name_en: Green Rice
@@ -51,8 +47,6 @@ variants:
       - perejil
     technique: licuado de hierbas y chile poblano, cocción en caldo
     description_es: >
-      Arroz cocinado con puré de chile poblano, espinaca y hierbas frescas;
-      color verde brillante y sabor herbal suave.
+      Arroz cocido con chile poblano molido y cilantro, color verde característico.
     description_en: >
-      Green rice blended with poblano chile, spinach, and fresh herbs —
-      vibrant color and a mild herbal flavor.
+      Green rice blended with poblano chile, spinach, and fresh herbs — vibrant color and a mild herbal flavor.

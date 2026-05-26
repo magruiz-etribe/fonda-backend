@@ -1,0 +1,27 @@
+canonical_name: rajas_con_crema
+common_names:
+  - rajas
+  - rajas con crema
+category: guisado
+base_ingredients:
+  - chile_poblano
+  - crema
+  - cebolla
+  - elote
+  - queso
+  - mantequilla_o_aceite
+  - ajo
+  - sal_y_pimienta
+variants:
+  rajas_con_crema:
+    name_es: Rajas Con Crema
+    name_en: Poblano Strips
+    extra_ingredients:
+      - pollo
+      - leche
+      - epazote
+    technique: 
+    description_es: >
+      Tiras de chile poblano asado mezcladas con crema, elote y a veces trozos de queso.
+    description_en: >
+      Tiras de chile poblano asado mezcladas con crema, elote y a veces trozos de queso.

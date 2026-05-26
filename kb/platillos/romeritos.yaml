@@ -1,0 +1,25 @@
+canonical_name: romeritos
+common_names:
+  - Romeritos con mole
+category: guisado
+base_ingredients:
+  - romeritos
+  - mole
+  - camaron_seco_molido
+  - nopales
+  - papas
+variants:
+  romeritos:
+    name_es: Romeritos
+    name_en: Romeritos with Mole
+    extra_ingredients:
+      - tortitas_de_camaron
+      - arroz
+      - pan
+      - chile
+      - ajonjoli
+    technique: 
+    description_es: >
+      planta de hojas pequeñas y sabor herbal, cocinados en mole y acompañados comúnmente con papas, nopales y tortitas de camarón.
+    description_en: >
+      planta de hojas pequeñas y sabor herbal, cocinados en mole y acompañados comúnmente con papas, nopales y tortitas de camarón.

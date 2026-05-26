@@ -1,0 +1,24 @@
+canonical_name: mole_de_olla
+common_names:
+  - caldo de mole
+category: caldo
+base_ingredients:
+  - carne_de_res
+  - elote
+  - calabaza
+  - chayote
+  - ejotes
+  - papa
+  - zanahoria
+  - xoconostle
+variants:
+  mole_de_olla:
+    name_es: Mole de olla
+    name_en: Beef & Vegetable Soup
+    extra_ingredients:
+      - hueso_con_tu_tano
+    technique: 
+    description_es: >
+      caldo con carne de res cocida lentamente junto con verduras como elote, calabaza, zanahoria, chayote y ejotes, en un caldo sazonado con chile y especias.
+    description_en: >
+      caldo con carne de res cocida lentamente junto con verduras como elote, calabaza, zanahoria, chayote y ejotes, en un caldo sazonado con chile y especias.

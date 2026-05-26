@@ -1,0 +1,32 @@
+canonical_name: consome
+common_names:
+  - consomé
+  - Caldo
+category: caldo
+base_ingredients:
+  - caldo
+  - verduras
+  - carne_de_borrego
+variants:
+  de_borrego:
+    name_es: Consomé De Borrego
+    name_en: Lamb Consommé
+    extra_ingredients:
+      - garbanzo
+      - arroz
+    technique: 
+    description_es: >
+      Caldo claro resultante de la cocción de la barbacoa, servido con garbanzos y arroz.
+    description_en: >
+      Caldo claro resultante de la cocción de la barbacoa, servido con garbanzos y arroz.
+  de_verduras:
+    name_es: Consomé De Verduras
+    name_en: Vegetable Broth Soup
+    extra_ingredients:
+      - pasta
+      - arroz
+    technique: 
+    description_es: >
+      caldo ligero preparado con verduras frescas como zanahoria, papa, calabaza, chayote o apio, cocidas en un consomé sazonado con hierbas y especias, suele acompañarse con arroz, pollo deshebrado, limón o tortillas,
+    description_en: >
+      caldo ligero preparado con verduras frescas como zanahoria, papa, calabaza, chayote o apio, cocidas en un consomé sazonado con hierbas y especias, suele acompañarse con arroz, pollo deshebrado, limón o tortillas,

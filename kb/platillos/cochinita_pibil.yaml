@@ -1,0 +1,21 @@
+canonical_name: cochinita_pibil
+common_names:
+  - Cochinita Pibil
+  - cochinita
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - achiote
+  - naranja_agria
+variants:
+  cochinita_pibil:
+    name_es: Cochinita Pibil
+    name_en: Yucatán-Style Pulled Pork
+    extra_ingredients:
+      - cebolla_morada
+      - habanero
+    technique: 
+    description_es: >
+      carne de cerdo marinada en achiote, jugo de naranja agria y especias, cocida. Se sirve comúnmente con cebolla morada curtida, salsa y tortillas o pan.
+    description_en: >
+      carne de cerdo marinada en achiote, jugo de naranja agria y especias, cocida. Se sirve comúnmente con cebolla morada curtida, salsa y tortillas o pan.

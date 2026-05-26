@@ -1,0 +1,18 @@
+canonical_name: espinazo_con_verdolagas
+common_names:
+  - espinazo verde
+category: guisado
+base_ingredients:
+  - carne_de_cerdo
+  - verdolagas
+variants:
+  espinazo_con_verdolagas:
+    name_es: Espinazo Con Verdolagas
+    name_en: Pork Spine with Purslane
+    extra_ingredients:
+      - chile
+    technique: 
+    description_es: >
+      Carne de cerdo pegada al hueso de la columna, guisada con verdolagas en salsa verde.
+    description_en: >
+      Carne de cerdo pegada al hueso de la columna, guisada con verdolagas en salsa verde.

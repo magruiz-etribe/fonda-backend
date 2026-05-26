@@ -1,0 +1,44 @@
+canonical_name: pescado
+common_names:
+  - pescado a la veracruzana
+  - pescado  empanizado
+category: platillo_principal
+base_ingredients:
+  - pescado_blanco
+  - lim_n
+  - sal_y_pimienta
+variants:
+  veracruzana:
+    name_es: Pescado a la veracruzana
+    name_en: Veracruz-Style Fish
+    extra_ingredients:
+      - jitomate
+      - cebolla
+      - ajo
+      - chile_g_ero_o_jalape_o
+      - aceitunas_verdes
+      - alcaparras
+      - laurel
+      - aceite_de_oliva
+      - papas
+      - pimiento_morr_n
+      - vino_blanco
+    technique: 
+    description_es: >
+      Filete cocinado con jitomate, aceitunas y alcaparras.
+    description_en: >
+      Filete cocinado con jitomate, aceitunas y alcaparras.
+  empanizado:
+    name_es: Pescado empanizado
+    name_en: Breaded Fish
+    extra_ingredients:
+      - pan_molido
+      - harina
+      - aceite
+      - huevo
+      - leche
+    technique: 
+    description_es: >
+      Filete de pescado cubierto con harina o pan molido y frito hasta quedar crujiente.
+    description_en: >
+      Filete de pescado cubierto con harina o pan molido y frito hasta quedar crujiente.

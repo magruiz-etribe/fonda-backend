@@ -1,0 +1,54 @@
+canonical_name: crema
+common_names:
+  - Crema de Elote
+  - crema de espinacas
+  - crema de verduras
+  - crema de champiñones
+category: caldo
+base_ingredients:
+  - leche
+variants:
+  de_elote:
+    name_es: Crema de elote
+    name_en: Corn Cream Soup
+    extra_ingredients:
+      - elote
+      - crema
+      - queso
+    technique: 
+    description_es: >
+      Sopa espesa hecha a base de granos de elote molidos con leche o crema.
+    description_en: >
+      Sopa espesa hecha a base de granos de elote molidos con leche o crema.
+  de_espinaca:
+    name_es: Crema de espinaca
+    name_en: Spinach Cream Soup
+    extra_ingredients:
+      - espinacas
+      - crema
+      - queso
+    technique: 
+    description_es: >
+      sopa elaborada con espinacas cocidas y mezcladas con crema, leche y especias.
+    description_en: >
+      sopa elaborada con espinacas cocidas y mezcladas con crema, leche y especias.
+  de_verduras:
+    name_es: Crema de verduras
+    name_en: vegetable Cream Soup
+    extra_ingredients:
+      - pollo
+    technique: 
+    description_es: >
+      sopa preparada con distintas verduras cocidas y licuadas con leche o crema hasta obtener una textura cremosa
+    description_en: >
+      sopa preparada con distintas verduras cocidas y licuadas con leche o crema hasta obtener una textura cremosa
+  de_champinones:
+    name_es: Crema de champiñones
+    name_en: Mushroom Cream Soup
+    extra_ingredients:
+      - mantequilla
+    technique: 
+    description_es: >
+      sopa cremosa preparada con champiñones cocinados con cebolla, ajo, leche o crema, y especias.
+    description_en: >
+      sopa cremosa preparada con champiñones cocinados con cebolla, ajo, leche o crema, y especias.

@@ -1,0 +1,27 @@
+canonical_name: salpicon
+common_names:
+  - salpicón
+category: platillo_principal
+base_ingredients:
+  - carne_de_res_deshebrada
+  - jitomate
+  - cebolla
+  - lechuga
+  - vinagre
+  - aceite
+variants:
+  salpicon:
+    name_es: Salpicón
+    name_en: Mexican Beef Salpicón
+    extra_ingredients:
+      - aguacate
+      - rabanos
+      - chile
+      - tostadas
+      - limon
+      - queso_fresco
+    technique: 
+    description_es: >
+      Ensalada fría de carne de res deshebrada con cebolla, jitomate, lechuga, vinagre y especias.
+    description_en: >
+      Ensalada fría de carne de res deshebrada con cebolla, jitomate, lechuga, vinagre y especias.

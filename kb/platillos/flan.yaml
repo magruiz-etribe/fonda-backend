@@ -1,0 +1,18 @@
+canonical_name: flan
+common_names:
+  - flan napolitano
+category: postre
+base_ingredients:
+  - huevo
+  - leche
+variants:
+  flan:
+    name_es: Flan
+    name_en: Custard Flan
+    extra_ingredients:
+      - vainilla
+    technique: 
+    description_es: >
+      postre suave y cremoso elaborado con leche, huevo, azúcar y vainilla, cocido al horno o a baño maría.
+    description_en: >
+      postre suave y cremoso elaborado con leche, huevo, azúcar y vainilla, cocido al horno o a baño maría.

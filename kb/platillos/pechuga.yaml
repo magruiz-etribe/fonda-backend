@@ -9,6 +9,7 @@ common_names:
   - pollo a la mexicana
   - pechuga rellena
   - pollo deshebrado
+  - pollo en chipotle
 category: platillo_principal
 base_ingredients:
   - pechuga_de_pollo
@@ -20,21 +21,19 @@ base_ingredients:
 variants:
   asada:
     name_es: Pechuga Asada
-    name_en: Grilled Chicken Breast
+    name_en: Grilled chicken breast
     extra_ingredients:
       - ensalada_de_lechuga
       - arroz
       - frijoles
     technique: marinado sencillo, cocción a la plancha o comal
     description_es: >
-      Pechuga de pollo cocinada a la plancha con sal, pimienta, ajo y limón;
-      ligera, jugosa y de sabor natural. Se sirve con arroz, frijoles y ensalada.
+      pechuga de pollo cocinada a la plancha o al comal con un sazonado sencillo de sal, pimienta, ajo o limón. Se caracteriza por ser ligera, jugosa y con un sabor natural del pollo, ideal para acompañarse con arroz, frijoles y ensalada.
     description_en: >
-      Chicken breast grilled with simple seasoning of salt, pepper, garlic,
-      and lime — light and juicy, served with rice, beans, and salad.
+      Chicken breast grilled with simple seasoning of salt, pepper, garlic, and lime — light and juicy, served with rice, beans, and salad.
   empanizada:
     name_es: Pechuga Empanizada
-    name_en: Breaded Chicken Breast
+    name_en: Breaded chicken breast
     extra_ingredients:
       - huevo
       - pan_molido
@@ -43,14 +42,12 @@ variants:
       - frijoles
     technique: empanizado en harina, huevo y pan molido; frito en aceite
     description_es: >
-      Pechuga cubierta con harina, huevo y pan molido, frita hasta quedar
-      dorada y crujiente; suave por dentro.
+      La pechuga se cubre con harina, huevo y pan molido, y luego se fríe hasta quedar dorada y crujiente. Tiene una textura crocante por fuera y suave por dentro, y suele servirse con guarniciones como papas, arroz o ensalada.
     description_en: >
-      Chicken breast coated in flour, egg, and breadcrumbs, fried until
-      golden and crispy outside, tender inside.
+      Chicken breast coated in flour, egg, and breadcrumbs, fried until golden and crispy outside, tender inside.
   milanesa:
     name_es: Milanesa de Pollo
-    name_en: Chicken Milanesa
+    name_en: Chicken milanesa
     extra_ingredients:
       - huevo
       - pan_molido
@@ -59,14 +56,12 @@ variants:
       - frijoles
     technique: pechuga aplanada, empanizada y frita
     description_es: >
-      Pechuga aplanada, empanizada y frita; más delgada que la empanizada,
-      muy popular en tortas o platos combinados.
+      Similar a la empanizada, pero la pechuga se aplana más para lograr una pieza delgada. Se fríe hasta quedar dorada y es muy popular por su textura ligera y crujiente, además de ser común en tortas o platos combinados.
     description_en: >
-      Thinly pounded, breaded, and fried chicken breast — lighter and crispier
-      than standard breaded chicken, popular in sandwiches.
+      Thinly pounded, breaded, and fried chicken breast — lighter and crispier than standard breaded chicken, popular in sandwiches.
   en_salsa_verde:
     name_es: Pechuga en Salsa Verde
-    name_en: Chicken Breast in Green Sauce
+    name_en: Chicken in green sauce
     extra_ingredients:
       - tomatillo
       - chile_serrano
@@ -75,14 +70,12 @@ variants:
       - arroz
     technique: cocción de la pechuga bañada en salsa verde de tomatillo
     description_es: >
-      Pechuga cocida y bañada en salsa verde de tomatillo con chile serrano;
-      sabor fresco y ligeramente ácido.
+      La pechuga se cocina y se baña en una salsa de tomatillo (verde) con chile, ajo y cebolla.
     description_en: >
-      Chicken breast cooked in a tomatillo and serrano chile green sauce —
-      fresh and mildly tangy.
+      Chicken breast cooked in a tomatillo and serrano chile green sauce — fresh and mildly tangy.
   en_salsa_roja:
     name_es: Pechuga en Salsa Roja
-    name_en: Chicken Breast in Red Sauce
+    name_en: Chicken in red sauce
     extra_ingredients:
       - jitomate
       - chile_guajillo
@@ -91,14 +84,12 @@ variants:
       - arroz
     technique: cocción de la pechuga en salsa roja de jitomate y chile
     description_es: >
-      Pechuga cocida y bañada en salsa roja de jitomate con ajo y cebolla;
-      sabor clásico de fonda.
+      La pechuga se cocina y se baña en una salsa de jitomate (roja) con chile, ajo y cebolla.
     description_en: >
-      Chicken breast cooked in a red tomato and chile sauce with garlic
-      and onion — a classic fonda flavor.
+      Chicken breast cooked in a red tomato and chile sauce with garlic and onion — a classic fonda flavor.
   rellena:
     name_es: Pechuga Rellena
-    name_en: Stuffed Chicken Breast
+    name_en: Stuffed chicken breast
     extra_ingredients:
       - jamon
       - queso
@@ -107,8 +98,35 @@ variants:
       - frijoles
     technique: pechuga abierta y rellena, cocinada al horno o en sartén
     description_es: >
-      Pechuga abierta y rellena de jamón y queso (o verduras), cocinada
-      al horno o en sartén; suave y cremosa por dentro.
+      La pechuga se abre y se rellena con ingredientes como jamón y queso, verduras o espinacas, luego se cocina empanizada o en salsa. Es un platillo de textura suave y cremosa en su interior, con contraste de sabores.
     description_en: >
-      Chicken breast butterflied and stuffed with ham and cheese (or
-      vegetables), then baked or pan-cooked — tender with a rich filling.
+      Chicken breast butterflied and stuffed with ham and cheese (or vegetables), then baked or pan-cooked — tender with a rich filling.
+  a_la_mexicana:
+    name_es: Pechuga A La Mexicana
+    name_en: Mexican-style chicken
+    extra_ingredients:
+      - jitomate
+      - cebolla
+      - chile_verde
+    technique: trozos de pechuga salteados con jitomate, cebolla y chile
+    description_es: >
+      Se prepara con trozos de pechuga salteados con jitomate, cebolla y chile verde. Es una preparación sencilla de sabor fresco, ligeramente picante y muy tradicional, que recuerda a los colores de la bandera mexicana.
+    description_en: >
+      Chicken breast pieces sautéed with tomato, onion, and green chile.
+  en_chipotle:
+    name_es: Pollo En Chipotle
+    name_en: Chicken in Chipotle Sauce
+    extra_ingredients:
+      - pollo_pierna_muslo_o_pechuga
+      - chile_chipotle
+      - jitomate
+      - cebolla
+      - ajo
+      - crema_o_leche
+      - aceite
+      - sal_y_pimienta
+    technique: pollo cocinado en salsa cremosa de chipotle
+    description_es: >
+      Pollo cocinado en salsa cremosa de chipotle.
+    description_en: >
+      Chicken cooked in a creamy chipotle sauce.

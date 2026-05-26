@@ -1,0 +1,33 @@
+canonical_name: costillas
+common_names:
+  - costillitas verdes
+  - costillitas rojas
+category: guisado
+base_ingredients:
+  - costillas_de_cerdo
+  - tomatillo
+  - jitomate
+  - chile_serrano
+  - chile_morita
+variants:
+  en_salsa_verde:
+    name_es: Costillas En Salsa Verde
+    name_en: Pork Ribs in Green Sauce
+    extra_ingredients:
+      - chile_verde
+    technique: 
+    description_es: >
+      Costillas de cerdo cocidas en salsa verde.
+    description_en: >
+      Costillas de cerdo cocidas en salsa verde.
+  en_salsa_roja:
+    name_es: Costillas En Salsa
+    name_en: Pork Ribs in Sauce
+    extra_ingredients:
+      - papa
+      - zanahoria
+    technique: 
+    description_es: >
+      Trozos de costilla de cerdo fritos y luego guisados en salsa de chile verde o morita.
+    description_en: >
+      Trozos de costilla de cerdo fritos y luego guisados en salsa de chile verde o morita.

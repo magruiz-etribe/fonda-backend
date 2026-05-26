@@ -1,0 +1,30 @@
+canonical_name: res_en_pasilla
+common_names:
+  - Carne en pasilla
+  - Res en chile pasilla
+category: guisado
+base_ingredients:
+  - carne_de_res
+  - chile_pasilla
+  - jitomate
+  - ajo
+  - cebolla
+  - caldo
+  - especias
+variants:
+  res_en_pasilla:
+    name_es: Res En Pasilla
+    name_en: Pasilla Beef Stew
+    extra_ingredients:
+      - papas
+      - zanahoria
+      - arroz
+      - frijoles
+      - tortilla_de_maiz
+      - crema
+      - queso
+    technique: 
+    description_es: >
+      carne de res cocida en una salsa elaborada con chile pasilla, jitomate, ajo y especias, se acompaña con arroz, frijoles y tortillas
+    description_en: >
+      carne de res cocida en una salsa elaborada con chile pasilla, jitomate, ajo y especias, se acompaña con arroz, frijoles y tortillas

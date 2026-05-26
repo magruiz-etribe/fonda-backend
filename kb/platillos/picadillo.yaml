@@ -1,0 +1,25 @@
+canonical_name: picadillo
+common_names:
+  - carne molida guisada
+category: guisado
+base_ingredients:
+  - carne_molida
+  - papa
+  - zanahoria
+  - chicharos
+  - ajo
+  - aceite
+  - sal_y_pimienta
+variants:
+  picadillo:
+    name_es: Picadillo
+    name_en: Mexican Minced Beef
+    extra_ingredients:
+      - chile_serrano
+      - tostadas
+      - tortillas
+    technique: 
+    description_es: >
+      Carne molida con verduras en salsa de jitomate.
+    description_en: >
+      Carne molida con verduras en salsa de jitomate.

@@ -26,7 +26,7 @@ base_ingredients:
 variants:
   rancheros:
     name_es: Huevos Rancheros
-    name_en: Ranch-Style Eggs
+    name_en: Ranch-style eggs
     extra_ingredients:
       - tortilla_de_maiz
       - salsa_roja
@@ -35,41 +35,35 @@ variants:
       - aguacate
     technique: huevos estrellados sobre tortilla frita bañados en salsa roja
     description_es: >
-      Huevos estrellados servidos sobre tortillas de maíz fritas y bañados
-      en salsa roja de jitomate con chile; acompañados de frijoles y queso.
+      huevos estrellados servidos sobre tortillas de maíz ligeramente fritas y se bañan con salsa de jitomate con chile. Usualmente se acompañan con frijoles refritos, queso fresco y a veces aguacate.
     description_en: >
-      Fried eggs served over lightly fried corn tortillas, smothered in
-      red tomato-chile salsa — served with refried beans and fresh cheese.
+      Fried eggs served over lightly fried corn tortillas, smothered in red tomato-chile salsa — served with refried beans and fresh cheese.
   a_la_mexicana:
     name_es: Huevos a la Mexicana
-    name_en: Mexican-Style Scrambled Eggs
+    name_en: Mexican-style scrambled eggs
     extra_ingredients:
       - jitomate
       - cebolla
       - chile_serrano
     technique: huevos revueltos con jitomate, cebolla y chile verde picados
     description_es: >
-      Huevos revueltos con jitomate, cebolla y chile verde picado; colores
-      que representan la bandera mexicana.
+      huevos revueltos con jitomate, cebolla y chile verde picado, que representan los colores de la bandera mexicana.
     description_en: >
-      Scrambled eggs cooked with diced tomato, onion, and green chile —
-      the colors of the Mexican flag.
+      Scrambled eggs cooked with diced tomato, onion, and green chile — the colors of the Mexican flag.
   con_chorizo:
     name_es: Huevos con Chorizo
-    name_en: Eggs with Chorizo
+    name_en: Eggs with chorizo
     extra_ingredients:
       - chorizo
       - cebolla
     technique: chorizo frito desmoronado mezclado con huevos revueltos
     description_es: >
-      Huevos revueltos mezclados con chorizo mexicano frito y cebolla;
-      sabor intenso y especiado.
+      Huevos revueltos mezclados con chorizo mexicano previamente frito. Se suele acompañar con tortillas de maíz y frijoles.
     description_en: >
-      Scrambled eggs mixed with crumbled fried Mexican chorizo and onion —
-      bold and spicy.
+      Scrambled eggs mixed with crumbled fried Mexican chorizo and onion — bold and spicy.
   divorciados:
     name_es: Huevos Divorciados
-    name_en: Divorced Eggs
+    name_en: Divorced eggs
     extra_ingredients:
       - salsa_roja
       - salsa_verde
@@ -77,14 +71,12 @@ variants:
       - frijoles
     technique: dos huevos estrellados, cada uno bañado con una salsa diferente
     description_es: >
-      Dos huevos estrellados sobre tortilla, cada uno cubierto con una
-      salsa distinta: roja y verde. Con frijoles.
+      Dos huevos estrellados servidos sobre tortilla, cada uno cubierto con una salsa distinta: roja y verde. Generalmente se acompaña con frijoles
     description_en: >
-      Two fried eggs on tortilla, each covered with a different salsa —
-      one red, one green. Served with refried beans.
+      Two fried eggs on tortilla, each covered with a different salsa — one red, one green. Served with refried beans.
   motulenos:
     name_es: Huevos Motuleños
-    name_en: Motuleño Eggs
+    name_en: Motuleño eggs
     extra_ingredients:
       - tortilla_de_maiz
       - frijoles
@@ -94,39 +86,33 @@ variants:
       - salsa_roja
     technique: tortillas con frijoles, huevos estrellados y salsa de jitomate
     description_es: >
-      Especialidad de Yucatán: tortillas con frijoles y huevos estrellados
-      bañados en salsa de jitomate, con jamón, chícharos y plátano frito.
+      Especialidad de Yucatán: tortillas de maíz con frijoles, huevos estrellados y salsa de jitomate, acompañados de ingredientes como jamón, chícharos, queso y plátano frito
     description_en: >
-      A Yucatán specialty: corn tortillas with refried beans, fried eggs
-      in tomato sauce, ham, peas, and fried plantain.
+      A Yucatán specialty: corn tortillas with refried beans, fried eggs in tomato sauce, ham, peas, and fried plantain.
   tirados:
     name_es: Huevos Tirados
-    name_en: Broken Eggs with Fried Tortilla
+    name_en: Broken eggs
     extra_ingredients:
       - tortilla_de_maiz
       - salsa
       - chile_seco
     technique: huevos revueltos con tortilla frita troceada y salsa
     description_es: >
-      Huevos revueltos con tortilla de maíz frita troceada y salsa;
-      versión más crujiente de los huevos revueltos.
+      huevos revueltos con tortilla frita troceada y salsa
     description_en: >
-      Scrambled eggs cooked with crispy torn fried tortilla pieces and
-      salsa — a crunchier take on scrambled eggs.
+      Scrambled eggs cooked with crispy torn fried tortilla pieces and salsa — a crunchier take on scrambled eggs.
   estrellados:
     name_es: Huevos Estrellados
-    name_en: Fried Eggs
+    name_en: Fried eggs
     extra_ingredients:
       - frijoles
       - tocino
       - jamon
     technique: huevo frito entero con la yema líquida o cocida al gusto
     description_es: >
-      Huevos fritos servidos enteros con la yema líquida o cocida al gusto;
-      acompañados de frijoles, tortillas y salsa.
+      Huevos fritos servidos enteros, con la yema líquida o cocida según preferencia. Se acompañan comúnmente con frijoles, tortillas y salsa.
     description_en: >
-      Whole fried eggs with runny or set yolk as preferred — served with
-      beans, tortillas, and salsa.
+      Whole fried eggs with runny or set yolk as preferred — served with beans, tortillas, and salsa.
   revueltos:
     name_es: Huevos Revueltos
     name_en: Scrambled Eggs
@@ -136,11 +122,9 @@ variants:
       - queso
     technique: huevos batidos cocinados revolviendo constantemente en sartén
     description_es: >
-      Huevos batidos cocinados suavemente en sartén; pueden llevar jamón,
-      queso, salchicha u otras adiciones.
+      Huevos batidos cocinados en sartén mientras se mezclan constantemente hasta obtener una textura suave. Pueden incluir ingredientes como jamón, queso o verduras
     description_en: >
-      Softly scrambled eggs — can include ham, cheese, sausage, or other
-      mix-ins.
+      Softly scrambled eggs — can include ham, cheese, sausage, or other mix-ins.
   omelette:
     name_es: Omelette
     name_en: Omelet
@@ -150,20 +134,18 @@ variants:
       - champinones
     technique: huevo batido cocido en lámina y doblado sobre el relleno
     description_es: >
-      Huevo batido cocido en forma de lámina y doblado sobre relleno de
-      queso, jamón, champiñones o verduras.
+      Huevo batido cocido en forma de lámina doblada, generalmente relleno de queso, jamón, champiñones o verduras.
     description_en: >
-      Beaten egg cooked flat and folded over a filling of cheese, ham,
-      mushrooms, or vegetables.
+      Beaten egg cooked flat and folded over a filling of cheese, ham, mushrooms, or vegetables.
   con_jamon:
     name_es: Huevos con Jamón
-    name_en: Ham and Eggs
+    name_en: Eggs in sauce
     extra_ingredients:
       - jamon
       - cebolla
     technique: huevos revueltos con jamón picado
     description_es: >
-      Huevos revueltos mezclados con jamón picado y cebolla.
+      Huevos revueltos mezclados con jamón picado.
     description_en: >
       Scrambled eggs mixed with diced ham and onion.
   en_salsa:
@@ -175,8 +157,91 @@ variants:
       - frijoles
     technique: huevos revueltos o pochados bañados en salsa verde o roja
     description_es: >
-      Huevos revueltos o pochados bañados en salsa verde o roja;
-      sabor intenso y caldoso.
+      huevos revueltos bañados en salsa verde o roja, generalmente servidos con frijoles
     description_en: >
-      Scrambled or poached eggs bathed in green or red salsa —
-      intensely flavored.
+      Scrambled or poached eggs bathed in green or red salsa — intensely flavored.
+  con_salchicha:
+    name_es: Huevos con Salchicha
+    name_en: Eggs with sausage
+    extra_ingredients:
+      - salchicha
+      - cebolla
+    technique: huevos revueltos con salchicha
+    description_es: >
+      Huevos revueltos combinados con salchicha en rodajas o picada.
+    description_en: >
+      Scrambled eggs combined with sliced or chopped sausage.
+  chilaquiles_con_huevo:
+    name_es: Chilaquiles con Huevo
+    name_en: Chilaquiles with eggs
+    extra_ingredients:
+      - totopos
+      - salsa
+      - crema
+      - queso
+      - huevo
+    technique: totopos en salsa con huevo estrellado o revuelto
+    description_es: >
+      Totopos de maíz bañados en salsa roja o verde, acompañados con huevos estrellados o revueltos. Se sirven con crema, queso, cebolla
+    description_en: >
+      Corn totopos in red or green salsa with fried or scrambled eggs, served with cream, cheese, and onion.
+  molletes_con_huevo:
+    name_es: Molletes con Huevo
+    name_en: Open-faced beans and cheese bread with eggs
+    extra_ingredients:
+      - pan
+      - frijoles
+      - queso
+      - huevo
+    technique: bolillo con frijoles, queso gratinado y huevo
+    description_es: >
+      Bolillo abierto con frijoles refritos y queso gratinado, acompañado de huevo preparado al gusto
+    description_en: >
+      Open bolillo roll with refried beans and melted cheese, served with eggs prepared to taste.
+  torta_de_huevo:
+    name_es: Torta de Huevo
+    name_en: Egg sandwich
+    extra_ingredients:
+      - bolillo
+      - mayonesa
+      - aguacate
+      - huevo
+    technique: bolillo relleno de huevo revuelto o frito
+    description_es: >
+      Pan tipo bolillo relleno de huevo revuelto o frito, a veces acompañado de mayonesa, aguacate o frijoles.
+    description_en: >
+      Bolillo roll filled with scrambled or fried eggs, sometimes with mayonnaise, avocado, or beans.
+  en_ahogados:
+    name_es: Huevos En Ahogados
+    name_en: Smothered Eggs
+    extra_ingredients:
+      - salsa
+      - frijoles
+    technique: huevos cocidos directamente en salsa caliente
+    description_es: >
+      Huevos cocidos directamente en salsa caliente.
+    description_en: >
+      Eggs cooked directly in hot salsa.
+  con_nopales:
+    name_es: Huevos Con Nopales
+    name_en: Eggs with Cactus
+    extra_ingredients:
+      - nopales
+      - salsa
+    technique: huevos cocinados con nopales tiernos
+    description_es: >
+      Huevos cocinados con nopales tiernos.
+    description_en: >
+      Eggs cooked with tender cactus paddles.
+  con_tocino:
+    name_es: Huevos Con Tocino
+    name_en: Eggs with Bacon
+    extra_ingredients:
+      - tocino
+      - salsa
+      - frijoles
+    technique: huevos con tocino crujiente
+    description_es: >
+      Huevos acompañados o mezclados con tocino crujiente.
+    description_en: >
+      Eggs served with or mixed with crispy bacon.

@@ -1,0 +1,25 @@
+canonical_name: tortitas_de_papa
+common_names:
+  - tortitas de papa
+category: antojito
+base_ingredients:
+  - papa
+  - huevo
+  - pan_molido_o_harina
+  - aceite
+  - sal_y_pimienta
+variants:
+  tortitas_de_papa:
+    name_es: Tortitas De Papa
+    name_en: potato cakes
+    extra_ingredients:
+      - queso
+      - salsa
+      - crema
+      - ensalada
+      - carne_molida
+    technique: 
+    description_es: >
+      Tortitas fritas de papa servidas en salsa.
+    description_en: >
+      Tortitas fritas de papa servidas en salsa.

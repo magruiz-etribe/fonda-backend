@@ -1,0 +1,27 @@
+canonical_name: tostadas
+common_names:
+  - tostadas
+category: antojito
+base_ingredients:
+  - tortilla_de_maiz
+  - tortilla_de_maiz
+variants:
+  tostadas:
+    name_es: Tostadas
+    name_en: tostadas
+    extra_ingredients:
+      - frijoles
+      - pollo
+      - tinga
+      - pata_de_res
+      - picadillo
+      - lechuga
+      - crema
+      - queso
+      - aguacate
+      - ceviche
+    technique: 
+    description_es: >
+      Tortilla de maiz crujiente con frijoles y guisados como pollo deshebrado, carne,picadillo, tinga o pata de res. Complementadas con lechuga, crema, queso, jitomate, cebolla, aguacate y salsa al gusto.
+    description_en: >
+      Tortilla de maiz crujiente con frijoles y guisados como pollo deshebrado, carne,picadillo, tinga o pata de res. Complementadas con lechuga, crema, queso, jitomate, cebolla, aguacate y salsa al gusto.

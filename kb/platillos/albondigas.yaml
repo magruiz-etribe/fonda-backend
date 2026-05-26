@@ -1,13 +1,19 @@
 canonical_name: albondigas
 common_names:
   - albóndigas
-  - albondigas
+  - abóndigas
   - sopa de albóndigas
   - albóndigas en chipotle
   - albóndigas en salsa roja
   - albóndigas en salsa verde
+  - albóndigas a la jardinera
   - albóndigas en caldo
+  - albóndigas rellenas de huevo
   - albóndigas en mole
+  - albóndigas de res
+  - albóndigas mixtas
+  - albóndigas de pollo
+  - albóndigas vegetarianas
 category: guisado
 base_ingredients:
   - carne_molida
@@ -28,11 +34,9 @@ variants:
       - crema
     technique: albóndigas cocidas en salsa cremosa o caldosa de chipotle
     description_es: >
-      Albóndigas de carne molida cocidas en salsa de jitomate y chile
-      chipotle; sabor ahumado y ligeramente picante.
+      Albóndigas de carne molida cocidas en una salsa cremosa o caldosa de jitomate y chile chipotle
     description_en: >
-      Ground meat meatballs simmered in a tomato and chipotle chile sauce —
-      smoky and mildly spicy.
+      Ground meat meatballs simmered in a tomato and chipotle chile sauce — smoky and mildly spicy.
   sopa:
     name_es: Sopa de Albóndigas
     name_en: Mexican Meatball Soup
@@ -44,36 +48,32 @@ variants:
       - menta
     technique: albóndigas cocidas directamente en caldo de verduras o jitomate
     description_es: >
-      Caldo tradicional con albóndigas pequeñas de carne y arroz, con
-      zanahoria, calabaza y jitomate.
+      Caldo tradicional mexicano con albóndigas pequeñas de carne y arroz, acompañado de verduras cocidas.
     description_en: >
-      Traditional broth with small ground meat and rice meatballs, carrot,
-      zucchini, and tomato.
+      Traditional broth with small ground meat and rice meatballs, carrot, zucchini, and tomato.
   con_arroz:
     name_es: Albóndigas al Chipotle con Arroz
-    name_en: Chipotle Meatballs with Red Rice
+    name_en: Meatballs in Red Tomato Sauce
     extra_ingredients:
       - chile_chipotle
       - jitomate
       - arroz_rojo
     technique: albóndigas en salsa chipotle servidas sobre cama de arroz rojo
     description_es: >
-      Albóndigas bañadas en salsa chipotle acompañadas de arroz rojo mexicano.
+      Platillo servido con albóndigas bañadas en salsa chipotle acompañado de arroz rojo mexicano.
     description_en: >
       Chipotle meatballs served over Mexican red rice.
   en_salsa_roja:
     name_es: Albóndigas en Salsa Roja
-    name_en: Meatballs in Red Tomato Sauce
+    name_en: Potosí-style enchiladas
     extra_ingredients:
       - jitomate
       - chile_guajillo
     technique: cocción de albóndigas en salsa de jitomate y especias
     description_es: >
-      Albóndigas suaves cocidas en salsa de jitomate con ajo, cebolla y
-      especias mexicanas.
+      Albóndigas suaves cocidas en salsa de jitomate condimentada con ajo, cebolla y especias mexicanas.
     description_en: >
-      Tender meatballs simmered in a seasoned tomato sauce with garlic,
-      onion, and Mexican spices.
+      Tender meatballs simmered in a seasoned tomato sauce with garlic, onion, and Mexican spices.
   en_salsa_verde:
     name_es: Albóndigas en Salsa Verde
     name_en: Meatballs in Green Tomatillo Sauce
@@ -82,11 +82,9 @@ variants:
       - chile_serrano
     technique: cocción de albóndigas en salsa verde de tomatillo
     description_es: >
-      Albóndigas en salsa de tomate verde y chile serrano; sabor fresco
-      y ligeramente ácido.
+      Albóndigas preparadas en salsa de tomate verde y chile serrano
     description_en: >
-      Meatballs in a fresh tomatillo and serrano chile sauce — bright
-      and slightly tangy.
+      Meatballs in a fresh tomatillo and serrano chile sauce — bright and slightly tangy.
   en_caldo:
     name_es: Albóndigas en Caldo
     name_en: Meatballs in Broth
@@ -97,24 +95,20 @@ variants:
       - hierba_buena
     technique: cocción de albóndigas directamente en caldo ligero
     description_es: >
-      Albóndigas y verduras cocidas en caldo ligero; versión caldosa y
-      reconfortante.
+      Caldo casero con albóndigas y verduras,
     description_en: >
-      Meatballs and vegetables simmered in a light broth — the brothiest,
-      most comforting version.
+      Meatballs and vegetables simmered in a light broth — the brothiest, most comforting version.
   rellenas_de_huevo:
     name_es: Albóndigas Rellenas de Huevo
-    name_en: Egg-Stuffed Meatballs
+    name_en: Stuffed Meatballs with Egg
     extra_ingredients:
       - huevo_cocido
       - salsa_roja
     technique: huevo cocido incrustado en el centro de cada albóndiga antes de cocinar
     description_es: >
-      Albóndigas grandes con huevo cocido en el centro, cocinadas en
-      salsa roja o caldo.
+      Albóndigas grandes rellenas con huevo cocido en el centro y cocinadas en salsa roja o caldo
     description_en: >
-      Large meatballs with a whole hard-boiled egg hidden in the center,
-      cooked in red sauce or broth.
+      Large meatballs with a whole hard-boiled egg hidden in the center, cooked in red sauce or broth.
   en_mole:
     name_es: Albóndigas en Mole
     name_en: Meatballs in Mole Sauce
@@ -125,11 +119,9 @@ variants:
       - ajonjoli
     technique: albóndigas cocidas y bañadas en mole espeso
     description_es: >
-      Albóndigas cubiertas con mole espeso y especiado; sabor profundo y
-      complejo.
+      Albóndigas cubiertas con mole mexicano espeso y especiado
     description_en: >
-      Meatballs bathed in thick, richly spiced mole sauce — deeply complex
-      flavor.
+      Meatballs bathed in thick, richly spiced mole sauce — deeply complex flavor.
   de_pollo:
     name_es: Albóndigas de Pollo
     name_en: Chicken Meatballs
@@ -138,8 +130,51 @@ variants:
       - salsa_roja
     technique: misma técnica pero con carne molida de pollo
     description_es: >
-      Albóndigas preparadas con pollo molido; más ligeras que las de res,
-      en salsa roja o verde.
+      Variante preparada con pollo molido
     description_en: >
-      Meatballs made with ground chicken — lighter than beef, served in
-      red or green sauce.
+      Meatballs made with ground chicken — lighter than beef, served in red or green sauce.
+  a_la_jardinera:
+    name_es: Albóndigas A La Jardinera
+    name_en: Meatballs with Mixed Vegetables
+    extra_ingredients:
+      - zanahoria
+      - chayote
+      - papa
+      - ejotes
+    technique: albóndigas cocidas con verduras mixtas en salsa ligera
+    description_es: >
+      Albóndigas acompañadas de verduras mixtas en una salsa ligera o caldillo.
+    description_en: >
+      Meatballs served with mixed vegetables in a light sauce or broth.
+  de_res:
+    name_es: Albóndigas De Res
+    name_en: Beef Meatballs
+    extra_ingredients:
+      - carne_molida_de_res
+    technique: albóndigas hechas exclusivamente con carne de res
+    description_es: >
+      Albóndigas tradicionales hechas exclusivamente con carne molida de res y sazonadores básicos.
+    description_en: >
+      Traditional meatballs made exclusively with ground beef and basic seasonings.
+  mixtas:
+    name_es: Albóndigas Mixtas (Res Y Cerdo)
+    name_en: Mixed Beef and Pork Meatballs
+    extra_ingredients:
+      - carne_molida_de_res
+      - carne_molida_de_cerdo
+    technique: mezcla de carne de res y cerdo molida
+    description_es: >
+      Mezcla de carne de res y cerdo
+    description_en: >
+      Mixed beef and pork meatballs.
+  vegetarianas:
+    name_es: Albóndigas Vegetarianas
+    name_en: Vegetarian Meatballs
+    extra_ingredients:
+      - soya
+      - verduras
+    technique: albóndigas elaboradas sin carne
+    description_es: >
+      Albóndigas elaboradas sin carne
+    description_en: >
+      Meatless meatballs.

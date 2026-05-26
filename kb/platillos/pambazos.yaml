@@ -1,0 +1,24 @@
+canonical_name: pambazos
+common_names:
+  - Pambazos
+category: antojito
+base_ingredients:
+  - pan
+  - papa
+  - chorizo
+  - salsa_de_chile_guajillo
+  - aceite
+variants:
+  pambazos:
+    name_es: Pambazos
+    name_en: Pambazos Sandwich
+    extra_ingredients:
+      - queso
+      - crema
+      - lechuga
+      - salsa
+    technique: 
+    description_es: >
+      Pan bañado en salsa roja y relleno de papa con chorizo.
+    description_en: >
+      Pan bañado en salsa roja y relleno de papa con chorizo.

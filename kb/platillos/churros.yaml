@@ -17,14 +17,12 @@ variants:
       - canela
     technique: masa frita en forma alargada, espolvoreada con azúcar y canela
     description_es: >
-      Masa dulce extruida y frita en forma alargada, espolvoreada con azúcar
-      y canela; crujientes por fuera y suaves por dentro.
+      Masa dulce frita en forma alargada, espolvoreada con azúcar y canela
     description_en: >
-      Fried dough piped into long ridged sticks, dusted with sugar and
-      cinnamon — crispy outside, soft inside.
+      Fried dough piped into long ridged sticks, dusted with sugar and cinnamon — crispy outside, soft inside.
   rellenos:
     name_es: Churros Rellenos
-    name_en: Filled Churros
+    name_en: filled churros
     extra_ingredients:
       - canela
       - chocolate
@@ -33,8 +31,6 @@ variants:
       - mermelada
     technique: masa frita rellena con manga pastelera antes de servir
     description_es: >
-      Churros rellenos de chocolate, cajeta, leche condensada o mermelada;
-      la misma masa crujiente con un corazón cremoso y dulce.
+      Masa dulce frita en forma alargada, espolvoreada con azúcar y canela, rellena de chocolate, leche condensada, mermelada o cajeta.
     description_en: >
-      Churros filled with chocolate, caramel (cajeta), condensed milk, or
-      jam — the same crispy shell with a rich, sweet creamy center.
+      Churros filled with chocolate, caramel (cajeta), condensed milk, or jam — the same crispy shell with a rich, sweet creamy center.

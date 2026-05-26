@@ -24,14 +24,12 @@ variants:
       - epazote
     technique: cocción lenta de habas con jitomate y hierbas de olor
     description_es: >
-      Sopa tradicional de habas secas cocidas lentamente con ajo, cebolla,
-      jitomate y epazote; sabor terroso y reconfortante.
+      sopa tradicional preparada con habas cocidas lentamente en caldo junto con ajo, cebolla, jitomate y hierbas de olor.
     description_en: >
-      Traditional fava bean soup slow-cooked with garlic, onion, tomato,
-      and epazote herb — earthy and comforting.
+      Traditional fava bean soup slow-cooked with garlic, onion, tomato, and epazote herb — earthy and comforting.
   pollo:
     name_es: Caldo de Pollo
-    name_en: Chicken Soup
+    name_en: Chicken soup
     extra_ingredients:
       - pollo
       - zanahoria
@@ -41,14 +39,12 @@ variants:
       - cilantro
     technique: cocción lenta de pollo con verduras en agua o caldo
     description_es: >
-      Caldo reconfortante de pollo con zanahoria, calabaza, papa y arroz;
-      clásico de fonda para entrar en calor.
+      Sopa caliente con pollo, verduras y arroz.
     description_en: >
-      Comforting chicken soup with carrot, zucchini, potato, and rice —
-      a fonda classic for warming up.
+      Comforting chicken soup with carrot, zucchini, potato, and rice — a fonda classic for warming up.
   res:
     name_es: Caldo de Res
-    name_en: Beef Soup
+    name_en: Beef soup
     extra_ingredients:
       - carne_de_res
       - zanahoria
@@ -58,14 +54,12 @@ variants:
       - cilantro
     technique: cocción lenta de hueso y carne de res con verduras
     description_es: >
-      Caldo sustancioso de carne de res con zanahoria, papa, chayote y elote
-      cocidos lentamente; sabor profundo y nutritivo.
+      Sopa con carne de res y verduras cocidas lentamente.
     description_en: >
-      Hearty beef soup with carrot, potato, chayote, and corn, slow-cooked
-      until the broth is rich and flavorful.
+      Hearty beef soup with carrot, potato, chayote, and corn, slow-cooked until the broth is rich and flavorful.
   tlalpeno:
     name_es: Caldo Tlalpeño
-    name_en: Tlalpeño Soup
+    name_en: Tlalpeño soup
     extra_ingredients:
       - pollo
       - garbanzo
@@ -76,8 +70,6 @@ variants:
       - queso
     technique: caldo de pollo con garbanzo y chipotle, ahumado
     description_es: >
-      Caldo de pollo con garbanzos, zanahoria, ejotes, queso, aguacate
-      y chile chipotle que le da un toque ahumado y picante.
+      Caldo de pollo con garbanzos, zanahoria, ejotes, trozos de queso, aguacate y chile chipotle.
     description_en: >
-      Chicken broth with chickpeas, carrot, green beans, avocado, and smoky
-      chipotle chile — a richly flavored Mexico City classic.
+      Chicken broth with chickpeas, carrot, green beans, avocado, and smoky chipotle chile — a richly flavored Mexico City classic.

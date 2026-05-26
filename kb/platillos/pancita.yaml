@@ -1,0 +1,30 @@
+canonical_name: pancita
+common_names:
+  - Pancita
+  - Menudo
+category: caldo
+base_ingredients:
+  - panza_de_res
+  - agua
+  - ajo
+  - cebolla
+  - sal
+  - chile_guajillo
+  - chile_ancho
+  - chile_pasilla
+  - or_gano
+variants:
+  pancita:
+    name_es: Pancita
+    name_en: Tripe Soup
+    extra_ingredients:
+      - lim_n
+      - cebolla_picada
+      - or_gano_seco
+      - chile_en_polvo
+      - tortilla_o_pan
+    technique: 
+    description_es: >
+      Sopa tradicional mexicana preparada con panza de res cocida en un caldo sazonado con chiles, ajo, cebolla y especias. se acompaña con cebolla picada, orégano, limón y tortillas o pan.
+    description_en: >
+      Sopa tradicional mexicana preparada con panza de res cocida en un caldo sazonado con chiles, ajo, cebolla y especias. se acompaña con cebolla picada, orégano, limón y tortillas o pan.

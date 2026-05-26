@@ -1,0 +1,20 @@
+canonical_name: empanada_frita
+common_names:
+  - empanada
+category: antojito
+base_ingredients:
+  - masa
+  - relleno
+variants:
+  empanada:
+    name_es: Empanada
+    name_en: Fried Turnover
+    extra_ingredients:
+      - queso
+      - carne
+      - pollo
+    technique: 
+    description_es: >
+      Masa doblada rellena de queso, carne o pollo, sellada y frita hasta dorarse.
+    description_en: >
+      Masa doblada rellena de queso, carne o pollo, sellada y frita hasta dorarse.

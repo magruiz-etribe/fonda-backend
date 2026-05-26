@@ -1,0 +1,22 @@
+canonical_name: tamales
+common_names:
+  - tamales
+category: antojito
+base_ingredients:
+  - masa_de_maiz
+  - manteca
+  - hoja_de_maiz_o_platano
+  - relleno
+  - salsa_dependiendo_de_la_preparacion
+variants:
+  tamales:
+    name_es: Tamales
+    name_en: tamales
+    extra_ingredients:
+      - salsa_verde_o_roja
+      - pollo_cerdo_queso_o_rajas
+    technique: 
+    description_es: >
+      Masa de maíz rellena y cocida en hojas de maíz o plátano.
+    description_en: >
+      Masa de maíz rellena y cocida en hojas de maíz o plátano.

@@ -11,7 +11,7 @@ base_ingredients:
 variants:
   capirotada:
     name_es: Capirotada
-    name_en: Mexican Bread Pudding
+    name_en: Mexican bread pudding
     extra_ingredients:
       - leche_evaporada
       - naranja
@@ -23,9 +23,6 @@ variants:
       - anis
     technique: jarabe de piloncillo con especias, capas de pan tostado y frutos
     description_es: >
-      Budín de pan tradicional bañado en jarabe de piloncillo con canela y clavo;
-      se prepara con capas de bolillo tostado, pasas, nueces y frutas secas.
+      Pan dulce preparado con piloncillo, queso y frutas secas.
     description_en: >
-      Traditional Mexican bread pudding layered with toasted bolillo, raisins,
-      almonds, and dried fruit — soaked in a piloncillo syrup spiced with cinnamon
-      and cloves.
+      Traditional Mexican bread pudding layered with toasted bolillo, raisins, almonds, and dried fruit — soaked in a piloncillo syrup spiced with cinnamon and cloves.

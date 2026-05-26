@@ -13,7 +13,7 @@ base_ingredients:
 variants:
   ceviche:
     name_es: Ceviche
-    name_en: Mexican Ceviche
+    name_en: Ceviche
     extra_ingredients:
       - camaron
       - cilantro
@@ -22,9 +22,6 @@ variants:
       - pepino
     technique: marinado en jugo de limón (cocción química), sin fuego
     description_es: >
-      Pescado o camarón marinado en jugo de limón mezclado con jitomate,
-      cebolla, cilantro y chile; puede servirse con aguacate, tostadas
-      o galletas saladas.
+      con pescado o mariscos crudos marinados en jugo de limón o lima, mezclados con jitomate, cebolla, cilantro y chile, puede servirse con aguacate, pepino, tostadas, galletas saladas o salsa picante.
     description_en: >
-      Fish or shrimp "cooked" in lime juice, mixed with tomato, onion,
-      cilantro, and chile — served with avocado, tostadas, or crackers.
+      Fish or shrimp "cooked" in lime juice, mixed with tomato, onion, cilantro, and chile — served with avocado, tostadas, or crackers.

@@ -1,0 +1,23 @@
+canonical_name: gelatina
+common_names:
+  - gelatina de agua
+  - gelatina  de leche
+category: postre
+base_ingredients:
+  - agua
+  - grenetina
+  - saborizante
+  - leche
+variants:
+  gelatina:
+    name_es: Gelatina
+    name_en: Gelatin Dessert
+    extra_ingredients:
+      - fruta
+      - pasas
+      - nuez
+    technique: 
+    description_es: >
+      elaborado a base de grenetina o gelatina disuelta en agua, leche o jugos de fruta. Puede prepararse en distintos sabores y colores, y servirse sola o acompañada con fruta, crema o leche condensada.
+    description_en: >
+      elaborado a base de grenetina o gelatina disuelta en agua, leche o jugos de fruta. Puede prepararse en distintos sabores y colores, y servirse sola o acompañada con fruta, crema o leche condensada.
