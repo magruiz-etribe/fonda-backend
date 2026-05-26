@@ -6,7 +6,7 @@ from dataclasses import replace
 from typing import Any, Final
 
 import classifier as cls_module
-import flags as flags_module
+import flag_llm
 import generation as gen_module
 import retrieval
 from generation import GenResult
@@ -86,7 +86,7 @@ def handle(
         conf_state_for_gen = None
         trigger_info_for_gen = None
         if cr.intent == "traduccion" and cr.current_dishes:
-            dish_flags = _compute_dish_flags(cr, message, history)
+            dish_flags = _compute_dish_flags(cr, message, history, kb_context)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
             kb_context = _append_flags_to_context(kb_context, dish_flags)
             conf_state_for_gen = confirmation_state
@@ -306,20 +306,17 @@ def _compute_dish_flags(
     cr: cls_module.ClassifierResult,
     message: str,
     history: list[dict[str, str]],
+    kb_context: str,
 ) -> dict:
-    """Compute dietary flags from all relevant ingredients for the current dishes."""
+    """Compute dietary flags using LLM analysis of all available dish context."""
     conversation = retrieval.conversation_text(message, history)
-    all_ingr: list[str] = []
-    for dish in cr.current_dishes:
-        all_ingr.extend(
-            retrieval.collect_ingredients_for_flags(
-                dish,
-                cr.resolved_variants,
-                conversation,
-            )
-        )
-    all_ingr.extend(cr.extra_user_ingredients)
-    return flags_module.compute_flags(all_ingr)
+    return flag_llm.compute_flags_llm(
+        cr.current_dishes,
+        cr.resolved_variants,
+        cr.extra_user_ingredients,
+        conversation,
+        kb_context,
+    )
 
 
 def _clean_flags(flags: dict) -> dict:
@@ -348,14 +345,25 @@ def _append_flags_to_context(ctx: str, dish_flags: dict) -> str:
     return ctx + "\n" + "\n".join(lines)
 
 
-_CARD_RE = re.compile(r'^\*\*(.+?)\*\*[^\n]*\n?(.*)', re.DOTALL)
+_CARD_RE = re.compile(r'^\*\*(.+?)\*\*(.*)', re.DOTALL)
 
 
 def _extract_card_parts(bubble: str) -> tuple[str, str]:
-    m = _CARD_RE.match(bubble.strip())
+    # Isolate the card paragraph — stop before any \n\n (confirmation question / second bubble)
+    card_text = bubble.strip().split('\n\n')[0]
+    m = _CARD_RE.match(card_text)
     if not m:
         return ("", "")
-    return (m.group(1).strip(), m.group(2).strip())
+    name = m.group(1).strip()
+    remainder = m.group(2)
+    # Description may be on next line ("**Title** emoji\nDesc") or same line ("**Title** emoji Desc")
+    if '\n' in remainder:
+        desc = remainder.split('\n', 1)[1].strip()
+    else:
+        # Skip leading non-letter chars (emoji, spaces) to reach the description
+        first_letter = re.search(r'[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]', remainder)
+        desc = remainder[first_letter.start():].strip() if first_letter else ""
+    return (name, desc)
 
 
 def _find_last_spanish_card(history: list[dict[str, str]]) -> str:

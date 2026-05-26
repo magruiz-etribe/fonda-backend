@@ -231,13 +231,17 @@ def resolve_variants_from_conversation(
         if existing:
             if existing in variants:
                 continue  # Already a valid YAML key
-            # LLM sometimes uses spaces instead of underscores (e.g. "con jamon" vs "con_jamon")
+            # Try space→underscore (e.g. "con jamon" → "con_jamon")
             normalized = existing.replace(" ", "_")
             if normalized in variants:
                 merged[dish] = normalized
                 continue
-            # User stated a variant not in KB — user has priority, keep as-is.
-            # Only try KB match when user gave no variant at all.
+            # Try accent-stripped + space→underscore (e.g. "con jamón" → "con_jamon")
+            accent_norm = _normalize_text(existing).replace(" ", "_")
+            if accent_norm in variants:
+                merged[dish] = accent_norm
+                continue
+            # User stated a variant not in KB — keep as-is (user priority).
             continue
 
         # No variant from user — try to find one in conversation text.
