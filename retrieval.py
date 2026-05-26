@@ -236,8 +236,11 @@ def resolve_variants_from_conversation(
             if normalized in variants:
                 merged[dish] = normalized
                 continue
-            # Key is invalid; fall through to re-resolve from conversation text
+            # User stated a variant not in KB — user has priority, keep as-is.
+            # Only try KB match when user gave no variant at all.
+            continue
 
+        # No variant from user — try to find one in conversation text.
         matched = match_variant_in_text(variants, conversation)
         if matched:
             merged[dish] = matched
