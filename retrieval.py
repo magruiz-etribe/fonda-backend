@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import unicodedata
 from functools import lru_cache
 from typing import Final, Literal
 
@@ -14,6 +15,9 @@ StaticTopic = Literal["higiene", "maps"]
 
 _STATIC_TOPICS: Final[frozenset[str]] = frozenset({"higiene", "maps"})
 _CUSTOM_ENTITY: Final[str] = "custom"
+_STOP_TOKENS: Final[frozenset[str]] = frozenset(
+    {"de", "con", "en", "la", "el", "y", "a", "los", "las", "del", "al"}
+)
 
 try:
     import yaml as _yaml
@@ -125,6 +129,137 @@ def get_context_for_dishes(dishes: list[str]) -> str:
         if ctx:
             parts.append(f"## {dish.capitalize()}\n{ctx}")
     return "\n\n".join(parts)
+
+
+def conversation_text(message: str, history: list[dict[str, str]]) -> str:
+    parts = [message]
+    for turn in history:
+        parts.append(str(turn.get("text", "")))
+    return " ".join(parts)
+
+
+def collect_ingredients_for_flags(
+    dish: str,
+    resolved_variants: dict[str, str],
+    conversation: str,
+) -> list[str]:
+    """Collect all KB ingredients relevant to flag computation for one dish."""
+    data = get_dish_data(dish)
+    if not data:
+        return []
+
+    selected: list[str] = []
+    seen: set[str] = set()
+
+    def add(ingredient: str) -> None:
+        normalized = _normalize_text(ingredient)
+        if normalized and normalized not in seen:
+            seen.add(normalized)
+            selected.append(ingredient.strip().lower())
+
+    for ingredient in data.get("base_ingredients") or []:
+        add(str(ingredient))
+
+    variants = data.get("variants") or {}
+    resolved_key = resolved_variants.get(dish)
+    if resolved_key and resolved_key in variants:
+        for ingredient in variants[resolved_key].get("extra_ingredients") or []:
+            add(str(ingredient))
+    elif variants:
+        matched_variant = _match_variant_in_text(variants, conversation)
+        if matched_variant:
+            for ingredient in variants[matched_variant].get("extra_ingredients") or []:
+                add(str(ingredient))
+
+    kb_inventory = _dish_kb_inventory(data)
+    for ingredient in kb_inventory:
+        if _ingredient_mentioned(ingredient, conversation):
+            add(ingredient)
+
+    return selected
+
+
+def _normalize_text(value: str) -> str:
+    return "".join(
+        c for c in unicodedata.normalize("NFD", value.lower().strip())
+        if unicodedata.category(c) != "Mn"
+    )
+
+
+def _singular(token: str) -> str:
+    if len(token) > 3 and token.endswith("s"):
+        return token[:-1]
+    return token
+
+
+def _phrase_tokens(phrase: str) -> set[str]:
+    return {
+        _singular(token)
+        for token in _normalize_text(phrase).replace(",", " ").split()
+        if token and token not in _STOP_TOKENS
+    }
+
+
+def _phrase_matches_text(phrase: str, text: str) -> bool:
+    phrase_norm = _normalize_text(phrase)
+    text_norm = _normalize_text(text)
+    if phrase_norm and phrase_norm in text_norm:
+        return True
+    tokens = _phrase_tokens(phrase)
+    if not tokens:
+        return False
+    text_tokens = {_singular(token) for token in text_norm.replace(",", " ").split()}
+    return tokens.issubset(text_tokens)
+
+
+def _match_variant_in_text(variants: dict, conversation: str) -> str | None:
+    best_key: str | None = None
+    best_score = 0
+    for key, variant in variants.items():
+        if not isinstance(variant, dict):
+            continue
+        candidates = [key.replace("_", " ")]
+        if name_es := variant.get("name_es"):
+            candidates.append(str(name_es))
+        for phrase in candidates:
+            if _phrase_matches_text(phrase, conversation):
+                score = len(_normalize_text(phrase))
+                if score > best_score:
+                    best_score = score
+                    best_key = key
+    return best_key
+
+
+def _dish_kb_inventory(data: dict) -> set[str]:
+    inventory: set[str] = set()
+    for ingredient in data.get("base_ingredients") or []:
+        inventory.add(str(ingredient).strip().lower())
+    for variant in (data.get("variants") or {}).values():
+        if not isinstance(variant, dict):
+            continue
+        for ingredient in variant.get("extra_ingredients") or []:
+            inventory.add(str(ingredient).strip().lower())
+    return inventory
+
+
+def _ingredient_mentioned(ingredient: str, conversation: str) -> bool:
+    ingredient_norm = _normalize_text(ingredient)
+    conversation_norm = _normalize_text(conversation)
+    if not ingredient_norm or not conversation_norm:
+        return False
+    if ingredient_norm in conversation_norm:
+        return True
+    spaced = ingredient_norm.replace("_", " ")
+    if spaced in conversation_norm:
+        return True
+    tokens = _phrase_tokens(spaced)
+    if not tokens:
+        return False
+    conversation_tokens = {
+        _singular(token)
+        for token in conversation_norm.replace(",", " ").split()
+    }
+    return tokens.issubset(conversation_tokens)
 
 
 def _yaml_to_context_str(data: dict) -> str:

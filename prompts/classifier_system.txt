@@ -104,9 +104,11 @@ Ejemplos:
 - "tiene una tira de aguacate y cilantro fresco" → `["aguacate", "cilantro"]`
 
 **Regla especial para platillos custom**: cuando `current_dishes = ["custom"]`, el nombre del platillo contiene los ingredientes principales. Extrae esos ingredientes del nombre y agrégalos a `extra_user_ingredients` junto con cualquier otro extra mencionado.
-- "huevo con jamón" (custom) → `extra_user_ingredients` incluye `["huevo", "jamon"]` + lo que el fondero agregue después.
 - "milanesa con arroz" donde milanesa es custom → `["milanesa", "arroz_extra"]` (si arroz no está en KB); si arroz está en KB va en `current_dishes`.
 - Separa los ingredientes del nombre usando "con", "y", "de" como separadores. Normaliza a snake_case sin acentos.
+
+**Regla para platillos en KB con variantes**: cuando el fondero nombra la variante como parte del platillo (ej. "huevo con jamón", "enchiladas suizas"), NO pongas ingredientes de esa variante en `extra_user_ingredients`. Usa `resolved_variants` (Tarea 5):
+- "huevo con jamón" → `current_dishes: ["huevo"]`, `resolved_variants: {"huevo": "con_jamon"}`, `extra_user_ingredients: []`
 
 ⚠️ NUNCA pongas en `extra_user_ingredients` elementos que estén en "Entidades con variantes en KB" o en la lista canónica — esos van en `current_dishes` (Tarea 2).
 

@@ -19,15 +19,18 @@ def compute_flags(
     ingredients: list[str],
     extras: list[str] | None = None,
 ) -> dict:
-    """Compute dietary flags from a list of ingredients.
+    """Compute dietary flags from a unified list of ingredients.
 
     Args:
-        ingredients: Base + variant ingredients for the dish.
-        extras: Additional ingredients provided by the fondero.
+        ingredients: Base, variant, and user-provided ingredients for the dish(es).
+        extras: Deprecated alias kept for backward compatibility in tests.
 
     Returns dict with: allergens, gluten_free, vegetarian, vegan, spicy_level.
     """
-    all_ingr = {_normalize(i) for i in (ingredients + (extras or []))}
+    merged = list(ingredients)
+    if extras:
+        merged.extend(extras)
+    all_ingr = {_normalize(i) for i in merged}
 
     allergens: list[str] = []
     allergen_triggers: set[str] = set()

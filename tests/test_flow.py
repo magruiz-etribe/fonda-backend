@@ -539,3 +539,14 @@ class TestClassifierParsing:
         cr = _parse(raw, [])
         assert len(cr.pending_slots) == 1
         assert cr.pending_slots[0].entity == "mole"
+
+    def test_huevo_con_jamon_flags_not_vegetarian(self):
+        from classifier import ClassifierResult
+        from router import _compute_dish_flags
+
+        cr = ClassifierResult(
+            intent="traduccion",
+            current_dishes=["huevo"],
+        )
+        flags = _compute_dish_flags(cr, "huevo con jamón", [])
+        assert flags["vegetarian"] is False

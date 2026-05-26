@@ -84,7 +84,7 @@ def handle(
         conf_state_for_gen = None
         trigger_info_for_gen = None
         if cr.intent == "traduccion" and cr.current_dishes:
-            dish_flags = _compute_dish_flags(cr)
+            dish_flags = _compute_dish_flags(cr, message, history)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
             kb_context = _append_flags_to_context(kb_context, dish_flags)
             conf_state_for_gen = confirmation_state
@@ -266,19 +266,24 @@ def _get_kb_context(cr: cls_module.ClassifierResult) -> str:
     return ""
 
 
-def _compute_dish_flags(cr: cls_module.ClassifierResult) -> dict:
-    """Compute dietary flags from KB ingredients + resolved variant + fondero extras."""
+def _compute_dish_flags(
+    cr: cls_module.ClassifierResult,
+    message: str,
+    history: list[dict[str, str]],
+) -> dict:
+    """Compute dietary flags from all relevant ingredients for the current dishes."""
+    conversation = retrieval.conversation_text(message, history)
     all_ingr: list[str] = []
     for dish in cr.current_dishes:
-        data = retrieval.get_dish_data(dish)
-        if not data:
-            continue
-        all_ingr += data.get("base_ingredients", [])
-        variant_key = cr.resolved_variants.get(dish)
-        if variant_key:
-            variant = data.get("variants", {}).get(variant_key, {})
-            all_ingr += variant.get("extra_ingredients", [])
-    return flags_module.compute_flags(all_ingr, list(cr.extra_user_ingredients))
+        all_ingr.extend(
+            retrieval.collect_ingredients_for_flags(
+                dish,
+                cr.resolved_variants,
+                conversation,
+            )
+        )
+    all_ingr.extend(cr.extra_user_ingredients)
+    return flags_module.compute_flags(all_ingr)
 
 
 def _clean_flags(flags: dict) -> dict:
