@@ -166,7 +166,7 @@ def collect_ingredients_for_flags(
         for ingredient in variants[resolved_key].get("extra_ingredients") or []:
             add(str(ingredient))
     elif variants:
-        matched_variant = _match_variant_in_text(variants, conversation)
+        matched_variant = match_variant_in_text(variants, conversation)
         if matched_variant:
             for ingredient in variants[matched_variant].get("extra_ingredients") or []:
                 add(str(ingredient))
@@ -212,7 +212,29 @@ def _phrase_matches_text(phrase: str, text: str) -> bool:
     return tokens.issubset(text_tokens)
 
 
-def _match_variant_in_text(variants: dict, conversation: str) -> str | None:
+def resolve_variants_from_conversation(
+    dishes: list[str],
+    resolved_variants: dict[str, str],
+    conversation: str,
+) -> dict[str, str]:
+    """Merge LLM-resolved variants with matches found in conversation text."""
+    merged = dict(resolved_variants)
+    for dish in dishes:
+        if dish in merged:
+            continue
+        data = get_dish_data(dish)
+        if not data:
+            continue
+        variants = data.get("variants") or {}
+        if not variants:
+            continue
+        matched = match_variant_in_text(variants, conversation)
+        if matched:
+            merged[dish] = matched
+    return merged
+
+
+def match_variant_in_text(variants: dict, conversation: str) -> str | None:
     best_key: str | None = None
     best_score = 0
     for key, variant in variants.items():

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import re
+from dataclasses import replace
 from typing import Any, Final
 
 import classifier as cls_module
@@ -79,6 +80,7 @@ def handle(
 ) -> GenResult:
     try:
         cr = cls_module.classify(message, current_dishes, history)
+        cr = _enrich_classifier_from_conversation(cr, message, history)
         kb_context = _get_kb_context(cr)
         dish_flags: dict = {}
         conf_state_for_gen = None
@@ -264,6 +266,39 @@ def _get_kb_context(cr: cls_module.ClassifierResult) -> str:
     if cr.intent in ("maps", "higiene"):
         return retrieval.get_static(cr.intent)  # type: ignore[arg-type]
     return ""
+
+
+def _enrich_classifier_from_conversation(
+    cr: cls_module.ClassifierResult,
+    message: str,
+    history: list[dict[str, str]],
+) -> cls_module.ClassifierResult:
+    """Fill resolved_variants from conversation and drop redundant variant slots."""
+    if cr.intent != "traduccion" or not cr.current_dishes:
+        return cr
+
+    conversation = retrieval.conversation_text(message, history)
+    resolved = retrieval.resolve_variants_from_conversation(
+        cr.current_dishes,
+        cr.resolved_variants,
+        conversation,
+    )
+    pending = [
+        slot
+        for slot in cr.pending_slots
+        if not (slot.slot_name == "variant" and slot.entity in resolved)
+    ]
+    if resolved == cr.resolved_variants and pending == cr.pending_slots:
+        return cr
+
+    logger.info(
+        "classifier_enriched",
+        extra={
+            "resolved_variants": resolved,
+            "pending_slots": [(s.entity, s.slot_name) for s in pending],
+        },
+    )
+    return replace(cr, resolved_variants=resolved, pending_slots=pending)
 
 
 def _compute_dish_flags(

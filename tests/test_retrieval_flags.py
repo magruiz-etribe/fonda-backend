@@ -44,3 +44,30 @@ class TestCollectIngredientsForFlags:
             "huevo revueltos con chorizo",
         )
         assert "chorizo" in ingredients
+
+
+class TestResolveVariantsFromConversation:
+    def test_huevo_con_jamon_from_first_message(self):
+        resolved = retrieval.resolve_variants_from_conversation(
+            ["huevo"],
+            {},
+            "huevo con jamon, acompanados en frijoles refritos y totopos",
+        )
+        assert resolved == {"huevo": "con_jamon"}
+
+    def test_llm_resolution_preserved(self):
+        resolved = retrieval.resolve_variants_from_conversation(
+            ["huevo"],
+            {"huevo": "rancheros"},
+            "huevo con jamon",
+        )
+        assert resolved == {"huevo": "rancheros"}
+
+    def test_con_jamon_button_response(self):
+        conversation = " ".join([
+            "huevo con jamon",
+            "Que tipo de huevo con jamon preparas?",
+            "Con Jamon",
+        ])
+        resolved = retrieval.resolve_variants_from_conversation(["huevo"], {}, conversation)
+        assert resolved == {"huevo": "con_jamon"}

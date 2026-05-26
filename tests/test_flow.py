@@ -550,3 +550,22 @@ class TestClassifierParsing:
         )
         flags = _compute_dish_flags(cr, "huevo con jamón", [])
         assert flags["vegetarian"] is False
+
+    def test_enrich_clears_redundant_huevo_variant_slot(self):
+        from classifier import ClassifierResult, PendingSlot
+        from router import _enrich_classifier_from_conversation
+
+        cr = ClassifierResult(
+            intent="traduccion",
+            current_dishes=["huevo"],
+            pending_slots=[PendingSlot(entity="huevo", slot_name="variant", options=["con_jamon"])],
+            resolved_variants={},
+        )
+        enriched = _enrich_classifier_from_conversation(
+            cr,
+            "huevo con jamon, acompanados en frijoles refritos y totopos",
+            [],
+        )
+        assert enriched.resolved_variants == {"huevo": "con_jamon"}
+        assert enriched.pending_slots == []
+        assert enriched.pending_variant_for is None
