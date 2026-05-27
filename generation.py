@@ -193,10 +193,22 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
     if cs.get("completeness_confirmed") is None:
         if responding:
             nxt, ndesc = _next_stage(ti, "A1")
+            if nxt == "B":
+                next_instruction = (
+                    "siguiente paso obligatorio ETAPA B: EXACTAMENTE 2 globos — "
+                    "globo 1 = card **Nombre**\\nDescripcion, globo 2 = '¿Te parece bien? 😊...'"
+                )
+            else:
+                next_instruction = f"siguiente paso obligatorio ETAPA {nxt}: 1 globo = SOLO {ndesc}"
             return (
-                f"ETAPA A1 PROCESA RESPUESTA: si confirma → completeness_confirmed: true, "
-                f"siguiente paso obligatorio ETAPA {nxt}, en este turno 1 globo = SOLO {ndesc}. "
-                f"Si agrega ingredientes → completeness_confirmed: null y pide mas.\n"
+                f"ETAPA A1 PROCESA RESPUESTA — DOS RAMAS EXCLUYENTES, elige UNA:\n"
+                f"  RAMA CONFIRMA: si el fondero confirma que ya no agrega nada → "
+                f"completeness_confirmed: true, {next_instruction}. "
+                f"PROHIBIDO incluir '¡Anotado!' ni '¿Algo más?' en esta rama.\n"
+                f"  RAMA AGREGA: si el fondero agrega ingredientes nuevos → "
+                f"completeness_confirmed: null, 1 globo = '¡Anotado! 👍 ¿Algo más que quieras incluir?', "
+                f"buttons: ['✅ Listo, eso es todo!']. "
+                f"PROHIBIDO incluir el card ni '¿Te parece bien?' ni '✅ Adaptar al inglés' en esta rama.\n"
             )
         return "ETAPA A1 HAZ PREGUNTA: pregunta completitud. 1 globo. PROHIBIDO generar descripcion.\n"
 

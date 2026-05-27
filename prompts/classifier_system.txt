@@ -49,12 +49,12 @@ Determina si el usuario está pidiendo que se genere ahora la traducción al ing
 
 `translate_now = true` únicamente cuando se cumplen AMBAS condiciones:
 1. El mensaje actual es "Traducir", "Adaptar" o variante corta equivalente: "tradúcelo", "sí tradúcelo", "ya tradúcelo", "traduce", "ya traduce", "adáptalo", "sí adáptalo", "adapta", "ya adapta".
-2. El historial reciente muestra que el agente ya presentó una descripción en español (con botón de confirmación).
+2. El último mensaje del AGENTE en el historial comienza con `**` (negritas) — eso confirma que ya presentó el card con la descripción en español. Si el último mensaje del agente NO empieza con `**`, `translate_now = false` sin excepción.
 
 `translate_now = false` en todos los demás casos, incluyendo:
 - cuando el usuario da información de ingredientes, pide modificar la descripción o hace cualquier otra pregunta.
 - **confirmaciones de completitud**: "Listo", "eso es todo", "✅ Listo, eso es todo!", "✅", "sí", "no", "nada más", o cualquier mensaje de confirmación/cierre que NO sea explícitamente una petición de traducción. Estas frases confirman que el platillo está completo, no que se quiere traducir.
-- cuando el historial NO muestra una descripción en español ya presentada por el agente.
+- cuando el historial NO muestra una descripción en español ya presentada (último mensaje agente sin `**`).
 
 ---
 
