@@ -74,11 +74,17 @@ def _build_system_prompt() -> str:
         "1. Analiza TODOS los componentes: nombre del platillo, variante, ingredientes del KB, "
         "extras del usuario y la conversación (incluyendo la descripción generada si ya existe).\n"
         "2. Si un ingrediente de las listas aparece en cualquier fuente → activa su bandera.\n"
+        "2a. El nombre del platillo principal y de la variante en `Platillos en contexto` siempre "
+        "cuentan como ingredientes confirmados. Ejemplos: platillo='huevo' → 'huevo' está presente; "
+        "platillo='milanesa' → 'carne' y 'pan molido' están presentes; variante='con_jamon' → "
+        "'jamón' está presente. Evalúalos contra las listas igual que cualquier ingrediente.\n"
         "3. Si el usuario negó explícitamente un ingrediente (\"no lleva X\", \"sin X\") → "
         "tómalo como ausente (prioridad del usuario sobre el KB).\n"
         "4. spicy_level: usa el nivel más alto detectado entre todos los ingredientes picantes.\n"
         "5. Los triggers deben ser los ingredientes concretos encontrados, no categorías.\n"
-        "6. Si no hay información suficiente para confirmar un ingrediente → asume ausente.\n\n"
+        "6. Si no hay información suficiente para confirmar un ingrediente → asume ausente. "
+        "Esta regla NO aplica cuando el ingrediente está implícito en el nombre del platillo "
+        "(regla 2a).\n\n"
         '## Formato de salida\n'
         '{"reasoning": "<qué ingredientes encontraste y en qué fuente, qué banderas activan>", '
         '"allergens": true/false, "allergen_triggers": ["ingrediente"], '
