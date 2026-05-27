@@ -64,8 +64,9 @@ Determina todos los platillos en `current_dishes` que requieren información adi
 Para cada platillo, evalúa:
 
 1. **¿Tiene variantes? (aparece en "Entidades con variantes en KB")**
-   - ¿El fondero ya especificó algún calificador, tipo, estilo o descriptor del platillo en el mensaje actual o en el historial? (ej. "enchiladas verdes", "mole negro", "arroz rojo", "enchiladas de chipotle", "pozole con mucho chile", o respondió a una pregunta del agente sobre variante) → variante confirmada, **NO agregar pending_slot**. **Regla de prioridad: aplica este criterio aunque el calificador no coincida exactamente con los nombres del KB. Cualquier descriptor del fondero cuenta como variante confirmada.**
-   - ¿El fondero NO dio ningún calificador ni tipo específico? → agregar `{"entity": nombre_canónico, "slot_name": "variant"}`.
+   - ¿El fondero ya especificó algún calificador, tipo, estilo, descriptor **o complemento** del platillo en el mensaje actual o en el historial? → variante confirmada, **NO agregar pending_slot**. **Regla de prioridad: aplica este criterio aunque el calificador no coincida exactamente con los nombres del KB. Cualquier descriptor o complemento del fondero cuenta como variante confirmada.**
+   - Los complementos del tipo "con X" determinan la variante igual que los adjetivos: "huevo con jamón" → variante "con jamón" confirmada; "huevo con chorizo" → variante "con chorizo" confirmada; "quesadilla con flor de calabaza" → variante confirmada. NO pedir pending_slot.
+   - ¿El fondero NO dio ningún calificador, tipo ni complemento específico? → agregar `{"entity": nombre_canónico, "slot_name": "variant"}`.
 
 2. **¿El fondero indicó un relleno pendiente de confirmar?** (ej. "¿de qué va el relleno?") → agregar `{"entity": nombre_canónico, "slot_name": "filling"}`.
 
@@ -84,11 +85,13 @@ Si intent != "traduccion" → `[]`.
 Extrae del historial qué variante eligió o mencionó el fondero para cada platillo con variantes en `current_dishes`.
 
 Señales que confirman una variante:
-- El fondero menciona el platillo con cualquier calificador o descriptor en cualquier mensaje ("enchiladas suizas", "mole negro", "arroz rojo", "enchiladas de chipotle", "estoy haciendo pozole bien rojo") → extrae ese descriptor como variante confirmada, sin necesidad de que el agente haya preguntado.
-- El agente preguntó "¿qué tipo de X preparas?" + el fondero respondió con un nombre de variante (ej. "negro", "rojo", "🧀 Suizas").
+- El fondero menciona el platillo con cualquier calificador, descriptor **o complemento** en cualquier mensaje → extrae ese descriptor como variante confirmada, sin necesidad de que el agente haya preguntado.
+- Los complementos "con X" determinan la variante: "huevo con jamón" → `{"huevo": "con_jamon"}`; "huevo con chorizo" → `{"huevo": "con_chorizo"}`; "enchiladas con mole" → `{"enchiladas": "de_mole"}`. Normaliza a snake_case sin acentos.
+- Adjetivos y estilos: "enchiladas suizas" → `{"enchiladas": "suizas"}`; "mole negro" → `{"mole": "negro"}`; "arroz rojo" → `{"arroz": "rojo"}`.
+- El agente preguntó "¿qué tipo de X preparas?" + el fondero respondió con un nombre de variante.
 - El fondero menciona la variante explícitamente en cualquier momento ("es mole negro", "el arroz es rojo").
 
-**Regla de prioridad**: extrae SIEMPRE el calificador o descriptor que el fondero dijo, aunque no coincida exactamente con las claves del KB. Ejemplos: "enchiladas de chipotle" → `{"enchiladas": "de chipotle"}`, "mole negro casero" → `{"mole": "negro casero"}`. El fondero tiene prioridad sobre el KB.
+**Regla de prioridad**: extrae SIEMPRE el calificador, descriptor o complemento que el fondero dijo, aunque no coincida exactamente con las claves del KB. Ejemplos: "enchiladas de chipotle" → `{"enchiladas": "de chipotle"}`, "mole negro casero" → `{"mole": "negro casero"}`. El fondero tiene prioridad sobre el KB.
 
 Formato: `{"platillo": "variante_confirmada"}` en minúsculas.
 Ejemplo: `{"mole": "negro", "arroz": "rojo"}`
@@ -109,8 +112,9 @@ Ejemplos:
 - "milanesa con arroz" donde milanesa es custom → `["milanesa", "arroz_extra"]` (si arroz no está en KB); si arroz está en KB va en `current_dishes`.
 - Separa los ingredientes del nombre usando "con", "y", "de" como separadores. Normaliza a snake_case sin acentos.
 
-**Regla para platillos en KB con variantes**: cuando el fondero nombra la variante como parte del platillo (ej. "huevo con jamón", "enchiladas suizas"), NO pongas ingredientes de esa variante en `extra_user_ingredients`. Usa `resolved_variants` (Tarea 5):
+**Regla para platillos en KB con variantes**: cuando el fondero nombra la variante como parte del platillo — sea con adjetivo ("enchiladas suizas") o con complemento ("huevo con jamón", "huevo con chorizo", "quesadilla con flor de calabaza") — la variante va en `resolved_variants`, NO en `extra_user_ingredients`:
 - "huevo con jamón" → `current_dishes: ["huevo"]`, `resolved_variants: {"huevo": "con_jamon"}`, `extra_user_ingredients: []`
+- "huevo con chorizo y frijoles" → `current_dishes: ["huevo"]`, `resolved_variants: {"huevo": "con_chorizo"}`, `extra_user_ingredients: ["frijoles"]`
 
 ⚠️ NUNCA pongas en `extra_user_ingredients` elementos que estén en "Entidades con variantes en KB" o en la lista canónica — esos van en `current_dishes` (Tarea 2).
 

@@ -37,6 +37,8 @@ class GenResult:
     allergens_confirmed: bool | None = None
     gluten_confirmed: bool | None = None
     spicy_confirmed: bool | None = None
+    resolved_variants: dict = field(default_factory=dict)
+    extra_user_ingredients: list[str] = field(default_factory=list)
 
 
 def generate(
@@ -47,9 +49,10 @@ def generate(
     confirmation_state: dict | None = None,
     trigger_info: dict | None = None,
     platform: str = "",
+    dish_context: dict | None = None,
 ) -> GenResult:
     system = load_prompt(_PROMPT)
-    user_text = _build_user_text(cr, message, kb_context, history, confirmation_state, trigger_info, platform)
+    user_text = _build_user_text(cr, message, kb_context, history, confirmation_state, trigger_info, platform, dish_context)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
@@ -77,9 +80,10 @@ def _build_user_text(
     confirmation_state: dict | None = None,
     trigger_info: dict | None = None,
     platform: str = "",
+    dish_context: dict | None = None,
 ) -> str:
     hist_lines: list[str] = []
-    for h in history:
+    for h in history[-6:]:
         role = "usuario" if h.get("role") == "user" else "agente"
         text = str(h.get("text", "")).strip().replace("\n", " ")
         if len(text) > 400:
@@ -116,8 +120,25 @@ def _build_user_text(
         if not cr.pending_slots and not cr.translate_now:
             stage_directive = _build_stage_directive(cs, ti, message)
 
+    dish_ctx_block = ""
+    if dish_context:
+        dc = dish_context
+        rv = json.dumps(dc.get("resolved_variants") or {}, ensure_ascii=False)
+        extras = ", ".join(dc.get("extra_ingredients") or []) or "(ninguno)"
+        last_es = dc.get("last_description_es") or ""
+        dish_ctx_block = (
+            "[CONTEXTO DEL PLATILLO EN CURSO — fuente de verdad]\n"
+            f"Platillo principal: {dc.get('main_dish', '')}\n"
+            f"Variantes confirmadas: {rv}\n"
+            f"Ingredientes extras confirmados: {extras}\n"
+        )
+        if last_es:
+            dish_ctx_block += f"Última descripción en español presentada:\n{last_es}\n"
+        dish_ctx_block += "\n"
+
     platform_line = f"platform: {platform}\n" if platform else ""
     return (
+        f"{dish_ctx_block}"
         f"{stage_directive}"
         f"Intención: {cr.intent}\n"
         f"{platform_line}"

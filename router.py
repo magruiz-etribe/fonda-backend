@@ -77,9 +77,11 @@ def handle(
     current_dishes: list[str],
     history: list[dict[str, str]],
     confirmation_state: dict | None = None,
+    dish_context: dict | None = None,
 ) -> GenResult:
     try:
-        cr = cls_module.classify(message, current_dishes, history)
+        cr = cls_module.classify(message, current_dishes, history, dish_context)
+        cr = _merge_persisted_variants(cr, dish_context)
         cr = _enrich_classifier_from_conversation(cr, message, history)
         kb_context = _get_kb_context(cr)
         dish_flags: dict = {}
@@ -87,6 +89,7 @@ def handle(
         trigger_info_for_gen = None
         if cr.intent == "traduccion" and cr.current_dishes:
             dish_flags = _compute_dish_flags(cr, message, history, kb_context)
+            dish_flags = _normalize_flags(dish_flags)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
             kb_context = _append_flags_to_context(kb_context, dish_flags)
             conf_state_for_gen = confirmation_state
@@ -103,14 +106,16 @@ def handle(
                 short.flags = _clean_flags(dish_flags)
                 return short
 
-        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen, cr.platform)
+        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen, cr.platform, dish_context)
         result.intent = cr.intent
         result.flags = _clean_flags(dish_flags)
+        result.resolved_variants = cr.resolved_variants
+        result.extra_user_ingredients = cr.extra_user_ingredients
         if cr.intent == "maps":
             result.links = _PLATFORM_LINKS.get(cr.platform, [])
         if cr.translate_now:
             result.current_dishes = []  # always clear after translation (LLM sometimes forgets)
-            result.menu_entry = _build_menu_entry(result, history, dish_flags)
+            result.menu_entry = _build_menu_entry(result, history, dish_flags, dish_context)
         return result
     except Exception as e:
         logger.exception("router_unhandled_exception", extra={"error": str(e)})
@@ -261,6 +266,22 @@ def _try_short_circuit(
     return None
 
 
+def _merge_persisted_variants(
+    cr: cls_module.ClassifierResult,
+    dish_context: dict | None,
+) -> cls_module.ClassifierResult:
+    """Merge persisted resolved_variants from dish_context, letting LLM values take priority."""
+    if not dish_context:
+        return cr
+    persisted = dish_context.get("resolved_variants") or {}
+    if not persisted:
+        return cr
+    merged = {**persisted, **cr.resolved_variants}
+    if merged == cr.resolved_variants:
+        return cr
+    return replace(cr, resolved_variants=merged)
+
+
 def _get_kb_context(cr: cls_module.ClassifierResult) -> str:
     if cr.intent == "traduccion":
         return retrieval.get_context_for_dishes(cr.current_dishes)
@@ -317,6 +338,21 @@ def _compute_dish_flags(
         conversation,
         kb_context,
     )
+
+
+def _normalize_flags(flags: dict) -> dict:
+    """Ensure flag/trigger consistency: a flag without triggers is not actionable — clear it."""
+    flags = dict(flags)
+    if not flags.get("allergen_triggers"):
+        flags["allergens"] = False
+        flags["allergen_triggers"] = []
+    if not flags.get("gluten_triggers"):
+        flags["gluten_free"] = True
+        flags["gluten_triggers"] = []
+    if not flags.get("spicy_triggers"):
+        flags["spicy_level"] = "none"
+        flags["spicy_triggers"] = []
+    return flags
 
 
 def _clean_flags(flags: dict) -> dict:
@@ -379,13 +415,15 @@ def _build_menu_entry(
     result: GenResult,
     history: list[dict[str, str]],
     dish_flags: dict,
+    dish_context: dict | None = None,
 ) -> dict | None:
     if not result.response:
         return None
     name_en, description_en = _extract_card_parts(result.response[0])
     if not name_en:
         return None
-    es_card = _find_last_spanish_card(history)
+    last_es = (dish_context or {}).get("last_description_es") or ""
+    es_card = last_es if last_es else _find_last_spanish_card(history)
     name_es, description_es = _extract_card_parts(es_card)
     return {
         "name_es": name_es,

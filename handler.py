@@ -67,8 +67,9 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
 
     _CONF_KEYS = ("completeness_confirmed", "allergens_confirmed", "gluten_confirmed", "spicy_confirmed")
     confirmation_state = {k: session_state.get(k) for k in _CONF_KEYS}
+    dish_context: dict = session_state.get("dish_context") or {}
 
-    result = router.handle(message, current_dishes, history, confirmation_state)
+    result = router.handle(message, current_dishes, history, confirmation_state, dish_context or None)
 
     # Merge new confirmations from this turn into the running state
     prev_primary = (session_state.get("current_dishes") or [""])[0]
@@ -96,7 +97,28 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         menu_del_dia = [e for e in menu_del_dia if e.get("name_en") != name_en] if name_en else menu_del_dia
         menu_del_dia = menu_del_dia + [result.menu_entry]
 
-    new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia}
+    # Update dish_context
+    if primary_changed or result.menu_entry:
+        # New dish or translation completed — reset dish_context
+        dish_context = {}
+
+    if result.current_dishes:
+        dish_context["main_dish"] = curr_primary
+        # Accumulate resolved_variants (LLM values take priority)
+        persisted_rv: dict = dish_context.get("resolved_variants") or {}
+        dish_context["resolved_variants"] = {**persisted_rv, **result.resolved_variants}
+        # Accumulate extra_ingredients (deduplicated)
+        existing_extras: list = dish_context.get("extra_ingredients") or []
+        for ing in result.extra_user_ingredients:
+            if ing not in existing_extras:
+                existing_extras.append(ing)
+        dish_context["extra_ingredients"] = existing_extras
+        # Capture last Spanish description (when "✅ Adaptar al inglés" button is offered)
+        if "✅ Adaptar al inglés" in result.buttons:
+            last_response = "\n\n".join(result.response)
+            dish_context["last_description_es"] = last_response
+
+    new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia, "dish_context": dish_context}
     new_state.update(merged_conf)
     history_store.set_session_state(session_id, new_state)
 

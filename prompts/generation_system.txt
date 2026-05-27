@@ -44,6 +44,8 @@ Tu respuesta SIEMPRE debe ser un JSON válido con esta estructura exacta:
 6. `spicy_triggers` no está vacío Y `spicy_confirmed = null` → **ETAPA A4** (confirmar picor). No sigas leyendo.
 7. De lo contrario → lee `¿En qué etapa estás?` para decidir.
 
+⚠️ **REGLA CRÍTICA — listas vacías**: Si `allergen_triggers`, `gluten_triggers` o `spicy_triggers` es una lista vacía (`[]`), **NUNCA** generes la pregunta de esa etapa (A2/A3/A4), aunque el KB diga "Tiene alérgenos: Sí" o similar. Sin triggers concretos no hay nada que confirmar — avanza directamente a la siguiente etapa o a ETAPA B. Preguntar A2/A3/A4 con lista vacía es un error grave.
+
 **PROHIBIDO en cualquier etapa que NO sea ETAPA C**: usar la frase "¡Tu traducción está lista! 🎉". Esa frase es exclusiva de ETAPA C.
 
 ---

@@ -4,6 +4,8 @@ import logging
 from dataclasses import dataclass, field
 from typing import Final
 
+import json
+
 import bedrock_client
 import config
 from prompt_loader import load_prompt
@@ -47,10 +49,11 @@ def classify(
     message: str,
     current_dishes: list[str],
     history: list[dict[str, str]],
+    dish_context: dict | None = None,
 ) -> ClassifierResult:
     entities_index = get_entities_index()
     entities_with_variants = get_entities_with_variants()
-    user_text = _build_user_text(message, current_dishes, history, entities_index, entities_with_variants)
+    user_text = _build_user_text(message, current_dishes, history, entities_index, entities_with_variants, dish_context)
     system = load_prompt(_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
@@ -77,9 +80,10 @@ def _build_user_text(
     history: list[dict[str, str]],
     entities_index: dict[str, str],
     entities_with_variants: list[str],
+    dish_context: dict | None = None,
 ) -> str:
     hist_lines: list[str] = []
-    for h in history:
+    for h in history[-6:]:
         role = "usuario" if h.get("role") == "user" else "agente"
         text = str(h.get("text", "")).strip().replace("\n", " ")
         if len(text) > 300:
@@ -91,7 +95,20 @@ def _build_user_text(
     entities_block = ", ".join(canonicals) if canonicals else "(ninguno)"
     variants_block = ", ".join(entities_with_variants) if entities_with_variants else "(ninguno)"
 
+    dish_ctx_block = ""
+    if dish_context:
+        dc = dish_context
+        rv = json.dumps(dc.get("resolved_variants") or {}, ensure_ascii=False)
+        extras = ", ".join(dc.get("extra_ingredients") or []) or "(ninguno)"
+        dish_ctx_block = (
+            "[CONTEXTO DEL PLATILLO EN CURSO — fuente de verdad]\n"
+            f"Platillo principal: {dc.get('main_dish', '')}\n"
+            f"Variantes confirmadas: {rv}\n"
+            f"Ingredientes extras confirmados: {extras}\n\n"
+        )
+
     return (
+        f"{dish_ctx_block}"
         f"Platillos en contexto actual (current_dishes): {current_dishes}\n\n"
         f"Entidades canónicas en KB: {entities_block}\n\n"
         f"Entidades con variantes en KB: {variants_block}\n\n"
