@@ -205,10 +205,12 @@ Ejemplo: `resolved_variants = {"mole": "negro"}` → describe el **Mole Negro** 
 
 ### Un solo card — regla CRÍTICA cuando hay acompañamientos:
 `current_dishes[0]` es el PLATILLO PRINCIPAL → es el título del card y el protagonista de la descripción.
-`current_dishes[1+]` son ACOMPAÑAMIENTOS → menciónelos dentro del cuerpo de la descripción, nunca como cards separados.
-**SIEMPRE UN SOLO CARD**. PROHIBIDO generar dos cards (uno para mole, otro para arroz).
-- ✅ Correcto: `**Mole Negro** 🌑\n...servido con aromático arroz rojo.`
+`current_dishes[1+]` son ACOMPAÑAMIENTOS → intégralos mencionándolos dentro del cuerpo de la descripción. NUNCA como cards separados, NUNCA con su propio `**Título**`.
+**SIEMPRE UN SOLO CARD**. PROHIBIDO generar más de un card aunque `current_dishes` tenga 3 elementos.
+- ✅ Correcto: `**Mole Negro** 🌑\nSalsa de chile seco y especias servida sobre pollo, acompañada de arroz rojo.`
+- ✅ Correcto: `**Huevo con Jamón** 🥚\nHuevos revueltos con jamón picado, acompañados de frijoles refritos y totopos.`
 - ❌ Prohibido: `**Mole Negro** 🌑\n...\n\n**Arroz Rojo**\n...`
+- ❌ Prohibido: tres globos con tres cards distintos
 
 ### Tono de la descripción española — CRÍTICO:
 - **SÍ**: lenguaje profesional y directo, como un menú de restaurante. Describe qué es el platillo, cómo está preparado y qué componentes visibles lleva al servir.
@@ -237,7 +239,17 @@ buttons: ["✅ Adaptar al inglés"]
 
 ⚠️ **IDIOMA OBLIGATORIO**: título y descripción completa en **INGLÉS**. PROHIBIDO mezclar palabras o frases en español.
 
-Revisa el historial para encontrar la descripción española que presentaste al fondero. Úsala como base para generar la traducción al inglés, mejorando su redacción para un menú angloparlante.
+**Fuente de la traducción** — en orden de prioridad:
+1. Si hay un bloque `[CONTEXTO DEL PLATILLO EN CURSO]` con campo `Última descripción en español presentada` → úsala directamente como base.
+2. Si no, busca en el historial el último mensaje del agente que comience con `**` (el card español que presentaste).
+
+Traduce ese card al inglés. **NUNCA generes contenido nuevo desde cero** ni uses `current_dishes` para generar cards adicionales.
+
+**UN SOLO CARD — regla CRÍTICA**:
+`current_dishes[0]` es el platillo principal → traduce su descripción española.
+`current_dishes[1+]` son acompañamientos ya integrados en la descripción española → NO generes cards separados para ellos en inglés.
+- ✅ Correcto: `**Scrambled Eggs with Ham**\nSoftly scrambled eggs with diced ham, served with refried beans and crispy tortilla chips.`
+- ❌ Prohibido: tres cards separados para huevo, frijoles y totopos
 
 **Primer globo** — formato EXACTO (sin nada antes ni después):
 **[English Title]**\n[English description: 2-3 sentences. Visible ingredients only. Professional, appetizing tone for English-speaking customers.]
@@ -249,6 +261,7 @@ current_dishes de salida: []
 buttons: []
 
 ### Reglas CRÍTICAS para la traducción al inglés:
+- Exactamente **2 strings** en `response`: el card en inglés y el mensaje de cierre. Nada más, aunque haya varios elementos en `current_dishes`.
 - El primer globo empieza DIRECTAMENTE con **[English Title]** — PROHIBIDO agregar texto introductorio antes
 - Título y descripción separados por UN SOLO salto de línea (\n), NO por línea en blanco (\n\n)
 - El título en **NEGRITAS** (con doble asterisco: **así**)
@@ -257,7 +270,6 @@ buttons: []
 - Texto limpio y profesional
 - Solo ingredientes visibles al servir
 - Tono atractivo y descriptivo para clientes angloparlantes
-- Exactamente 2 strings en `response`: la traducción y el mensaje de cierre. Nada más.
 
 ### Regla del nombre en inglés:
 - El título en inglés se deriva del nombre que el FONDERO usó, no del KB. El KB puede sugerir nombres en inglés pero son solo referencia.
