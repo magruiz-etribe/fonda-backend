@@ -39,9 +39,9 @@ variants:
       - pollo
     technique: 
     description_es: >
-      sopa preparada con distintas verduras cocidas y licuadas con leche o crema hasta obtener una textura cremosa
+      Verduras cocidas licuadas con leche o crema y especias.
     description_en: >
-      sopa preparada con distintas verduras cocidas y licuadas con leche o crema hasta obtener una textura cremosa
+      Mixed vegetables cooked and blended with milk or cream and spices.
   de_champinones:
     name_es: Crema de champiñones
     name_en: Mushroom Cream Soup
@@ -49,6 +49,6 @@ variants:
       - mantequilla
     technique: 
     description_es: >
-      sopa cremosa preparada con champiñones cocinados con cebolla, ajo, leche o crema, y especias.
+      Champiñones con cebolla, ajo, leche o crema y especias.
     description_en: >
-      sopa cremosa preparada con champiñones cocinados con cebolla, ajo, leche o crema, y especias.
+      Mushrooms with onion, garlic, milk or cream, and spices.

@@ -28,9 +28,9 @@ variants:
       - frijoles
     technique: marinado sencillo, cocción a la plancha o comal
     description_es: >
-      pechuga de pollo cocinada a la plancha o al comal con un sazonado sencillo de sal, pimienta, ajo o limón. Se caracteriza por ser ligera, jugosa y con un sabor natural del pollo, ideal para acompañarse con arroz, frijoles y ensalada.
+      Pechuga de pollo a la plancha o comal con sal, pimienta, ajo o limón. Acompañamiento: arroz, frijoles y ensalada.
     description_en: >
-      Chicken breast grilled with simple seasoning of salt, pepper, garlic, and lime — light and juicy, served with rice, beans, and salad.
+      Chicken breast grilled with salt, pepper, garlic, or lime; served with rice, beans, and salad.
   empanizada:
     name_es: Pechuga Empanizada
     name_en: Breaded chicken breast
@@ -42,9 +42,9 @@ variants:
       - frijoles
     technique: empanizado en harina, huevo y pan molido; frito en aceite
     description_es: >
-      La pechuga se cubre con harina, huevo y pan molido, y luego se fríe hasta quedar dorada y crujiente. Tiene una textura crocante por fuera y suave por dentro, y suele servirse con guarniciones como papas, arroz o ensalada.
+      Pechuga empanizada con harina, huevo y pan molido, frita en aceite. Guarnición: papas, arroz o ensalada.
     description_en: >
-      Chicken breast coated in flour, egg, and breadcrumbs, fried until golden and crispy outside, tender inside.
+      Chicken breast breaded with flour, egg, and breadcrumbs, fried in oil; served with potatoes, rice, or salad.
   milanesa:
     name_es: Milanesa de Pollo
     name_en: Chicken milanesa
@@ -56,7 +56,7 @@ variants:
       - frijoles
     technique: pechuga aplanada, empanizada y frita
     description_es: >
-      Similar a la empanizada, pero la pechuga se aplana más para lograr una pieza delgada. Se fríe hasta quedar dorada y es muy popular por su textura ligera y crujiente, además de ser común en tortas o platos combinados.
+      Pechuga aplanada, empanizada con harina, huevo y pan molido, frita en aceite. Se sirve en tortas o plato combinado.
     description_en: >
       Thinly pounded, breaded, and fried chicken breast — lighter and crispier than standard breaded chicken, popular in sandwiches.
   en_salsa_verde:
@@ -98,7 +98,7 @@ variants:
       - frijoles
     technique: pechuga abierta y rellena, cocinada al horno o en sartén
     description_es: >
-      La pechuga se abre y se rellena con ingredientes como jamón y queso, verduras o espinacas, luego se cocina empanizada o en salsa. Es un platillo de textura suave y cremosa en su interior, con contraste de sabores.
+      Pechuga abierta y rellena de jamón y queso, verduras o espinacas, cocida empanizada o en salsa.
     description_en: >
       Chicken breast butterflied and stuffed with ham and cheese (or vegetables), then baked or pan-cooked — tender with a rich filling.
   a_la_mexicana:
@@ -110,7 +110,7 @@ variants:
       - chile_verde
     technique: trozos de pechuga salteados con jitomate, cebolla y chile
     description_es: >
-      Se prepara con trozos de pechuga salteados con jitomate, cebolla y chile verde. Es una preparación sencilla de sabor fresco, ligeramente picante y muy tradicional, que recuerda a los colores de la bandera mexicana.
+      Trozos de pechuga salteados con jitomate, cebolla y chile verde.
     description_en: >
       Chicken breast pieces sautéed with tomato, onion, and green chile.
   en_chipotle:
@@ -125,8 +125,8 @@ variants:
       - crema_o_leche
       - aceite
       - sal_y_pimienta
-    technique: pollo cocinado en salsa cremosa de chipotle
+    technique: pollo cocinado en salsa de chipotle con crema o leche
     description_es: >
-      Pollo cocinado en salsa cremosa de chipotle.
+      Pollo en salsa de chipotle, jitomate, cebolla, ajo y crema o leche.
     description_en: >
-      Chicken cooked in a creamy chipotle sauce.
+      Chicken in chipotle, tomato, onion, garlic, and cream or milk sauce.

@@ -47,7 +47,7 @@ variants:
       - chile_serrano
     technique: huevos revueltos con jitomate, cebolla y chile verde picados
     description_es: >
-      huevos revueltos con jitomate, cebolla y chile verde picado, que representan los colores de la bandera mexicana.
+      Huevos revueltos con jitomate, cebolla y chile verde.
     description_en: >
       Scrambled eggs cooked with diced tomato, onion, and green chile — the colors of the Mexican flag.
   con_chorizo:
@@ -122,7 +122,7 @@ variants:
       - queso
     technique: huevos batidos cocinados revolviendo constantemente en sartén
     description_es: >
-      Huevos batidos cocinados en sartén mientras se mezclan constantemente hasta obtener una textura suave. Pueden incluir ingredientes como jamón, queso o verduras
+      Huevos batidos cocinados en sartén; opcional jamón, queso o verduras.
     description_en: >
       Softly scrambled eggs — can include ham, cheese, sausage, or other mix-ins.
   omelette:

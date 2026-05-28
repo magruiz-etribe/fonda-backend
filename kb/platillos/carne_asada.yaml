@@ -23,7 +23,7 @@ variants:
       - salsa
     technique: cocción a la parrilla o plancha con sazón sencillo
     description_es: >
-      Carne de res cocinada a la plancha o parrilla con sazón simple, con acompañamientos tradicionales
+      Carne de res a la plancha o parrilla con cebollitas, nopales, guacamole y salsa.
     description_en: >
       Grilled beef served with green onions, cactus strips, guacamole, and salsa — the classic Mexican grilled platter.
   tacos:
@@ -37,7 +37,7 @@ variants:
       - guacamole
     technique: carne a la plancha, servida en tortilla de maíz
     description_es: >
-      Carne asada de res servida en tortillas suaves
+      Carne de res en tortilla de maíz con cebolla, cilantro y salsa.
     description_en: >
       Grilled beef in warm corn tortillas with onion, cilantro, and salsa — simple and incredibly popular.
   torta:
@@ -52,7 +52,7 @@ variants:
       - jalapeno
     technique: carne a la plancha, armado en bolillo tostado con complementos
     description_es: >
-      Carne asada servida en pan crujiente, con múltiples complementos
+      Carne de res en bolillo con aguacate, frijoles, queso, jitomate y jalapeño.
     description_en: >
       Grilled beef on a crusty bolillo roll with avocado, beans, cheese, tomato, and jalapeño — a hearty Mexican sandwich.
   burritos:

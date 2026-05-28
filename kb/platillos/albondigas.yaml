@@ -32,9 +32,9 @@ variants:
       - chile_chipotle
       - jitomate
       - crema
-    technique: albóndigas cocidas en salsa cremosa o caldosa de chipotle
+    technique: albóndigas cocidas en salsa de chipotle con jitomate y crema
     description_es: >
-      Albóndigas de carne molida cocidas en una salsa cremosa o caldosa de jitomate y chile chipotle
+      Albóndigas de carne molida en salsa de jitomate, chile chipotle y crema.
     description_en: >
       Ground meat meatballs simmered in a tomato and chipotle chile sauce — smoky and mildly spicy.
   sopa:
@@ -48,7 +48,7 @@ variants:
       - menta
     technique: albóndigas cocidas directamente en caldo de verduras o jitomate
     description_es: >
-      Caldo tradicional mexicano con albóndigas pequeñas de carne y arroz, acompañado de verduras cocidas.
+      Caldo con albóndigas de carne y arroz, zanahoria, calabaza y jitomate.
     description_en: >
       Traditional broth with small ground meat and rice meatballs, carrot, zucchini, and tomato.
   con_arroz:
@@ -71,7 +71,7 @@ variants:
       - chile_guajillo
     technique: cocción de albóndigas en salsa de jitomate y especias
     description_es: >
-      Albóndigas suaves cocidas en salsa de jitomate condimentada con ajo, cebolla y especias mexicanas.
+      Albóndigas en salsa de jitomate con ajo, cebolla y especias.
     description_en: >
       Tender meatballs simmered in a seasoned tomato sauce with garlic, onion, and Mexican spices.
   en_salsa_verde:
@@ -143,7 +143,7 @@ variants:
       - ejotes
     technique: albóndigas cocidas con verduras mixtas en salsa ligera
     description_es: >
-      Albóndigas acompañadas de verduras mixtas en una salsa ligera o caldillo.
+      Albóndigas con zanahoria, chayote, papa y ejotes en caldillo.
     description_en: >
       Meatballs served with mixed vegetables in a light sauce or broth.
   de_res:
@@ -153,7 +153,7 @@ variants:
       - carne_molida_de_res
     technique: albóndigas hechas exclusivamente con carne de res
     description_es: >
-      Albóndigas tradicionales hechas exclusivamente con carne molida de res y sazonadores básicos.
+      Albóndigas de carne molida de res con sal, pimienta, ajo y cebolla.
     description_en: >
       Traditional meatballs made exclusively with ground beef and basic seasonings.
   mixtas:

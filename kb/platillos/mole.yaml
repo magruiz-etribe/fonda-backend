@@ -36,7 +36,7 @@ variants:
       - tortilla
     technique: molienda larga con especias tostadas y frutos secos
     description_es: >
-      Salsa espesa y compleja del estado de Puebla, hecha con chiles secos, especias, frutos secos, chocolate y pan; sabor profundo y ligeramente dulce.
+      Salsa de chiles secos, especias, frutos secos, chocolate y pan.
     description_en: >
       Rich, complex sauce from Puebla — dried chiles, warm spices, nuts, chocolate, and bread give it a deep, slightly sweet flavor.
   negro:
@@ -54,7 +54,7 @@ variants:
       - canela
     technique: tostado de chiles hasta quemar, chocolate oaxaqueño
     description_es: >
-      Mole oaxaqueño muy oscuro y profundo, ligeramente amargo por la tortilla quemada y los chiles negros; el más complejo de los moles regionales.
+      Mole de chiles negros, tortilla quemada, chocolate, especias y frutos secos.
     description_en: >
       Oaxacan black mole — deeply savory with a slight bitterness from charred tortilla and black chiles; the most complex of Mexico's regional moles.
   verde:
@@ -68,7 +68,7 @@ variants:
       - chile_serrano
     technique: molido en crudo con tomatillo y hierbas frescas
     description_es: >
-      Mole fresco a base de tomatillo, pepita de calabaza y hierbas; más ligero y herbáceo que los moles oscuros.
+      Salsa de tomatillo, pepita de calabaza, cilantro y epazote.
     description_en: >
       Fresh mole made with tomatillo, pumpkin seeds, and herbs — lighter and more herbal than dark moles.
   rojo:
