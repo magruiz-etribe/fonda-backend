@@ -76,6 +76,6 @@ def search_platillo(platillo: str) -> dict[str, Any] | None:
         platillo,
         details["queries"],
         details["citations"],
-        details["text"][:500],
+        details["text"][:5000],
     )
     return details
