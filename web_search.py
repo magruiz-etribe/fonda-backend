@@ -42,22 +42,36 @@ def search_platillo(platillo: str) -> dict[str, Any] | None:
         )
     except bedrock_client.BedrockError as e:
         logger.warning(
-            "web_grounding_error",
-            extra={"platillo": platillo, "error": str(e)},
+            "web_grounding_error platillo=%s model=%s error=%s",
+            platillo,
+            config.NOVA_2_LITE_MODEL_ID,
+            e,
+        )
+        return None
+    except Exception as e:
+        logger.exception(
+            "web_grounding_error platillo=%s model=%s unexpected=%s",
+            platillo,
+            config.NOVA_2_LITE_MODEL_ID,
+            e,
         )
         return None
 
     if not isinstance(resp, dict):
+        logger.warning(
+            "web_grounding_error platillo=%s model=%s error=unexpected response type %s",
+            platillo,
+            config.NOVA_2_LITE_MODEL_ID,
+            type(resp).__name__,
+        )
         return None
 
     details = bedrock_client.extract_grounding_log_data(resp)
     logger.info(
-        "web_grounding_platillo",
-        extra={
-            "platillo": platillo,
-            "queries": details["queries"],
-            "citations": details["citations"],
-            "summary": details["text"][:2000],
-        },
+        "web_grounding_platillo platillo=%s queries=%s citations=%s summary=%s",
+        platillo,
+        details["queries"],
+        details["citations"],
+        details["text"][:500],
     )
     return details

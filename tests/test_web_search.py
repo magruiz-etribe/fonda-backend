@@ -83,3 +83,34 @@ def test_search_platillo_logs_when_enabled(mock_converse):
     call_kwargs = mock_converse.call_args.kwargs
     assert call_kwargs["tool_config"] == web_search._GROUNDING_TOOL
     assert call_kwargs["return_full"] is True
+
+
+def test_converse_return_full_without_text_blocks():
+    """Grounding responses may have only toolUse blocks — must not fail."""
+    from unittest.mock import MagicMock, patch
+
+    resp = {
+        "stopReason": "end_turn",
+        "output": {
+            "message": {
+                "content": [
+                    {
+                        "toolUse": {
+                            "name": "nova_grounding",
+                            "input": {"query": "mole poblano"},
+                        }
+                    }
+                ]
+            }
+        },
+    }
+    with patch.object(bedrock_client, "_client") as mock_client:
+        mock_client.converse.return_value = resp
+        result = bedrock_client.converse(
+            "test-model",
+            "",
+            [{"role": "user", "content": [{"text": "test"}]}],
+            tool_config={"tools": [{"systemTool": {"name": "nova_grounding"}}]},
+            return_full=True,
+        )
+    assert result == resp

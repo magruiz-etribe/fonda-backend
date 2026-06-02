@@ -99,6 +99,15 @@ def parse_json_strict(text: str) -> Any:
     return json.loads(s)
 
 
+def _format_bedrock_error(exc: BaseException) -> str:
+    if isinstance(exc, ClientError):
+        err = exc.response.get("Error", {})
+        code = err.get("Code", type(exc).__name__)
+        message = err.get("Message", str(exc))
+        return f"{code}: {message}"
+    return str(exc)
+
+
 def extract_grounding_log_data(resp: dict[str, Any]) -> dict[str, Any]:
     """Parse Nova Web Grounding tool calls and citations from a converse response."""
     content: list[Any] = []
@@ -169,6 +178,17 @@ def _invoke(
     for attempt in (1, 2):
         try:
             resp = _client.converse(**kwargs)
+            if return_full:
+                logger.info(
+                    "bedrock_converse_ok",
+                    extra={
+                        "attempt": attempt,
+                        "model_id": model_id,
+                        "stop_reason": resp.get("stopReason"),
+                        "grounding": bool(tool_config),
+                    },
+                )
+                return resp
             text = _extract_text(resp)
             logger.info(
                 "bedrock_converse_ok",
@@ -180,25 +200,20 @@ def _invoke(
                     "grounding": bool(tool_config),
                 },
             )
-            if return_full:
-                return resp
             return text
         except _RETRYABLE as e:
             last = e
             logger.warning(
-                "bedrock_converse_retryable_error",
-                extra={
-                    "attempt": attempt,
-                    "model_id": model_id,
-                    "error_type": type(e).__name__,
-                    "error": str(e),
-                },
+                "bedrock_converse_retryable_error model_id=%s attempt=%s error=%s",
+                model_id,
+                attempt,
+                _format_bedrock_error(e),
             )
             if attempt == 2:
                 break
             time.sleep(_RETRY_BACKOFF_S)
 
-    raise BedrockError(f"bedrock converse failed after retry: {last}") from last
+    raise BedrockError(f"bedrock converse failed after retry: {_format_bedrock_error(last)}") from last
 
 
 def _extract_text(resp: dict[str, Any]) -> str:
