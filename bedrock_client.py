@@ -47,8 +47,18 @@ def converse(
     system: str,
     messages: list[dict[str, Any]],
     inference_config: dict[str, Any] | None = None,
-) -> str:
-    return _invoke(model_id, system, messages, inference_config)
+    tool_config: dict[str, Any] | None = None,
+    *,
+    return_full: bool = False,
+) -> str | dict[str, Any]:
+    return _invoke(
+        model_id,
+        system,
+        messages,
+        inference_config,
+        tool_config,
+        return_full=return_full,
+    )
 
 
 def converse_with_image(
@@ -89,12 +99,62 @@ def parse_json_strict(text: str) -> Any:
     return json.loads(s)
 
 
+def extract_grounding_log_data(resp: dict[str, Any]) -> dict[str, Any]:
+    """Parse Nova Web Grounding tool calls and citations from a converse response."""
+    content: list[Any] = []
+    try:
+        content = resp["output"]["message"]["content"]
+    except (KeyError, TypeError):
+        return {"queries": [], "citations": [], "text": ""}
+
+    queries: list[str] = []
+    citations: list[dict[str, str]] = []
+    text_parts: list[str] = []
+
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        if text := block.get("text"):
+            if isinstance(text, str) and text.strip():
+                text_parts.append(text.strip())
+        if tool_use := block.get("toolUse"):
+            if not isinstance(tool_use, dict):
+                continue
+            if tool_use.get("name") == "nova_grounding":
+                inp = tool_use.get("input") or {}
+                if isinstance(inp, dict):
+                    if q := inp.get("query"):
+                        queries.append(str(q))
+        if cite_block := block.get("citationsContent"):
+            if not isinstance(cite_block, dict):
+                continue
+            for citation in cite_block.get("citations") or []:
+                if not isinstance(citation, dict):
+                    continue
+                web = (citation.get("location") or {}).get("web") or {}
+                if not isinstance(web, dict):
+                    continue
+                url = str(web.get("url") or "")
+                domain = str(web.get("domain") or "")
+                if url or domain:
+                    citations.append({"url": url, "domain": domain})
+
+    return {
+        "queries": queries,
+        "citations": citations,
+        "text": "\n".join(text_parts),
+    }
+
+
 def _invoke(
     model_id: str,
     system: str,
     messages: list[dict[str, Any]],
     inference_config: dict[str, Any] | None,
-) -> str:
+    tool_config: dict[str, Any] | None = None,
+    *,
+    return_full: bool = False,
+) -> str | dict[str, Any]:
     kwargs: dict[str, Any] = {
         "modelId": model_id,
         "system": [{"text": system}],
@@ -102,6 +162,8 @@ def _invoke(
     }
     if inference_config:
         kwargs["inferenceConfig"] = inference_config
+    if tool_config:
+        kwargs["toolConfig"] = tool_config
 
     last: BaseException | None = None
     for attempt in (1, 2):
@@ -115,8 +177,11 @@ def _invoke(
                     "model_id": model_id,
                     "reply_len": len(text),
                     "stop_reason": resp.get("stopReason"),
+                    "grounding": bool(tool_config),
                 },
             )
+            if return_full:
+                return resp
             return text
         except _RETRYABLE as e:
             last = e

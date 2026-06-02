@@ -9,6 +9,7 @@ import classifier as cls_module
 import flag_llm
 import generation as gen_module
 import retrieval
+import web_search
 from generation import GenResult
 
 logger = logging.getLogger(__name__)
@@ -84,6 +85,8 @@ def handle(
         cr = _merge_persisted_variants(cr, dish_context)
         cr = _enrich_classifier_from_conversation(cr, message, history)
         kb_context = _get_kb_context(cr)
+        if cr.intent == "traduccion" and cr.current_dishes:
+            web_search.search_platillo(cr.current_dishes[0])
         dish_flags: dict = {}
         conf_state_for_gen = None
         trigger_info_for_gen = None
