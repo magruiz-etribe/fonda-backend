@@ -166,9 +166,10 @@ def _invoke(
 ) -> str | dict[str, Any]:
     kwargs: dict[str, Any] = {
         "modelId": model_id,
-        "system": [{"text": system}],
         "messages": messages,
     }
+    if system.strip():
+        kwargs["system"] = [{"text": system}]
     if inference_config:
         kwargs["inferenceConfig"] = inference_config
     if tool_config:

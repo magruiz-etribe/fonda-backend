@@ -8,6 +8,10 @@ import config
 
 logger = logging.getLogger(__name__)
 
+_WEB_SEARCH_SYSTEM: Final[str] = (
+    "Eres un asistente de gastronomía mexicana. Responde en español."
+)
+
 _GROUNDING_TOOL: Final[dict[str, Any]] = {
     "tools": [{"systemTool": {"name": "nova_grounding"}}]
 }
@@ -31,7 +35,7 @@ def search_platillo(platillo: str) -> dict[str, Any] | None:
     try:
         resp = bedrock_client.converse(
             config.NOVA_2_LITE_MODEL_ID,
-            "",
+            _WEB_SEARCH_SYSTEM,
             messages,
             inference_config={
                 "maxTokens": config.WEB_GROUNDING_MAX_TOKENS,
