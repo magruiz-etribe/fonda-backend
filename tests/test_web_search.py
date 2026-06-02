@@ -90,7 +90,8 @@ def test_search_platillo_logs_when_enabled(mock_converse):
     user_text = messages[0]["content"][0]["text"]
     assert "Ingredientes" in user_text
     assert "Variantes" in user_text
-    assert "historia" in user_text.lower()
+    assert "CDMX" in user_text
+    assert "chilaquiles" in user_text.lower()
     call_kwargs = call_args.kwargs
     assert call_kwargs["tool_config"] == web_search._GROUNDING_TOOL
     assert call_kwargs["return_full"] is True

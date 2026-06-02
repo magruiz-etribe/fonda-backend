@@ -9,8 +9,9 @@ import config
 logger = logging.getLogger(__name__)
 
 _WEB_SEARCH_SYSTEM: Final[str] = (
-    "Eres un asistente de gastronomía mexicana. "
-    "Solo extraes ingredientes y variantes de platillos. "
+    "Eres un asistente de gastronomía para fonderos de CDMX. "
+    "Buscas por el nombre exacto del platillo e identificas sus ingredientes y variantes "
+    "tal como se preparan y venden en fondas de la Ciudad de México. "
     "Responde en español, breve y en listas. "
     "No incluyas historia, origen, preparación, técnicas de cocción ni curiosidades."
 )
@@ -22,10 +23,13 @@ _GROUNDING_TOOL: Final[dict[str, Any]] = {
 
 def _build_search_prompt(platillo: str) -> str:
     return (
-        f"Busca información factual del platillo mexicano '{platillo}'. "
+        f"Busca el platillo '{platillo}' enfocándote en su nombre y en cómo se sirve en CDMX. "
         "Responde SOLO con:\n"
-        "1. Ingredientes base y extras visibles típicos (proteína, salsas, guarniciones, complementos)\n"
-        "2. Variantes más comunes (ej. rojo/verde/negro, con pollo/con cerdo, suizas/motuleñas)\n"
+        f"1. Ingredientes base y extras visibles típicos de '{platillo}' en fondas de CDMX "
+        "(proteína, salsas, guarniciones, complementos)\n"
+        f"2. Variantes de '{platillo}' más comunes en CDMX "
+        "(ej. rojo/verde/negro, con pollo/con cerdo, suizas/motuleñas)\n"
+        "Prioriza la versión capitalina; si hay variantes regionales, menciona solo las que también se encuentran en CDMX. "
         "Omite por completo: historia, origen, pasos de preparación, tiempos de cocción y anécdotas."
     )
 
