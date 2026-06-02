@@ -65,10 +65,15 @@ def test_search_platillo_logs_when_enabled(mock_converse):
                     {
                         "toolUse": {
                             "name": "nova_grounding",
-                            "input": {"query": "chilaquiles rojos receta"},
+                            "input": {"query": "chilaquiles rojos ingredientes variantes"},
                         }
                     },
-                    {"text": "Los chilaquiles son totopos bañados en salsa."},
+                    {
+                        "text": (
+                            "Ingredientes: totopos, salsa roja, crema, queso, cebolla.\n"
+                            "Variantes: rojos, verdes, con pollo."
+                        )
+                    },
                 ]
             }
         }
@@ -77,10 +82,16 @@ def test_search_platillo_logs_when_enabled(mock_converse):
     result = web_search.search_platillo("chilaquiles")
 
     assert result is not None
-    assert result["queries"] == ["chilaquiles rojos receta"]
-    assert "chilaquiles" in result["text"]
+    assert result["queries"] == ["chilaquiles rojos ingredientes variantes"]
+    assert "Ingredientes" in result["text"]
     mock_converse.assert_called_once()
-    call_kwargs = mock_converse.call_args.kwargs
+    call_args = mock_converse.call_args
+    messages = call_args.kwargs.get("messages") or call_args.args[2]
+    user_text = messages[0]["content"][0]["text"]
+    assert "Ingredientes" in user_text
+    assert "Variantes" in user_text
+    assert "historia" in user_text.lower()
+    call_kwargs = call_args.kwargs
     assert call_kwargs["tool_config"] == web_search._GROUNDING_TOOL
     assert call_kwargs["return_full"] is True
 

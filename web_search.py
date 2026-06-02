@@ -9,12 +9,25 @@ import config
 logger = logging.getLogger(__name__)
 
 _WEB_SEARCH_SYSTEM: Final[str] = (
-    "Eres un asistente de gastronomía mexicana. Responde en español."
+    "Eres un asistente de gastronomía mexicana. "
+    "Solo extraes ingredientes y variantes de platillos. "
+    "Responde en español, breve y en listas. "
+    "No incluyas historia, origen, preparación, técnicas de cocción ni curiosidades."
 )
 
 _GROUNDING_TOOL: Final[dict[str, Any]] = {
     "tools": [{"systemTool": {"name": "nova_grounding"}}]
 }
+
+
+def _build_search_prompt(platillo: str) -> str:
+    return (
+        f"Busca información factual del platillo mexicano '{platillo}'. "
+        "Responde SOLO con:\n"
+        "1. Ingredientes base y extras visibles típicos (proteína, salsas, guarniciones, complementos)\n"
+        "2. Variantes más comunes (ej. rojo/verde/negro, con pollo/con cerdo, suizas/motuleñas)\n"
+        "Omite por completo: historia, origen, pasos de preparación, tiempos de cocción y anécdotas."
+    )
 
 
 def search_platillo(platillo: str) -> dict[str, Any] | None:
@@ -26,10 +39,7 @@ def search_platillo(platillo: str) -> dict[str, Any] | None:
     if not platillo or platillo == "custom":
         return None
 
-    prompt = (
-        f"Busca información sobre el platillo mexicano '{platillo}': "
-        "ingredientes típicos, preparación, variantes regionales y acompañamientos comunes."
-    )
+    prompt = _build_search_prompt(platillo)
     messages = [{"role": "user", "content": [{"text": prompt}]}]
 
     try:
