@@ -85,8 +85,10 @@ def handle(
         cr = _merge_persisted_variants(cr, dish_context)
         cr = _enrich_classifier_from_conversation(cr, message, history)
         kb_context = _get_kb_context(cr)
-        if cr.intent == "traduccion" and cr.current_dishes:
-            web_search.search_platillo(cr.current_dishes[0])
+        if cr.intent == "traduccion":
+            search_query = web_search.resolve_search_query(message, history, dish_context)
+            if search_query:
+                web_search.search_platillo(search_query)
         dish_flags: dict = {}
         conf_state_for_gen = None
         trigger_info_for_gen = None
