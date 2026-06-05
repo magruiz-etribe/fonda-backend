@@ -9,6 +9,7 @@ from typing import Any, Final
 import config
 import history_store
 import router
+import web_search
 
 logger = logging.getLogger()
 if not logger.handlers:
@@ -117,6 +118,11 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         if "✅ Adaptar al inglés" in result.buttons:
             last_response = "\n\n".join(result.response)
             dish_context["last_description_es"] = last_response
+
+    if result.intent == "traduccion":
+        phrase = web_search.resolve_search_query(message, history, dish_context)
+        if phrase:
+            dish_context["search_phrase"] = phrase
 
     new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia, "dish_context": dish_context}
     new_state.update(merged_conf)
