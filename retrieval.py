@@ -3,17 +3,15 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import unicodedata
 from functools import lru_cache
-from typing import Final, Literal
+from typing import Final
 
 import config
 
 logger = logging.getLogger(__name__)
 
-StaticTopic = Literal["higiene", "maps"]
-
-_STATIC_TOPICS: Final[frozenset[str]] = frozenset({"higiene", "maps"})
 _CUSTOM_ENTITY: Final[str] = "custom"
 _STOP_TOKENS: Final[frozenset[str]] = frozenset(
     {"de", "con", "en", "la", "el", "y", "a", "los", "las", "del", "al"}
@@ -55,11 +53,68 @@ def get_dish_context(entity: str) -> str:
     return _read_text(os.path.join("platillos", f"{entity}.txt"))
 
 
-@lru_cache(maxsize=8)
-def get_static(topic: StaticTopic) -> str:
-    if topic not in _STATIC_TOPICS:
+@lru_cache(maxsize=1)
+def _load_topics_raw() -> str:
+    return _read_text("topics.md")
+
+
+def get_topic(intent: str, platform: str | None = None) -> tuple[str, list[dict]]:
+    """Returns (context_text, links) for the given intent from topics.md.
+
+    Links are filtered by platform when provided; intents with no platform
+    sub-sections return their universal link list regardless of platform value.
+    """
+    raw = _load_topics_raw()
+    if not raw:
+        return "", []
+
+    section = _extract_topic_section(raw, intent)
+    if not section:
+        return "", []
+
+    parts = re.split(r"^### links\s*$", section, maxsplit=1, flags=re.MULTILINE)
+    text = parts[0].strip()
+    links: list[dict] = _parse_topic_links(parts[1], platform) if len(parts) > 1 else []
+    return text, links
+
+
+def _extract_topic_section(raw: str, intent: str) -> str:
+    m = re.search(r"^## " + re.escape(intent) + r"\s*$", raw, re.MULTILINE)
+    if not m:
         return ""
-    return _read_text(f"{topic}.txt")
+    start = m.end()
+    next_m = re.search(r"^## ", raw[start:], re.MULTILINE)
+    end = start + next_m.start() if next_m else len(raw)
+    return raw[start:end]
+
+
+def _parse_topic_links(links_raw: str, platform: str | None) -> list[dict]:
+    # Split by #### platform sub-headers
+    blocks = re.split(r"^#### (\S+)\s*$", links_raw, flags=re.MULTILINE)
+    if len(blocks) == 1:
+        # No platform sub-sections — universal links
+        return _parse_json_array(links_raw.strip())
+
+    result: list[dict] = []
+    # blocks = [preamble, plat1, content1, plat2, content2, ...]
+    it = iter(blocks[1:])
+    for plat_name, content in zip(it, it):
+        if platform is None or plat_name.strip() == platform:
+            result.extend(_parse_json_array(content.strip()))
+    return result
+
+
+def _parse_json_array(text: str) -> list[dict]:
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("["):
+            try:
+                parsed = json.loads(line)
+                if isinstance(parsed, list):
+                    return [d for d in parsed if isinstance(d, dict)]
+            except json.JSONDecodeError:
+                pass
+    return []
 
 
 @lru_cache(maxsize=1)

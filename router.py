@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import replace
-from typing import Any, Final
+from typing import Final
 
 import classifier as cls_module
 import flag_llm
@@ -20,35 +20,6 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
     buttons=[],
 )
 
-_MAPS_PAGE_LINK: Final[dict[str, Any]] = {
-    "label": "Regístrate en Google Maps",
-    "url": "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2",
-    "type": "page",
-}
-
-_MAPS_PDF_LINK: Final[dict[str, Any]] = {
-    "label": "Guía: Menú del Día en Google Maps",
-    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Google%20Maps.pdf",
-    "type": "pdf",
-}
-
-_YELP_PDF_LINK: Final[dict[str, Any]] = {
-    "label": "Guía: Menú del Día en Yelp",
-    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Yelp.pdf",
-    "type": "pdf",
-}
-
-_TRIPADVISOR_PDF_LINK: Final[dict[str, Any]] = {
-    "label": "Guía: Menú del Día en TripAdvisor",
-    "url": "https://d1b1gcigbjwv2n.cloudfront.net/Men%C3%BA%20del%20D%C3%ADa%20-%20Tripadvisor.pdf",
-    "type": "pdf",
-}
-
-_PLATFORM_LINKS: Final[dict[str, list[dict]]] = {
-    "google_maps": [_MAPS_PAGE_LINK, _MAPS_PDF_LINK],
-    "yelp": [_YELP_PDF_LINK],
-    "tripadvisor": [_TRIPADVISOR_PDF_LINK],
-}
 
 # Phrases that unambiguously mean "done, nothing to add" in A1 context.
 _COMPLETION_PHRASES: frozenset[str] = frozenset({
@@ -84,7 +55,7 @@ def handle(
         cr = cls_module.classify(message, current_dishes, history, dish_context)
         cr = _merge_persisted_variants(cr, dish_context)
         cr = _enrich_classifier_from_conversation(cr, message, history)
-        kb_context = _get_kb_context(cr)
+        kb_context, kb_links = _get_kb_context(cr)
         if cr.intent == "traduccion":
             search_query = web_search.resolve_search_query(message, history, dish_context)
             if search_query:
@@ -116,8 +87,7 @@ def handle(
         result.flags = _clean_flags(dish_flags)
         result.resolved_variants = cr.resolved_variants
         result.extra_user_ingredients = cr.extra_user_ingredients
-        if cr.intent == "maps":
-            result.links = _PLATFORM_LINKS.get(cr.platform, [])
+        result.links = kb_links
         if cr.translate_now:
             result.current_dishes = []  # always clear after translation (LLM sometimes forgets)
             result.menu_entry = _build_menu_entry(result, history, dish_flags, dish_context)
@@ -287,12 +257,10 @@ def _merge_persisted_variants(
     return replace(cr, resolved_variants=merged)
 
 
-def _get_kb_context(cr: cls_module.ClassifierResult) -> str:
+def _get_kb_context(cr: cls_module.ClassifierResult) -> tuple[str, list[dict]]:
     if cr.intent == "traduccion":
-        return retrieval.get_context_for_dishes(cr.current_dishes)
-    if cr.intent in ("maps", "higiene"):
-        return retrieval.get_static(cr.intent)  # type: ignore[arg-type]
-    return ""
+        return retrieval.get_context_for_dishes(cr.current_dishes), []
+    return retrieval.get_topic(cr.intent, cr.platform or None)
 
 
 def _enrich_classifier_from_conversation(
