@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass, field
 from typing import Final
-
-import json
 
 import bedrock_client
 import config
@@ -13,16 +12,22 @@ from retrieval import get_dish_data, get_entities_index, get_entities_with_varia
 
 logger = logging.getLogger(__name__)
 
-_PROMPT: Final[str] = "classifier_system.txt"
-_VALID_INTENTS: Final[frozenset[str]] = frozenset(
-    {"traduccion", "maps", "higiene", "fallback"}
-)
+_CLASSIFIER_PROMPT: Final[str] = "classifier_system.txt"
+_EXTRACTOR_PROMPT: Final[str] = "extractor_system.txt"
+
+_VALID_INTENTS: Final[frozenset[str]] = frozenset({
+    "traduccion", "maps", "yelp", "tripadvisor", "higiene",
+    "fundacion_placemaking", "menu_del_dia", "organizaciones_participantes",
+    "primera_edicion", "talleres", "beneficios_negocio", "contacto",
+    "fallback",
+})
+_VALID_PLATFORMS: Final[frozenset[str]] = frozenset({"google_maps", "yelp", "tripadvisor"})
 
 
 @dataclass
 class PendingSlot:
     entity: str
-    slot_name: str  # "variant" | "filling" | "sauce" | "protein" | "accompaniment"
+    slot_name: str  # "variant" | "filling" | "sauce"
     options: list[str] = field(default_factory=list)
 
 
@@ -38,7 +43,6 @@ class ClassifierResult:
 
     @property
     def pending_variant_for(self) -> str | None:
-        """Backward-compat property: first pending variant slot entity, or None."""
         for slot in self.pending_slots:
             if slot.slot_name == "variant":
                 return slot.entity
@@ -51,10 +55,22 @@ def classify(
     history: list[dict[str, str]],
     dish_context: dict | None = None,
 ) -> ClassifierResult:
-    entities_index = get_entities_index()
-    entities_with_variants = get_entities_with_variants()
-    user_text = _build_user_text(message, current_dishes, history, entities_index, entities_with_variants, dish_context)
-    system = load_prompt(_PROMPT)
+    intent, platform = _classify_intent(message, history)
+
+    if intent == "traduccion":
+        return _extract_traduccion(message, current_dishes, history, dish_context, intent)
+
+    return ClassifierResult(intent=intent, current_dishes=[], platform=platform)
+
+
+# ── Stage 1: intent classification ───────────────────────────────────────────
+
+def _classify_intent(
+    message: str,
+    history: list[dict[str, str]],
+) -> tuple[str, str]:
+    user_text = _build_classifier_text(message, history)
+    system = load_prompt(_CLASSIFIER_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
@@ -62,19 +78,82 @@ def classify(
             config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
-            inference_config={
-                "maxTokens": config.CLASSIFIER_MAX_TOKENS,
-                "temperature": 0.0,
-            },
+            inference_config={"maxTokens": 256, "temperature": 0.0},
         )
     except bedrock_client.BedrockError as e:
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
+        return "fallback", ""
 
-    return _parse(raw, current_dishes)
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("classifier_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return "fallback", ""
+
+    intent = str(data.get("intent", "fallback")).strip().lower()
+    if intent not in _VALID_INTENTS:
+        logger.warning("classifier_unknown_intent", extra={"raw_intent": intent[:64]})
+        intent = "fallback"
+
+    platform = ""
+    if intent == "maps":
+        raw_platform = str(data.get("platform", "")).strip().lower()
+        platform = raw_platform if raw_platform in _VALID_PLATFORMS else ""
+
+    logger.info("classifier_intent", extra={"intent": intent, "platform": platform,
+                                            "reasoning": str(data.get("reasoning", ""))[:300]})
+    return intent, platform
 
 
-def _build_user_text(
+def _build_classifier_text(message: str, history: list[dict[str, str]]) -> str:
+    hist_lines: list[str] = []
+    for h in history[-6:]:
+        role = "usuario" if h.get("role") == "user" else "agente"
+        text = str(h.get("text", "")).strip().replace("\n", " ")
+        if len(text) > 300:
+            text = text[:297] + "…"
+        hist_lines.append(f"  {role}: {text}")
+    hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
+
+    return (
+        f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
+        f"Mensaje actual del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+
+
+# ── Stage 2: traduccion extraction ───────────────────────────────────────────
+
+def _extract_traduccion(
+    message: str,
+    current_dishes: list[str],
+    history: list[dict[str, str]],
+    dish_context: dict | None,
+    intent: str,
+) -> ClassifierResult:
+    entities_index = get_entities_index()
+    entities_with_variants = get_entities_with_variants()
+    user_text = _build_extractor_text(
+        message, current_dishes, history, entities_index, entities_with_variants, dish_context
+    )
+    system = load_prompt(_EXTRACTOR_PROMPT)
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_2_LITE_MODEL_ID,
+            system,
+            messages,
+            inference_config={"maxTokens": config.CLASSIFIER_MAX_TOKENS, "temperature": 0.0},
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("extractor_bedrock_error", extra={"error": str(e)})
+        return ClassifierResult(intent=intent, current_dishes=current_dishes)
+
+    return _parse_extraction(raw, current_dishes, intent)
+
+
+def _build_extractor_text(
     message: str,
     current_dishes: list[str],
     history: list[dict[str, str]],
@@ -118,50 +197,27 @@ def _build_user_text(
     )
 
 
-def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
+def _parse_extraction(raw: str, current_dishes: list[str], intent: str) -> ClassifierResult:
     try:
         data = bedrock_client.parse_json_strict(raw)
     except Exception as e:
-        logger.warning(
-            "classifier_parse_error",
-            extra={"error": str(e), "raw": raw[:200]},
-        )
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
+        logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return ClassifierResult(intent=intent, current_dishes=current_dishes)
 
     if not isinstance(data, dict):
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
-
-    intent = data.get("intent", "fallback")
-    if intent not in _VALID_INTENTS:
-        logger.warning(
-            "classifier_unknown_intent",
-            extra={"raw_intent": str(intent)[:64]},
-        )
-        intent = "fallback"
-
-    if intent == "maps":
-        raw_platform = data.get("platform", "")
-        platform = str(raw_platform).strip().lower() if raw_platform else ""
-        if platform not in ("google_maps", "yelp", "tripadvisor"):
-            platform = ""
-        return ClassifierResult(intent=intent, current_dishes=[], platform=platform)
-
-    if intent != "traduccion":
-        return ClassifierResult(intent=intent, current_dishes=[])
+        return ClassifierResult(intent=intent, current_dishes=current_dishes)
 
     raw_dishes = data.get("current_dishes") or []
     dishes: list[str] = []
     if isinstance(raw_dishes, list):
         for d in raw_dishes:
-            if not isinstance(d, str):
-                continue
-            d_clean = d.strip().lower()
-            if d_clean:
-                dishes.append(d_clean)
+            if isinstance(d, str):
+                d_clean = d.strip().lower()
+                if d_clean:
+                    dishes.append(d_clean)
 
     translate_now = bool(data.get("translate_now", False))
 
-    # Parse pending_slots — options are code-populated from YAML, not from the LLM
     raw_slots = data.get("pending_slots") or []
     pending_slots: list[PendingSlot] = []
     if isinstance(raw_slots, list):
@@ -180,7 +236,6 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
                     options = list(dish_data.get("variants", {}).keys())
             pending_slots.append(PendingSlot(entity=entity, slot_name=slot_name, options=options))
 
-    # Parse resolved_variants
     raw_rv = data.get("resolved_variants") or {}
     resolved_variants: dict[str, str] = {}
     if isinstance(raw_rv, dict):
@@ -188,7 +243,6 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
             if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
                 resolved_variants[k.lower().strip()] = v.lower().strip()
 
-    # Parse extra_user_ingredients
     raw_eui = data.get("extra_user_ingredients") or []
     extra_user_ingredients: list[str] = []
     if isinstance(raw_eui, list):
@@ -197,7 +251,7 @@ def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
                 extra_user_ingredients.append(ing.strip().lower())
 
     logger.info(
-        "classifier_result",
+        "extractor_result",
         extra={
             "intent": intent,
             "current_dishes": dishes,
