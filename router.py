@@ -49,6 +49,16 @@ _COMPLETION_PHRASES: frozenset[str] = frozenset({
 
 _CONFIRM_BTNS: Final[list[str]] = ["✅ Sí, contiene alguno", "❌ No, ninguno de esos"]
 
+_VARIANT_EMOJI: Final[dict[str, str]] = {
+    "rojo": "🟥",
+    "negro": "⚫",
+    "verde": "🌿",
+    "blanco": "⬜",
+    "poblano": "🫑",
+    "amarillo": "🟡",
+    "picante": "🌶️",
+}
+
 
 def handle(
     message: str,
@@ -103,6 +113,9 @@ def handle(
                 cr, message, kb_context, history, conf_state_for_gen,
                 trigger_info_for_gen, cr.platform, dish_context,
             )
+        result = _ensure_pending_slot_buttons(result, cr)
+        if cr.translate_now:
+            result = _ensure_english_translation(result, dish_context, history)
         result.intent = cr.intent
         result.flags = _clean_flags(dish_flags)
         result.resolved_variants = cr.resolved_variants
@@ -116,6 +129,103 @@ def handle(
     except Exception as e:
         logger.exception("router_unhandled_exception", extra={"error": str(e)})
         return _FALLBACK_RESULT
+
+
+def _ensure_english_translation(
+    result: GenResult,
+    dish_context: dict | None,
+    history: list[dict[str, str]],
+) -> GenResult:
+    """Re-translate the menu card when ETAPA C returns Spanish in the English slot."""
+    if not result.response:
+        return result
+
+    name_en, description_en = _extract_card_parts(result.response[0])
+    if not description_en or not gen_module.looks_spanish(description_en):
+        return result
+
+    last_es = (dish_context or {}).get("last_description_es") or ""
+    es_card = last_es if last_es else _find_last_spanish_card(history)
+    name_es, description_es = _extract_card_parts(es_card)
+    if not description_es:
+        description_es = description_en
+
+    translated = gen_module.translate_menu_card(
+        name_es=name_es,
+        description_es=description_es,
+        name_en_hint=name_en,
+    )
+    if not translated:
+        logger.warning(
+            "english_translation_unresolved",
+            extra={"name_en_hint": name_en, "description_es": description_es[:200]},
+        )
+        return result
+
+    new_card = f"**{translated['name_en']}**\n{translated['description_en']}"
+    new_response = [new_card, *result.response[1:]]
+    logger.info(
+        "english_translation_retry_applied",
+        extra={"name_en": translated["name_en"]},
+    )
+    return replace(result, response=new_response)
+
+
+def _ensure_pending_slot_buttons(
+    result: GenResult,
+    cr: cls_module.ClassifierResult,
+) -> GenResult:
+    """Inject variant/slot buttons server-side when the LLM omits them."""
+    if not cr.pending_slots:
+        return result
+    slot = cr.pending_slots[0]
+    if not slot.options:
+        return result
+
+    buttons = _format_slot_buttons(slot)
+    if not buttons:
+        return result
+    if result.buttons == buttons:
+        return result
+
+    if result.buttons:
+        logger.warning(
+            "slot_buttons_overridden",
+            extra={
+                "entity": slot.entity,
+                "slot_name": slot.slot_name,
+                "llm_buttons": result.buttons,
+                "injected_buttons": buttons,
+            },
+        )
+    else:
+        logger.info(
+            "slot_buttons_injected",
+            extra={
+                "entity": slot.entity,
+                "slot_name": slot.slot_name,
+                "count": len(buttons),
+            },
+        )
+    return replace(result, buttons=buttons)
+
+
+def _format_slot_buttons(slot: cls_module.PendingSlot) -> list[str]:
+    data = retrieval.get_dish_data(slot.entity) or {}
+    variants = data.get("variants") or {}
+    buttons: list[str] = []
+    for key in slot.options:
+        variant = variants.get(key) if isinstance(variants.get(key), dict) else {}
+        label = _option_display_label(key, variant)
+        emoji = _VARIANT_EMOJI.get(key, "")
+        buttons.append(f"{emoji} {label}".strip() if emoji else label)
+    return buttons
+
+
+def _option_display_label(key: str, variant: dict) -> str:
+    if name_es := variant.get("name_es"):
+        return str(name_es).strip()
+    return key.replace("_", " ").title()
 
 
 def _is_pure_completion(message: str) -> bool:

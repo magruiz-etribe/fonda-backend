@@ -107,6 +107,27 @@ class TestMoleArrozFlow:
     """
 
     @patch("bedrock_client.converse")
+    def test_turn1_injects_buttons_when_llm_omits_them(self, mock_cv):
+        result = _handle(
+            mock_cv,
+            message="es mole con arroz",
+            current_dishes=[],
+            history=[],
+            cls_kwargs=dict(
+                intent="traduccion",
+                current_dishes=["mole", "arroz"],
+                pending_variant_for="mole",
+            ),
+            gen_kwargs=dict(
+                response=["¿Qué tipo de mole preparas? 🌶️ Te dejo algunas opciones 👇"],
+                current_dishes=["mole", "arroz"],
+                buttons=[],
+            ),
+        )
+        assert len(result.buttons) >= 2
+        assert any("rojo" in b.lower() or "Rojo" in b for b in result.buttons)
+
+    @patch("bedrock_client.converse")
     def test_turn1_asks_mole_variant_only(self, mock_cv):
         result = _handle(
             mock_cv,
@@ -201,6 +222,57 @@ class TestMoleArrozFlow:
         assert "**Arroz" not in result.response[1]
         # Dishes preserved until translation
         assert result.current_dishes == ["mole", "arroz"]
+
+    @patch("generation.translate_menu_card")
+    @patch("bedrock_client.converse")
+    def test_turn4_retries_when_translation_card_is_spanish(self, mock_cv, mock_translate):
+        history = [
+            {
+                "role": "agent",
+                "text": (
+                    "**Enchiladas Potosinas** 🌶️\n"
+                    "Enchiladas rojas dobladas con chile en masa, rellenas de queso fresco y crema, "
+                    "acompañadas de lechuga y masa de maíz.\n\n"
+                    "¿Te parece bien? 😊"
+                ),
+            },
+        ]
+        mock_translate.return_value = {
+            "name_en": "San Luis Potosi Enchiladas",
+            "description_en": (
+                "Red folded enchiladas with chile-infused masa, filled with fresh cheese and cream, "
+                "served with lettuce and corn masa."
+            ),
+        }
+        result = _handle(
+            mock_cv,
+            message="✅ Adaptar al inglés",
+            current_dishes=["enchiladas"],
+            history=history,
+            cls_kwargs=dict(
+                intent="traduccion",
+                current_dishes=["enchiladas"],
+                translate_now=True,
+                resolved_variants={"enchiladas": "potosinas"},
+            ),
+            gen_kwargs=dict(
+                response=[
+                    (
+                        "**San Luis Potosi Enchiladas**\n"
+                        "Enchiladas rojas dobladas con chile en masa, rellenas de queso fresco y crema, "
+                        "acompañadas de lechuga y masa de maíz."
+                    ),
+                    "¡Tu traducción está lista! 🎉 Si quieres ajustar algo solo dime, o si tienes otro platillo aquí estoy 😊",
+                ],
+                current_dishes=[],
+                buttons=[],
+            ),
+        )
+        mock_translate.assert_called_once()
+        assert "fresh cheese" in result.response[0]
+        assert "queso fresco" not in result.response[0].lower()
+        assert result.menu_entry["description_en"] == mock_translate.return_value["description_en"]
+        assert result.menu_entry["description_es"]
 
     @patch("bedrock_client.converse")
     def test_turn4_translation_clears_dishes(self, mock_cv):

@@ -327,3 +327,91 @@ def _parse_bool_or_none(val: Any) -> bool | None:
     if val is False:
         return False
     return None
+
+
+_SPANISH_ACCENTS: Final[re.Pattern[str]] = re.compile(r"[áéíóúñü]", re.IGNORECASE)
+_SPANISH_MARKERS: Final[re.Pattern[str]] = re.compile(
+    r"\b("
+    r"el|la|los|las|del|con|de|en|y|o|un|una|unos|unas|que|por|para|"
+    r"acomp[aá]a|rellen[ao]s?|servid[ao]s?|bañad[ao]s?|preparad[ao]s?|"
+    r"tortillas?|queso|crema|lechuga|masa|chile|salsa|frijol|pollo|carne"
+    r")\b",
+    re.IGNORECASE,
+)
+_ENGLISH_MARKERS: Final[re.Pattern[str]] = re.compile(
+    r"\b(with|served|filled|stuffed|topped|grilled|fried|fresh|cheese|cream|sauce|tortilla|beans|rice|chicken|beef|pork)\b",
+    re.IGNORECASE,
+)
+
+_TRANSLATE_CARD_SYSTEM: Final[str] = """\
+Eres un traductor de menús de fondas mexicanas al inglés (estilo menú de restaurante en EE.UU.).
+Devuelve ÚNICAMENTE JSON válido, sin markdown ni texto extra.
+
+Reglas:
+- Traduce título y descripción al inglés.
+- 2-3 oraciones, solo ingredientes visibles y preparación factual.
+- Sin adjetivos de marketing (delicious, creamy, savory, juicy, etc.).
+- Sin emojis.
+- No agregues calificadores regionales que no estén en el español.
+"""
+
+
+def looks_spanish(text: str) -> bool:
+    """Heuristic: True when text is likely Spanish menu prose."""
+    if not text.strip():
+        return False
+    if _SPANISH_ACCENTS.search(text):
+        return True
+    spanish_hits = len(_SPANISH_MARKERS.findall(text))
+    english_hits = len(_ENGLISH_MARKERS.findall(text))
+    return spanish_hits >= 2 and english_hits == 0
+
+
+def translate_menu_card(
+    *,
+    name_es: str,
+    description_es: str,
+    name_en_hint: str = "",
+) -> dict[str, str] | None:
+    """Focused translation call when ETAPA C returns Spanish by mistake."""
+    if not description_es.strip():
+        return None
+
+    hint_line = f"Título en inglés sugerido: {name_en_hint}\n" if name_en_hint else ""
+    user_text = (
+        f"{hint_line}"
+        f"Título en español: {name_es or '(sin título)'}\n"
+        f"Descripción en español: {description_es}\n\n"
+        'Devuelve JSON: {"name_en": "...", "description_en": "..."}'
+    )
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_2_LITE_MODEL_ID,
+            _TRANSLATE_CARD_SYSTEM,
+            messages,
+            inference_config={"maxTokens": 512, "temperature": 0.0},
+            stage="translation_retry",
+        )
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("translation_retry_error", extra={"error": str(e)})
+        return None
+
+    if not isinstance(data, dict):
+        return None
+
+    name_en = str(data.get("name_en", "")).strip()
+    description_en = str(data.get("description_en", "")).strip()
+    if not description_en or looks_spanish(description_en):
+        logger.warning(
+            "translation_retry_still_spanish",
+            extra={"description_en": description_en[:200]},
+        )
+        return None
+
+    return {
+        "name_en": name_en or name_en_hint,
+        "description_en": description_en,
+    }
