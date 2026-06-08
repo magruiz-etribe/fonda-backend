@@ -64,6 +64,7 @@ def generate(
                 "maxTokens": config.GEN_MAX_TOKENS,
                 "temperature": 0.5,
             },
+            stage="generation",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("generation_bedrock_error", extra={"error": str(e)})

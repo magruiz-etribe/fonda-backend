@@ -84,6 +84,7 @@ def _classify_intent(
             system,
             messages,
             inference_config={"maxTokens": 256, "temperature": 0.0},
+            stage="classifier_intent",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
@@ -150,6 +151,7 @@ def _extract_traduccion(
             system,
             messages,
             inference_config={"maxTokens": config.CLASSIFIER_MAX_TOKENS, "temperature": 0.0},
+            stage="extractor",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("extractor_bedrock_error", extra={"error": str(e)})

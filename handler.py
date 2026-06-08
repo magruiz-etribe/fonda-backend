@@ -9,6 +9,8 @@ from typing import Any, Final
 import config
 import history_store
 import router
+import timing
+
 logger = logging.getLogger()
 if not logger.handlers:
     logging.basicConfig(level=logging.INFO)
@@ -58,94 +60,119 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         },
     )
 
-    history = history_store.get_history(session_id, limit=config.HISTORY_LIMIT)
+    with timing.request_timing(request_id=request_id, session_id=session_id) as pt:
+        loaded = pt.run_parallel(
+            "handler.ddb_load",
+            {
+                "ddb.get_history": lambda: history_store.get_history(
+                    session_id, limit=config.HISTORY_LIMIT
+                ),
+                "ddb.get_session_state": lambda: history_store.get_session_state(session_id),
+            },
+        )
+        history = loaded["ddb.get_history"]
+        session_state = loaded["ddb.get_session_state"]
+        if "current_dishes" in session_state:
+            current_dishes = session_state["current_dishes"]
 
-    session_state = history_store.get_session_state(session_id)
-    if "current_dishes" in session_state:
-        current_dishes = session_state["current_dishes"]
+        _CONF_KEYS = (
+            "completeness_confirmed", "allergens_confirmed",
+            "gluten_confirmed", "spicy_confirmed",
+        )
+        confirmation_state = {k: session_state.get(k) for k in _CONF_KEYS}
+        dish_context: dict = session_state.get("dish_context") or {}
 
-    _CONF_KEYS = ("completeness_confirmed", "allergens_confirmed", "gluten_confirmed", "spicy_confirmed")
-    confirmation_state = {k: session_state.get(k) for k in _CONF_KEYS}
-    dish_context: dict = session_state.get("dish_context") or {}
+        with timing.stage("router.handle"):
+            result = router.handle(
+                message, current_dishes, history, confirmation_state, dish_context or None,
+            )
 
-    result = router.handle(message, current_dishes, history, confirmation_state, dish_context or None)
+        # Merge new confirmations from this turn into the running state
+        prev_primary = (session_state.get("current_dishes") or [""])[0]
+        curr_primary = (result.current_dishes or [""])[0]
+        primary_changed = bool(curr_primary) and curr_primary != prev_primary
 
-    # Merge new confirmations from this turn into the running state
-    prev_primary = (session_state.get("current_dishes") or [""])[0]
-    curr_primary = (result.current_dishes or [""])[0]
-    primary_changed = bool(curr_primary) and curr_primary != prev_primary
+        if result.current_dishes and not primary_changed:
+            merged_conf: dict = {k: v for k, v in confirmation_state.items() if v is not None}
+        else:
+            merged_conf = {}  # reset when dish flow ends or primary dish changes
 
-    if result.current_dishes and not primary_changed:
-        merged_conf: dict = {k: v for k, v in confirmation_state.items() if v is not None}
-    else:
-        merged_conf = {}  # reset when dish flow ends or primary dish changes
+        for key, val in [
+            ("completeness_confirmed", result.completeness_confirmed),
+            ("allergens_confirmed", result.allergens_confirmed),
+            ("gluten_confirmed", result.gluten_confirmed),
+            ("spicy_confirmed", result.spicy_confirmed),
+        ]:
+            if val is not None:
+                merged_conf[key] = val
 
-    for key, val in [
-        ("completeness_confirmed", result.completeness_confirmed),
-        ("allergens_confirmed", result.allergens_confirmed),
-        ("gluten_confirmed", result.gluten_confirmed),
-        ("spicy_confirmed", result.spicy_confirmed),
-    ]:
-        if val is not None:
-            merged_conf[key] = val
+        menu_del_dia: list = session_state.get("menu_del_dia", [])
+        if result.menu_entry:
+            result.menu_entry["flags"] = _apply_flag_confirmations(
+                result.menu_entry["flags"], merged_conf,
+            )
+            name_en = result.menu_entry.get("name_en", "")
+            menu_del_dia = (
+                [e for e in menu_del_dia if e.get("name_en") != name_en]
+                if name_en else menu_del_dia
+            )
+            menu_del_dia = menu_del_dia + [result.menu_entry]
 
-    menu_del_dia: list = session_state.get("menu_del_dia", [])
-    if result.menu_entry:
-        result.menu_entry["flags"] = _apply_flag_confirmations(result.menu_entry["flags"], merged_conf)
-        name_en = result.menu_entry.get("name_en", "")
-        menu_del_dia = [e for e in menu_del_dia if e.get("name_en") != name_en] if name_en else menu_del_dia
-        menu_del_dia = menu_del_dia + [result.menu_entry]
+        # Update dish_context
+        if primary_changed or result.menu_entry:
+            dish_context = {}
 
-    # Update dish_context
-    if primary_changed or result.menu_entry:
-        # New dish or translation completed — reset dish_context
-        dish_context = {}
+        if result.current_dishes:
+            dish_context["main_dish"] = curr_primary
+            persisted_rv: dict = dish_context.get("resolved_variants") or {}
+            dish_context["resolved_variants"] = {**persisted_rv, **result.resolved_variants}
+            existing_extras: list = dish_context.get("extra_ingredients") or []
+            for ing in result.extra_user_ingredients:
+                if ing not in existing_extras:
+                    existing_extras.append(ing)
+            dish_context["extra_ingredients"] = existing_extras
+            if "✅ Adaptar al inglés" in result.buttons:
+                last_response = "\n\n".join(result.response)
+                dish_context["last_description_es"] = last_response
 
-    if result.current_dishes:
-        dish_context["main_dish"] = curr_primary
-        # Accumulate resolved_variants (LLM values take priority)
-        persisted_rv: dict = dish_context.get("resolved_variants") or {}
-        dish_context["resolved_variants"] = {**persisted_rv, **result.resolved_variants}
-        # Accumulate extra_ingredients (deduplicated)
-        existing_extras: list = dish_context.get("extra_ingredients") or []
-        for ing in result.extra_user_ingredients:
-            if ing not in existing_extras:
-                existing_extras.append(ing)
-        dish_context["extra_ingredients"] = existing_extras
-        # Capture last Spanish description (when "✅ Adaptar al inglés" button is offered)
-        if "✅ Adaptar al inglés" in result.buttons:
-            last_response = "\n\n".join(result.response)
-            dish_context["last_description_es"] = last_response
+        new_state: dict = {
+            "current_dishes": result.current_dishes,
+            "menu_del_dia": menu_del_dia,
+            "dish_context": dish_context,
+        }
+        new_state.update(merged_conf)
+        with timing.stage("ddb.set_session_state"):
+            history_store.set_session_state(session_id, new_state)
 
-    new_state: dict = {"current_dishes": result.current_dishes, "menu_del_dia": menu_del_dia, "dish_context": dish_context}
-    new_state.update(merged_conf)
-    history_store.set_session_state(session_id, new_state)
+        with timing.stage("ddb.append_turns"):
+            history_store.append_turns(session_id, [
+                {"role": "user", "text": message},
+                {"role": "agent", "text": "\n\n".join(result.response)},
+            ])
 
-    history_store.append_turns(session_id, [
-        {"role": "user", "text": message},
-        {"role": "agent", "text": "\n\n".join(result.response)},
-    ])
+        pt.log_summary(intent=result.intent)
 
-    logger.info(
-        "request_out",
-        extra={
-            "request_id": request_id,
-            "session_id": session_id,
-            "bubbles": len(result.response),
-            "buttons": len(result.buttons),
-            "current_dishes_out": result.current_dishes,
-        },
-    )
+        logger.info(
+            "request_out",
+            extra={
+                "request_id": request_id,
+                "session_id": session_id,
+                "bubbles": len(result.response),
+                "buttons": len(result.buttons),
+                "current_dishes_out": result.current_dishes,
+                "total_ms": round(pt.total_ms, 2),
+            },
+        )
 
-    return _response(200, {
-        "response": result.response,
-        "current_dishes": result.current_dishes,
-        "buttons": result.buttons,
-        "flags": result.flags,
-        "menu_del_dia": menu_del_dia,
-        "intent": result.intent,
-        "links": result.links,
-    })
+        return _response(200, {
+            "response": result.response,
+            "current_dishes": result.current_dishes,
+            "buttons": result.buttons,
+            "flags": result.flags,
+            "menu_del_dia": menu_del_dia,
+            "intent": result.intent,
+            "links": result.links,
+        })
 
 
 def _parse_body(event: dict[str, Any]) -> dict[str, Any]:

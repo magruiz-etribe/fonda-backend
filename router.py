@@ -9,6 +9,7 @@ import classifier as cls_module
 import flag_llm
 import generation as gen_module
 import retrieval
+import timing
 from generation import GenResult
 
 logger = logging.getLogger(__name__)
@@ -51,16 +52,21 @@ def handle(
     dish_context: dict | None = None,
 ) -> GenResult:
     try:
-        cr = cls_module.classify(message, current_dishes, history, dish_context)
-        cr = _merge_persisted_variants(cr, dish_context)
-        cr = _enrich_classifier_from_conversation(cr, message, history)
-        kb_context, kb_links = _get_kb_context(cr, message, history)
+        with timing.stage("router.classify"):
+            cr = cls_module.classify(message, current_dishes, history, dish_context)
+        with timing.stage("router.merge_variants"):
+            cr = _merge_persisted_variants(cr, dish_context)
+        with timing.stage("router.enrich_conversation"):
+            cr = _enrich_classifier_from_conversation(cr, message, history)
+        with timing.stage("router.kb_context"):
+            kb_context, kb_links = _get_kb_context(cr, message, history)
         dish_flags: dict = {}
         conf_state_for_gen = None
         trigger_info_for_gen = None
         if cr.intent == "traduccion" and cr.current_dishes:
-            dish_flags = _compute_dish_flags(cr, message, history, kb_context)
-            dish_flags = _normalize_flags(dish_flags)
+            with timing.stage("router.flags"):
+                dish_flags = _compute_dish_flags(cr, message, history, kb_context)
+                dish_flags = _normalize_flags(dish_flags)
             logger.info("computed_flags", extra={"flags": dish_flags, "dishes": cr.current_dishes})
             kb_context = _append_flags_to_context(kb_context, dish_flags)
             conf_state_for_gen = confirmation_state
@@ -68,24 +74,31 @@ def handle(
                 k: dish_flags.get(k, [])
                 for k in ("allergen_triggers", "gluten_triggers", "spicy_triggers")
             }
-        if (cr.intent == "traduccion" and cr.current_dishes
-                and not cr.pending_slots and not cr.translate_now
-                and confirmation_state is not None):
-            short = _try_short_circuit(cr, confirmation_state, trigger_info_for_gen or {}, message)
-            if short is not None:
-                short.intent = cr.intent
-                short.flags = _clean_flags(dish_flags)
-                return short
+        short: GenResult | None = None
+        with timing.stage("router.short_circuit"):
+            if (cr.intent == "traduccion" and cr.current_dishes
+                    and not cr.pending_slots and not cr.translate_now
+                    and confirmation_state is not None):
+                short = _try_short_circuit(cr, confirmation_state, trigger_info_for_gen or {}, message)
+        if short is not None:
+            short.intent = cr.intent
+            short.flags = _clean_flags(dish_flags)
+            return short
 
-        result = gen_module.generate(cr, message, kb_context, history, conf_state_for_gen, trigger_info_for_gen, cr.platform, dish_context)
+        with timing.stage("router.generation"):
+            result = gen_module.generate(
+                cr, message, kb_context, history, conf_state_for_gen,
+                trigger_info_for_gen, cr.platform, dish_context,
+            )
         result.intent = cr.intent
         result.flags = _clean_flags(dish_flags)
         result.resolved_variants = cr.resolved_variants
         result.extra_user_ingredients = cr.extra_user_ingredients
         result.links = kb_links
         if cr.translate_now:
-            result.current_dishes = []  # always clear after translation (LLM sometimes forgets)
-            result.menu_entry = _build_menu_entry(result, history, dish_flags, dish_context)
+            with timing.stage("router.menu_entry"):
+                result.current_dishes = []
+                result.menu_entry = _build_menu_entry(result, history, dish_flags, dish_context)
         return result
     except Exception as e:
         logger.exception("router_unhandled_exception", extra={"error": str(e)})

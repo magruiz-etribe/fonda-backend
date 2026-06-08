@@ -12,6 +12,7 @@ from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError, ReadTimeoutError
 
 import config
+import timing
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ def converse(
     tool_config: dict[str, Any] | None = None,
     *,
     return_full: bool = False,
+    stage: str | None = None,
 ) -> str | dict[str, Any]:
     return _invoke(
         model_id,
@@ -58,6 +60,7 @@ def converse(
         inference_config,
         tool_config,
         return_full=return_full,
+        stage=stage,
     )
 
 
@@ -163,6 +166,7 @@ def _invoke(
     tool_config: dict[str, Any] | None = None,
     *,
     return_full: bool = False,
+    stage: str | None = None,
 ) -> str | dict[str, Any]:
     kwargs: dict[str, Any] = {
         "modelId": model_id,
@@ -176,15 +180,21 @@ def _invoke(
         kwargs["toolConfig"] = tool_config
 
     last: BaseException | None = None
+    invoke_start = time.perf_counter()
     for attempt in (1, 2):
         try:
             resp = _client.converse(**kwargs)
+            invoke_ms = (time.perf_counter() - invoke_start) * 1000
+            if stage:
+                timing.record_llm(stage, invoke_ms, model_id=model_id, attempt=attempt)
             if return_full:
                 logger.info(
                     "bedrock_converse_ok",
                     extra={
                         "attempt": attempt,
                         "model_id": model_id,
+                        "stage": stage or "",
+                        "duration_ms": round(invoke_ms, 2),
                         "stop_reason": resp.get("stopReason"),
                         "grounding": bool(tool_config),
                     },
@@ -196,6 +206,8 @@ def _invoke(
                 extra={
                     "attempt": attempt,
                     "model_id": model_id,
+                    "stage": stage or "",
+                    "duration_ms": round(invoke_ms, 2),
                     "reply_len": len(text),
                     "stop_reason": resp.get("stopReason"),
                     "grounding": bool(tool_config),

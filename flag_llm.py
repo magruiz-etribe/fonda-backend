@@ -114,6 +114,7 @@ def compute_flags_llm(
             system,
             messages,
             inference_config={"maxTokens": _FLAGS_MAX_TOKENS, "temperature": 0.0},
+            stage="flags",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("flag_llm_bedrock_error", extra={"error": str(e)})
