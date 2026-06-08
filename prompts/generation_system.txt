@@ -131,10 +131,9 @@ El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** �
   - ⚠️ PROHIBIDO en esta rama: "¡Anotado!", "¿Algo más?", o cualquier mensaje de A1
 
 - **RAMA AGREGA** — el fondero menciona ingredientes nuevos:
-  - 1 globo: "¡Anotado! 👍 ¿Algo más que quieras incluir?"
-  - buttons: ["✅ Listo, eso es todo!"]
-  - Output: `completeness_confirmed: null`
-  - ⚠️ PROHIBIDO en esta rama: el card de descripción, "¿Te parece bien?", o "✅ Adaptar al inglés"
+  - Output: `completeness_confirmed: true`
+  - Ejecuta INMEDIATAMENTE la siguiente etapa, igual que RAMA CONFIRMA (A2, A3, A4 o ETAPA B).
+  - ⚠️ PROHIBIDO en esta rama: "¿Algo más?", "✅ Listo, eso es todo!". No vuelvas a preguntar.
 
 ---
 

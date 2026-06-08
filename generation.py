@@ -207,9 +207,8 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
                 f"completeness_confirmed: true, {next_instruction}. "
                 f"PROHIBIDO incluir '¡Anotado!' ni '¿Algo más?' en esta rama.\n"
                 f"  RAMA AGREGA: si el fondero agrega ingredientes nuevos → "
-                f"completeness_confirmed: null, 1 globo = '¡Anotado! 👍 ¿Algo más que quieras incluir?', "
-                f"buttons: ['✅ Listo, eso es todo!']. "
-                f"PROHIBIDO incluir el card ni '¿Te parece bien?' ni '✅ Adaptar al inglés' en esta rama.\n"
+                f"completeness_confirmed: true, {next_instruction}. "
+                f"PROHIBIDO '¿Algo más?', '✅ Listo, eso es todo!'. Avanza igual que RAMA CONFIRMA.\n"
             )
         return (
             "ETAPA A1 HAZ PREGUNTA — EXACTAMENTE 1 globo + buttons ['✅ Listo, eso es todo!']. "

@@ -108,6 +108,17 @@ def handle(
             short.flags = _clean_flags(dish_flags)
             return short
 
+        # RAMA AGREGA sin triggers: A1 pendiente + ingrediente añadido → confirmar A1
+        # para que el LLM genere ETAPA B en este mismo turno sin volver a preguntar
+        _rama_agrega_forced = False
+        if (conf_state_for_gen is not None
+                and conf_state_for_gen.get("completeness_confirmed") is None
+                and cr.extra_user_ingredients
+                and not cr.pending_slots
+                and not cr.translate_now):
+            conf_state_for_gen = {**conf_state_for_gen, "completeness_confirmed": True}
+            _rama_agrega_forced = True
+
         with timing.stage("router.generation"):
             result = gen_module.generate(
                 cr, message, kb_context, history, conf_state_for_gen,
@@ -115,6 +126,8 @@ def handle(
             )
         result = _ensure_pending_slot_buttons(result, cr)
         result = _guard_etapa_b_integrity(result, confirmation_state)
+        if _rama_agrega_forced and result.completeness_confirmed is None:
+            result = replace(result, completeness_confirmed=True)
         if cr.translate_now:
             result = _ensure_english_translation(result, dish_context, history)
         result.intent = cr.intent
@@ -348,13 +361,31 @@ def _try_short_circuit(
             # Sin triggers → LLM genera ETAPA B
             return None
         if cr.extra_user_ingredients:
-            # RAMA AGREGA: el usuario agregó ingredientes mientras A1 estaba pendiente
-            return GenResult(
-                response=["¡Anotado! 👍 ¿Algo más que quieras incluir? Si ya está completo, presiona el botón 👇"],
-                current_dishes=cr.current_dishes,
-                buttons=["✅ Listo, eso es todo!"],
-                completeness_confirmed=None,
-            )
+            # RAMA AGREGA: usuario agregó ingredientes → confirmar A1 y avanzar sin reincidir
+            ack = "¡Anotado! 👍"
+            if allergen_tr:
+                return GenResult(
+                    response=[ack, _ask_a2(allergen_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            if gluten_tr:
+                return GenResult(
+                    response=[ack, _ask_a3(gluten_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            if spicy_tr:
+                return GenResult(
+                    response=[ack, _ask_a4(spicy_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            # Sin triggers → señalizar al caller para que el LLM genere ETAPA B
+            return None
         # A1 HAZ PREGUNTA: respuesta determinista, sin llamar al LLM
         return GenResult(
             response=[
