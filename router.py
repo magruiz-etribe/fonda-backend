@@ -20,6 +20,12 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
     buttons=[],
 )
 
+_OUT_OF_DOMAIN_RESPONSE: Final[str] = (
+    "No puedo ayudarte con ese tema. Soy Huevito y estoy aquí para apoyarte con tu fonda: "
+    "adaptar platillos al inglés, registro en plataformas, higiene en cocina y el programa Menú del Día. "
+    "¿Te ayudo con algo de eso? 😊"
+)
+
 
 # Phrases that unambiguously mean "done, nothing to add" in A1 context.
 _COMPLETION_PHRASES: frozenset[str] = frozenset({
@@ -54,6 +60,13 @@ def handle(
     try:
         with timing.stage("router.classify"):
             cr = cls_module.classify(message, current_dishes, history, dish_context)
+        if cr.intent == "out_of_domain":
+            return GenResult(
+                response=[_OUT_OF_DOMAIN_RESPONSE],
+                current_dishes=list(current_dishes),
+                buttons=[],
+                intent="out_of_domain",
+            )
         with timing.stage("router.merge_variants"):
             cr = _merge_persisted_variants(cr, dish_context)
         with timing.stage("router.enrich_conversation"):

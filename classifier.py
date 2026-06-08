@@ -24,7 +24,7 @@ _VALID_INTENTS: Final[frozenset[str]] = frozenset({
     "traduccion", "maps", "yelp", "tripadvisor", "higiene",
     "fundacion_placemaking", "menu_del_dia", "organizaciones_participantes",
     "primera_edicion", "talleres", "beneficios_negocio", "contacto",
-    "fallback",
+    "out_of_domain", "fallback",
 })
 _VALID_PLATFORMS: Final[frozenset[str]] = frozenset({"google_maps", "yelp", "tripadvisor"})
 
