@@ -5,7 +5,7 @@ eTribe es una consultora tecnológica especializada en Data, Analytics e Intelig
 eTribe colabora en el proyecto Menú del Día mediante el desarrollo de una herramienta de Inteligencia Artificial orientada a apoyar a los locatarios de mercados en la adaptación de sus menús al inglés, así como en la identificación de alérgenos en los alimentos. El objetivo es mejorar la accesibilidad de la información para visitantes nacionales e internacionales, fortaleciendo la experiencia del usuario y promoviendo prácticas de comunicación más inclusivas y seguras.
 
 ### links
-[{"label": "¿Qué es eTribe?", "url": "PENDIENTE_URL_ETRIBE", "type": "page"}]
+[{"label": "¿Qué es eTribe?", "url": "https://etribe.mx/", "type": "page"}]
 
 ## maps
 
