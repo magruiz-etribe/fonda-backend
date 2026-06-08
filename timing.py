@@ -161,7 +161,10 @@ class PipelineTiming:
             s.duration_ms for s in self.stages
             if s.name.startswith("ddb.") or s.name.startswith("parallel:handler.ddb")
         )
-        kb_ms = sum(s.duration_ms for s in self.stages if s.name.startswith("classifier.kb"))
+        kb_ms = sum(
+            s.duration_ms for s in self.stages
+            if s.name.startswith("classifier.kb")
+        )
         local_ms = max(0.0, total - llm_ms - ddb_ms)
 
         stage_lines = []

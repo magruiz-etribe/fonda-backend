@@ -7,6 +7,7 @@ from typing import Final
 
 import bedrock_client
 import config
+import timing
 from prompt_loader import load_prompt
 from retrieval import (
     get_entities_index,
@@ -136,11 +137,12 @@ def _extract_traduccion(
     dish_context: dict | None,
     intent: str,
 ) -> ClassifierResult:
-    entities_index = get_entities_index()
-    entities_with_variants = get_entities_with_variants()
-    user_text = _build_extractor_text(
-        message, current_dishes, history, entities_index, entities_with_variants, dish_context,
-    )
+    with timing.stage("classifier.kb_load"):
+        entities_index = get_entities_index()
+        entities_with_variants = get_entities_with_variants()
+        user_text = _build_extractor_text(
+            message, current_dishes, history, entities_index, entities_with_variants, dish_context,
+        )
     system = load_prompt(_EXTRACTOR_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 

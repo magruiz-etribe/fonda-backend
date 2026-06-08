@@ -30,7 +30,6 @@ except ImportError:
     _YAML_AVAILABLE = False
 
 
-@lru_cache(maxsize=128)
 @lru_cache(maxsize=512)
 def get_dish_data(entity: str) -> dict | None:
     """Returns parsed YAML data for a dish, or None if YAML is unavailable or missing."""
@@ -158,33 +157,37 @@ def get_entities_index() -> dict[str, str]:
 
 @lru_cache(maxsize=1)
 def get_entities_with_variants() -> list[str]:
-    """Returns canonical entity names with variants (YAML first, .txt fallback)."""
+    """Returns canonical entity names that have variants.
+
+    YAML platillos are listed by filename only (no per-file parse) — every
+    platillo YAML in the KB defines a variants block. Legacy .txt entries are
+    scanned for a ## Variantes section when no YAML exists for that entity.
+    """
     platillos_dir = os.path.join(config.KB_PATH, "platillos")
     result: list[str] = []
+    yaml_entities: set[str] = set()
     try:
         for fname in sorted(os.listdir(platillos_dir)):
-            entity: str | None = None
-            has_variants = False
-
             if fname.endswith(".yaml") and _YAML_AVAILABLE:
                 entity = fname[:-5]
-                data = get_dish_data(entity)
-                has_variants = bool(data and data.get("variants"))
-
-            elif fname.endswith(".txt"):
-                entity = fname[:-4]
-                # Skip .txt when a YAML already covers this entity
-                if get_dish_data(entity) is not None:
-                    continue
-                full = os.path.join(platillos_dir, fname)
-                try:
-                    with open(full, encoding="utf-8") as f:
-                        has_variants = "## Variantes" in f.read()
-                except OSError:
-                    pass
-
-            if entity and has_variants and entity not in result:
+                yaml_entities.add(entity)
                 result.append(entity)
+                continue
+
+            if not fname.endswith(".txt"):
+                continue
+
+            entity = fname[:-4]
+            if entity in yaml_entities:
+                continue
+
+            full = os.path.join(platillos_dir, fname)
+            try:
+                with open(full, encoding="utf-8") as f:
+                    if "## Variantes" in f.read():
+                        result.append(entity)
+            except OSError:
+                pass
 
     except OSError:
         logger.warning("platillos_dir_missing", extra={"path": platillos_dir})
