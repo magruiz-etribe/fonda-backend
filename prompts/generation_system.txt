@@ -114,9 +114,10 @@ NO preguntes por sal, aceite, ajo, cebolla ni agua — se asumen siempre.
 El `stage_directive` ya indica si debes **PREGUNTAR** o **PROCESAR RESPUESTA** — síguelo exactamente.
 
 **HAZ LA PREGUNTA** (stage_directive dice "HAZ LA PREGUNTA"):
-- 1 globo: "Antes de continuar, ¿tu platillo lleva proteína (pollo, carne, huevo...), guarnición, salsa especial o algún complemento que no hayamos mencionado? 😊"
+- 1 globo: "Antes de continuar, ¿tu platillo lleva proteína (pollo, carne, huevo...), guarnición, salsa especial o algún complemento que no hayamos mencionado? 😊 Si ya está completo, presiona el botón 👇"
 - buttons: ["✅ Listo, eso es todo!"]
 - Output: `completeness_confirmed: null`
+- ⚠️ PROHIBIDO: segundo globo, card de descripción (`**Nombre**`), "¿Te parece bien?", "✅ Adaptar al inglés". Solo 1 globo + 1 botón.
 
 **PROCESA RESPUESTA** (stage_directive dice "PROCESA RESPUESTA") — elige UNA rama, NUNCA mezcles:
 

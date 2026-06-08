@@ -114,6 +114,7 @@ def handle(
                 trigger_info_for_gen, cr.platform, dish_context,
             )
         result = _ensure_pending_slot_buttons(result, cr)
+        result = _guard_etapa_b_integrity(result, confirmation_state)
         if cr.translate_now:
             result = _ensure_english_translation(result, dish_context, history)
         result.intent = cr.intent
@@ -169,6 +170,45 @@ def _ensure_english_translation(
         extra={"name_en": translated["name_en"]},
     )
     return replace(result, response=new_response)
+
+
+def _guard_etapa_b_integrity(
+    result: GenResult,
+    confirmation_state: dict | None,
+) -> GenResult:
+    """Detect and repair malformed ETAPA B: '✅ Adaptar al inglés' present but card missing.
+
+    This happens when the LLM jumps ahead and emits the '¿Te parece bien?' bubble
+    without the required '**Nombre**\\nDescripcion' card as the first bubble.
+    We strip the ETAPA B artifacts so the user sees only the valid bubble (e.g. the
+    A1 question) with the correct button restored.
+    """
+    if "✅ Adaptar al inglés" not in result.buttons:
+        return result
+    if result.response and result.response[0].strip().startswith("**"):
+        return result  # card present — ETAPA B is valid
+
+    logger.warning(
+        "etapa_b_card_missing",
+        extra={
+            "bubbles": len(result.response),
+            "first_bubble_prefix": result.response[0][:120] if result.response else "",
+        },
+    )
+    # Keep only bubbles that are NOT the "¿Te parece bien?" confirmation text
+    safe_response = [
+        b for b in result.response
+        if "¿Te parece bien?" not in b and "Adaptar al inglés" not in b
+    ]
+    cs = confirmation_state or {}
+    if cs.get("completeness_confirmed") is None:
+        safe_buttons: list[str] = ["✅ Listo, eso es todo!"]
+    else:
+        safe_buttons = []
+    if not safe_response:
+        safe_response = ["Disculpa, tuve un problema. ¿Puedes intentarlo de nuevo? 😊"]
+        safe_buttons = []
+    return replace(result, response=safe_response, buttons=safe_buttons, completeness_confirmed=None)
 
 
 def _ensure_pending_slot_buttons(
@@ -248,7 +288,7 @@ def _ask_a2(triggers: list[str]) -> str:
     tl = _fmt_trigger_list(triggers)
     return (
         f"He detectado que tu platillo puede contener ingredientes alérgenos: **{tl}**. "
-        "¿Confirmas que tu platillo tiene al menos uno de estos? 🌿"
+        "¿Confirmas que tu platillo tiene al menos uno de estos? 🌿 Usa los botones para responder 👇"
     )
 
 
@@ -256,7 +296,7 @@ def _ask_a3(triggers: list[str]) -> str:
     tl = _fmt_trigger_list(triggers)
     return (
         f"He detectado que tu platillo puede contener algunos de estos ingredientes: **{tl}**. "
-        "¿Confirmas que tu platillo tiene al menos uno? 🌾"
+        "¿Confirmas que tu platillo tiene al menos uno? 🌾 Usa los botones para responder 👇"
     )
 
 
@@ -264,7 +304,7 @@ def _ask_a4(triggers: list[str]) -> str:
     tl = _fmt_trigger_list(triggers)
     return (
         f"He detectado que tu platillo puede contener algunos de estos ingredientes: **{tl}**. "
-        "¿Confirmas que tu platillo tiene al menos uno? 🌶️"
+        "¿Confirmas que tu platillo tiene al menos uno? 🌶️ Usa los botones para responder 👇"
     )
 
 
@@ -280,32 +320,52 @@ def _try_short_circuit(
     gluten_tr: list[str] = trigger_info.get("gluten_triggers") or []
     spicy_tr: list[str] = trigger_info.get("spicy_triggers") or []
 
-    # ── A1 PROCESA RESPUESTA ─────────────────────────────────────────────────
-    # User responded with an unambiguous "done" to the A1 completeness question.
-    if cs.get("completeness_confirmed") is None and _is_pure_completion(message):
-        if allergen_tr:
+    # ── A1 — completamente determinista, el LLM no interviene en esta etapa ──
+    if cs.get("completeness_confirmed") is None:
+        if _is_pure_completion(message):
+            # Usuario confirmó que ya no agrega nada → avanzar a la siguiente etapa
+            if allergen_tr:
+                return GenResult(
+                    response=[_ask_a2(allergen_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            if gluten_tr:
+                return GenResult(
+                    response=[_ask_a3(gluten_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            if spicy_tr:
+                return GenResult(
+                    response=[_ask_a4(spicy_tr)],
+                    current_dishes=cr.current_dishes,
+                    buttons=_CONFIRM_BTNS,
+                    completeness_confirmed=True,
+                )
+            # Sin triggers → LLM genera ETAPA B
+            return None
+        if cr.extra_user_ingredients:
+            # RAMA AGREGA: el usuario agregó ingredientes mientras A1 estaba pendiente
             return GenResult(
-                response=[_ask_a2(allergen_tr)],
+                response=["¡Anotado! 👍 ¿Algo más que quieras incluir? Si ya está completo, presiona el botón 👇"],
                 current_dishes=cr.current_dishes,
-                buttons=_CONFIRM_BTNS,
-                completeness_confirmed=True,
+                buttons=["✅ Listo, eso es todo!"],
+                completeness_confirmed=None,
             )
-        if gluten_tr:
-            return GenResult(
-                response=[_ask_a3(gluten_tr)],
-                current_dishes=cr.current_dishes,
-                buttons=_CONFIRM_BTNS,
-                completeness_confirmed=True,
-            )
-        if spicy_tr:
-            return GenResult(
-                response=[_ask_a4(spicy_tr)],
-                current_dishes=cr.current_dishes,
-                buttons=_CONFIRM_BTNS,
-                completeness_confirmed=True,
-            )
-        # No triggers at all → fall through to LLM for ETAPA B (Spanish description).
-        return None
+        # A1 HAZ PREGUNTA: respuesta determinista, sin llamar al LLM
+        return GenResult(
+            response=[
+                "Antes de continuar, ¿tu platillo lleva proteína (pollo, carne, huevo...), "
+                "guarnición, salsa especial o algún complemento que no hayamos mencionado? 😊 "
+                "Si ya está completo, presiona el botón 👇"
+            ],
+            current_dishes=cr.current_dishes,
+            buttons=["✅ Listo, eso es todo!"],
+            completeness_confirmed=None,
+        )
 
     # Stages A2–A4 only apply once completeness is confirmed.
     if not cs.get("completeness_confirmed"):

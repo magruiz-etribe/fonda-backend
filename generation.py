@@ -211,7 +211,11 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
                 f"buttons: ['✅ Listo, eso es todo!']. "
                 f"PROHIBIDO incluir el card ni '¿Te parece bien?' ni '✅ Adaptar al inglés' en esta rama.\n"
             )
-        return "ETAPA A1 HAZ PREGUNTA: pregunta completitud. 1 globo. PROHIBIDO generar descripcion.\n"
+        return (
+            "ETAPA A1 HAZ PREGUNTA — EXACTAMENTE 1 globo + buttons ['✅ Listo, eso es todo!']. "
+            "PROHIBIDO: segundo globo, descripcion del platillo, '¿Te parece bien?', '✅ Adaptar al inglés'. "
+            "completeness_confirmed: null.\n"
+        )
 
     if ti.get("allergen_triggers") and cs.get("allergens_confirmed") is None:
         if responding:
@@ -220,7 +224,11 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
                 f"ETAPA A2 PROCESA RESPUESTA: allergens_confirmed true si confirma, false si niega. "
                 f"Siguiente paso obligatorio ETAPA {nxt}. En este turno 1 globo = SOLO {ndesc}.\n"
             )
-        return "ETAPA A2 HAZ PREGUNTA: usa formato exacto de ETAPA A2. 1 globo.\n"
+        return (
+            "ETAPA A2 HAZ PREGUNTA — EXACTAMENTE 1 globo con formato de ETAPA A2 + "
+            "buttons ['✅ Sí, contiene alguno', '❌ No, ninguno de esos']. "
+            "PROHIBIDO: segundo globo, descripcion del platillo, '¿Te parece bien?', '✅ Adaptar al inglés'.\n"
+        )
 
     if ti.get("gluten_triggers") and cs.get("gluten_confirmed") is None:
         if responding:
@@ -229,7 +237,11 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
                 f"ETAPA A3 PROCESA RESPUESTA: gluten_confirmed true si confirma, false si niega. "
                 f"Siguiente paso obligatorio ETAPA {nxt}. En este turno 1 globo = SOLO {ndesc}.\n"
             )
-        return "ETAPA A3 HAZ PREGUNTA: usa formato exacto de ETAPA A3. 1 globo.\n"
+        return (
+            "ETAPA A3 HAZ PREGUNTA — EXACTAMENTE 1 globo con formato de ETAPA A3 + "
+            "buttons ['✅ Sí, contiene alguno', '❌ No, ninguno de esos']. "
+            "PROHIBIDO: segundo globo, descripcion del platillo, '¿Te parece bien?', '✅ Adaptar al inglés'.\n"
+        )
 
     if ti.get("spicy_triggers") and cs.get("spicy_confirmed") is None:
         if responding:
@@ -237,7 +249,11 @@ def _build_stage_directive(cs: dict, ti: dict, message: str) -> str:
                 "ETAPA A4 PROCESA RESPUESTA: spicy_confirmed true si confirma, false si niega. "
                 "Siguiente paso obligatorio ETAPA B. En este turno 1 globo = SOLO la descripcion en espanol (ETAPA B).\n"
             )
-        return "ETAPA A4 HAZ PREGUNTA: usa formato exacto de ETAPA A4. 1 globo.\n"
+        return (
+            "ETAPA A4 HAZ PREGUNTA — EXACTAMENTE 1 globo con formato de ETAPA A4 + "
+            "buttons ['✅ Sí, contiene alguno', '❌ No, ninguno de esos']. "
+            "PROHIBIDO: segundo globo, descripcion del platillo, '¿Te parece bien?', '✅ Adaptar al inglés'.\n"
+        )
 
     return ""
 
