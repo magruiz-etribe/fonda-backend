@@ -166,6 +166,17 @@ def _is_confirmation(message: str) -> bool:
     return bool(_CONFIRM_RE.match(message.strip()))
 
 
+_YES_RE: re.Pattern[str] = re.compile(
+    r"^(✅|sí|si\b|listo|claro|correcto|exacto|contiene)",
+    re.IGNORECASE,
+)
+
+
+def _is_yes(message: str) -> bool:
+    """True when the confirmation response is affirmative."""
+    return bool(_YES_RE.match(message.strip()))
+
+
 def _next_stage(ti: dict, after: str) -> tuple[str, str]:
     """Return (stage_code, label) for the stage that follows `after`."""
     order = ["A2", "A3", "A4", "B"]

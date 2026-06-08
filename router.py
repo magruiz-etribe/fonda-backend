@@ -123,6 +123,10 @@ def handle(
                 )
                 short = _try_short_circuit(cr, cs_for_short, trigger_info_for_gen or {}, message)
         if short is not None:
+            # If companion addition triggered this turn, ensure completeness_confirmed=True
+            # is persisted — cs_for_short injected it but the result may still carry None.
+            if _companion_added and short.completeness_confirmed is None:
+                short = replace(short, completeness_confirmed=True)
             short.intent = cr.intent
             short.flags = _clean_flags(dish_flags)
             return short
