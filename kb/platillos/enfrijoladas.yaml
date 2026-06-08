@@ -1,7 +1,6 @@
 canonical_name: enfrijoladas
 common_names:
   - enfrijoladas
-  - enfrijoladas con huevo
   - enfrijoladas con pollo
   - enfrijoladas con queso
   - enfrijoladas de frijol negro
@@ -13,8 +12,8 @@ base_ingredients:
   - sal
 variants:
   con_huevo:
-    name_es: Enfrijoladas con huevo
-    name_en: Bean-sauce Enchiladas with Egg
+    name_es: Enfrijoladas
+    name_en: Bean-sauce Enchiladas
     extra_ingredients:
       - frijoles_negros
       - huevo
@@ -24,9 +23,9 @@ variants:
       - cilantro
     technique: tortilla pasada por salsa espesa de frijol molido, servida con huevo estrellado
     description_es: >
-      Tortillas bañadas en salsa de frijol negro, con huevo estrellado encima.
+      Tortillas bañadas en salsa de frijol negro.
     description_en: >
-      Corn tortillas coated in thick blended black bean sauce, topped with a fried egg and fresh cheese.
+      Corn tortillas coated in thick blended black bean sauce, topped with fresh cheese.
   con_pollo:
     name_es: Enfrijoladas con pollo
     name_en: Bean-sauce Enchiladas with Chicken

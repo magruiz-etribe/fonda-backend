@@ -9,7 +9,6 @@ common_names:
   - enchiladas placeras
   - enchiladas de mole
   - enchiladas queretanas
-  - enfrijoladas
   - entomatadas
 category: antojito
 base_ingredients:
@@ -128,21 +127,6 @@ variants:
       Enchiladas con papa, zanahoria y lechuga.
     description_en: >
       Querétaro-style enchiladas served with potato, carrot, and lettuce.
-  enfrijoladas:
-    name_es: Enfrijoladas
-    name_en: Bean-sauce Enchiladas
-    extra_ingredients:
-      - frijoles_negros
-      - queso_fresco
-      - crema
-      - cebolla
-      - cilantro
-      - huevo
-    technique: tortilla pasada por salsa espesa de frijol molido
-    description_es: >
-      Tortillas bañadas en salsa de frijol; a veces con huevo encima.
-    description_en: >
-      Tortillas coated in thick blended bean sauce — sometimes topped with a fried egg.
   entomatadas:
     name_es: Entomatadas
     name_en: Tomato-sauce Enchiladas
