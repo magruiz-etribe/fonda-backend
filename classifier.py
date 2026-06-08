@@ -9,7 +9,6 @@ import bedrock_client
 import config
 from prompt_loader import load_prompt
 from retrieval import (
-    get_dish_data,
     get_entities_index,
     get_entities_with_variants,
     get_variant_keys_for_slot,
@@ -140,7 +139,7 @@ def _extract_traduccion(
     entities_index = get_entities_index()
     entities_with_variants = get_entities_with_variants()
     user_text = _build_extractor_text(
-        message, current_dishes, history, entities_index, entities_with_variants, dish_context
+        message, current_dishes, history, entities_index, entities_with_variants, dish_context,
     )
     system = load_prompt(_EXTRACTOR_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]

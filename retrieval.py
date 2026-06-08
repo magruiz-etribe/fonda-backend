@@ -31,6 +31,7 @@ except ImportError:
 
 
 @lru_cache(maxsize=128)
+@lru_cache(maxsize=512)
 def get_dish_data(entity: str) -> dict | None:
     """Returns parsed YAML data for a dish, or None if YAML is unavailable or missing."""
     if entity == _CUSTOM_ENTITY or not _YAML_AVAILABLE:

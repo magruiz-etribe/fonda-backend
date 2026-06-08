@@ -157,8 +157,12 @@ class PipelineTiming:
     def log_summary(self, *, intent: str = "") -> None:
         total = self.total_ms
         llm_ms = sum(s.duration_ms for s in self.stages if s.name.startswith("llm."))
-        ddb_ms = sum(s.duration_ms for s in self.stages if s.name.startswith("ddb."))
-        local_ms = total - llm_ms  # approximate
+        ddb_ms = sum(
+            s.duration_ms for s in self.stages
+            if s.name.startswith("ddb.") or s.name.startswith("parallel:handler.ddb")
+        )
+        kb_ms = sum(s.duration_ms for s in self.stages if s.name.startswith("classifier.kb"))
+        local_ms = max(0.0, total - llm_ms - ddb_ms)
 
         stage_lines = []
         for s in self.stages:
@@ -176,6 +180,7 @@ class PipelineTiming:
                 "total_ms": round(total, 2),
                 "llm_ms": round(llm_ms, 2),
                 "ddb_ms": round(ddb_ms, 2),
+                "kb_ms": round(kb_ms, 2),
                 "local_ms": round(local_ms, 2),
                 "flow": self._flow_summary(),
                 "stages": [
@@ -192,11 +197,13 @@ class PipelineTiming:
             },
         )
         logger.info(
-            "pipeline_timing_detail request_id=%s total=%.0fms llm=%.0fms ddb=%.0fms\nflow: %s\n%s",
+            "pipeline_timing_detail request_id=%s total=%.0fms llm=%.0fms ddb=%.0fms kb=%.0fms local=%.0fms\nflow: %s\n%s",
             self.request_id,
             total,
             llm_ms,
             ddb_ms,
+            kb_ms,
+            local_ms,
             self._flow_summary(),
             "\n".join(stage_lines),
         )
