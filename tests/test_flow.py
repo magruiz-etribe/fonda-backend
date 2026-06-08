@@ -60,6 +60,13 @@ def _gen(response=None, current_dishes=None, buttons=None) -> str:
     })
 
 
+def _intent(intent="traduccion", platform="") -> str:
+    payload = {"reasoning": "test", "intent": intent}
+    if platform:
+        payload["platform"] = platform
+    return json.dumps(payload)
+
+
 _FLAGS = json.dumps({
     "reasoning": "test",
     "allergens": False,
@@ -74,11 +81,12 @@ _FLAGS = json.dumps({
 
 
 def _handle(converse_mock, message, current_dishes, history, cls_kwargs, gen_kwargs):
-    responses = [_cls(**cls_kwargs)]
-    if (cls_kwargs.get("intent") or "traduccion") == "traduccion" and (
-        cls_kwargs.get("current_dishes") or current_dishes
-    ):
-        responses.append(_FLAGS)
+    intent = cls_kwargs.get("intent") or "traduccion"
+    responses = [_intent(intent, cls_kwargs.get("platform", ""))]
+    if intent == "traduccion":
+        responses.append(_cls(**cls_kwargs))
+        if cls_kwargs.get("current_dishes") or current_dishes:
+            responses.append(_FLAGS)
     responses.append(_gen(**gen_kwargs))
     converse_mock.side_effect = responses
     return router.handle(message, current_dishes, history)
@@ -420,7 +428,7 @@ class TestClassifierParsing:
     """Unit tests for ClassifierResult parsing — no router needed."""
 
     def test_pending_slots_extracted(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "mole and arroz need variants",
             "intent": "traduccion",
@@ -433,14 +441,14 @@ class TestClassifierParsing:
             "resolved_variants": {},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert len(cr.pending_slots) == 2
         assert cr.pending_slots[0].entity == "mole"
         assert cr.pending_slots[0].slot_name == "variant"
         assert cr.pending_slots[1].entity == "arroz"
 
     def test_pending_slots_options_populated_from_yaml(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "mole needs variant",
             "intent": "traduccion",
@@ -450,7 +458,7 @@ class TestClassifierParsing:
             "resolved_variants": {},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         # Options come from mole.yaml variants dict
         assert "negro" in cr.pending_slots[0].options
         assert "poblano" in cr.pending_slots[0].options
@@ -459,7 +467,7 @@ class TestClassifierParsing:
 
     def test_pending_variant_for_property_backward_compat(self):
         """pending_variant_for property returns entity of first variant slot."""
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "test",
             "intent": "traduccion",
@@ -469,11 +477,11 @@ class TestClassifierParsing:
             "resolved_variants": {},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert cr.pending_variant_for == "mole"
 
     def test_pending_slots_empty_when_all_confirmed(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "all confirmed",
             "intent": "traduccion",
@@ -483,12 +491,12 @@ class TestClassifierParsing:
             "resolved_variants": {"mole": "negro"},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert cr.pending_slots == []
         assert cr.pending_variant_for is None
 
     def test_resolved_variants_extracted(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "variants confirmed",
             "intent": "traduccion",
@@ -498,11 +506,11 @@ class TestClassifierParsing:
             "resolved_variants": {"mole": "negro", "arroz": "rojo"},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert cr.resolved_variants == {"mole": "negro", "arroz": "rojo"}
 
     def test_extra_user_ingredients_extracted(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "fondero added extras",
             "intent": "traduccion",
@@ -512,11 +520,11 @@ class TestClassifierParsing:
             "resolved_variants": {"mole": "negro"},
             "extra_user_ingredients": ["crema", "queso"],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert cr.extra_user_ingredients == ["crema", "queso"]
 
     def test_translate_now_parsed(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "user clicked Traducir",
             "intent": "traduccion",
@@ -526,11 +534,11 @@ class TestClassifierParsing:
             "resolved_variants": {"mole": "negro"},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert cr.translate_now is True
 
     def test_non_traduccion_intent_clears_all(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "maps",
             "intent": "maps",
@@ -540,13 +548,13 @@ class TestClassifierParsing:
             "resolved_variants": {},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, ["mole"])
+        cr = _parse_extraction(raw, ["mole"], "maps")
         assert cr.pending_slots == []
         assert cr.pending_variant_for is None
         assert cr.current_dishes == []
 
     def test_invalid_slot_entity_skipped(self):
-        from classifier import _parse
+        from classifier import _parse_extraction
         raw = json.dumps({
             "reasoning": "test",
             "intent": "traduccion",
@@ -559,7 +567,7 @@ class TestClassifierParsing:
             "resolved_variants": {},
             "extra_user_ingredients": [],
         })
-        cr = _parse(raw, [])
+        cr = _parse_extraction(raw, [], "traduccion")
         assert len(cr.pending_slots) == 1
         assert cr.pending_slots[0].entity == "mole"
 

@@ -8,7 +8,12 @@ from typing import Final
 import bedrock_client
 import config
 from prompt_loader import load_prompt
-from retrieval import get_dish_data, get_entities_index, get_entities_with_variants
+from retrieval import (
+    get_dish_data,
+    get_entities_index,
+    get_entities_with_variants,
+    get_variant_keys_for_slot,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -231,9 +236,7 @@ def _parse_extraction(raw: str, current_dishes: list[str], intent: str) -> Class
             slot_name = str(slot_data.get("slot_name", "variant")).lower().strip()
             options: list[str] = []
             if slot_name == "variant":
-                dish_data = get_dish_data(entity)
-                if dish_data:
-                    options = list(dish_data.get("variants", {}).keys())
+                options = get_variant_keys_for_slot(entity)
             pending_slots.append(PendingSlot(entity=entity, slot_name=slot_name, options=options))
 
     raw_rv = data.get("resolved_variants") or {}

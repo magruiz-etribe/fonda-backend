@@ -55,7 +55,7 @@ def handle(
         cr = cls_module.classify(message, current_dishes, history, dish_context)
         cr = _merge_persisted_variants(cr, dish_context)
         cr = _enrich_classifier_from_conversation(cr, message, history)
-        kb_context, kb_links = _get_kb_context(cr)
+        kb_context, kb_links = _get_kb_context(cr, message, history)
         if cr.intent == "traduccion":
             search_query = web_search.resolve_search_query(message, history, dish_context)
             if search_query:
@@ -257,9 +257,23 @@ def _merge_persisted_variants(
     return replace(cr, resolved_variants=merged)
 
 
-def _get_kb_context(cr: cls_module.ClassifierResult) -> tuple[str, list[dict]]:
+def _get_kb_context(
+    cr: cls_module.ClassifierResult,
+    message: str,
+    history: list[dict[str, str]],
+) -> tuple[str, list[dict]]:
     if cr.intent == "traduccion":
-        return retrieval.get_context_for_dishes(cr.current_dishes), []
+        pending_variant_entities = {
+            s.entity for s in cr.pending_slots if s.slot_name == "variant"
+        }
+        conversation = retrieval.conversation_text(message, history)
+        ctx = retrieval.get_context_for_dishes(
+            cr.current_dishes,
+            resolved_variants=cr.resolved_variants,
+            pending_variant_entities=pending_variant_entities,
+            conversation=conversation,
+        )
+        return ctx, []
     return retrieval.get_topic(cr.intent, cr.platform or None)
 
 
