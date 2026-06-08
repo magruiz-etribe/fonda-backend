@@ -6,6 +6,11 @@ common_names:
   - burritos de carne asada
   - gringas de carne asada
   - arrachera
+  - Carne asada
+  - Arrachera
+  - Gringa
+  - Burrito de carne asada
+  - Carne asada estilo fonda
 category: platillo_principal
 base_ingredients:
   - carne_de_res
@@ -84,3 +89,63 @@ variants:
       Quesadilla grande con carne asada y queso derretido
     description_en: >
       Flour tortilla quesadilla filled with grilled beef and melted cheese — crispy and richly flavored.
+  carne_asada:
+    name_es: Carne asada
+    name_en: Grilled Beef
+    extra_ingredients:
+      - carne_de_res
+      - sal
+      - limon
+    technique: 
+    description_es: >
+      Cortes de carne cocinados a la parrilla.
+    description_en: >
+      Cortes de carne cocinados a la parrilla.
+  arrachera:
+    name_es: Arrachera
+    name_en: Skirt Steak
+    extra_ingredients:
+      - arrachera
+      - especias
+      - limon
+    technique: 
+    description_es: >
+      Corte de res marinado y asado.
+    description_en: >
+      Corte de res marinado y asado.
+  gringa:
+    name_es: Gringa
+    name_en: Pastor Quesadilla
+    extra_ingredients:
+      - pastor
+      - queso_oaxaca
+      - tortilla_de_harina
+    technique: 
+    description_es: >
+      Tortilla de harina rellena de carne al pastor y queso.
+    description_en: >
+      Tortilla de harina rellena de carne al pastor y queso.
+  burrito_de_carne_asada:
+    name_es: Burrito de carne asada
+    name_en: Grilled Beef Burrito
+    extra_ingredients:
+      - tortilla_de_harina
+      - carne_asada
+      - frijoles
+    technique: 
+    description_es: >
+      Tortilla de harina enrollada con carne asada y complementos.
+    description_en: >
+      Tortilla de harina enrollada con carne asada y complementos.
+  estilo_fonda:
+    name_es: Carne asada estilo fonda
+    name_en: Grilled Beef
+    extra_ingredients:
+      - res
+      - sal
+      - limon
+    technique: 
+    description_es: >
+      Carne asada servida con guarniciones sencillas.
+    description_en: >
+      Carne asada servida con guarniciones sencillas.

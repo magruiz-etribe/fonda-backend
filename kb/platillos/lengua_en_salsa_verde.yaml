@@ -1,0 +1,24 @@
+canonical_name: lengua_en_salsa_verde
+common_names:
+  - Lengua en salsa verde
+category: platillo_principal
+base_ingredients:
+  - lengua_de_res
+  - tomate_verde
+  - chile_serrano
+variants:
+  lengua_en_salsa_verde:
+    name_es: Lengua en salsa verde
+    name_en: Beef Tongue in Green Sauce
+    extra_ingredients:
+      - lengua
+      - tomatillo
+      - chile
+      - lengua_de_res
+      - tomate_verde
+      - chile_serrano
+    technique: 
+    description_es: >
+      Lengua de res en salsa verde.
+    description_en: >
+      Lengua de res en salsa verde.

@@ -1,0 +1,21 @@
+canonical_name: carne_de_res_en_salsa_de_cacahuate
+common_names:
+  - Carne de res en salsa de cacahuate
+category: platillo_principal
+base_ingredients:
+  - res
+  - cacahuate
+  - chile
+variants:
+  carne_de_res_en_salsa_de_cacahuate:
+    name_es: Carne de res en salsa de cacahuate
+    name_en: Beef in Peanut Sauce
+    extra_ingredients:
+      - res
+      - cacahuate
+      - chile
+    technique: 
+    description_es: >
+      Guiso de res en salsa cremosa de cacahuate.
+    description_en: >
+      Guiso de res en salsa cremosa de cacahuate.

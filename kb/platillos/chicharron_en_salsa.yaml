@@ -6,6 +6,12 @@ common_names:
   - chicharrón en salsa verde
   - chicharron en salsa roja
   - chicharrón en salsa roja
+  - Chicharrón en salsa verde
+  - Chicharrón en salsa roja
+  - Tacos de chicharrón en salsa roja
+  - Tacos de chicharrón en salsa verde con frijoles
+  - Tacos de chicharrón en salsa roja con papas
+  - Gorditas de chicharrón en salsa verde
 category: guisado
 base_ingredients:
   - chicharron_de_cerdo
@@ -40,3 +46,78 @@ variants:
       preparado con chicharrón de cerdo cocido en salsa verde de tomatillo y chile serrano.
     description_en: >
       Pork rinds softened in a tomatillo and serrano chile green sauce — fresh, slightly tart, and mildly spicy.
+  chicharron_en_salsa_verde:
+    name_es: Chicharrón en salsa verde
+    name_en: Pork Crackling in Green Sauce
+    extra_ingredients:
+      - chicharron
+      - tomatillo
+      - chile
+      - tomate_verde
+      - chile_serrano
+    technique: 
+    description_es: >
+      Chicharrón prensado en salsa verde.
+    description_en: >
+      Chicharrón prensado en salsa verde.
+  chicharron_en_salsa_roja:
+    name_es: Chicharrón en salsa roja
+    name_en: Pork Crackling in Red Sauce
+    extra_ingredients:
+      - chicharron
+      - chile_guajillo
+      - jitomate
+      - ajo
+    technique: 
+    description_es: >
+      Chicharrón en salsa roja picante.
+    description_en: >
+      Chicharrón en salsa roja picante.
+  de_chicharron_en_salsa_roja:
+    name_es: Tacos de chicharrón en salsa roja
+    name_en: Pork Crackling Tacos in Red Sauce
+    extra_ingredients:
+      - chicharron
+      - chile_guajillo
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de chicharrón en salsa roja picante.
+    description_en: >
+      Tacos de chicharrón en salsa roja picante.
+  de_chicharron_en_salsa_verde_con_frijoles:
+    name_es: Tacos de chicharrón en salsa verde con frijoles
+    name_en: Pork Crackling in Green Sauce Tacos
+    extra_ingredients:
+      - chicharron
+      - tomatillo
+      - frijol
+    technique: 
+    description_es: >
+      Tacos de chicharrón guisado con frijoles.
+    description_en: >
+      Tacos de chicharrón guisado con frijoles.
+  de_chicharron_en_salsa_roja_con_papas:
+    name_es: Tacos de chicharrón en salsa roja con papas
+    name_en: Pork Crackling in Red Sauce Tacos
+    extra_ingredients:
+      - chicharron
+      - papa
+      - chile_guajillo
+    technique: 
+    description_es: >
+      Tacos de chicharrón con papas en salsa roja.
+    description_en: >
+      Tacos de chicharrón con papas en salsa roja.
+  gorditas_de_chicharron_en_salsa_verde:
+    name_es: Gorditas de chicharrón en salsa verde
+    name_en: Pork Crackling Gorditas in Green Sauce
+    extra_ingredients:
+      - chicharron
+      - masa_de_maiz
+      - tomatillo
+    technique: 
+    description_es: >
+      Gorditas rellenas de chicharrón en salsa verde.
+    description_en: >
+      Gorditas rellenas de chicharrón en salsa verde.

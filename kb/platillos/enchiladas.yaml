@@ -11,6 +11,19 @@ common_names:
   - enchiladas queretanas
   - enfrijoladas
   - entomatadas
+  - Enchiladas verdes
+  - Enfrijoladas
+  - Entomatadas
+  - Enchiladas mineras
+  - Enchiladas potosinas
+  - Enchiladas queretanas
+  - Enchiladas placeras
+  - Enchiladas rojas
+  - Enchiladas suizas
+  - Enchiladas verdes de pollo
+  - Enchiladas rojas de queso
+  - Enchiladas de mole poblano
+  - Enfrijoladas con huevo
 category: antojito
 base_ingredients:
   - tortilla_de_maiz
@@ -19,7 +32,7 @@ base_ingredients:
   - sal
 variants:
   rojas:
-    name_es: Enchiladas Rojas
+    name_es: Enchiladas rojas
     name_en: Red enchiladas
     extra_ingredients:
       - chile_guajillo
@@ -28,13 +41,16 @@ variants:
       - crema
       - cebolla
       - lechuga
+      - tortilla
+      - pollo
+      - salsa_roja
     technique: tortilla frita ligeramente, bañada en salsa roja de chile seco
     description_es: >
-      tortillas de maíz suavizadas en aceite y bañadas en una salsa de chile rojo seco (generalmente guajillo, ancho o pasilla).
+      Tortillas bañadas en salsa roja.
     description_en: >
-      Corn tortillas softened in oil and dipped in a red dried-chile sauce — served with fresh cheese, sour cream, and onion.
+      Tortillas bañadas en salsa roja.
   verdes:
-    name_es: Enchiladas Verdes
+    name_es: Enchiladas verdes
     name_en: Green enchiladas
     extra_ingredients:
       - tomatillo
@@ -43,13 +59,19 @@ variants:
       - crema
       - cebolla
       - cilantro
+      - tortilla_de_maiz
+      - pollo_deshebrado_o_queso
+      - tomate_verde
+      - tortilla
+      - pollo
+      - salsa_verde
     technique: tortilla frita ligeramente, bañada en salsa verde de tomatillo
     description_es: >
-      tortillas de maíz bañadas en una salsa verde hecha principalmente de tomatillo (tomate verde), chile, ajo y cebolla.
+      Tortillas rellenas bañadas en salsa verde.
     description_en: >
-      Tortillas bathed in tomatillo and serrano chile green sauce — fresh and mildly spicy.
+      Tortillas rellenas bañadas en salsa verde.
   suizas:
-    name_es: Enchiladas Suizas
+    name_es: Enchiladas suizas
     name_en: Swiss-style enchiladas
     extra_ingredients:
       - tomatillo
@@ -58,26 +80,31 @@ variants:
       - queso_gratinado
       - cilantro
       - pollo
+      - tortilla
+      - queso
     technique: salsa verde con crema, rellenas de pollo, gratinadas al horno
     description_es: >
-      Tortillas en salsa verde de tomatillo con crema, rellenas de pollo, gratinadas con queso.
+      Enchiladas en salsa verde cremosa con queso gratinado.
     description_en: >
-      Corn tortillas filled with chicken, bathed in a creamy tomatillo sauce and oven-gratinéed with melted cheese until golden — the Swiss-style variation.
+      Enchiladas en salsa verde cremosa con queso gratinado.
   potosinas:
-    name_es: Enchiladas Potosinas
-    name_en: Potosí-style enchiladas
+    name_es: Enchiladas potosinas
+    name_en: San Luis Potosi Enchiladas
     extra_ingredients:
       - chile_ancho
       - queso_fresco
       - crema
       - lechuga
+      - masa_de_maiz
+      - chile_guajillo
+      - queso
     technique: masa coloreada con chile, doblada o formada en empanada pequeña
     description_es: >
-      tortilla sazonada con chile desde la masa, se rellena comúnmente con queso fresco, y luego se dobla o forma pequeñas empanadas antes de cocinarse ligeramente en el comal o freírse.
+      Enchiladas rojas dobladas con chile en masa.
     description_en: >
-      Chile-tinted masa stuffed with fresh cheese, shaped into small patties and cooked on a comal — a unique San Luis Potosí style.
+      Enchiladas rojas dobladas con chile en masa.
   mineras:
-    name_es: Enchiladas Mineras
+    name_es: Enchiladas mineras
     name_en: Miner’s enchiladas
     extra_ingredients:
       - chile_guajillo
@@ -86,11 +113,13 @@ variants:
       - papa
       - zanahoria
       - lechuga
+      - tortilla
+      - queso
     technique: tortilla frita y bañada en salsa guajillo, con papa y zanahoria cocidas
     description_es: >
-      tortillas de maíz ligeramente fritas, bañadas en una salsa roja de chile guajillo. Generalmente se rellenan de queso o pollo deshebrado, y se sirven acompañadas de papas y zanahorias
+      Enchiladas tradicionales estilo Guanajuato.
     description_en: >
-      Fried tortillas in guajillo red sauce, served with cooked potato and carrot — the Guanajuato mining-town style.
+      Enchiladas tradicionales estilo Guanajuato.
   de_mole:
     name_es: Enchiladas de Mole
     name_en: Mole enchiladas
@@ -106,7 +135,7 @@ variants:
     description_en: >
       Tortillas bathed in a thick, complex mole sauce — deeply flavored with the rich character of black, red, or poblano mole.
   queretanas:
-    name_es: Enchiladas Queretanas
+    name_es: Enchiladas queretanas
     name_en: Querétaro-style enchiladas
     extra_ingredients:
       - chile_guajillo
@@ -115,41 +144,51 @@ variants:
       - crema
       - papa
       - zanahoria
+      - tortilla
+      - salsa_roja
+      - verduras
     technique: tortilla frita y bañada en salsa guajillo, rellena de papa y zanahoria
     description_es: >
-      tortillas de maíz ligeramente fritas y bañadas en una salsa roja de chile guajillo o chile ancho. Suelen rellenarse de papa y zanahoria cocida
+      Enchiladas servidas con papa, zanahoria y lechuga.
     description_en: >
-      Fried tortillas in guajillo sauce, stuffed with cooked potato and carrot, finished with fresh cheese — Querétaro style.
+      Enchiladas servidas con papa, zanahoria y lechuga.
   enfrijoladas:
     name_es: Enfrijoladas
-    name_en: Enfrijoladas
+    name_en: Bean-Sauce Enchiladas
     extra_ingredients:
       - frijoles_negros
       - queso_fresco
       - crema
       - cebolla
       - cilantro
+      - frijoles_negros_o_bayos
+      - tortillas
+      - tortilla
+      - frijol
+      - queso
     technique: tortilla pasada por salsa espesa de frijol molido
     description_es: >
-      tortillas de maíz bañadas en una salsa de frijol molido, que suele prepararse con frijoles negros o bayos cocidos, ajo, cebolla y, en ocasiones, chile. Se rellenan comúnmente de pollo deshebrado, queso, jamón o huevo
+      Tortillas bañadas en salsa de frijol.
     description_en: >
-      Tortillas dipped in a thick black or pinto bean sauce — filled with cheese, chicken, or egg, and topped with sour cream and fresh cheese.
+      Tortillas bañadas en salsa de frijol.
   entomatadas:
     name_es: Entomatadas
-    name_en: Entomatadas
+    name_en: Tomato-Sauce Enchiladas
     extra_ingredients:
       - jitomate
       - chile
       - queso_fresco
       - crema
       - cebolla
+      - tortillas
+      - queso
     technique: tortilla bañada en salsa de jitomate cocido y licuado
     description_es: >
-      tortillas de maíz bañadas en una salsa de jitomate (tomate rojo) cocido y licuado. Se rellenan comúnmente de pollo deshebrado, queso o huevo
+      Tortillas bañadas en salsa de jitomate y rellenas al gusto.
     description_en: >
-      Tortillas dipped in a cooked red tomato sauce with garlic and onion — fresh flavored and simple.
+      Tortillas bañadas en salsa de jitomate y rellenas al gusto.
   placeras:
-    name_es: Enchiladas Placeras
+    name_es: Enchiladas placeras
     name_en: Market-style enchiladas
     extra_ingredients:
       - chile_guajillo
@@ -158,8 +197,57 @@ variants:
       - lechuga
       - papa
       - zanahoria
+      - tortilla
     technique: tortilla frita y bañada en salsa guajillo con papa y zanahoria
     description_es: >
-      tortillas de maíz fritas ligeramente, bañadas en salsa roja de chile guajillo, y suelen rellenarse de queso fresco o pollo deshebrado. Se acompañan con papas y zanahorias cocidas,
+      Enchiladas acompañadas con verduras encurtidas.
     description_en: >
-      Lightly fried corn tortillas in guajillo red sauce, usually stuffed with fresh cheese or shredded chicken, served with cooked potatoes and carrots.
+      Enchiladas acompañadas con verduras encurtidas.
+  verdes_de_pollo:
+    name_es: Enchiladas verdes de pollo
+    name_en: Green Chicken Enchiladas
+    extra_ingredients:
+      - pollo
+      - tomatillo
+      - tortilla
+    technique: 
+    description_es: >
+      Enchiladas bañadas en salsa verde con pollo.
+    description_en: >
+      Enchiladas bañadas en salsa verde con pollo.
+  rojas_de_queso:
+    name_es: Enchiladas rojas de queso
+    name_en: Red Cheese Enchiladas
+    extra_ingredients:
+      - queso
+      - chile_guajillo
+      - tortilla
+    technique: 
+    description_es: >
+      Enchiladas con queso bañadas en salsa roja.
+    description_en: >
+      Enchiladas con queso bañadas en salsa roja.
+  de_mole_poblano:
+    name_es: Enchiladas de mole poblano
+    name_en: Mole Enchiladas
+    extra_ingredients:
+      - mole
+      - pollo
+      - tortilla
+    technique: 
+    description_es: >
+      Enchiladas bañadas en mole espeso.
+    description_en: >
+      Enchiladas bañadas en mole espeso.
+  con_huevo:
+    name_es: Enfrijoladas con huevo
+    name_en: Bean Enchiladas with Egg
+    extra_ingredients:
+      - frijol
+      - huevo
+      - tortilla
+    technique: 
+    description_es: >
+      Tortillas bañadas en frijol con huevo encima.
+    description_en: >
+      Tortillas bañadas en frijol con huevo encima.

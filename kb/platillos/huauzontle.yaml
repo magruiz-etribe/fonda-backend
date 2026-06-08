@@ -2,6 +2,8 @@ canonical_name: huauzontle
 common_names:
   - Huazontle en jitomate
   - Huazontle en pasilla
+  - Tortitas de huauzontle
+  - Huauzontles en caldillo
 category: platillo_principal
 base_ingredients:
   - huauzontle
@@ -19,7 +21,7 @@ variants:
     name_en: Huauzontle in Tomato Sauce
     extra_ingredients:
       - queso
-    technique: 
+    technique: None
     description_es: >
       huauzontles cocidos preparados en una salsa de jitomate sazonada con ajo, cebolla y especias. Pueden servirse solos o capeados con queso.
     description_en: >
@@ -30,8 +32,32 @@ variants:
     extra_ingredients:
       - queso
       - chile_pasilla
-    technique: 
+    technique: None
     description_es: >
       planta comestible, parecida al brócoli bañados en una salsa de chile pasilla con jitomate, ajo y especias. En algunas versiones se rellenan con queso y se capeán antes de servirse.
     description_en: >
       planta comestible, parecida al brócoli bañados en una salsa de chile pasilla con jitomate, ajo y especias. En algunas versiones se rellenan con queso y se capeán antes de servirse.
+  tortitas_de_huauzontle:
+    name_es: Tortitas de huauzontle
+    name_en: Huauzontle Patties
+    extra_ingredients:
+      - huauzontle
+      - queso
+      - huevo
+    technique: 
+    description_es: >
+      Huauzontles capeados y rellenos de queso.
+    description_en: >
+      Huauzontles capeados y rellenos de queso.
+  huauzontles_en_caldillo:
+    name_es: Huauzontles en caldillo
+    name_en: Huauzontles in Tomato Sauce
+    extra_ingredients:
+      - huauzontle
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Huauzontles cocidos y servidos en salsa de jitomate.
+    description_en: >
+      Huauzontles cocidos y servidos en salsa de jitomate.

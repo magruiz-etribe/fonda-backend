@@ -1,0 +1,21 @@
+canonical_name: polvoron_de_canela
+common_names:
+  - Polvorón de canela
+category: platillo_principal
+base_ingredients:
+  - harina
+  - canela
+  - azucar
+variants:
+  polvoron_de_canela:
+    name_es: Polvorón de canela
+    name_en: Cinnamon Shortbread Cookie
+    extra_ingredients:
+      - harina
+      - canela
+      - azucar
+    technique: 
+    description_es: >
+      Galleta tradicional aromatizada con canela.
+    description_en: >
+      Galleta tradicional aromatizada con canela.

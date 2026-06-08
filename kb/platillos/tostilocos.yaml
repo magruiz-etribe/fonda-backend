@@ -1,0 +1,21 @@
+canonical_name: tostilocos
+common_names:
+  - Tostilocos
+category: platillo_principal
+base_ingredients:
+  - totopos_comerciales
+  - pepino
+  - cueritos
+variants:
+  tostilocos:
+    name_es: Tostilocos
+    name_en: Loaded Chips Snack
+    extra_ingredients:
+      - totopos_comerciales
+      - pepino
+      - cueritos
+    technique: 
+    description_es: >
+      Botana preparada con frituras, verduras y salsas.
+    description_en: >
+      Botana preparada con frituras, verduras y salsas.

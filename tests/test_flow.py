@@ -34,10 +34,11 @@ def _cls(
     pending_slots=None,
     resolved_variants=None,
     extra_user_ingredients=None,
+    platform="",
 ) -> str:
     if pending_slots is None and pending_variant_for is not None:
         pending_slots = [{"entity": pending_variant_for, "slot_name": "variant"}]
-    return json.dumps({
+    payload = {
         "reasoning": "test",
         "intent": intent,
         "current_dishes": current_dishes or [],
@@ -45,7 +46,10 @@ def _cls(
         "pending_slots": pending_slots or [],
         "resolved_variants": resolved_variants or {},
         "extra_user_ingredients": extra_user_ingredients or [],
-    })
+    }
+    if platform:
+        payload["platform"] = platform
+    return json.dumps(payload)
 
 
 def _gen(response=None, current_dishes=None, buttons=None) -> str:
@@ -56,8 +60,27 @@ def _gen(response=None, current_dishes=None, buttons=None) -> str:
     })
 
 
+_FLAGS = json.dumps({
+    "reasoning": "test",
+    "allergens": False,
+    "allergen_triggers": [],
+    "gluten_free": True,
+    "gluten_triggers": [],
+    "vegetarian": True,
+    "vegan": True,
+    "spicy_level": "none",
+    "spicy_triggers": [],
+})
+
+
 def _handle(converse_mock, message, current_dishes, history, cls_kwargs, gen_kwargs):
-    converse_mock.side_effect = [_cls(**cls_kwargs), _gen(**gen_kwargs)]
+    responses = [_cls(**cls_kwargs)]
+    if (cls_kwargs.get("intent") or "traduccion") == "traduccion" and (
+        cls_kwargs.get("current_dishes") or current_dishes
+    ):
+        responses.append(_FLAGS)
+    responses.append(_gen(**gen_kwargs))
+    converse_mock.side_effect = responses
     return router.handle(message, current_dishes, history)
 
 
@@ -301,7 +324,7 @@ class TestNonTranslationIntents:
             message="cómo me registro en Google Maps?",
             current_dishes=[],
             history=[],
-            cls_kwargs=dict(intent="maps"),
+            cls_kwargs=dict(intent="maps", current_dishes=[], platform="google_maps"),
             gen_kwargs=dict(
                 response=["Para registrarte en Google Maps, sigue estos pasos 📍"],
                 current_dishes=[],
@@ -310,9 +333,9 @@ class TestNonTranslationIntents:
         )
         assert result.current_dishes == []
         assert result.buttons == []
-        assert result.link is not None
-        assert result.link["url"] == "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2"
-        assert "label" in result.link
+        assert len(result.links) >= 1
+        assert result.links[0]["url"] == "https://business.google.com/es-all/business-profile/?ppsrc=GPDA2"
+        assert "label" in result.links[0]
 
     @patch("bedrock_client.converse")
     def test_higiene_intent(self, mock_cv):
@@ -540,15 +563,20 @@ class TestClassifierParsing:
         assert len(cr.pending_slots) == 1
         assert cr.pending_slots[0].entity == "mole"
 
-    def test_huevo_con_jamon_flags_not_vegetarian(self):
+    @patch("bedrock_client.converse")
+    def test_huevo_con_jamon_flags_not_vegetarian(self, mock_cv):
         from classifier import ClassifierResult
+        import retrieval
         from router import _compute_dish_flags
 
+        mock_cv.return_value = _FLAGS.replace('"vegetarian": true', '"vegetarian": false')
         cr = ClassifierResult(
             intent="traduccion",
             current_dishes=["huevo"],
+            resolved_variants={"huevo": "con_jamon"},
         )
-        flags = _compute_dish_flags(cr, "huevo con jamón", [])
+        kb_context = retrieval.get_context_for_dishes(["huevo"])
+        flags = _compute_dish_flags(cr, "huevo con jamón", [], kb_context)
         assert flags["vegetarian"] is False
 
     def test_enrich_clears_redundant_huevo_variant_slot(self):

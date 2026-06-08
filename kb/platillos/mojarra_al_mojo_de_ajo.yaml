@@ -1,0 +1,21 @@
+canonical_name: mojarra_al_mojo_de_ajo
+common_names:
+  - Mojarra al mojo de ajo
+category: platillo_principal
+base_ingredients:
+  - mojarra
+  - ajo
+  - mantequilla
+variants:
+  mojarra_al_mojo_de_ajo:
+    name_es: Mojarra al mojo de ajo
+    name_en: Garlic Tilapia
+    extra_ingredients:
+      - mojarra
+      - ajo
+      - mantequilla
+    technique: 
+    description_es: >
+      Mojarra con salsa de ajo y mantequilla.
+    description_en: >
+      Mojarra con salsa de ajo y mantequilla.

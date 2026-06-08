@@ -1,0 +1,21 @@
+canonical_name: lengua_en_salsa_roja
+common_names:
+  - Lengua en salsa roja
+category: platillo_principal
+base_ingredients:
+  - lengua
+  - chile_guajillo
+  - jitomate
+variants:
+  lengua_en_salsa_roja:
+    name_es: Lengua en salsa roja
+    name_en: Beef Tongue in Red Sauce
+    extra_ingredients:
+      - lengua
+      - chile_guajillo
+      - jitomate
+    technique: 
+    description_es: >
+      Lengua de res en salsa roja.
+    description_en: >
+      Lengua de res en salsa roja.

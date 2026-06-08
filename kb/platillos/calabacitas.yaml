@@ -3,6 +3,11 @@ common_names:
   - calabacitas
   - calabacitas a la mexicana
   - calabacitas con puerco
+  - Calabacitas a la mexicana
+  - Calabacitas con queso
+  - Calabacitas con elote
+  - Calabacitas con crema
+  - Tacos de calabacitas con crema
 category: guisado
 base_ingredients:
   - calabaza
@@ -12,17 +17,18 @@ base_ingredients:
   - aceite
 variants:
   a_la_mexicana:
-    name_es: Calabacitas a la Mexicana
+    name_es: Calabacitas a la mexicana
     name_en: Mexican-Style Zucchini
     extra_ingredients:
+      - calabaza
       - jitomate
-      - chile_serrano
-      - elote
-    technique: salteado de calabaza con jitomate, cebolla y elote
+      - cebolla
+      - chile
+    technique: 
     description_es: >
-      Calabaza cocinada con jitomate, cebolla y elote.
+      Calabazas salteadas con jitomate, cebolla y chile.
     description_en: >
-      Diced zucchini sautéed with tomato, onion, chile, and corn kernels — a simple, colorful, and fresh-flavored side stew.
+      Calabazas salteadas con jitomate, cebolla y chile.
   con_puerco:
     name_es: Calabacitas con Puerco
     name_en: Zucchini with Pork Stew
@@ -35,3 +41,52 @@ variants:
       Guiso de calabaza picada con granos de elote y trozos de carne de cerdo.
     description_en: >
       Zucchini and corn kernel stew with chunks of pork in tomato sauce — hearty and home-cooked.
+  con_queso:
+    name_es: Calabacitas con queso
+    name_en: Zucchini with Cheese
+    extra_ingredients:
+      - calabaza
+      - queso_panela
+      - cebolla
+    technique: 
+    description_es: >
+      Calabacitas cocinadas con queso fresco o panela.
+    description_en: >
+      Calabacitas cocinadas con queso fresco o panela.
+  con_elote:
+    name_es: Calabacitas con elote
+    name_en: Zucchini with Corn
+    extra_ingredients:
+      - calabaza
+      - elote
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Guiso ligero de calabaza y elote.
+    description_en: >
+      Guiso ligero de calabaza y elote.
+  con_crema:
+    name_es: Calabacitas con crema
+    name_en: Zucchini with Cream
+    extra_ingredients:
+      - calabaza
+      - crema
+      - elote
+    technique: 
+    description_es: >
+      Guiso suave de calabacitas con crema.
+    description_en: >
+      Guiso suave de calabacitas con crema.
+  de_calabacitas_con_crema:
+    name_es: Tacos de calabacitas con crema
+    name_en: Zucchini Tacos with Cream
+    extra_ingredients:
+      - calabaza
+      - crema
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos suaves de calabacitas con crema.
+    description_en: >
+      Tacos suaves de calabacitas con crema.

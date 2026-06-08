@@ -11,6 +11,12 @@ common_names:
   - chilaquiles con chorizo
   - chilaquiles de mole
   - torta de chilaquiles
+  - Chilaquiles verdes
+  - Chilaquiles rojos
+  - Torta de chilaquiles
+  - Chilaquiles con huevo estrellado
+  - Chilaquiles rojos con pollo
+  - Chilaquiles verdes con huevo
 category: antojito
 base_ingredients:
   - totopos_de_maiz
@@ -19,36 +25,37 @@ base_ingredients:
   - sal
 variants:
   verdes:
-    name_es: Chilaquiles Verdes
+    name_es: Chilaquiles verdes
     name_en: Green Chilaquiles
     extra_ingredients:
-      - tomatillo
-      - chile_serrano
+      - tortilla
+      - salsa_verde
       - crema
+      - queso
+      - totopos
+      - tomate_verde
       - queso_fresco
-      - cebolla
-      - frijoles
-      - aguacate
-    technique: totopos bañados en salsa verde de tomatillo hasta suavizarse levemente
+    technique: 
     description_es: >
-      Preparados con salsa de tomatillo y chile serrano o jalapeño.
+      Totopos en salsa verde con crema y queso.
     description_en: >
-      Corn chips bathed in tomatillo and serrano chile green sauce, topped with sour cream, fresh cheese, and onion.
+      Totopos en salsa verde con crema y queso.
   rojos:
-    name_es: Chilaquiles Rojos
+    name_es: Chilaquiles rojos
     name_en: Red Chilaquiles
     extra_ingredients:
+      - tortilla
+      - salsa_roja
+      - crema
+      - queso
+      - totopos
       - chile_guajillo
       - jitomate
-      - crema
-      - queso_fresco
-      - cebolla
-      - frijoles
-    technique: totopos bañados en salsa roja de jitomate y chile seco
+    technique: 
     description_es: >
-      Hechos con salsa de jitomate y chiles secos como guajillo o chile de árbol.
+      Totopos en salsa roja picante.
     description_en: >
-      Corn chips bathed in a red tomato and dried-chile sauce — topped with sour cream and fresh cheese.
+      Totopos en salsa roja picante.
   divorciados:
     name_es: Chilaquiles Divorciados
     name_en: Divorced Chilaquiles / Half Red & Half Green Chilaquiles
@@ -161,3 +168,51 @@ variants:
       verdes o rojos servidos con cecina
     description_en: >
       Green or red chilaquiles served with cecina.
+  torta_de_chilaquiles:
+    name_es: Torta de chilaquiles
+    name_en: Chilaquiles Sandwich
+    extra_ingredients:
+      - bolillo
+      - chilaquiles
+      - crema
+    technique: 
+    description_es: >
+      Bolillo relleno con chilaquiles y complementos.
+    description_en: >
+      Bolillo relleno con chilaquiles y complementos.
+  con_huevo_estrellado:
+    name_es: Chilaquiles con huevo estrellado
+    name_en: Chilaquiles with Fried Egg
+    extra_ingredients:
+      - tortilla
+      - salsa
+      - huevo
+    technique: 
+    description_es: >
+      Chilaquiles acompañados con huevo frito.
+    description_en: >
+      Chilaquiles acompañados con huevo frito.
+  rojos_con_pollo:
+    name_es: Chilaquiles rojos con pollo
+    name_en: Red Chilaquiles with Chicken
+    extra_ingredients:
+      - tortilla
+      - pollo
+      - salsa_roja
+    technique: 
+    description_es: >
+      Totopos en salsa roja con pollo deshebrado.
+    description_en: >
+      Totopos en salsa roja con pollo deshebrado.
+  verdes_con_huevo:
+    name_es: Chilaquiles verdes con huevo
+    name_en: Green Chilaquiles with Egg
+    extra_ingredients:
+      - tortilla
+      - huevo
+      - tomatillo
+    technique: 
+    description_es: >
+      Chilaquiles en salsa verde con huevo.
+    description_en: >
+      Chilaquiles en salsa verde con huevo.

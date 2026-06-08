@@ -1,0 +1,23 @@
+canonical_name: torta_cubana
+common_names:
+  - Torta cubana
+category: platillo_principal
+base_ingredients:
+  - jamon
+  - milanesa
+  - queso
+  - salchicha
+variants:
+  torta_cubana:
+    name_es: Torta cubana
+    name_en: Cuban-Style Mexican Sandwich
+    extra_ingredients:
+      - jamon
+      - milanesa
+      - queso
+      - salchicha
+    technique: 
+    description_es: >
+      Torta abundante con varios tipos de carne y queso.
+    description_en: >
+      Torta abundante con varios tipos de carne y queso.

@@ -4,6 +4,29 @@ common_names:
   - crema de espinacas
   - crema de verduras
   - crema de champiñones
+  - Crema de elote
+  - Crema de poblano
+  - Paleta de fresa con crema
+  - Tamal de rajas con crema
+  - Tamal de elote con crema
+  - Tamal de elote con queso crema
+  - Tamal de elote con crema agria
+  - Tamal de elote con queso crema y jalapeño
+  - Tamal de elote con pollo y crema
+  - Tamal de elote con champiñones y crema
+  - Tamal de elote con salsa de crema y epazote
+  - Tamal de elote con salsa de crema ácida
+  - Tamal de elote con salsa de durazno y crema
+  - Tamal de elote con salsa de vainilla y crema
+  - Tamal de elote con salsa de cardamomo y crema
+  - Tamal de elote con salsa de chile en escabeche y crema
+  - Tamal de elote con salsa de ajo rostizado y crema
+  - Tamal de elote con salsa de chile pasilla mixe y crema
+  - Pollo en crema de chipotle
+  - Pollo con elote y crema
+  - Chayote con crema
+  - Tacos de rajas con crema
+  - Tostadas de pollo con crema
 category: caldo
 base_ingredients:
   - leche
@@ -13,13 +36,14 @@ variants:
     name_en: Corn Cream Soup
     extra_ingredients:
       - elote
+      - leche
       - crema
-      - queso
+      - mantequilla
     technique: 
     description_es: >
-      Sopa espesa hecha a base de granos de elote molidos con leche o crema.
+      Crema suave elaborada con granos de maíz dulce.
     description_en: >
-      Sopa espesa hecha a base de granos de elote molidos con leche o crema.
+      Crema suave elaborada con granos de maíz dulce.
   de_espinaca:
     name_es: Crema de espinaca
     name_en: Spinach Cream Soup
@@ -27,7 +51,7 @@ variants:
       - espinacas
       - crema
       - queso
-    technique: 
+    technique: None
     description_es: >
       sopa elaborada con espinacas cocidas y mezcladas con crema, leche y especias.
     description_en: >
@@ -37,7 +61,7 @@ variants:
     name_en: vegetable Cream Soup
     extra_ingredients:
       - pollo
-    technique: 
+    technique: None
     description_es: >
       Verduras cocidas licuadas con leche o crema y especias.
     description_en: >
@@ -47,8 +71,261 @@ variants:
     name_en: Mushroom Cream Soup
     extra_ingredients:
       - mantequilla
-    technique: 
+    technique: None
     description_es: >
       Champiñones con cebolla, ajo, leche o crema y especias.
     description_en: >
       Mushrooms with onion, garlic, milk or cream, and spices.
+  de_poblano:
+    name_es: Crema de poblano
+    name_en: Poblano Pepper Cream Soup
+    extra_ingredients:
+      - chile_poblano
+      - crema
+      - leche
+    technique: 
+    description_es: >
+      Crema preparada con chiles poblanos asados.
+    description_en: >
+      Crema preparada con chiles poblanos asados.
+  paleta_de_fresa_con_crema:
+    name_es: Paleta de fresa con crema
+    name_en: Strawberries and Cream Ice Pop
+    extra_ingredients:
+      - fresa
+      - crema
+      - azucar
+    technique: 
+    description_es: >
+      Paleta elaborada con fresas y crema láctea.
+    description_en: >
+      Paleta elaborada con fresas y crema láctea.
+  de_rajas_con_crema:
+    name_es: Tacos de rajas con crema
+    name_en: Chile Strip Tacos with Cream
+    extra_ingredients:
+      - chile_poblano
+      - crema
+      - tortilla
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Tacos de rajas de poblano con crema.
+    description_en: >
+      Tacos de rajas de poblano con crema.
+  de_elote_con_crema:
+    name_es: Tamal de elote con crema
+    name_en: Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - crema
+      - mantequilla
+    technique: 
+    description_es: >
+      Tamal de elote enriquecido con crema láctea.
+    description_en: >
+      Tamal de elote enriquecido con crema láctea.
+  de_elote_con_queso_crema:
+    name_es: Tamal de elote con queso crema
+    name_en: Cream Cheese Corn Tamale
+    extra_ingredients:
+      - elote
+      - queso_crema
+      - azucar
+    technique: 
+    description_es: >
+      Tamal de elote con queso crema suave.
+    description_en: >
+      Tamal de elote con queso crema suave.
+  de_elote_con_crema_agria:
+    name_es: Tamal de elote con crema agria
+    name_en: Corn Tamale with Sour Cream
+    extra_ingredients:
+      - elote
+      - crema_agria
+      - mantequilla
+    technique: 
+    description_es: >
+      Tamal de elote acompañado o mezclado con crema agria.
+    description_en: >
+      Tamal de elote acompañado o mezclado con crema agria.
+  de_elote_con_queso_crema_y_jalapeno:
+    name_es: Tamal de elote con queso crema y jalapeño
+    name_en: Cream Cheese Jalapeño Corn Tamale
+    extra_ingredients:
+      - elote
+      - queso_crema
+      - jalapeno
+    technique: 
+    description_es: >
+      Tamal cremoso con queso crema y jalapeño picante.
+    description_en: >
+      Tamal cremoso con queso crema y jalapeño picante.
+  de_elote_con_pollo_y_crema:
+    name_es: Tamal de elote con pollo y crema
+    name_en: Chicken Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - pollo
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con pollo deshebrado y crema.
+    description_en: >
+      Tamal de elote con pollo deshebrado y crema.
+  de_elote_con_champinones_y_crema:
+    name_es: Tamal de elote con champiñones y crema
+    name_en: Mushroom Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - champinones
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con champiñones y crema.
+    description_en: >
+      Tamal de elote con champiñones y crema.
+  de_elote_con_salsa_de_crema_y_epazote:
+    name_es: Tamal de elote con salsa de crema y epazote
+    name_en: Cream Epazote Corn Tamale
+    extra_ingredients:
+      - elote
+      - crema
+      - epazote
+    technique: 
+    description_es: >
+      Tamal de elote con crema aromatizada con epazote.
+    description_en: >
+      Tamal de elote con crema aromatizada con epazote.
+  de_elote_con_salsa_de_crema_acida:
+    name_es: Tamal de elote con salsa de crema ácida
+    name_en: Sour Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - crema_acida
+      - sal
+    technique: 
+    description_es: >
+      Tamal de elote con crema ácida ligera.
+    description_en: >
+      Tamal de elote con crema ácida ligera.
+  de_elote_con_salsa_de_durazno_y_crema:
+    name_es: Tamal de elote con salsa de durazno y crema
+    name_en: Peach Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - durazno
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con salsa dulce de durazno y crema.
+    description_en: >
+      Tamal de elote con salsa dulce de durazno y crema.
+  de_elote_con_salsa_de_vainilla_y_crema:
+    name_es: Tamal de elote con salsa de vainilla y crema
+    name_en: Vanilla Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - vainilla
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con vainilla y crema.
+    description_en: >
+      Tamal de elote con vainilla y crema.
+  de_elote_con_salsa_de_cardamomo_y_crema:
+    name_es: Tamal de elote con salsa de cardamomo y crema
+    name_en: Cardamom Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - cardamomo
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con cardamomo y crema.
+    description_en: >
+      Tamal de elote con cardamomo y crema.
+  de_elote_con_salsa_de_chile_en_escabeche_y_crema:
+    name_es: Tamal de elote con salsa de chile en escabeche y crema
+    name_en: Pickled Chili Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - chile_en_escabeche
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con chile en escabeche y crema.
+    description_en: >
+      Tamal de elote con chile en escabeche y crema.
+  de_elote_con_salsa_de_ajo_rostizado_y_crema:
+    name_es: Tamal de elote con salsa de ajo rostizado y crema
+    name_en: Roasted Garlic Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - ajo
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con ajo rostizado y crema.
+    description_en: >
+      Tamal de elote con ajo rostizado y crema.
+  de_elote_con_salsa_de_chile_pasilla_mixe_y_crema:
+    name_es: Tamal de elote con salsa de chile pasilla mixe y crema
+    name_en: Mixe Pasilla Cream Corn Tamale
+    extra_ingredients:
+      - elote
+      - chile_pasilla_mixe
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con chile pasilla mixe y crema.
+    description_en: >
+      Tamal de elote con chile pasilla mixe y crema.
+  en_crema_de_chipotle:
+    name_es: Pollo en crema de chipotle
+    name_en: Chicken in Chipotle Cream Sauce
+    extra_ingredients:
+      - pollo
+      - crema
+      - chipotle
+    technique: 
+    description_es: >
+      Pollo en salsa cremosa de chipotle.
+    description_en: >
+      Pollo en salsa cremosa de chipotle.
+  con_elote_y_crema:
+    name_es: Pollo con elote y crema
+    name_en: Chicken with Corn and Cream
+    extra_ingredients:
+      - pollo
+      - elote
+      - crema
+    technique: 
+    description_es: >
+      Guiso cremoso de pollo con elote.
+    description_en: >
+      Guiso cremoso de pollo con elote.
+  chayote_con_crema:
+    name_es: Chayote con crema
+    name_en: Chayote with Cream
+    extra_ingredients:
+      - chayote
+      - crema
+      - ajo
+    technique: 
+    description_es: >
+      Chayote cocido en salsa cremosa.
+    description_en: >
+      Chayote cocido en salsa cremosa.
+  de_pollo_con_crema:
+    name_es: Tostadas de pollo con crema
+    name_en: Chicken Tostadas with Cream
+    extra_ingredients:
+      - pollo
+      - tortilla
+      - crema
+    technique: 
+    description_es: >
+      Tostadas con pollo, crema y lechuga.
+    description_en: >
+      Tostadas con pollo, crema y lechuga.

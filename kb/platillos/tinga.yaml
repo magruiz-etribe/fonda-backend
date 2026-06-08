@@ -2,6 +2,12 @@ canonical_name: tinga
 common_names:
   - tinga
   - tinga de pollo
+  - Tinga de pollo
+  - Tostada de tinga
+  - Tinga de res
+  - Tinga de cerdo
+  - Tostadas de tinga
+  - Tostadas de tinga de res
 category: guisado
 base_ingredients:
   - pollo_deshebrado
@@ -22,8 +28,76 @@ variants:
       - frijoles
       - lechuga
       - salsa
-    technique: 
+    technique: None
     description_es: >
       Pollo deshebrado cocinado con mucha cebolla y chile chipotle en una salsa de jitomate.
     description_en: >
       Pollo deshebrado cocinado con mucha cebolla y chile chipotle en una salsa de jitomate.
+  de_pollo:
+    name_es: Tinga de pollo
+    name_en: Chicken Tinga
+    extra_ingredients:
+      - pollo
+      - chipotle
+      - jitomate
+      - pollo_deshebrado
+      - cebolla
+      - chile_chipotle
+    technique: 
+    description_es: >
+      Pollo deshebrado en salsa de chipotle y jitomate.
+    description_en: >
+      Pollo deshebrado en salsa de chipotle y jitomate.
+  de_tinga:
+    name_es: Tostadas de tinga
+    name_en: Chicken Tinga Tostada
+    extra_ingredients:
+      - tostada
+      - pollo
+      - chipotle
+      - tinga_de_pollo
+      - crema
+      - queso
+      - lechuga
+    technique: 
+    description_es: >
+      Tostadas con pollo en salsa de chipotle.
+    description_en: >
+      Tostadas con pollo en salsa de chipotle.
+  de_res:
+    name_es: Tinga de res
+    name_en: Beef Tinga
+    extra_ingredients:
+      - res
+      - chipotle
+      - cebolla
+      - jitomate
+    technique: 
+    description_es: >
+      Carne de res deshebrada en chipotle.
+    description_en: >
+      Carne de res deshebrada en chipotle.
+  de_cerdo:
+    name_es: Tinga de cerdo
+    name_en: Pork Tinga
+    extra_ingredients:
+      - carne_de_cerdo
+      - chipotle
+      - cebolla
+    technique: 
+    description_es: >
+      Carne de cerdo desmenuzada cocinada con jitomate y chipotle.
+    description_en: >
+      Carne de cerdo desmenuzada cocinada con jitomate y chipotle.
+  de_tinga_de_res:
+    name_es: Tostadas de tinga de res
+    name_en: Beef Tinga Tostadas
+    extra_ingredients:
+      - res
+      - chipotle
+      - tortilla
+    technique: 
+    description_es: >
+      Tostadas con carne en chipotle.
+    description_en: >
+      Tostadas con carne en chipotle.

@@ -2,6 +2,13 @@ canonical_name: frijoles
 common_names:
   - frijoles rancheros
   - frijoles cocidos
+  - Frijoles charros
+  - Frijoles puercos
+  - Frijoles de la olla
+  - Frijoles refritos
+  - Sopes con frijoles
+  - Tacos de frijoles refritos
+  - Tacos de frijoles con chorizo
 category: guarnicion
 base_ingredients:
   - frijoles
@@ -13,22 +20,98 @@ base_ingredients:
   - ajo
 variants:
   charros:
-    name_es: Frijoles Charros
-    name_en: cowboy Beans
+    name_es: Frijoles charros
+    name_en: Charro Beans
     extra_ingredients:
-      - carnitas
+      - frijol
+      - tocino
+      - chorizo
+      - frijoles_pintos
     technique: 
     description_es: >
-      Frijoles cocinados con tocino, chorizo y chile
+      Frijoles con tocino, chorizo y chile.
     description_en: >
-      Frijoles cocinados con tocino, chorizo y chile
+      Frijoles con tocino, chorizo y chile.
   de_olla:
     name_es: Frijoles De Olla
     name_en: Stewed Beans
     extra_ingredients:
       - epazote
-    technique: 
+    technique: None
     description_es: >
       son frijoles cocidos en agua con ajo, cebolla y sal. Se sirven como acompañamiento o plato principal y pueden prepararse con distintas variedades de frijol.
     description_en: >
       son frijoles cocidos en agua con ajo, cebolla y sal. Se sirven como acompañamiento o plato principal y pueden prepararse con distintas variedades de frijol.
+  puercos:
+    name_es: Frijoles puercos
+    name_en: Pork Beans Spread
+    extra_ingredients:
+      - frijoles
+      - chorizo
+      - queso
+    technique: 
+    description_es: >
+      Puré de frijoles con chorizo y queso.
+    description_en: >
+      Puré de frijoles con chorizo y queso.
+  de_la_olla:
+    name_es: Frijoles de la olla
+    name_en: Pot Beans
+    extra_ingredients:
+      - frijol
+      - agua
+      - sal
+    technique: 
+    description_es: >
+      Frijoles cocidos lentamente en olla de barro.
+    description_en: >
+      Frijoles cocidos lentamente en olla de barro.
+  refritos:
+    name_es: Frijoles refritos
+    name_en: Refried Beans
+    extra_ingredients:
+      - frijol
+      - manteca
+      - cebolla
+    technique: 
+    description_es: >
+      Frijoles machacados y fritos con manteca.
+    description_en: >
+      Frijoles machacados y fritos con manteca.
+  con_frijoles:
+    name_es: Sopes con frijoles
+    name_en: Bean Sopes
+    extra_ingredients:
+      - masa_de_maiz
+      - frijol
+      - crema
+      - queso
+    technique: 
+    description_es: >
+      Sopes gruesos con frijoles y crema.
+    description_en: >
+      Sopes gruesos con frijoles y crema.
+  de_frijoles_refritos:
+    name_es: Tacos de frijoles refritos
+    name_en: Refried Bean Tacos
+    extra_ingredients:
+      - frijol
+      - tortilla
+      - manteca
+    technique: 
+    description_es: >
+      Tacos simples de frijoles refritos.
+    description_en: >
+      Tacos simples de frijoles refritos.
+  de_frijoles_con_chorizo:
+    name_es: Tacos de frijoles con chorizo
+    name_en: Bean and Chorizo Tacos
+    extra_ingredients:
+      - frijol
+      - chorizo
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de frijoles refritos con chorizo.
+    description_en: >
+      Tacos de frijoles refritos con chorizo.

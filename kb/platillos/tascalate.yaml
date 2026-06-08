@@ -1,0 +1,21 @@
+canonical_name: tascalate
+common_names:
+  - Tascalate
+category: platillo_principal
+base_ingredients:
+  - maiz_tostado
+  - cacao
+  - canela
+variants:
+  tascalate:
+    name_es: Tascalate
+    name_en: Tascalate Drink
+    extra_ingredients:
+      - maiz_tostado
+      - cacao
+      - canela
+    technique: 
+    description_es: >
+      Bebida tradicional chiapaneca de maíz tostado y cacao.
+    description_en: >
+      Bebida tradicional chiapaneca de maíz tostado y cacao.

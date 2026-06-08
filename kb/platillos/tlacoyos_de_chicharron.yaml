@@ -1,0 +1,19 @@
+canonical_name: tlacoyos_de_chicharron
+common_names:
+  - Tlacoyos de chicharrón
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - chicharron
+variants:
+  tlacoyos_de_chicharron:
+    name_es: Tlacoyos de chicharrón
+    name_en: Pork Crackling Tlacoyos
+    extra_ingredients:
+      - masa_de_maiz
+      - chicharron
+    technique: 
+    description_es: >
+      Tlacoyos rellenos de chicharrón.
+    description_en: >
+      Tlacoyos rellenos de chicharrón.

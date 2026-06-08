@@ -2,6 +2,11 @@ canonical_name: chiles_rellenos
 common_names:
   - chiles en nogada
   - chiles rellenos
+  - Chiles rellenos
+  - Chiles rellenos de picadillo
+  - Chiles rellenos de queso Oaxaca
+  - Chiles en nogada
+  - Chiles rellenos de queso
 category: platillo_principal
 base_ingredients:
   - chile_poblano
@@ -56,3 +61,68 @@ variants:
       Chile poblano con carne o picadillo capeado en huevo.
     description_en: >
       Roasted poblano chile stuffed with seasoned ground meat and vegetables, egg-battered and fried, served in tomato sauce.
+  chiles_rellenos:
+    name_es: Chiles rellenos
+    name_en: Stuffed Poblano Peppers
+    extra_ingredients:
+      - chile_poblano
+      - queso_panela_o_carne_molida
+      - huevo
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Chiles poblanos rellenos de queso o carne, capeados con huevo y bañados en salsa de jitomate.
+    description_en: >
+      Chiles poblanos rellenos de queso o carne, capeados con huevo y bañados en salsa de jitomate.
+  de_picadillo:
+    name_es: Chiles rellenos de picadillo
+    name_en: Stuffed Peppers with Minced Meat
+    extra_ingredients:
+      - chile_poblano
+      - carne_molida
+      - papa
+      - zanahoria
+    technique: 
+    description_es: >
+      Chiles poblanos rellenos de carne con verduras.
+    description_en: >
+      Chiles poblanos rellenos de carne con verduras.
+  de_queso_oaxaca:
+    name_es: Chiles rellenos de queso Oaxaca
+    name_en: Oaxaca Cheese Stuffed Peppers
+    extra_ingredients:
+      - chile_poblano
+      - quesillo
+      - jitomate
+    technique: 
+    description_es: >
+      Chiles poblanos rellenos de quesillo y servidos con salsa.
+    description_en: >
+      Chiles poblanos rellenos de quesillo y servidos con salsa.
+  chiles_en_nogada:
+    name_es: Chiles en nogada
+    name_en: Chiles in Walnut Sauce
+    extra_ingredients:
+      - chile_poblano
+      - carne_molida
+      - nuez_de_castilla
+      - granada
+      - perejil
+    technique: 
+    description_es: >
+      Chile poblano relleno de picadillo dulce-salado, cubierto con nogada y granada. Tradicional de temporada patriótica en México.
+    description_en: >
+      Chile poblano relleno de picadillo dulce-salado, cubierto con nogada y granada. Tradicional de temporada patriótica en México.
+  de_queso:
+    name_es: Chiles rellenos de queso
+    name_en: Cheese Stuffed Chiles
+    extra_ingredients:
+      - chile_poblano
+      - queso_oaxaca
+      - huevo
+    technique: 
+    description_es: >
+      Chiles poblanos rellenos de queso y capeados.
+    description_en: >
+      Chiles poblanos rellenos de queso y capeados.

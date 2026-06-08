@@ -1,0 +1,21 @@
+canonical_name: concha_de_vainilla
+common_names:
+  - Concha de vainilla
+category: platillo_principal
+base_ingredients:
+  - harina
+  - azucar
+  - mantequilla
+variants:
+  concha_de_vainilla:
+    name_es: Concha de vainilla
+    name_en: Vanilla Concha Sweet Bread
+    extra_ingredients:
+      - harina
+      - azucar
+      - mantequilla
+    technique: 
+    description_es: >
+      Pan dulce mexicano cubierto con costra azucarada.
+    description_en: >
+      Pan dulce mexicano cubierto con costra azucarada.

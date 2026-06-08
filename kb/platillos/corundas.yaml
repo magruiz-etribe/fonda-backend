@@ -1,0 +1,19 @@
+canonical_name: corundas
+common_names:
+  - Corundas
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - manteca
+variants:
+  corundas:
+    name_es: Corundas
+    name_en: Triangular Tamales
+    extra_ingredients:
+      - masa_de_maiz
+      - manteca
+    technique: 
+    description_es: >
+      Tamales triangulares tradicionales de Michoacán.
+    description_en: >
+      Tamales triangulares tradicionales de Michoacán.

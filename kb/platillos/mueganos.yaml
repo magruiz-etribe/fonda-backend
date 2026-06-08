@@ -1,0 +1,19 @@
+canonical_name: mueganos
+common_names:
+  - Muéganos
+category: platillo_principal
+base_ingredients:
+  - harina
+  - piloncillo
+variants:
+  mueganos:
+    name_es: Muéganos
+    name_en: Muéganos Sweet Clusters
+    extra_ingredients:
+      - harina
+      - piloncillo
+    technique: 
+    description_es: >
+      Pequeños trozos de masa unidos con miel de piloncillo.
+    description_en: >
+      Pequeños trozos de masa unidos con miel de piloncillo.

@@ -1,0 +1,21 @@
+canonical_name: huitlacoche_guisado
+common_names:
+  - Huitlacoche guisado
+category: platillo_principal
+base_ingredients:
+  - huitlacoche
+  - cebolla
+  - epazote
+variants:
+  huitlacoche_guisado:
+    name_es: Huitlacoche guisado
+    name_en: Corn Truffle Stew
+    extra_ingredients:
+      - huitlacoche
+      - cebolla
+      - epazote
+    technique: 
+    description_es: >
+      Huitlacoche cocinado con cebolla y especias.
+    description_en: >
+      Huitlacoche cocinado con cebolla y especias.

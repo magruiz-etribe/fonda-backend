@@ -1,0 +1,21 @@
+canonical_name: borrachitos
+common_names:
+  - Borrachitos
+category: platillo_principal
+base_ingredients:
+  - leche
+  - azucar
+  - licor
+variants:
+  borrachitos:
+    name_es: Borrachitos
+    name_en: Liquor-Flavored Candy
+    extra_ingredients:
+      - leche
+      - azucar
+      - licor
+    technique: 
+    description_es: >
+      Dulce gelatinoso aromatizado con licor.
+    description_en: >
+      Dulce gelatinoso aromatizado con licor.

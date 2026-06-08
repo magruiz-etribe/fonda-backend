@@ -1,0 +1,21 @@
+canonical_name: cabrito_al_pastor
+common_names:
+  - Cabrito al pastor
+category: platillo_principal
+base_ingredients:
+  - cabrito
+  - sal
+  - especias
+variants:
+  cabrito_al_pastor:
+    name_es: Cabrito al pastor
+    name_en: Roasted Young Goat
+    extra_ingredients:
+      - cabrito
+      - sal
+      - especias
+    technique: 
+    description_es: >
+      Cabrito asado lentamente al estilo norteño.
+    description_en: >
+      Cabrito asado lentamente al estilo norteño.

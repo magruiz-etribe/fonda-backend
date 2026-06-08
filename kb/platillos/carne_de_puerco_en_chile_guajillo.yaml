@@ -1,0 +1,21 @@
+canonical_name: carne_de_puerco_en_chile_guajillo
+common_names:
+  - Carne de puerco en chile guajillo
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - chile_guajillo
+  - ajo
+variants:
+  carne_de_puerco_en_chile_guajillo:
+    name_es: Carne de puerco en chile guajillo
+    name_en: Pork in Guajillo Sauce
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_guajillo
+      - ajo
+    technique: 
+    description_es: >
+      Cerdo guisado en salsa de chile guajillo.
+    description_en: >
+      Cerdo guisado en salsa de chile guajillo.

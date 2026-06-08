@@ -1,0 +1,21 @@
+canonical_name: atole_de_maicena
+common_names:
+  - Atole de maicena
+category: platillo_principal
+base_ingredients:
+  - maicena
+  - leche
+  - azucar
+variants:
+  atole_de_maicena:
+    name_es: Atole de maicena
+    name_en: Cornstarch Atole
+    extra_ingredients:
+      - maicena
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Bebida espesa elaborada con fécula de maíz.
+    description_en: >
+      Bebida espesa elaborada con fécula de maíz.

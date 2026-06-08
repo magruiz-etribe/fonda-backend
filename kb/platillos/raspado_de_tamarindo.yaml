@@ -1,0 +1,21 @@
+canonical_name: raspado_de_tamarindo
+common_names:
+  - Raspado de tamarindo
+category: platillo_principal
+base_ingredients:
+  - hielo
+  - tamarindo
+  - azucar
+variants:
+  raspado_de_tamarindo:
+    name_es: Raspado de tamarindo
+    name_en: Tamarind Shaved Ice
+    extra_ingredients:
+      - hielo
+      - tamarindo
+      - azucar
+    technique: 
+    description_es: >
+      Hielo raspado cubierto con jarabe de tamarindo.
+    description_en: >
+      Hielo raspado cubierto con jarabe de tamarindo.

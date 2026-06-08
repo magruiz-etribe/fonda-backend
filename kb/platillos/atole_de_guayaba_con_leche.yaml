@@ -1,0 +1,21 @@
+canonical_name: atole_de_guayaba_con_leche
+common_names:
+  - Atole de guayaba con leche
+category: platillo_principal
+base_ingredients:
+  - guayaba
+  - leche
+  - masa_de_maiz
+variants:
+  atole_de_guayaba_con_leche:
+    name_es: Atole de guayaba con leche
+    name_en: Guava Milk Atole
+    extra_ingredients:
+      - guayaba
+      - leche
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Bebida espesa con guayaba y leche.
+    description_en: >
+      Bebida espesa con guayaba y leche.

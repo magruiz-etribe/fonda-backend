@@ -1,0 +1,21 @@
+canonical_name: cortadillo_norteno
+common_names:
+  - Cortadillo norteño
+category: platillo_principal
+base_ingredients:
+  - res
+  - jitomate
+  - chile
+variants:
+  cortadillo_norteno:
+    name_es: Cortadillo norteño
+    name_en: Northern Beef Stew
+    extra_ingredients:
+      - res
+      - jitomate
+      - chile
+    technique: 
+    description_es: >
+      Carne de res en cubos cocinada con salsa roja.
+    description_en: >
+      Carne de res en cubos cocinada con salsa roja.

@@ -1,6 +1,7 @@
 canonical_name: jericalla
 common_names:
   - postre tapatío
+  - Jericalla
 category: postre
 base_ingredients:
   - leche
@@ -11,12 +12,14 @@ base_ingredients:
 variants:
   jericalla:
     name_es: Jericalla
-    name_en: Mexican Custard Dessert
+    name_en: Jalisco Custard Dessert
     extra_ingredients:
-      - arroz
-      - ralladura_de_lim_n
+      - leche
+      - huevo
+      - azucar
+      - canela
     technique: 
     description_es: >
-      Postre de leche, huevo y canela horneado.
+      Postre tapatío horneado con textura similar al flan.
     description_en: >
-      Baked dessert of milk, egg, and cinnamon.
+      Postre tapatío horneado con textura similar al flan.

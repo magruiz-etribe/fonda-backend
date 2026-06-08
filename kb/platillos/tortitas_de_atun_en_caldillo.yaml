@@ -1,0 +1,21 @@
+canonical_name: tortitas_de_atun_en_caldillo
+common_names:
+  - Tortitas de atún en caldillo
+category: platillo_principal
+base_ingredients:
+  - atun
+  - huevo
+  - jitomate
+variants:
+  tortitas_de_atun_en_caldillo:
+    name_es: Tortitas de atún en caldillo
+    name_en: Tuna Patties in Sauce
+    extra_ingredients:
+      - atun
+      - huevo
+      - jitomate
+    technique: 
+    description_es: >
+      Tortitas de atún en salsa de jitomate.
+    description_en: >
+      Tortitas de atún en salsa de jitomate.

@@ -1,0 +1,19 @@
+canonical_name: nieve_de_mango
+common_names:
+  - Nieve de mango
+category: platillo_principal
+base_ingredients:
+  - mango
+  - azucar
+variants:
+  nieve_de_mango:
+    name_es: Nieve de mango
+    name_en: Mango Sorbet
+    extra_ingredients:
+      - mango
+      - azucar
+    technique: 
+    description_es: >
+      Nieve preparada con pulpa de mango natural.
+    description_en: >
+      Nieve preparada con pulpa de mango natural.

@@ -1,0 +1,21 @@
+canonical_name: carne_de_cerdo_en_salsa_verde
+common_names:
+  - Carne de cerdo en salsa verde
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - tomatillo
+  - chile_serrano
+variants:
+  carne_de_cerdo_en_salsa_verde:
+    name_es: Carne de cerdo en salsa verde
+    name_en: Pork in Green Sauce
+    extra_ingredients:
+      - carne_de_cerdo
+      - tomatillo
+      - chile_serrano
+    technique: 
+    description_es: >
+      Guiso de cerdo en salsa verde de tomatillo, típico de fondas.
+    description_en: >
+      Guiso de cerdo en salsa verde de tomatillo, típico de fondas.

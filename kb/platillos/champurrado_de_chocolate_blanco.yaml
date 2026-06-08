@@ -1,0 +1,21 @@
+canonical_name: champurrado_de_chocolate_blanco
+common_names:
+  - Champurrado de chocolate blanco
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - chocolate_blanco
+  - leche
+variants:
+  champurrado_de_chocolate_blanco:
+    name_es: Champurrado de chocolate blanco
+    name_en: White Chocolate Atole
+    extra_ingredients:
+      - masa_de_maiz
+      - chocolate_blanco
+      - leche
+    technique: 
+    description_es: >
+      Variante del champurrado con chocolate blanco.
+    description_en: >
+      Variante del champurrado con chocolate blanco.

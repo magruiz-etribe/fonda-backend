@@ -1,0 +1,23 @@
+canonical_name: estofado_de_res
+common_names:
+  - Estofado de res
+category: platillo_principal
+base_ingredients:
+  - res
+  - zanahoria
+  - papa
+  - cebolla
+variants:
+  estofado_de_res:
+    name_es: Estofado de res
+    name_en: Beef Stew
+    extra_ingredients:
+      - res
+      - zanahoria
+      - papa
+      - cebolla
+    technique: 
+    description_es: >
+      Carne de res cocinada lentamente con verduras y especias.
+    description_en: >
+      Carne de res cocinada lentamente con verduras y especias.

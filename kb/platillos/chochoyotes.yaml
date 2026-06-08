@@ -1,0 +1,21 @@
+canonical_name: chochoyotes
+common_names:
+  - Chochoyotes
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - manteca
+  - epazote
+variants:
+  chochoyotes:
+    name_es: Chochoyotes
+    name_en: Corn Dough Dumplings
+    extra_ingredients:
+      - masa_de_maiz
+      - manteca
+      - epazote
+    technique: 
+    description_es: >
+      Bolitas de masa cocidas en caldos o sopas.
+    description_en: >
+      Bolitas de masa cocidas en caldos o sopas.

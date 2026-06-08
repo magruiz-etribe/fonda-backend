@@ -2,6 +2,10 @@ canonical_name: costillas
 common_names:
   - costillitas verdes
   - costillitas rojas
+  - Costillas en salsa verde
+  - Costillas en chile pasilla
+  - Costillas en salsa roja
+  - Costilla de cerdo en salsa de chile morita
 category: guisado
 base_ingredients:
   - costillas_de_cerdo
@@ -11,23 +15,52 @@ base_ingredients:
   - chile_morita
 variants:
   en_salsa_verde:
-    name_es: Costillas En Salsa Verde
+    name_es: Costillas en salsa verde
     name_en: Pork Ribs in Green Sauce
     extra_ingredients:
-      - chile_verde
+      - carne_de_cerdo
+      - tomatillo
+      - chile_serrano
+      - costilla_de_cerdo
+      - tomate_verde
     technique: 
     description_es: >
-      Costillas de cerdo cocidas en salsa verde.
+      Costillas de cerdo en salsa verde.
     description_en: >
-      Costillas de cerdo cocidas en salsa verde.
+      Costillas de cerdo en salsa verde.
   en_salsa_roja:
-    name_es: Costillas En Salsa
-    name_en: Pork Ribs in Sauce
+    name_es: Costillas en salsa roja
+    name_en: Pork Ribs in Red Sauce
     extra_ingredients:
-      - papa
-      - zanahoria
+      - carne_de_cerdo
+      - chile_guajillo
+      - jitomate
     technique: 
     description_es: >
-      Trozos de costilla de cerdo fritos y luego guisados en salsa de chile verde o morita.
+      Costillas en salsa roja picante.
     description_en: >
-      Trozos de costilla de cerdo fritos y luego guisados en salsa de chile verde o morita.
+      Costillas en salsa roja picante.
+  en_chile_pasilla:
+    name_es: Costillas en chile pasilla
+    name_en: Pork Ribs in Pasilla Sauce
+    extra_ingredients:
+      - costillas
+      - chile_pasilla
+      - ajo
+    technique: 
+    description_es: >
+      Costillas cocinadas en salsa oscura de chile pasilla.
+    description_en: >
+      Costillas cocinadas en salsa oscura de chile pasilla.
+  de_cerdo_en_salsa_de_chile_morita:
+    name_es: Costilla de cerdo en salsa de chile morita
+    name_en: Pork Ribs in Morita Sauce
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_morita
+      - jitomate
+    technique: 
+    description_es: >
+      Costillas en salsa ahumada de chile morita.
+    description_en: >
+      Costillas en salsa ahumada de chile morita.

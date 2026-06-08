@@ -8,16 +8,14 @@ base_ingredients:
 variants:
   huarache:
     name_es: Huarache
-    name_en: Huarache Corn Cake
+    name_en: Mexican Huarache
     extra_ingredients:
+      - masa_de_maiz
+      - frijoles
       - carne
-      - huevo
-      - queso
-      - cebolla
       - salsa
-      - nopales
     technique: 
     description_es: >
-      Base alargada de masa de maíz con frijoles, carne, salsa, queso y nopales.
+      Antojito elaborado con masa de maíz alargada cubierta con diversos ingredientes.
     description_en: >
-      Base alargada de masa de maíz con frijoles, carne, salsa, queso y nopales.
+      Antojito elaborado con masa de maíz alargada cubierta con diversos ingredientes.

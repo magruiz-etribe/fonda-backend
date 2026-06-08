@@ -10,6 +10,18 @@ common_names:
   - pechuga rellena
   - pollo deshebrado
   - pollo en chipotle
+  - Pollo en chipotle
+  - Torta de milanesa
+  - Milanesa de pollo
+  - Milanesa de res
+  - Tacos de pollo deshebrado
+  - Oreja de elefante (milanesa gigante)
+  - Pechuga empanizada rellena de jamón y queso
+  - Milanesa de pollo con papas a la francesa
+  - Milanesa de res con ensalada
+  - Pechuga a la plancha
+  - Tacos de milanesa
+  - Tacos de pollo en chipotle
 category: platillo_principal
 base_ingredients:
   - pechuga_de_pollo
@@ -114,19 +126,150 @@ variants:
     description_en: >
       Chicken breast pieces sautéed with tomato, onion, and green chile.
   en_chipotle:
-    name_es: Pollo En Chipotle
-    name_en: Chicken in Chipotle Sauce
+    name_es: Pollo en chipotle
+    name_en: Chipotle Chicken
     extra_ingredients:
-      - pollo_pierna_muslo_o_pechuga
-      - chile_chipotle
-      - jitomate
-      - cebolla
-      - ajo
-      - crema_o_leche
-      - aceite
-      - sal_y_pimienta
-    technique: pollo cocinado en salsa de chipotle con crema o leche
+      - pollo
+      - chipotle
+      - crema
+    technique: 
     description_es: >
-      Pollo en salsa de chipotle, jitomate, cebolla, ajo y crema o leche.
+      Pollo preparado en salsa cremosa de chile chipotle.
     description_en: >
-      Chicken in chipotle, tomato, onion, garlic, and cream or milk sauce.
+      Pollo preparado en salsa cremosa de chile chipotle.
+  torta_de_milanesa:
+    name_es: Torta de milanesa
+    name_en: Breaded Steak Sandwich
+    extra_ingredients:
+      - bolillo
+      - milanesa
+      - jitomate
+      - aguacate
+    technique: 
+    description_es: >
+      Torta rellena con milanesa de res o pollo.
+    description_en: >
+      Torta rellena con milanesa de res o pollo.
+  de_pollo:
+    name_es: Milanesa de pollo
+    name_en: Breaded Chicken Cutlet
+    extra_ingredients:
+      - pollo
+      - huevo
+      - pan_molido
+    technique: 
+    description_es: >
+      Pechuga empanizada y frita.
+    description_en: >
+      Pechuga empanizada y frita.
+  de_res:
+    name_es: Milanesa de res
+    name_en: Breaded Beef Cutlet
+    extra_ingredients:
+      - res
+      - huevo
+      - pan_molido
+    technique: 
+    description_es: >
+      Carne de res empanizada y frita.
+    description_en: >
+      Carne de res empanizada y frita.
+  de_pollo_deshebrado:
+    name_es: Tacos de pollo deshebrado
+    name_en: Shredded Chicken Tacos
+    extra_ingredients:
+      - pollo
+      - tortilla
+      - cebolla
+    technique: 
+    description_es: >
+      Tacos sencillos de pollo cocido y deshebrado.
+    description_en: >
+      Tacos sencillos de pollo cocido y deshebrado.
+  oreja_de_elefante_milanesa_gigante:
+    name_es: Oreja de elefante (milanesa gigante)
+    name_en: Elephant Ear Schnitzel (Mexican-style giant cutlet)
+    extra_ingredients:
+      - carne_de_res_o_pollo
+      - huevo
+      - pan_molido
+      - aceite
+    technique: 
+    description_es: >
+      Milanesa de res o pollo de gran tamaño, muy delgada y crujiente, llamada “oreja de elefante” por su forma y extensión en el plato. Muy común en fondas y mercados.
+    description_en: >
+      Milanesa de res o pollo de gran tamaño, muy delgada y crujiente, llamada “oreja de elefante” por su forma y extensión en el plato. Muy común en fondas y mercados.
+  empanizada_rellena_de_jamon_y_queso:
+    name_es: Pechuga empanizada rellena de jamón y queso
+    name_en: Stuffed Breaded Chicken Breast
+    extra_ingredients:
+      - pollo
+      - jamon
+      - queso
+      - huevo
+      - pan_molido
+    technique: 
+    description_es: >
+      Pechuga de pollo empanizada rellena de jamón y queso derretido, muy común en fondas como “plato fuerte del día”.
+    description_en: >
+      Pechuga de pollo empanizada rellena de jamón y queso derretido, muy común en fondas como “plato fuerte del día”.
+  de_pollo_con_papas_a_la_francesa:
+    name_es: Milanesa de pollo con papas a la francesa
+    name_en: Chicken Cutlet with Fries
+    extra_ingredients:
+      - pollo
+      - pan_molido
+      - papa
+    technique: 
+    description_es: >
+      Milanesa de pollo acompañada de papas fritas.
+    description_en: >
+      Milanesa de pollo acompañada de papas fritas.
+  de_res_con_ensalada:
+    name_es: Milanesa de res con ensalada
+    name_en: Beef Cutlet with Salad
+    extra_ingredients:
+      - res
+      - huevo
+      - lechuga
+      - jitomate
+    technique: 
+    description_es: >
+      Milanesa de res servida con ensalada fresca.
+    description_en: >
+      Milanesa de res servida con ensalada fresca.
+  a_la_plancha:
+    name_es: Pechuga a la plancha
+    name_en: Grilled Chicken Breast
+    extra_ingredients:
+      - pollo
+      - sal
+      - limon
+    technique: 
+    description_es: >
+      Pechuga de pollo asada ligeramente sazonada.
+    description_en: >
+      Pechuga de pollo asada ligeramente sazonada.
+  de_milanesa:
+    name_es: Tacos de milanesa
+    name_en: Breaded Cutlet Tacos
+    extra_ingredients:
+      - carne_empanizada
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de milanesa de res o pollo.
+    description_en: >
+      Tacos de milanesa de res o pollo.
+  de_pollo_en_chipotle:
+    name_es: Tacos de pollo en chipotle
+    name_en: Chipotle Chicken Tacos
+    extra_ingredients:
+      - pollo
+      - chipotle
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de pollo en salsa cremosa de chipotle.
+    description_en: >
+      Tacos de pollo en salsa cremosa de chipotle.

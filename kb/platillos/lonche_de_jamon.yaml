@@ -1,0 +1,21 @@
+canonical_name: lonche_de_jamon
+common_names:
+  - Lonche de jamón
+category: platillo_principal
+base_ingredients:
+  - pan
+  - jamon
+  - jitomate
+variants:
+  lonche_de_jamon:
+    name_es: Lonche de jamón
+    name_en: Ham Roll Sandwich
+    extra_ingredients:
+      - pan
+      - jamon
+      - jitomate
+    technique: 
+    description_es: >
+      Pan relleno con jamón y vegetales frescos.
+    description_en: >
+      Pan relleno con jamón y vegetales frescos.

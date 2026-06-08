@@ -14,7 +14,7 @@ variants:
     name_en: Tuna Salad
     extra_ingredients:
       - verduras
-    technique: 
+    technique: None
     description_es: >
       atún mezclado con verduras picadas como jitomate, cebolla, zanahoria, chícharos o papa. Generalmente se combina con mayonesa, limón y especias para darle sabor.
     description_en: >
@@ -29,7 +29,7 @@ variants:
       - queso
       - crema
       - vinagre
-    technique: 
+    technique: None
     description_es: >
       pepino en rodajas o cubos, mezclado con ingredientes como jitomate, cebolla, limón y sal, puede incluir chile, queso, crema, hierbas frescas o vinagre.
     description_en: >

@@ -1,0 +1,21 @@
+canonical_name: pepita_con_tasajo
+common_names:
+  - Pepita con tasajo
+category: platillo_principal
+base_ingredients:
+  - pepita_de_calabaza
+  - tasajo
+  - tomate
+variants:
+  pepita_con_tasajo:
+    name_es: Pepita con tasajo
+    name_en: Pumpkin Seed Sauce with Beef
+    extra_ingredients:
+      - pepita_de_calabaza
+      - tasajo
+      - tomate
+    technique: 
+    description_es: >
+      Tasajo servido con salsa espesa de pepita de calabaza.
+    description_en: >
+      Tasajo servido con salsa espesa de pepita de calabaza.

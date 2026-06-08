@@ -1,0 +1,19 @@
+canonical_name: cecina_oaxaquena
+common_names:
+  - Cecina oaxaqueña
+category: platillo_principal
+base_ingredients:
+  - carne_de_res_o_cerdo
+  - sal
+variants:
+  cecina_oaxaquena:
+    name_es: Cecina oaxaqueña
+    name_en: Oaxacan Cecina
+    extra_ingredients:
+      - carne_de_res_o_cerdo
+      - sal
+    technique: 
+    description_es: >
+      Carne delgada de cerdo o res curada y asada.
+    description_en: >
+      Carne delgada de cerdo o res curada y asada.

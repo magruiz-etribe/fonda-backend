@@ -1,0 +1,32 @@
+canonical_name: tortitas_de_camaron
+common_names:
+  - Tortitas de camarón
+  - Tortitas de camarón en salsa roja
+category: platillo_principal
+base_ingredients:
+  - camaron_seco
+  - huevo
+variants:
+  tortitas_de_camaron:
+    name_es: Tortitas de camarón
+    name_en: Shrimp Patties
+    extra_ingredients:
+      - camaron_seco
+      - huevo
+    technique: 
+    description_es: >
+      Tortitas hechas con camarón seco y huevo.
+    description_en: >
+      Tortitas hechas con camarón seco y huevo.
+  en_salsa_roja:
+    name_es: Tortitas de camarón en salsa roja
+    name_en: Shrimp Patties in Red Sauce
+    extra_ingredients:
+      - camaron_seco
+      - huevo
+      - jitomate
+    technique: 
+    description_es: >
+      Tortitas esponjosas de camarón seco en salsa roja.
+    description_en: >
+      Tortitas esponjosas de camarón seco en salsa roja.

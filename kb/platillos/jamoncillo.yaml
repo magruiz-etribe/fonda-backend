@@ -1,0 +1,19 @@
+canonical_name: jamoncillo
+common_names:
+  - Jamoncillo
+category: platillo_principal
+base_ingredients:
+  - leche
+  - azucar
+variants:
+  jamoncillo:
+    name_es: Jamoncillo
+    name_en: Milk Fudge Candy
+    extra_ingredients:
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Dulce suave preparado con leche y azúcar.
+    description_en: >
+      Dulce suave preparado con leche y azúcar.

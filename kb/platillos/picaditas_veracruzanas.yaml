@@ -1,0 +1,21 @@
+canonical_name: picaditas_veracruzanas
+common_names:
+  - Picaditas veracruzanas
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - salsa
+  - queso
+variants:
+  picaditas_veracruzanas:
+    name_es: Picaditas veracruzanas
+    name_en: Veracruz Style Picaditas
+    extra_ingredients:
+      - masa_de_maiz
+      - salsa
+      - queso
+    technique: 
+    description_es: >
+      Tortillas pellizcadas con salsa y queso.
+    description_en: >
+      Tortillas pellizcadas con salsa y queso.

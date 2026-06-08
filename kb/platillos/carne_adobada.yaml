@@ -2,6 +2,7 @@ canonical_name: carne_adobada
 common_names:
   - carne adobada
   - adobada
+  - Pierna de cerdo adobada
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -25,3 +26,15 @@ variants:
       Carne marinada y cocinada en salsa de chile y especias.
     description_en: >
       Meat marinated in a dried guajillo chile adobo with oregano, cumin, and spices — cooked until richly flavored, slightly tangy, and deeply seasoned.
+  pierna_de_cerdo_adobada:
+    name_es: Pierna de cerdo adobada
+    name_en: Adobo Pork Leg
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_guajillo
+      - ajo
+    technique: 
+    description_es: >
+      Pierna de cerdo marinada en adobo rojo.
+    description_en: >
+      Pierna de cerdo marinada en adobo rojo.

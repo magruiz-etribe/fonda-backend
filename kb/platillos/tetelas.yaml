@@ -1,0 +1,21 @@
+canonical_name: tetelas
+common_names:
+  - Tetelas
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - frijoles
+  - queso
+variants:
+  tetelas:
+    name_es: Tetelas
+    name_en: Triangular Stuffed Corn Pockets
+    extra_ingredients:
+      - masa_de_maiz
+      - frijoles
+      - queso
+    technique: 
+    description_es: >
+      Antojito oaxaqueño triangular relleno de frijoles o queso.
+    description_en: >
+      Antojito oaxaqueño triangular relleno de frijoles o queso.

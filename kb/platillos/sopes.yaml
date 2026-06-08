@@ -1,6 +1,13 @@
 canonical_name: sopes
 common_names:
   - sopes
+  - Sopes
+  - Sopes de chorizo
+  - Sopes de pollo
+  - Sopes de carne deshebrada
+  - Sopes de tinga de pollo
+  - Sopes de chorizo con papa
+  - Sopes de frijol con queso
 category: antojito
 base_ingredients:
   - masa_de_maiz
@@ -9,17 +16,87 @@ base_ingredients:
 variants:
   sopes:
     name_es: Sopes
-    name_en: Fried Sopes
+    name_en: Mexican Sopes
     extra_ingredients:
+      - masa_de_maiz
+      - frijoles
       - lechuga
       - crema
       - queso
-      - carne
-      - pollo
-      - salsa
-      - cebolla
     technique: 
     description_es: >
-      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.
+      Base gruesa de maíz cubierta con frijoles, carne y vegetales.
     description_en: >
-      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.
+      Base gruesa de maíz cubierta con frijoles, carne y vegetales.
+  de_chorizo:
+    name_es: Sopes de chorizo
+    name_en: Chorizo Sopes
+    extra_ingredients:
+      - masa_de_maiz
+      - chorizo
+      - crema
+    technique: 
+    description_es: >
+      Sopes con chorizo frito y crema.
+    description_en: >
+      Sopes con chorizo frito y crema.
+  de_pollo:
+    name_es: Sopes de pollo
+    name_en: Chicken Sopes
+    extra_ingredients:
+      - masa_de_maiz
+      - pollo
+      - crema
+    technique: 
+    description_es: >
+      Sopes con pollo deshebrado.
+    description_en: >
+      Sopes con pollo deshebrado.
+  de_carne_deshebrada:
+    name_es: Sopes de carne deshebrada
+    name_en: Shredded Beef Sopes
+    extra_ingredients:
+      - masa_de_maiz
+      - res
+      - salsa
+    technique: 
+    description_es: >
+      Sopes con carne de res deshebrada.
+    description_en: >
+      Sopes con carne de res deshebrada.
+  de_tinga_de_pollo:
+    name_es: Sopes de tinga de pollo
+    name_en: Chicken Tinga Sopes
+    extra_ingredients:
+      - pollo
+      - chipotle
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Sopes con pollo en chipotle.
+    description_en: >
+      Sopes con pollo en chipotle.
+  de_chorizo_con_papa:
+    name_es: Sopes de chorizo con papa
+    name_en: Chorizo and Potato Sopes
+    extra_ingredients:
+      - chorizo
+      - papa
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Sopes con chorizo y papa.
+    description_en: >
+      Sopes con chorizo y papa.
+  de_frijol_con_queso:
+    name_es: Sopes de frijol con queso
+    name_en: Bean and Cheese Sopes
+    extra_ingredients:
+      - frijol
+      - queso
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Sopes sencillos de frijol y queso.
+    description_en: >
+      Sopes sencillos de frijol y queso.

@@ -23,7 +23,7 @@ variants:
       - tortilla_de_maiz
       - crema
       - queso
-    technique: 
+    technique: None
     description_es: >
       carne de res cocida en una salsa elaborada con chile pasilla, jitomate, ajo y especias, se acompaña con arroz, frijoles y tortillas
     description_en: >

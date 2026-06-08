@@ -1,0 +1,23 @@
+canonical_name: dorilocos
+common_names:
+  - Dorilocos
+category: platillo_principal
+base_ingredients:
+  - doritos
+  - pepino
+  - jicama
+  - salsa
+variants:
+  dorilocos:
+    name_es: Dorilocos
+    name_en: Loaded Doritos Snack
+    extra_ingredients:
+      - doritos
+      - pepino
+      - jicama
+      - salsa
+    technique: 
+    description_es: >
+      Botana callejera preparada dentro de una bolsa de frituras.
+    description_en: >
+      Botana callejera preparada dentro de una bolsa de frituras.

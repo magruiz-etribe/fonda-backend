@@ -1,0 +1,21 @@
+canonical_name: pay_de_queso
+common_names:
+  - Pay de queso
+category: platillo_principal
+base_ingredients:
+  - queso_crema
+  - galletas
+  - mantequilla
+variants:
+  pay_de_queso:
+    name_es: Pay de queso
+    name_en: Cheesecake
+    extra_ingredients:
+      - queso_crema
+      - galletas
+      - mantequilla
+    technique: 
+    description_es: >
+      Postre cremoso preparado con queso crema.
+    description_en: >
+      Postre cremoso preparado con queso crema.

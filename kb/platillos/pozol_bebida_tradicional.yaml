@@ -1,0 +1,21 @@
+canonical_name: pozol_bebida_tradicional
+common_names:
+  - Pozol (bebida tradicional)
+category: platillo_principal
+base_ingredients:
+  - maiz
+  - cacao
+  - agua
+variants:
+  pozol_bebida_tradicional:
+    name_es: Pozol (bebida tradicional)
+    name_en: Corn Drink Pozol
+    extra_ingredients:
+      - maiz
+      - cacao
+      - agua
+    technique: 
+    description_es: >
+      Bebida espesa de maíz fermentado del sureste.
+    description_en: >
+      Bebida espesa de maíz fermentado del sureste.

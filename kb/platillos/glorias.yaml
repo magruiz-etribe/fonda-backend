@@ -1,0 +1,21 @@
+canonical_name: glorias
+common_names:
+  - Glorias
+category: platillo_principal
+base_ingredients:
+  - leche
+  - azucar
+  - nuez
+variants:
+  glorias:
+    name_es: Glorias
+    name_en: Milk Caramel Candy
+    extra_ingredients:
+      - leche
+      - azucar
+      - nuez
+    technique: 
+    description_es: >
+      Dulce norteño elaborado con leche quemada y nuez.
+    description_en: >
+      Dulce norteño elaborado con leche quemada y nuez.

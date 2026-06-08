@@ -1,0 +1,21 @@
+canonical_name: pastel_de_zanahoria
+common_names:
+  - Pastel de zanahoria
+category: platillo_principal
+base_ingredients:
+  - zanahoria
+  - harina
+  - canela
+variants:
+  pastel_de_zanahoria:
+    name_es: Pastel de zanahoria
+    name_en: Carrot Cake
+    extra_ingredients:
+      - zanahoria
+      - harina
+      - canela
+    technique: 
+    description_es: >
+      Pastel húmedo preparado con zanahoria rallada y especias.
+    description_en: >
+      Pastel húmedo preparado con zanahoria rallada y especias.

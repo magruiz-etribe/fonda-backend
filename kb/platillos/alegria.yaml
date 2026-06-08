@@ -1,0 +1,21 @@
+canonical_name: alegria
+common_names:
+  - Alegría
+category: platillo_principal
+base_ingredients:
+  - amaranto
+  - miel
+  - piloncillo
+variants:
+  alegria:
+    name_es: Alegría
+    name_en: Amaranth Candy Bar
+    extra_ingredients:
+      - amaranto
+      - miel
+      - piloncillo
+    technique: 
+    description_es: >
+      Dulce elaborado con amaranto y miel o piloncillo.
+    description_en: >
+      Dulce elaborado con amaranto y miel o piloncillo.

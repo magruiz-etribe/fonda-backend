@@ -1,0 +1,23 @@
+canonical_name: cueritos_preparados
+common_names:
+  - Cueritos preparados
+category: platillo_principal
+base_ingredients:
+  - cueritos
+  - pepino
+  - jicama
+  - salsa
+variants:
+  cueritos_preparados:
+    name_es: Cueritos preparados
+    name_en: Prepared Pickled Pork Rinds
+    extra_ingredients:
+      - cueritos
+      - pepino
+      - jicama
+      - salsa
+    technique: 
+    description_es: >
+      Cueritos servidos con verduras frescas y salsa.
+    description_en: >
+      Cueritos servidos con verduras frescas y salsa.

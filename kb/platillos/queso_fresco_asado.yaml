@@ -1,0 +1,17 @@
+canonical_name: queso_fresco_asado
+common_names:
+  - Queso fresco asado
+category: platillo_principal
+base_ingredients:
+  - queso_fresco
+variants:
+  queso_fresco_asado:
+    name_es: Queso fresco asado
+    name_en: Grilled Fresh Cheese
+    extra_ingredients:
+      - queso_fresco
+    technique: 
+    description_es: >
+      Queso fresco dorado en comal, sencillo y casero.
+    description_en: >
+      Queso fresco dorado en comal, sencillo y casero.

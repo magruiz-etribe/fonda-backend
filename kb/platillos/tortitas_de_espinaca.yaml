@@ -1,0 +1,21 @@
+canonical_name: tortitas_de_espinaca
+common_names:
+  - Tortitas de espinaca
+category: platillo_principal
+base_ingredients:
+  - espinaca
+  - huevo
+  - ajo
+variants:
+  tortitas_de_espinaca:
+    name_es: Tortitas de espinaca
+    name_en: Spinach Patties
+    extra_ingredients:
+      - espinaca
+      - huevo
+      - ajo
+    technique: 
+    description_es: >
+      Tortitas de espinaca con huevo, típicas de fonda casera.
+    description_en: >
+      Tortitas de espinaca con huevo, típicas de fonda casera.

@@ -1,0 +1,23 @@
+canonical_name: filete_relleno_de_mariscos
+common_names:
+  - Filete relleno de mariscos
+category: platillo_principal
+base_ingredients:
+  - pescado
+  - camaron
+  - pulpo
+  - queso
+variants:
+  filete_relleno_de_mariscos:
+    name_es: Filete relleno de mariscos
+    name_en: Seafood-Stuffed Fish Fillet
+    extra_ingredients:
+      - pescado
+      - camaron
+      - pulpo
+      - queso
+    technique: 
+    description_es: >
+      Filete de pescado relleno con mezcla de mariscos.
+    description_en: >
+      Filete de pescado relleno con mezcla de mariscos.

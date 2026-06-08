@@ -1,0 +1,21 @@
+canonical_name: lengua_a_la_veracruzana
+common_names:
+  - Lengua a la veracruzana
+category: platillo_principal
+base_ingredients:
+  - lengua_de_res
+  - jitomate
+  - aceitunas
+variants:
+  lengua_a_la_veracruzana:
+    name_es: Lengua a la veracruzana
+    name_en: Veracruz-Style Beef Tongue
+    extra_ingredients:
+      - lengua_de_res
+      - jitomate
+      - aceitunas
+    technique: 
+    description_es: >
+      Lengua cocinada con jitomate, aceitunas y alcaparras.
+    description_en: >
+      Lengua cocinada con jitomate, aceitunas y alcaparras.

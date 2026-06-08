@@ -1,0 +1,21 @@
+canonical_name: carne_deshebrada_en_adobo
+common_names:
+  - Carne deshebrada en adobo
+category: platillo_principal
+base_ingredients:
+  - res
+  - chile_ancho
+  - ajo
+variants:
+  carne_deshebrada_en_adobo:
+    name_es: Carne deshebrada en adobo
+    name_en: Shredded Beef in Adobo
+    extra_ingredients:
+      - res
+      - chile_ancho
+      - ajo
+    technique: 
+    description_es: >
+      Carne deshebrada en adobo de chiles secos.
+    description_en: >
+      Carne deshebrada en adobo de chiles secos.

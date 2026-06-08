@@ -1,0 +1,21 @@
+canonical_name: uchepos
+common_names:
+  - Uchepos
+category: platillo_principal
+base_ingredients:
+  - elote
+  - mantequilla
+  - leche
+variants:
+  uchepos:
+    name_es: Uchepos
+    name_en: Sweet Corn Tamales
+    extra_ingredients:
+      - elote
+      - mantequilla
+      - leche
+    technique: 
+    description_es: >
+      Tamales suaves elaborados con maíz tierno.
+    description_en: >
+      Tamales suaves elaborados con maíz tierno.

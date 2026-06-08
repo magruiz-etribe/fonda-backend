@@ -1,0 +1,21 @@
+canonical_name: pay_de_nuez
+common_names:
+  - Pay de nuez
+category: platillo_principal
+base_ingredients:
+  - nuez
+  - azucar
+  - mantequilla
+variants:
+  pay_de_nuez:
+    name_es: Pay de nuez
+    name_en: Pecan Pie
+    extra_ingredients:
+      - nuez
+      - azucar
+      - mantequilla
+    technique: 
+    description_es: >
+      Tarta dulce rellena con nuez y caramelo.
+    description_en: >
+      Tarta dulce rellena con nuez y caramelo.

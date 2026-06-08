@@ -7,6 +7,13 @@ common_names:
   - tacos dorados de papa
   - tacos dorados de pollo
   - tacos dorados de res
+  - Flautas de pollo
+  - Tacos dorados
+  - Tacos dorados de papa
+  - Tacos dorados de pollo
+  - Tacos dorados de frijol
+  - Tacos dorados de pollo con lechuga
+  - Tacos dorados de frijol con queso
 category: antojito
 base_ingredients:
   - tortilla_de_maiz
@@ -142,3 +149,91 @@ variants:
       Tortillas fritas rellenas de camarón sazonado, comunes en regiones costeras.
     description_en: >
       Fried tortillas stuffed with seasoned shrimp, common in coastal regions.
+  de_pollo:
+    name_es: Flautas de pollo
+    name_en: Chicken Flautas
+    extra_ingredients:
+      - tortilla
+      - pollo
+      - aceite
+      - tortilla_de_maiz
+      - crema
+      - queso
+      - lechuga
+    technique: 
+    description_es: >
+      Tortillas fritas rellenas de pollo.
+    description_en: >
+      Tortillas fritas rellenas de pollo.
+  tacos_dorados:
+    name_es: Tacos dorados
+    name_en: Crispy Tacos
+    extra_ingredients:
+      - tortilla
+      - pollo
+      - papa_o_res
+    technique: 
+    description_es: >
+      Tortillas rellenas y fritas hasta quedar crujientes.
+    description_en: >
+      Tortillas rellenas y fritas hasta quedar crujientes.
+  dorados_de_papa:
+    name_es: Tacos dorados de papa
+    name_en: Crispy Potato Tacos
+    extra_ingredients:
+      - papa
+      - tortilla
+      - aceite
+    technique: 
+    description_es: >
+      Tacos fritos rellenos de papa.
+    description_en: >
+      Tacos fritos rellenos de papa.
+  dorados_de_pollo:
+    name_es: Tacos dorados de pollo
+    name_en: Fried Chicken Tacos
+    extra_ingredients:
+      - pollo
+      - tortilla
+      - aceite
+    technique: 
+    description_es: >
+      Tacos fritos rellenos de pollo.
+    description_en: >
+      Tacos fritos rellenos de pollo.
+  dorados_de_frijol:
+    name_es: Tacos dorados de frijol
+    name_en: Fried Bean Tacos
+    extra_ingredients:
+      - frijol
+      - tortilla
+      - aceite
+    technique: 
+    description_es: >
+      Tacos fritos rellenos de frijoles.
+    description_en: >
+      Tacos fritos rellenos de frijoles.
+  dorados_de_pollo_con_lechuga:
+    name_es: Tacos dorados de pollo con lechuga
+    name_en: Crispy Chicken Tacos with Lettuce
+    extra_ingredients:
+      - pollo
+      - tortilla
+      - lechuga
+    technique: 
+    description_es: >
+      Tacos fritos de pollo con lechuga y crema.
+    description_en: >
+      Tacos fritos de pollo con lechuga y crema.
+  dorados_de_frijol_con_queso:
+    name_es: Tacos dorados de frijol con queso
+    name_en: Crispy Bean and Cheese Tacos
+    extra_ingredients:
+      - frijol
+      - queso
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos fritos rellenos de frijol y queso.
+    description_en: >
+      Tacos fritos rellenos de frijol y queso.

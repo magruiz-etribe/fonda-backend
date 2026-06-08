@@ -1,0 +1,21 @@
+canonical_name: cabrito_en_salsa
+common_names:
+  - Cabrito en salsa
+category: platillo_principal
+base_ingredients:
+  - cabrito
+  - chile_ancho
+  - ajo
+variants:
+  cabrito_en_salsa:
+    name_es: Cabrito en salsa
+    name_en: Goat in Sauce
+    extra_ingredients:
+      - cabrito
+      - chile_ancho
+      - ajo
+    technique: 
+    description_es: >
+      Cabrito cocido en salsa de chiles y especias.
+    description_en: >
+      Cabrito cocido en salsa de chiles y especias.

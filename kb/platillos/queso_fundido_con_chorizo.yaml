@@ -1,0 +1,21 @@
+canonical_name: queso_fundido_con_chorizo
+common_names:
+  - Queso fundido con chorizo
+category: platillo_principal
+base_ingredients:
+  - queso_oaxaca
+  - chorizo
+  - jitomate
+variants:
+  queso_fundido_con_chorizo:
+    name_es: Queso fundido con chorizo
+    name_en: Melted Cheese with Chorizo
+    extra_ingredients:
+      - queso_oaxaca
+      - chorizo
+      - jitomate
+    technique: 
+    description_es: >
+      Queso derretido con chorizo frito, típico como entrada en fondas.
+    description_en: >
+      Queso derretido con chorizo frito, típico como entrada en fondas.

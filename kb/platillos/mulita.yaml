@@ -1,0 +1,21 @@
+canonical_name: mulita
+common_names:
+  - Mulita
+category: platillo_principal
+base_ingredients:
+  - tortilla
+  - carne_asada
+  - queso
+variants:
+  mulita:
+    name_es: Mulita
+    name_en: Double Tortilla Taco
+    extra_ingredients:
+      - tortilla
+      - carne_asada
+      - queso
+    technique: 
+    description_es: >
+      Preparación con dos tortillas y relleno de carne y queso.
+    description_en: >
+      Preparación con dos tortillas y relleno de carne y queso.

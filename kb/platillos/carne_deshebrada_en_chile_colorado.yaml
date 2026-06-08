@@ -1,0 +1,21 @@
+canonical_name: carne_deshebrada_en_chile_colorado
+common_names:
+  - Carne deshebrada en chile colorado
+category: platillo_principal
+base_ingredients:
+  - res
+  - chile_guajillo
+  - jitomate
+variants:
+  carne_deshebrada_en_chile_colorado:
+    name_es: Carne deshebrada en chile colorado
+    name_en: Shredded Beef in Red Chile Sauce
+    extra_ingredients:
+      - res
+      - chile_guajillo
+      - jitomate
+    technique: 
+    description_es: >
+      Carne deshebrada en salsa roja tradicional.
+    description_en: >
+      Carne deshebrada en salsa roja tradicional.

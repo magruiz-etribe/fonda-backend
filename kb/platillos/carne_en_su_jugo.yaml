@@ -1,6 +1,7 @@
 canonical_name: carne_en_su_jugo
 common_names:
   - carne en su jugo
+  - Carne en su jugo estilo fonda
 category: caldo
 base_ingredients:
   - carne_de_res
@@ -22,3 +23,16 @@ variants:
       Carne de res en caldo ligero con frijoles y tocino.
     description_en: >
       Thinly sliced beef cooked in a light tomatillo broth with beans and bacon — a Jalisco specialty, fresh and brothy.
+  estilo_fonda:
+    name_es: Carne en su jugo estilo fonda
+    name_en: Beef in Its Juices
+    extra_ingredients:
+      - res
+      - frijol
+      - tocino
+      - cilantro
+    technique: 
+    description_es: >
+      Carne de res en su propio jugo con frijoles y tocino.
+    description_en: >
+      Carne de res en su propio jugo con frijoles y tocino.

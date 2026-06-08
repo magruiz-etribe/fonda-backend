@@ -1,0 +1,21 @@
+canonical_name: tlayuda
+common_names:
+  - Tlayuda
+category: platillo_principal
+base_ingredients:
+  - tortilla_tlayuda
+  - asiento
+  - quesillo
+variants:
+  tlayuda:
+    name_es: Tlayuda
+    name_en: Oaxacan Giant Tortilla
+    extra_ingredients:
+      - tortilla_tlayuda
+      - asiento
+      - quesillo
+    technique: 
+    description_es: >
+      Tortilla grande y crujiente cubierta con frijoles, carne y queso.
+    description_en: >
+      Tortilla grande y crujiente cubierta con frijoles, carne y queso.

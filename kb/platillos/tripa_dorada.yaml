@@ -1,0 +1,21 @@
+canonical_name: tripa_dorada
+common_names:
+  - Tripa dorada
+category: platillo_principal
+base_ingredients:
+  - tripa
+  - sal
+  - aceite
+variants:
+  tripa_dorada:
+    name_es: Tripa dorada
+    name_en: Fried Beef Tripe
+    extra_ingredients:
+      - tripa
+      - sal
+      - aceite
+    technique: 
+    description_es: >
+      Tripa de res frita hasta quedar crujiente.
+    description_en: >
+      Tripa de res frita hasta quedar crujiente.

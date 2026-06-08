@@ -1,0 +1,21 @@
+canonical_name: flor_de_calabaza_guisada
+common_names:
+  - Flor de calabaza guisada
+category: platillo_principal
+base_ingredients:
+  - flor_de_calabaza
+  - cebolla
+  - epazote
+variants:
+  flor_de_calabaza_guisada:
+    name_es: Flor de calabaza guisada
+    name_en: Squash Blossom Stew
+    extra_ingredients:
+      - flor_de_calabaza
+      - cebolla
+      - epazote
+    technique: 
+    description_es: >
+      Flor de calabaza salteada con cebolla y epazote.
+    description_en: >
+      Flor de calabaza salteada con cebolla y epazote.

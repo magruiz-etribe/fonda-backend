@@ -1,0 +1,21 @@
+canonical_name: papadzules
+common_names:
+  - Papadzules
+category: platillo_principal
+base_ingredients:
+  - tortillas
+  - huevo
+  - pepita_de_calabaza
+variants:
+  papadzules:
+    name_es: Papadzules
+    name_en: Egg Enchiladas with Pumpkin Seed Sauce
+    extra_ingredients:
+      - tortillas
+      - huevo
+      - pepita_de_calabaza
+    technique: 
+    description_es: >
+      Tortillas rellenas de huevo cocido bañadas con salsa de pepita.
+    description_en: >
+      Tortillas rellenas de huevo cocido bañadas con salsa de pepita.

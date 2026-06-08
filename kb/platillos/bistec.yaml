@@ -3,6 +3,17 @@ common_names:
   - bistec
   - bistec encebollado
   - bistec a la mexicana
+  - Bistec a la mexicana
+  - Bistec ranchero
+  - Bistec encebollado
+  - Bistec en salsa de chile pasilla
+  - Bistec en salsa de chipotle ahumado
+  - Tacos de bistec
+  - Chilaquiles con bistec
+  - Bistec con nopales en salsa verde
+  - Bistec con nopales en salsa roja
+  - Bistec en salsa de cacahuate
+  - Tacos de bistec encebollado
 category: platillo_principal
 base_ingredients:
   - carne_de_res
@@ -11,27 +22,137 @@ base_ingredients:
   - aceite
 variants:
   encebollado:
-    name_es: Bistec Encebollado
+    name_es: Bistec encebollado
     name_en: Steak with Onions
     extra_ingredients:
+      - res
       - cebolla
       - ajo
-    technique: sellado de la carne, sofrito de cebolla hasta caramelizar
+    technique: 
     description_es: >
-      Carne de res cocinada con cebolla salteada.
+      Bistec de res salteado con cebolla.
     description_en: >
-      Pan-seared beef steak served with slowly caramelized onions — simple and beloved in traditional Mexican diners.
+      Bistec de res salteado con cebolla.
   a_la_mexicana:
-    name_es: Bistec a la Mexicana
-    name_en: Mexican-Style Steak
+    name_es: Bistec a la mexicana
+    name_en: Mexican-Style Beef Steak
     extra_ingredients:
+      - res
       - jitomate
       - cebolla
-      - chile_serrano
-      - cilantro
-      - ajo
-    technique: salteado de carne con jitomate, cebolla y chile verde
+      - chile
+      - bistec_de_res
+      - chile_jalapeno_o_serrano
+    technique: 
     description_es: >
-      Tiras de carne de res salteadas con jitomate, cebolla y chile verde.
+      Bistec con jitomate, cebolla y chile.
     description_en: >
-      Strips of beef stir-fried with tomato, onion, and green chile — fresh flavors that mirror the colors of the Mexican flag.
+      Bistec con jitomate, cebolla y chile.
+  ranchero:
+    name_es: Bistec ranchero
+    name_en: Ranch-Style Steak
+    extra_ingredients:
+      - bistec
+      - jitomate
+      - chile_jalapeno
+    technique: 
+    description_es: >
+      Carne de res cocinada en salsa de jitomate y chile.
+    description_en: >
+      Carne de res cocinada en salsa de jitomate y chile.
+  en_salsa_de_chile_pasilla:
+    name_es: Bistec en salsa de chile pasilla
+    name_en: Steak in Pasilla Sauce
+    extra_ingredients:
+      - res
+      - chile_pasilla
+      - jitomate
+    technique: 
+    description_es: >
+      Bistec de res en salsa de chile pasilla.
+    description_en: >
+      Bistec de res en salsa de chile pasilla.
+  en_salsa_de_chipotle_ahumado:
+    name_es: Bistec en salsa de chipotle ahumado
+    name_en: Steak in Smoked Chipotle Sauce
+    extra_ingredients:
+      - res
+      - chipotle
+      - crema
+    technique: 
+    description_es: >
+      Carne de res en salsa chipotle cremosa.
+    description_en: >
+      Carne de res en salsa chipotle cremosa.
+  de_bistec:
+    name_es: Tacos de bistec
+    name_en: Steak Tacos
+    extra_ingredients:
+      - res
+      - tortilla
+      - cebolla
+    technique: 
+    description_es: >
+      Tacos de bistec a la plancha.
+    description_en: >
+      Tacos de bistec a la plancha.
+  con_bistec:
+    name_es: Chilaquiles con bistec
+    name_en: Chilaquiles with Steak
+    extra_ingredients:
+      - tortilla
+      - salsa
+      - res
+    technique: 
+    description_es: >
+      Chilaquiles servidos con bistec.
+    description_en: >
+      Chilaquiles servidos con bistec.
+  con_nopales_en_salsa_verde:
+    name_es: Bistec con nopales en salsa verde
+    name_en: Steak with Cactus in Green Sauce
+    extra_ingredients:
+      - res
+      - nopal
+      - tomatillo
+    technique: 
+    description_es: >
+      Bistec de res guisado con nopales en salsa verde.
+    description_en: >
+      Bistec de res guisado con nopales en salsa verde.
+  con_nopales_en_salsa_roja:
+    name_es: Bistec con nopales en salsa roja
+    name_en: Steak with Cactus in Red Sauce
+    extra_ingredients:
+      - res
+      - nopal
+      - chile_guajillo
+    technique: 
+    description_es: >
+      Bistec en salsa roja con nopales cocidos.
+    description_en: >
+      Bistec en salsa roja con nopales cocidos.
+  en_salsa_de_cacahuate:
+    name_es: Bistec en salsa de cacahuate
+    name_en: Steak in Peanut Sauce
+    extra_ingredients:
+      - res
+      - cacahuate
+      - chile
+    technique: 
+    description_es: >
+      Bistec en salsa espesa de cacahuate.
+    description_en: >
+      Bistec en salsa espesa de cacahuate.
+  de_bistec_encebollado:
+    name_es: Tacos de bistec encebollado
+    name_en: Steak with Onions Tacos
+    extra_ingredients:
+      - res
+      - cebolla
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de bistec con cebolla asada.
+    description_en: >
+      Tacos de bistec con cebolla asada.

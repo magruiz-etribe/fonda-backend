@@ -1,0 +1,21 @@
+canonical_name: tortitas_de_frijol
+common_names:
+  - Tortitas de frijol
+category: platillo_principal
+base_ingredients:
+  - frijol
+  - huevo
+  - ajo
+variants:
+  tortitas_de_frijol:
+    name_es: Tortitas de frijol
+    name_en: Bean Patties
+    extra_ingredients:
+      - frijol
+      - huevo
+      - ajo
+    technique: 
+    description_es: >
+      Tortitas fritas de frijol molido.
+    description_en: >
+      Tortitas fritas de frijol molido.

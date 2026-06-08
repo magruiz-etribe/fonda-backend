@@ -1,0 +1,21 @@
+canonical_name: bigote
+common_names:
+  - Bigote
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - azucar
+variants:
+  bigote:
+    name_es: Bigote
+    name_en: Mexican Mustache Pastry
+    extra_ingredients:
+      - harina
+      - mantequilla
+      - azucar
+    technique: 
+    description_es: >
+      Pan dulce hojaldrado con forma característica de bigote.
+    description_en: >
+      Pan dulce hojaldrado con forma característica de bigote.

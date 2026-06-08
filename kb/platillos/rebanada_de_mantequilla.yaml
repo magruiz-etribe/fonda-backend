@@ -1,0 +1,21 @@
+canonical_name: rebanada_de_mantequilla
+common_names:
+  - Rebanada de mantequilla
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - azucar
+variants:
+  rebanada_de_mantequilla:
+    name_es: Rebanada de mantequilla
+    name_en: Butter Slice Bread
+    extra_ingredients:
+      - harina
+      - mantequilla
+      - azucar
+    technique: 
+    description_es: >
+      Pan dulce suave cubierto con mantequilla y azúcar.
+    description_en: >
+      Pan dulce suave cubierto con mantequilla y azúcar.

@@ -1,0 +1,22 @@
+canonical_name: champinones_al_ajillo
+common_names:
+  - Champiñones al ajillo
+category: platillo_principal
+base_ingredients:
+  - champinones
+  - ajo
+  - mantequilla
+variants:
+  champinones_al_ajillo:
+    name_es: Champiñones al ajillo
+    name_en: Garlic Mushrooms
+    extra_ingredients:
+      - champinon
+      - ajo
+      - mantequilla
+      - champinones
+    technique: 
+    description_es: >
+      Champiñones salteados con ajo y mantequilla.
+    description_en: >
+      Champiñones salteados con ajo y mantequilla.

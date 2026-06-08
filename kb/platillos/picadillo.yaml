@@ -1,6 +1,8 @@
 canonical_name: picadillo
 common_names:
   - carne molida guisada
+  - Picadillo mexicano
+  - Picadillo de res
 category: guisado
 base_ingredients:
   - carne_molida
@@ -18,6 +20,33 @@ variants:
       - chile_serrano
       - tostadas
       - tortillas
+    technique: None
+    description_es: >
+      Carne molida con verduras en salsa de jitomate.
+    description_en: >
+      Carne molida con verduras en salsa de jitomate.
+  mexicano:
+    name_es: Picadillo mexicano
+    name_en: Mexican Picadillo
+    extra_ingredients:
+      - carne_molida_de_res
+      - papa
+      - zanahoria
+      - chicharos
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Guiso de carne molida mezclada con verduras y cocinada en salsa de jitomate.
+    description_en: >
+      Guiso de carne molida mezclada con verduras y cocinada en salsa de jitomate.
+  de_res:
+    name_es: Picadillo de res
+    name_en: Mexican Beef Hash
+    extra_ingredients:
+      - res_molida
+      - papa
+      - zanahoria
     technique: 
     description_es: >
       Carne molida con verduras en salsa de jitomate.

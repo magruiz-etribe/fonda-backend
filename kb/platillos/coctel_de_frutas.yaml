@@ -1,0 +1,23 @@
+canonical_name: coctel_de_frutas
+common_names:
+  - Coctel de frutas
+category: platillo_principal
+base_ingredients:
+  - papaya
+  - melon
+  - sandia
+  - pina
+variants:
+  coctel_de_frutas:
+    name_es: Coctel de frutas
+    name_en: Fruit Cocktail
+    extra_ingredients:
+      - papaya
+      - melon
+      - sandia
+      - pina
+    technique: 
+    description_es: >
+      Mezcla de frutas frescas servidas en vaso.
+    description_en: >
+      Mezcla de frutas frescas servidas en vaso.

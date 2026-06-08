@@ -1,0 +1,19 @@
+canonical_name: raspado_de_grosella
+common_names:
+  - Raspado de grosella
+category: platillo_principal
+base_ingredients:
+  - hielo
+  - jarabe_de_grosella
+variants:
+  raspado_de_grosella:
+    name_es: Raspado de grosella
+    name_en: Red Berry Shaved Ice
+    extra_ingredients:
+      - hielo
+      - jarabe_de_grosella
+    technique: 
+    description_es: >
+      Postre frío elaborado con hielo y jarabe sabor grosella.
+    description_en: >
+      Postre frío elaborado con hielo y jarabe sabor grosella.

@@ -1,6 +1,9 @@
 canonical_name: mixiote
 common_names:
   - carne en mixiote
+  - Mixiote de pollo
+  - Mixiote de carnero
+  - Mixiote de cerdo
 category: platillo_principal
 base_ingredients:
   - carne
@@ -21,8 +24,48 @@ variants:
     name_en: Marinated Meat Mixiotes
     extra_ingredients:
       - hojas_de_aguacate
-    technique: 
+    technique: None
     description_es: >
       Carne marinada cocida al vapor en hoja de maguey.
     description_en: >
       Carne marinada cocida al vapor en hoja de maguey.
+  de_pollo:
+    name_es: Mixiote de pollo
+    name_en: Chicken Mixiote
+    extra_ingredients:
+      - pollo
+      - chile_guajillo
+      - ajo
+      - especias
+    technique: 
+    description_es: >
+      Pollo adobado cocido al vapor envuelto en película de maguey o sustituto.
+    description_en: >
+      Pollo adobado cocido al vapor envuelto en película de maguey o sustituto.
+  de_carnero:
+    name_es: Mixiote de carnero
+    name_en: Lamb Mixiote
+    extra_ingredients:
+      - carnero
+      - chile_guajillo
+      - ajo
+      - comino
+      - hoja_de_maguey
+    technique: 
+    description_es: >
+      Carne de carnero adobada y cocida al vapor envuelta en película de maguey.
+    description_en: >
+      Carne de carnero adobada y cocida al vapor envuelta en película de maguey.
+  de_cerdo:
+    name_es: Mixiote de cerdo
+    name_en: Pork Mixiote
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_ancho
+      - chile_guajillo
+      - ajo
+    technique: 
+    description_es: >
+      Carne de cerdo marinada con chiles y especias, cocinada lentamente al vapor.
+    description_en: >
+      Carne de cerdo marinada con chiles y especias, cocinada lentamente al vapor.

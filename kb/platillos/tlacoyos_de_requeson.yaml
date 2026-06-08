@@ -1,0 +1,32 @@
+canonical_name: tlacoyos_de_requeson
+common_names:
+  - Tlacoyos de requesón
+  - Tlacoyos de requesón con nopales
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - requeson
+variants:
+  tlacoyos_de_requeson:
+    name_es: Tlacoyos de requesón
+    name_en: Cottage Cheese Tlacoyos
+    extra_ingredients:
+      - masa_de_maiz
+      - requeson
+    technique: 
+    description_es: >
+      Tlacoyos rellenos de requesón.
+    description_en: >
+      Tlacoyos rellenos de requesón.
+  tlacoyos_de_requeson_con_nopales:
+    name_es: Tlacoyos de requesón con nopales
+    name_en: Cottage Cheese Tlacoyos with Cactus
+    extra_ingredients:
+      - requeson
+      - nopal
+      - masa_de_maiz
+    technique: 
+    description_es: >
+      Tlacoyos con requesón y nopales.
+    description_en: >
+      Tlacoyos con requesón y nopales.

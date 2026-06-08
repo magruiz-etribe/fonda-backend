@@ -1,0 +1,21 @@
+canonical_name: torta_de_pierna
+common_names:
+  - Torta de pierna
+category: platillo_principal
+base_ingredients:
+  - bolillo
+  - pierna_de_cerdo
+  - aguacate
+variants:
+  torta_de_pierna:
+    name_es: Torta de pierna
+    name_en: Pork Leg Sandwich
+    extra_ingredients:
+      - bolillo
+      - pierna_de_cerdo
+      - aguacate
+    technique: 
+    description_es: >
+      Torta rellena de pierna de cerdo adobada.
+    description_en: >
+      Torta rellena de pierna de cerdo adobada.

@@ -1,0 +1,19 @@
+canonical_name: ate_de_membrillo
+common_names:
+  - Ate de membrillo
+category: platillo_principal
+base_ingredients:
+  - membrillo
+  - azucar
+variants:
+  ate_de_membrillo:
+    name_es: Ate de membrillo
+    name_en: Quince Paste
+    extra_ingredients:
+      - membrillo
+      - azucar
+    technique: 
+    description_es: >
+      Dulce sólido elaborado con pulpa de membrillo.
+    description_en: >
+      Dulce sólido elaborado con pulpa de membrillo.

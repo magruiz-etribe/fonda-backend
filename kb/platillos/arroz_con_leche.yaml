@@ -1,6 +1,7 @@
 canonical_name: arroz_con_leche
 common_names:
   - arroz con leche
+  - Arroz con leche
 category: postre
 base_ingredients:
   - arroz
@@ -13,16 +14,15 @@ base_ingredients:
   - agua
 variants:
   arroz_con_leche:
-    name_es: Arroz con Leche
-    name_en: Mexican Rice Pudding
+    name_es: Arroz con leche
+    name_en: Rice Pudding
     extra_ingredients:
-      - pasitas
-      - cascara_de_limon
-      - coco_rallado
-      - almendra
-      - cajeta
-    technique: cocción lenta del arroz en leche con canela y azúcar
+      - arroz
+      - leche
+      - azucar
+      - canela
+    technique: 
     description_es: >
-      Arroz cocido en leche, azúcar y canela; opcional vainilla, pasas o leche condensada.
+      Postre tradicional de arroz cocido con leche y canela.
     description_en: >
-      Rice slow-cooked in milk with cinnamon, sugar, and vanilla until thick and creamy — may include raisins, shredded coconut, or condensed milk.
+      Postre tradicional de arroz cocido con leche y canela.

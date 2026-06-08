@@ -1,0 +1,21 @@
+canonical_name: jicama_con_chile
+common_names:
+  - Jícama con chile
+category: platillo_principal
+base_ingredients:
+  - jicama
+  - limon
+  - chile_en_polvo
+variants:
+  jicama_con_chile:
+    name_es: Jícama con chile
+    name_en: Jicama with Chili
+    extra_ingredients:
+      - jicama
+      - limon
+      - chile_en_polvo
+    technique: 
+    description_es: >
+      Botana fresca de jícama espolvoreada con chile y limón.
+    description_en: >
+      Botana fresca de jícama espolvoreada con chile y limón.

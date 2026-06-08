@@ -2,6 +2,7 @@ canonical_name: asado_de_puerco
 common_names:
   - asado de puerco
   - asado de cerdo
+  - Asado de puerco
 category: guisado
 base_ingredients:
   - carne_de_cerdo
@@ -14,15 +15,14 @@ base_ingredients:
   - sal
 variants:
   asado_de_puerco:
-    name_es: Asado de Puerco
-    name_en: Pork Stew in Red Sauce
+    name_es: Asado de puerco
+    name_en: Pork Red Stew
     extra_ingredients:
-      - oregano_mexicano
-      - comino
-      - laurel
-      - pimienta_negra
-    technique: sellado de carne, cocción en salsa de chile seco
+      - carne_de_cerdo
+      - chile_ancho
+      - ajo
+    technique: 
     description_es: >
-      Carne de cerdo cocinada en salsa roja de chile y especias.
+      Carne de cerdo preparada en salsa roja espesa.
     description_en: >
-      Pork stew simmered in a red guajillo chile sauce with Mexican spices — a classic fonda dish with deep, slightly smoky flavor.
+      Carne de cerdo preparada en salsa roja espesa.

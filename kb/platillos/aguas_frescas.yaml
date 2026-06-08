@@ -7,6 +7,67 @@ common_names:
   - horchata
   - agua de limón
   - agua de pepino
+  - Aguachile
+  - Agua de horchata
+  - Agua de jamaica
+  - Agua de tamarindo
+  - Agua de limón con chía
+  - Agua de pepino con limón
+  - Agua de melón
+  - Agua de sandía
+  - Agua de guayaba
+  - Agua de piña
+  - Agua de avena
+  - Agua de cebada
+  - Agua de mamey
+  - Agua de papaya
+  - Agua de coco
+  - Agua de arroz
+  - Agua de fresa
+  - Agua de naranja
+  - Agua de toronja
+  - Agua de lima
+  - Agua de guanábana
+  - Agua de chicozapote
+  - Agua de zapote negro
+  - Agua de pitahaya
+  - Agua de tejocote
+  - Agua de capulín
+  - Agua de jobo
+  - Agua de ciruela
+  - Agua de tamarindo con chile
+  - Agua de pepino con limón y chía
+  - Agua fresca de melón con leche
+  - Tamal de elote con salsa de aguacate
+  - Tamal de elote con salsa de aguacate y chile
+  - Agua de limón
+  - Agua de mango
+  - Agua de tuna
+  - Agua de nopal
+  - Agua de apio con limón
+  - Agua de manzana
+  - Agua de pera
+  - Agua de uva
+  - Agua de zarzamora
+  - Agua de arándano
+  - Agua de jamaica con canela
+  - Agua de horchata con fresa
+  - Agua de horchata con coco
+  - Agua de horchata con café
+  - Agua de pepino con hierbabuena
+  - Agua de sandía con limón
+  - Agua de piña con coco
+  - Agua de guayaba con canela
+  - Agua de melón con menta
+  - Agua de fresa con leche
+  - Agua de plátano
+  - Agua de arroz con leche ligera
+  - Agua de chocolate frío
+  - Agua de café frío
+  - Agua de jamaica con naranja
+  - Aguachile verde
+  - Aguachile rojo
+  - Tostadas de tinga de pollo con aguacate
 category: bebida
 base_ingredients:
   - agua
@@ -58,3 +119,740 @@ variants:
       Hecha con pepino y limón
     description_en: >
       Blended cucumber and lime water — refreshing, light, and clean-flavored.
+  aguachile:
+    name_es: Aguachile
+    name_en: Aguachile Shrimp
+    extra_ingredients:
+      - camaron
+      - limon
+      - chile_serrano
+      - pepino
+      - cebolla_morada
+    technique: 
+    description_es: >
+      Camarones crudos marinados en limón con chile y pepino.
+    description_en: >
+      Camarones crudos marinados en limón con chile y pepino.
+  agua_de_horchata:
+    name_es: Agua de horchata
+    name_en: Rice Horchata Drink
+    extra_ingredients:
+      - arroz
+      - canela
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce de arroz con canela.
+    description_en: >
+      Bebida dulce de arroz con canela.
+  agua_de_jamaica:
+    name_es: Agua de jamaica
+    name_en: Hibiscus Water
+    extra_ingredients:
+      - flor_de_jamaica
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida fría de flor de jamaica.
+    description_en: >
+      Bebida fría de flor de jamaica.
+  agua_de_tamarindo:
+    name_es: Agua de tamarindo
+    name_en: Tamarind Water
+    extra_ingredients:
+      - tamarindo
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida refrescante de tamarindo.
+    description_en: >
+      Bebida refrescante de tamarindo.
+  agua_de_limon_con_chia:
+    name_es: Agua de limón con chía
+    name_en: Lime and Chia Drink
+    extra_ingredients:
+      - limon
+      - chia
+      - agua
+    technique: 
+    description_es: >
+      Agua de limón con semillas de chía hidratadas.
+    description_en: >
+      Agua de limón con semillas de chía hidratadas.
+  agua_de_pepino_con_limon:
+    name_es: Agua de pepino con limón
+    name_en: Cucumber Lime Water
+    extra_ingredients:
+      - pepino
+      - limon
+      - agua
+    technique: 
+    description_es: >
+      Bebida refrescante de pepino y limón.
+    description_en: >
+      Bebida refrescante de pepino y limón.
+  agua_de_melon:
+    name_es: Agua de melón
+    name_en: Melon Water
+    extra_ingredients:
+      - melon
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida fresca de melón.
+    description_en: >
+      Bebida fresca de melón.
+  agua_de_sandia:
+    name_es: Agua de sandía
+    name_en: Watermelon Water
+    extra_ingredients:
+      - sandia
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida refrescante de sandía.
+    description_en: >
+      Bebida refrescante de sandía.
+  agua_de_guayaba:
+    name_es: Agua de guayaba
+    name_en: Guava Water
+    extra_ingredients:
+      - guayaba
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida dulce de guayaba.
+    description_en: >
+      Bebida dulce de guayaba.
+  agua_de_pina:
+    name_es: Agua de piña
+    name_en: Pineapple Water
+    extra_ingredients:
+      - pina
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce de piña natural.
+    description_en: >
+      Bebida dulce de piña natural.
+  agua_de_avena:
+    name_es: Agua de avena
+    name_en: Oat Water
+    extra_ingredients:
+      - avena
+      - leche
+      - canela
+      - agua
+    technique: 
+    description_es: >
+      Bebida cremosa de avena licuada.
+    description_en: >
+      Bebida cremosa de avena licuada.
+  agua_de_cebada:
+    name_es: Agua de cebada
+    name_en: Barley Water Drink
+    extra_ingredients:
+      - cebada
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida refrescante elaborada con cebada cocida y endulzada.
+    description_en: >
+      Bebida refrescante elaborada con cebada cocida y endulzada.
+  agua_de_mamey:
+    name_es: Agua de mamey
+    name_en: Mamey Sapote Drink
+    extra_ingredients:
+      - mamey
+      - leche_o_agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida cremosa hecha con pulpa de mamey.
+    description_en: >
+      Bebida cremosa hecha con pulpa de mamey.
+  agua_de_papaya:
+    name_es: Agua de papaya
+    name_en: Papaya Water
+    extra_ingredients:
+      - papaya
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida ligera de papaya licuada con agua.
+    description_en: >
+      Bebida ligera de papaya licuada con agua.
+  agua_de_coco:
+    name_es: Agua de coco
+    name_en: Coconut Water Drink
+    extra_ingredients:
+      - agua_de_coco
+      - pulpa_de_coco
+    technique: 
+    description_es: >
+      Bebida refrescante natural elaborada con coco.
+    description_en: >
+      Bebida refrescante natural elaborada con coco.
+  agua_de_arroz:
+    name_es: Agua de arroz
+    name_en: Rice Water Drink
+    extra_ingredients:
+      - arroz
+      - agua
+      - canela
+    technique: 
+    description_es: >
+      Bebida ligera elaborada con arroz remojado y licuado.
+    description_en: >
+      Bebida ligera elaborada con arroz remojado y licuado.
+  agua_de_fresa:
+    name_es: Agua de fresa
+    name_en: Strawberry Water
+    extra_ingredients:
+      - fresa
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida dulce de fresa.
+    description_en: >
+      Bebida dulce de fresa.
+  agua_de_naranja:
+    name_es: Agua de naranja
+    name_en: Orange Water
+    extra_ingredients:
+      - naranja
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida cítrica elaborada con jugo de naranja natural.
+    description_en: >
+      Bebida cítrica elaborada con jugo de naranja natural.
+  agua_de_toronja:
+    name_es: Agua de toronja
+    name_en: Grapefruit Water
+    extra_ingredients:
+      - toronja
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida refrescante de toronja natural.
+    description_en: >
+      Bebida refrescante de toronja natural.
+  agua_de_lima:
+    name_es: Agua de lima
+    name_en: Mexican Lime Water
+    extra_ingredients:
+      - lima
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida refrescante preparada con lima agria.
+    description_en: >
+      Bebida refrescante preparada con lima agria.
+  agua_de_guanabana:
+    name_es: Agua de guanábana
+    name_en: Soursop Water
+    extra_ingredients:
+      - guanabana
+      - leche_o_agua
+      - azucar
+      - agua_o_leche
+    technique: 
+    description_es: >
+      Bebida cremosa y dulce de guanábana.
+    description_en: >
+      Bebida cremosa y dulce de guanábana.
+  agua_de_chicozapote:
+    name_es: Agua de chicozapote
+    name_en: Sapodilla Water
+    extra_ingredients:
+      - chicozapote
+      - agua
+      - azucar
+      - agua_o_leche
+    technique: 
+    description_es: >
+      Bebida dulce de chicozapote.
+    description_en: >
+      Bebida dulce de chicozapote.
+  agua_de_zapote_negro:
+    name_es: Agua de zapote negro
+    name_en: Black Sapote Drink
+    extra_ingredients:
+      - zapote_negro
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Bebida espesa preparada con zapote negro maduro.
+    description_en: >
+      Bebida espesa preparada con zapote negro maduro.
+  agua_de_pitahaya:
+    name_es: Agua de pitahaya
+    name_en: Dragon Fruit Water
+    extra_ingredients:
+      - pitahaya
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida refrescante elaborada con pitahaya.
+    description_en: >
+      Bebida refrescante elaborada con pitahaya.
+  agua_de_tejocote:
+    name_es: Agua de tejocote
+    name_en: Hawthorn Fruit Drink
+    extra_ingredients:
+      - tejocote
+      - canela
+      - azucar
+    technique: 
+    description_es: >
+      Bebida tradicional hecha con tejocote cocido.
+    description_en: >
+      Bebida tradicional hecha con tejocote cocido.
+  agua_de_capulin:
+    name_es: Agua de capulín
+    name_en: Mexican Cherry Drink
+    extra_ingredients:
+      - capulin
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida preparada con fruta de capulín.
+    description_en: >
+      Bebida preparada con fruta de capulín.
+  agua_de_jobo:
+    name_es: Agua de jobo
+    name_en: Hog Plum Drink
+    extra_ingredients:
+      - jobo
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida tropical elaborada con fruta de jobo.
+    description_en: >
+      Bebida tropical elaborada con fruta de jobo.
+  agua_de_ciruela:
+    name_es: Agua de ciruela
+    name_en: Plum Water
+    extra_ingredients:
+      - ciruela
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce elaborada con ciruela cocida.
+    description_en: >
+      Bebida dulce elaborada con ciruela cocida.
+  agua_de_tamarindo_con_chile:
+    name_es: Agua de tamarindo con chile
+    name_en: Spicy Tamarind Water
+    extra_ingredients:
+      - tamarindo
+      - chile_piquin
+      - azucar
+      - chile_en_polvo
+    technique: 
+    description_es: >
+      Agua de tamarindo con chile en polvo.
+    description_en: >
+      Agua de tamarindo con chile en polvo.
+  agua_de_pepino_con_limon_y_chia:
+    name_es: Agua de pepino con limón y chía
+    name_en: Cucumber Lime Chia Drink
+    extra_ingredients:
+      - pepino
+      - limon
+      - chia
+    technique: 
+    description_es: >
+      Bebida refrescante con pepino, limón y chía.
+    description_en: >
+      Bebida refrescante con pepino, limón y chía.
+  de_melon_con_leche:
+    name_es: Agua fresca de melón con leche
+    name_en: Melon Milk Drink
+    extra_ingredients:
+      - melon
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Bebida cremosa de melón con leche.
+    description_en: >
+      Bebida cremosa de melón con leche.
+  de_elote_con_salsa_de_aguacate:
+    name_es: Tamal de elote con salsa de aguacate
+    name_en: Avocado Corn Tamale
+    extra_ingredients:
+      - elote
+      - aguacate
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con salsa de aguacate cremosa.
+    description_en: >
+      Tamal de elote con salsa de aguacate cremosa.
+  de_elote_con_salsa_de_aguacate_y_chile:
+    name_es: Tamal de elote con salsa de aguacate y chile
+    name_en: Avocado Chili Corn Tamale
+    extra_ingredients:
+      - elote
+      - aguacate
+      - chile
+    technique: 
+    description_es: >
+      Tamal de elote con salsa de aguacate picante.
+    description_en: >
+      Tamal de elote con salsa de aguacate picante.
+  agua_de_limon:
+    name_es: Agua de limón
+    name_en: Lime Water
+    extra_ingredients:
+      - limon
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Bebida fresca de limón.
+    description_en: >
+      Bebida fresca de limón.
+  agua_de_mango:
+    name_es: Agua de mango
+    name_en: Mango Water
+    extra_ingredients:
+      - mango
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida fresca y dulce de mango, común en fondas.
+    description_en: >
+      Bebida fresca y dulce de mango, común en fondas.
+  agua_de_tuna:
+    name_es: Agua de tuna
+    name_en: Prickly Pear Water
+    extra_ingredients:
+      - tuna
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida refrescante de tuna roja o verde.
+    description_en: >
+      Bebida refrescante de tuna roja o verde.
+  agua_de_nopal:
+    name_es: Agua de nopal
+    name_en: Cactus Water
+    extra_ingredients:
+      - nopal
+      - limon
+      - agua
+    technique: 
+    description_es: >
+      Bebida refrescante hecha con nopal licuado.
+    description_en: >
+      Bebida refrescante hecha con nopal licuado.
+  agua_de_apio_con_limon:
+    name_es: Agua de apio con limón
+    name_en: Celery Lime Water
+    extra_ingredients:
+      - apio
+      - limon
+      - agua
+    technique: 
+    description_es: >
+      Bebida verde ligera de apio y limón.
+    description_en: >
+      Bebida verde ligera de apio y limón.
+  agua_de_manzana:
+    name_es: Agua de manzana
+    name_en: Apple Water
+    extra_ingredients:
+      - manzana
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce de manzana licuada.
+    description_en: >
+      Bebida dulce de manzana licuada.
+  agua_de_pera:
+    name_es: Agua de pera
+    name_en: Pear Water
+    extra_ingredients:
+      - pera
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida suave de pera fresca.
+    description_en: >
+      Bebida suave de pera fresca.
+  agua_de_uva:
+    name_es: Agua de uva
+    name_en: Grape Water
+    extra_ingredients:
+      - uva
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce de uva.
+    description_en: >
+      Bebida dulce de uva.
+  agua_de_zarzamora:
+    name_es: Agua de zarzamora
+    name_en: Blackberry Water
+    extra_ingredients:
+      - zarzamora
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida ácida y dulce de zarzamora.
+    description_en: >
+      Bebida ácida y dulce de zarzamora.
+  agua_de_arandano:
+    name_es: Agua de arándano
+    name_en: Blueberry Water
+    extra_ingredients:
+      - arandano
+      - agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida ligera de arándano.
+    description_en: >
+      Bebida ligera de arándano.
+  agua_de_jamaica_con_canela:
+    name_es: Agua de jamaica con canela
+    name_en: Hibiscus Cinnamon Water
+    extra_ingredients:
+      - jamaica
+      - canela
+      - azucar
+    technique: 
+    description_es: >
+      Agua de jamaica aromatizada con canela.
+    description_en: >
+      Agua de jamaica aromatizada con canela.
+  agua_de_horchata_con_fresa:
+    name_es: Agua de horchata con fresa
+    name_en: Strawberry Horchata
+    extra_ingredients:
+      - arroz
+      - leche
+      - fresa
+    technique: 
+    description_es: >
+      Horchata tradicional con fresa natural.
+    description_en: >
+      Horchata tradicional con fresa natural.
+  agua_de_horchata_con_coco:
+    name_es: Agua de horchata con coco
+    name_en: Coconut Horchata
+    extra_ingredients:
+      - arroz
+      - coco
+      - leche
+    technique: 
+    description_es: >
+      Horchata con leche de coco.
+    description_en: >
+      Horchata con leche de coco.
+  agua_de_horchata_con_cafe:
+    name_es: Agua de horchata con café
+    name_en: Coffee Horchata
+    extra_ingredients:
+      - arroz
+      - cafe
+      - leche
+    technique: 
+    description_es: >
+      Horchata mezclada con café.
+    description_en: >
+      Horchata mezclada con café.
+  agua_de_pepino_con_hierbabuena:
+    name_es: Agua de pepino con hierbabuena
+    name_en: Cucumber Mint Water
+    extra_ingredients:
+      - pepino
+      - hierbabuena
+      - agua
+    technique: 
+    description_es: >
+      Bebida fresca de pepino con hierbabuena.
+    description_en: >
+      Bebida fresca de pepino con hierbabuena.
+  agua_de_sandia_con_limon:
+    name_es: Agua de sandía con limón
+    name_en: Watermelon Lime Water
+    extra_ingredients:
+      - sandia
+      - limon
+      - agua
+    technique: 
+    description_es: >
+      Bebida de sandía con toque de limón.
+    description_en: >
+      Bebida de sandía con toque de limón.
+  agua_de_pina_con_coco:
+    name_es: Agua de piña con coco
+    name_en: Pineapple Coconut Water
+    extra_ingredients:
+      - pina
+      - coco
+      - agua
+    technique: 
+    description_es: >
+      Bebida tropical de piña con coco.
+    description_en: >
+      Bebida tropical de piña con coco.
+  agua_de_guayaba_con_canela:
+    name_es: Agua de guayaba con canela
+    name_en: Guava Cinnamon Water
+    extra_ingredients:
+      - guayaba
+      - canela
+      - azucar
+    technique: 
+    description_es: >
+      Bebida dulce de guayaba con canela.
+    description_en: >
+      Bebida dulce de guayaba con canela.
+  agua_de_melon_con_menta:
+    name_es: Agua de melón con menta
+    name_en: Melon Mint Water
+    extra_ingredients:
+      - melon
+      - menta
+      - agua
+    technique: 
+    description_es: >
+      Bebida refrescante de melón con menta.
+    description_en: >
+      Bebida refrescante de melón con menta.
+  agua_de_fresa_con_leche:
+    name_es: Agua de fresa con leche
+    name_en: Strawberry Milk Water
+    extra_ingredients:
+      - fresa
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Bebida cremosa de fresa con leche.
+    description_en: >
+      Bebida cremosa de fresa con leche.
+  agua_de_platano:
+    name_es: Agua de plátano
+    name_en: Banana Water
+    extra_ingredients:
+      - platano
+      - leche_o_agua
+      - azucar
+    technique: 
+    description_es: >
+      Bebida espesa de plátano licuado.
+    description_en: >
+      Bebida espesa de plátano licuado.
+  agua_de_arroz_con_leche_ligera:
+    name_es: Agua de arroz con leche ligera
+    name_en: Light Rice Milk Drink
+    extra_ingredients:
+      - arroz
+      - leche
+      - canela
+    technique: 
+    description_es: >
+      Bebida similar al arroz con leche pero más líquida.
+    description_en: >
+      Bebida similar al arroz con leche pero más líquida.
+  agua_de_chocolate_frio:
+    name_es: Agua de chocolate frío
+    name_en: Cold Chocolate Drink
+    extra_ingredients:
+      - cacao
+      - leche
+      - azucar
+    technique: 
+    description_es: >
+      Bebida fría de cacao estilo mexicano.
+    description_en: >
+      Bebida fría de cacao estilo mexicano.
+  agua_de_cafe_frio:
+    name_es: Agua de café frío
+    name_en: Cold Coffee Drink
+    extra_ingredients:
+      - cafe
+      - azucar
+      - agua
+    technique: 
+    description_es: >
+      Café frío estilo fonda.
+    description_en: >
+      Café frío estilo fonda.
+  agua_de_jamaica_con_naranja:
+    name_es: Agua de jamaica con naranja
+    name_en: Hibiscus Orange Water
+    extra_ingredients:
+      - jamaica
+      - naranja
+      - azucar
+    technique: 
+    description_es: >
+      Bebida de jamaica con jugo de naranja.
+    description_en: >
+      Bebida de jamaica con jugo de naranja.
+  verde:
+    name_es: Aguachile verde
+    name_en: Green Aguachile
+    extra_ingredients:
+      - camaron
+      - chile_serrano
+      - limon
+    technique: 
+    description_es: >
+      Camarón crudo marinado en chile y limón.
+    description_en: >
+      Camarón crudo marinado en chile y limón.
+  rojo:
+    name_es: Aguachile rojo
+    name_en: Red Aguachile
+    extra_ingredients:
+      - camaron
+      - chile_de_arbol
+      - limon
+    technique: 
+    description_es: >
+      Aguachile con chile seco rojo.
+    description_en: >
+      Aguachile con chile seco rojo.
+  de_tinga_de_pollo_con_aguacate:
+    name_es: Tostadas de tinga de pollo con aguacate
+    name_en: Chicken Tinga Tostadas with Avocado
+    extra_ingredients:
+      - pollo
+      - chipotle
+      - aguacate
+    technique: 
+    description_es: >
+      Tostadas con tinga de pollo y aguacate.
+    description_en: >
+      Tostadas con tinga de pollo y aguacate.

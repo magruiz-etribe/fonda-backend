@@ -1,0 +1,21 @@
+canonical_name: cocada
+common_names:
+  - Cocada
+category: platillo_principal
+base_ingredients:
+  - coco
+  - azucar
+  - leche
+variants:
+  cocada:
+    name_es: Cocada
+    name_en: Coconut Candy
+    extra_ingredients:
+      - coco
+      - azucar
+      - leche
+    technique: 
+    description_es: >
+      Dulce elaborado con coco rallado y azúcar.
+    description_en: >
+      Dulce elaborado con coco rallado y azúcar.

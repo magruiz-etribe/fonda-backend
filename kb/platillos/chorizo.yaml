@@ -1,0 +1,48 @@
+canonical_name: chorizo
+common_names:
+  - Chorizo con papa
+  - Chorizo oaxaqueño
+  - Chorizo con huevo
+category: platillo_principal
+base_ingredients:
+  - chorizo
+  - papa
+  - cebolla
+variants:
+  con_papa:
+    name_es: Chorizo con papa
+    name_en: Chorizo with Potatoes
+    extra_ingredients:
+      - chorizo
+      - papa
+      - cebolla
+    technique: 
+    description_es: >
+      Platillo casero de chorizo cocinado con cubos de papa.
+    description_en: >
+      Platillo casero de chorizo cocinado con cubos de papa.
+  oaxaqueno:
+    name_es: Chorizo oaxaqueño
+    name_en: Oaxacan Chorizo
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_ancho
+      - ajo
+      - vinagre
+    technique: 
+    description_es: >
+      Embutido regional preparado con carne de cerdo y especias.
+    description_en: >
+      Embutido regional preparado con carne de cerdo y especias.
+  con_huevo:
+    name_es: Chorizo con huevo
+    name_en: Chorizo and Eggs
+    extra_ingredients:
+      - huevo
+      - chorizo
+      - cebolla
+    technique: 
+    description_es: >
+      Huevos revueltos mezclados con chorizo mexicano.
+    description_en: >
+      Huevos revueltos mezclados con chorizo mexicano.

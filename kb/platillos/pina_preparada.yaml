@@ -1,0 +1,21 @@
+canonical_name: pina_preparada
+common_names:
+  - Piña preparada
+category: platillo_principal
+base_ingredients:
+  - pina
+  - limon
+  - chile
+variants:
+  pina_preparada:
+    name_es: Piña preparada
+    name_en: Prepared Pineapple
+    extra_ingredients:
+      - pina
+      - limon
+      - chile
+    technique: 
+    description_es: >
+      Piña fresca servida con chile y limón.
+    description_en: >
+      Piña fresca servida con chile y limón.

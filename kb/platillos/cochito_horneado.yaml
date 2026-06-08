@@ -1,0 +1,21 @@
+canonical_name: cochito_horneado
+common_names:
+  - Cochito horneado
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - chile_ancho
+  - ajo
+variants:
+  cochito_horneado:
+    name_es: Cochito horneado
+    name_en: Roasted Pork Chiapas Style
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_ancho
+      - ajo
+    technique: 
+    description_es: >
+      Cerdo adobado y horneado lentamente.
+    description_en: >
+      Cerdo adobado y horneado lentamente.

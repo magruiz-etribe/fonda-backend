@@ -17,7 +17,7 @@ variants:
       - frijoles
       - carne_molida
       - chile
-    technique: 
+    technique: None
     description_es: >
       Pedazos de tortilla fritos y crujientes que se comen como botana o acompañamiento.
     description_en: >

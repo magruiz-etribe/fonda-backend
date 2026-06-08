@@ -1,0 +1,21 @@
+canonical_name: sandia_preparada
+common_names:
+  - Sandía preparada
+category: platillo_principal
+base_ingredients:
+  - sandia
+  - limon
+  - chile
+variants:
+  sandia_preparada:
+    name_es: Sandía preparada
+    name_en: Prepared Watermelon
+    extra_ingredients:
+      - sandia
+      - limon
+      - chile
+    technique: 
+    description_es: >
+      Sandía fresca acompañada con limón y chile.
+    description_en: >
+      Sandía fresca acompañada con limón y chile.

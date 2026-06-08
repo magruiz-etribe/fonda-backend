@@ -1,0 +1,23 @@
+canonical_name: migas
+common_names:
+  - Migas
+category: platillo_principal
+base_ingredients:
+  - tortilla
+  - huevo
+  - chile
+  - jitomate
+variants:
+  migas:
+    name_es: Migas
+    name_en: Mexican Migas
+    extra_ingredients:
+      - tortilla
+      - huevo
+      - chile
+      - jitomate
+    technique: 
+    description_es: >
+      Trozos de tortilla frita cocidos con huevo y salsa.
+    description_en: >
+      Trozos de tortilla frita cocidos con huevo y salsa.

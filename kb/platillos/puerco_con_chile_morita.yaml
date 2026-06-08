@@ -1,0 +1,21 @@
+canonical_name: puerco_con_chile_morita
+common_names:
+  - Puerco con chile morita
+category: platillo_principal
+base_ingredients:
+  - carne_de_cerdo
+  - chile_morita
+  - ajo
+variants:
+  puerco_con_chile_morita:
+    name_es: Puerco con chile morita
+    name_en: Pork in Morita Chili Sauce
+    extra_ingredients:
+      - carne_de_cerdo
+      - chile_morita
+      - ajo
+    technique: 
+    description_es: >
+      Cerdo en salsa ahumada de chile morita.
+    description_en: >
+      Cerdo en salsa ahumada de chile morita.

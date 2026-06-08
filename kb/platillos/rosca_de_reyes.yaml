@@ -1,0 +1,21 @@
+canonical_name: rosca_de_reyes
+common_names:
+  - Rosca de Reyes
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - frutas_cristalizadas
+variants:
+  rosca_de_reyes:
+    name_es: Rosca de Reyes
+    name_en: Three Kings Bread Ring
+    extra_ingredients:
+      - harina
+      - mantequilla
+      - frutas_cristalizadas
+    technique: 
+    description_es: >
+      Pan dulce circular decorado con fruta cristalizada.
+    description_en: >
+      Pan dulce circular decorado con fruta cristalizada.

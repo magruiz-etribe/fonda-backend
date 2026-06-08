@@ -1,0 +1,21 @@
+canonical_name: pan_de_elote
+common_names:
+  - Pan de elote
+category: platillo_principal
+base_ingredients:
+  - elote
+  - harina
+  - mantequilla
+variants:
+  pan_de_elote:
+    name_es: Pan de elote
+    name_en: Corn Bread
+    extra_ingredients:
+      - elote
+      - harina
+      - mantequilla
+    technique: 
+    description_es: >
+      Pan dulce elaborado con granos de maíz.
+    description_en: >
+      Pan dulce elaborado con granos de maíz.

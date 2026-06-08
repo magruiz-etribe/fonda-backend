@@ -1,0 +1,21 @@
+canonical_name: ejotes_guisados
+common_names:
+  - Ejotes guisados
+category: platillo_principal
+base_ingredients:
+  - ejote
+  - jitomate
+  - cebolla
+variants:
+  ejotes_guisados:
+    name_es: Ejotes guisados
+    name_en: Green Beans Stew
+    extra_ingredients:
+      - ejote
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Ejotes cocidos en salsa de jitomate.
+    description_en: >
+      Ejotes cocidos en salsa de jitomate.

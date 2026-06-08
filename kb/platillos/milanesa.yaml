@@ -15,7 +15,7 @@ variants:
     extra_ingredients:
       - papas_a_la_francesa
       - ensalada
-    technique: 
+    technique: None
     description_es: >
       Filete fino de res o cerdo cubierto con pan molido y huevo, frito hasta quedar dorado.
     description_en: >

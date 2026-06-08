@@ -1,0 +1,25 @@
+canonical_name: coctel_de_camaron
+common_names:
+  - Cóctel de camarón
+category: platillo_principal
+base_ingredients:
+  - camaron
+  - catsup
+  - jugo_de_tomate
+  - cebolla
+  - aguacate
+variants:
+  coctel_de_camaron:
+    name_es: Cóctel de camarón
+    name_en: Shrimp Cocktail
+    extra_ingredients:
+      - camaron
+      - catsup
+      - jugo_de_tomate
+      - cebolla
+      - aguacate
+    technique: 
+    description_es: >
+      Preparación fría de camarones servidos en salsa de tomate condimentada.
+    description_en: >
+      Preparación fría de camarones servidos en salsa de tomate condimentada.

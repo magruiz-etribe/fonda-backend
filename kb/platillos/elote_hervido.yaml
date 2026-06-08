@@ -1,0 +1,21 @@
+canonical_name: elote_hervido
+common_names:
+  - Elote hervido
+category: platillo_principal
+base_ingredients:
+  - elote
+  - sal
+  - limon
+variants:
+  elote_hervido:
+    name_es: Elote hervido
+    name_en: Boiled Corn on the Cob
+    extra_ingredients:
+      - elote
+      - sal
+      - limon
+    technique: 
+    description_es: >
+      Elote cocido en agua y servido con limón, sal y chile.
+    description_en: >
+      Elote cocido en agua y servido con limón, sal y chile.

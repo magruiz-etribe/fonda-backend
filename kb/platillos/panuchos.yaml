@@ -1,0 +1,23 @@
+canonical_name: panuchos
+common_names:
+  - Panuchos
+category: platillo_principal
+base_ingredients:
+  - tortilla
+  - frijoles
+  - pollo
+  - cebolla_morada
+variants:
+  panuchos:
+    name_es: Panuchos
+    name_en: Stuffed Yucatecan Tortillas
+    extra_ingredients:
+      - tortilla
+      - frijoles
+      - pollo
+      - cebolla_morada
+    technique: 
+    description_es: >
+      Tortillas rellenas de frijol y cubiertas con diversos ingredientes.
+    description_en: >
+      Tortillas rellenas de frijol y cubiertas con diversos ingredientes.

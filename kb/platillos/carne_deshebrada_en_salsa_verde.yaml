@@ -1,0 +1,23 @@
+canonical_name: carne_deshebrada_en_salsa_verde
+common_names:
+  - Carne deshebrada en salsa verde
+category: platillo_principal
+base_ingredients:
+  - res
+  - tomate_verde
+  - chile_serrano
+variants:
+  carne_deshebrada_en_salsa_verde:
+    name_es: Carne deshebrada en salsa verde
+    name_en: Shredded Beef in Green Sauce
+    extra_ingredients:
+      - res
+      - tomatillo
+      - chile
+      - tomate_verde
+      - chile_serrano
+    technique: 
+    description_es: >
+      Carne deshebrada en salsa verde.
+    description_en: >
+      Carne deshebrada en salsa verde.

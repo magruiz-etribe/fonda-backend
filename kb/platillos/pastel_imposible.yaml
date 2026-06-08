@@ -1,0 +1,21 @@
+canonical_name: pastel_imposible
+common_names:
+  - Pastel imposible
+category: platillo_principal
+base_ingredients:
+  - chocolate
+  - huevo
+  - leche
+variants:
+  pastel_imposible:
+    name_es: Pastel imposible
+    name_en: Impossible Cake
+    extra_ingredients:
+      - chocolate
+      - huevo
+      - leche
+    technique: 
+    description_es: >
+      Combinación de flan y pastel de chocolate en una sola preparación.
+    description_en: >
+      Combinación de flan y pastel de chocolate en una sola preparación.

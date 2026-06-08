@@ -1,0 +1,23 @@
+canonical_name: bionico
+common_names:
+  - Bionico
+category: platillo_principal
+base_ingredients:
+  - manzana
+  - platano
+  - crema
+  - granola
+variants:
+  bionico:
+    name_es: Bionico
+    name_en: Mexican Fruit Bowl
+    extra_ingredients:
+      - manzana
+      - platano
+      - crema
+      - granola
+    technique: 
+    description_es: >
+      Postre de frutas frescas con crema dulce.
+    description_en: >
+      Postre de frutas frescas con crema dulce.

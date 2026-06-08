@@ -1,6 +1,7 @@
 canonical_name: salpicon
 common_names:
   - salpicón
+  - Tostadas de salpicón
 category: platillo_principal
 base_ingredients:
   - carne_de_res_deshebrada
@@ -20,8 +21,20 @@ variants:
       - tostadas
       - limon
       - queso_fresco
-    technique: 
+    technique: None
     description_es: >
       Ensalada fría de carne de res deshebrada con cebolla, jitomate, lechuga, vinagre y especias.
     description_en: >
       Ensalada fría de carne de res deshebrada con cebolla, jitomate, lechuga, vinagre y especias.
+  de_salpicon:
+    name_es: Tostadas de salpicón
+    name_en: Shredded Beef Salad Tostadas
+    extra_ingredients:
+      - res
+      - cebolla
+      - jitomate
+    technique: 
+    description_es: >
+      Carne deshebrada fría con verduras.
+    description_en: >
+      Carne deshebrada fría con verduras.

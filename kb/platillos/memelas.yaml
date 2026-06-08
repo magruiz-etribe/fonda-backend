@@ -1,0 +1,21 @@
+canonical_name: memelas
+common_names:
+  - Memelas
+category: platillo_principal
+base_ingredients:
+  - masa_de_maiz
+  - asiento
+  - queso_fresco
+variants:
+  memelas:
+    name_es: Memelas
+    name_en: Oaxacan Memelas
+    extra_ingredients:
+      - masa_de_maiz
+      - asiento
+      - queso_fresco
+    technique: 
+    description_es: >
+      Tortillas gruesas cubiertas con asiento, salsa y queso.
+    description_en: >
+      Tortillas gruesas cubiertas con asiento, salsa y queso.

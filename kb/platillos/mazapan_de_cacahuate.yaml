@@ -1,0 +1,19 @@
+canonical_name: mazapan_de_cacahuate
+common_names:
+  - Mazapán de cacahuate
+category: platillo_principal
+base_ingredients:
+  - cacahuate
+  - azucar
+variants:
+  mazapan_de_cacahuate:
+    name_es: Mazapán de cacahuate
+    name_en: Peanut Marzipan Candy
+    extra_ingredients:
+      - cacahuate
+      - azucar
+    technique: 
+    description_es: >
+      Dulce desmoronable elaborado con cacahuate molido.
+    description_en: >
+      Dulce desmoronable elaborado con cacahuate molido.

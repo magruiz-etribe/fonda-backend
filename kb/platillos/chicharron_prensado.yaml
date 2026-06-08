@@ -2,6 +2,10 @@ canonical_name: chicharron_prensado
 common_names:
   - chicharron prensado
   - chicharrón prensado
+  - Gordita de chicharrón prensado
+  - Chicharrón prensado en adobo
+  - Gorditas de chicharrón prensado
+  - Tacos de chicharrón prensado en salsa verde
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -20,3 +24,52 @@ variants:
       Carne y grasa de cerdo compactadas y cocinadas, generalmente en salsa roja o verde, usada como relleno de tacos, gorditas o quesadillas.
     description_en: >
       Compressed pork meat and fat braised in red or green salsa — a popular taco, gordita, or quesadilla filling with rich, savory flavor.
+  de_chicharron_prensado:
+    name_es: Gordita de chicharrón prensado
+    name_en: Stuffed Corn Gordita with Pork Crackling
+    extra_ingredients:
+      - masa_de_maiz
+      - chicharron_prensado
+      - salsa_roja
+    technique: 
+    description_es: >
+      Masa gruesa de maíz rellena de chicharrón prensado guisado.
+    description_en: >
+      Masa gruesa de maíz rellena de chicharrón prensado guisado.
+  chicharron_prensado_en_adobo:
+    name_es: Chicharrón prensado en adobo
+    name_en: Pressed Pork Crackling in Adobo
+    extra_ingredients:
+      - chicharron_prensado
+      - chile_ancho
+      - ajo
+      - vinagre
+    technique: 
+    description_es: >
+      Chicharrón prensado guisado en salsa de adobo.
+    description_en: >
+      Chicharrón prensado guisado en salsa de adobo.
+  gorditas_de_chicharron_prensado:
+    name_es: Gorditas de chicharrón prensado
+    name_en: Pressed Pork Skin Gorditas
+    extra_ingredients:
+      - masa_de_maiz
+      - chicharron
+      - salsa
+    technique: 
+    description_es: >
+      Gorditas rellenas de chicharrón prensado.
+    description_en: >
+      Gorditas rellenas de chicharrón prensado.
+  de_chicharron_prensado_en_salsa_verde:
+    name_es: Tacos de chicharrón prensado en salsa verde
+    name_en: Pressed Pork Tacos in Green Sauce
+    extra_ingredients:
+      - chicharron_prensado
+      - tomatillo
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de chicharrón prensado guisado en salsa verde.
+    description_en: >
+      Tacos de chicharrón prensado guisado en salsa verde.

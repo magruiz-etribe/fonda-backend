@@ -1,0 +1,21 @@
+canonical_name: atun_a_la_mexicana
+common_names:
+  - Atún a la mexicana
+category: platillo_principal
+base_ingredients:
+  - atun
+  - jitomate
+  - cebolla
+variants:
+  atun_a_la_mexicana:
+    name_es: Atún a la mexicana
+    name_en: Mexican-Style Tuna
+    extra_ingredients:
+      - atun
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Atún cocinado con jitomate, cebolla y chile.
+    description_en: >
+      Atún cocinado con jitomate, cebolla y chile.

@@ -1,0 +1,21 @@
+canonical_name: tortitas_de_calabaza_en_salsa_verde
+common_names:
+  - Tortitas de calabaza en salsa verde
+category: platillo_principal
+base_ingredients:
+  - calabaza
+  - huevo
+  - tomatillo
+variants:
+  tortitas_de_calabaza_en_salsa_verde:
+    name_es: Tortitas de calabaza en salsa verde
+    name_en: Squash Patties in Green Sauce
+    extra_ingredients:
+      - calabaza
+      - huevo
+      - tomatillo
+    technique: 
+    description_es: >
+      Tortitas ligeras de calabaza en salsa verde.
+    description_en: >
+      Tortitas ligeras de calabaza en salsa verde.

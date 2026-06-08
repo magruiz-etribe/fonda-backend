@@ -7,6 +7,8 @@ common_names:
   - caldo tlalpeño
   - sopa de pollo
   - sopa de res
+  - Caldo de pollo
+  - Caldo tlalpeño
 category: caldo
 base_ingredients:
   - agua
@@ -58,18 +60,31 @@ variants:
     description_en: >
       Hearty beef soup with carrot, potato, chayote, and corn, slow-cooked until the broth is rich and flavorful.
   tlalpeno:
-    name_es: Caldo Tlalpeño
-    name_en: Tlalpeño soup
+    name_es: Caldo tlalpeño
+    name_en: Tlalpeño Soup
     extra_ingredients:
       - pollo
       - garbanzo
-      - chile_chipotle
+      - chipotle
       - zanahoria
-      - ejotes
-      - aguacate
-      - queso
-    technique: caldo de pollo con garbanzo y chipotle, ahumado
+    technique: 
     description_es: >
-      Caldo de pollo con garbanzos, zanahoria, ejotes, trozos de queso, aguacate y chile chipotle.
+      Caldo de pollo con chipotle, verduras y aguacate.
     description_en: >
-      Chicken broth with chickpeas, carrot, green beans, avocado, and smoky chipotle chile — a richly flavored Mexico City classic.
+      Caldo de pollo con chipotle, verduras y aguacate.
+  de_pollo:
+    name_es: Caldo de pollo
+    name_en: Chicken Soup
+    extra_ingredients:
+      - pollo
+      - zanahoria
+      - papa
+      - calabaza
+      - elote
+      - cebolla
+      - cilantro
+    technique: 
+    description_es: >
+      Sopa tradicional preparada con pollo y diversas verduras cocidas en caldo.
+    description_en: >
+      Sopa tradicional preparada con pollo y diversas verduras cocidas en caldo.

@@ -7,6 +7,21 @@ common_names:
   - mole oaxaqueño
   - mole verde
   - mole de la abuela
+  - Mole poblano con pollo
+  - Pollo en mole verde
+  - Mole amarillo
+  - Mole coloradito
+  - Mole negro
+  - Mole chichilo
+  - Mole manchamanteles
+  - Tamal de mole negro
+  - Tamal de mole verde
+  - Tamal de mole rojo
+  - Tamal de mole poblano
+  - Tamal de elote con mole verde
+  - Tamal de elote con mole rojo
+  - Tamal de elote con mole poblano
+  - Pollo en mole rojo
 category: salsa
 base_ingredients:
   - chile_ancho
@@ -40,7 +55,7 @@ variants:
     description_en: >
       Rich, complex sauce from Puebla — dried chiles, warm spices, nuts, chocolate, and bread give it a deep, slightly sweet flavor.
   negro:
-    name_es: Mole Negro
+    name_es: Mole negro
     name_en: Oaxacan Black Mole
     extra_ingredients:
       - chile_chilhuacle_negro
@@ -52,11 +67,14 @@ variants:
       - ajonjoli
       - clavo
       - canela
+      - chile_chilhuacle
+      - chocolate
+      - especias
     technique: tostado de chiles hasta quemar, chocolate oaxaqueño
     description_es: >
-      Mole de chiles negros, tortilla quemada, chocolate, especias y frutos secos.
+      Mole complejo de Oaxaca elaborado con varios chiles y chocolate.
     description_en: >
-      Oaxacan black mole — deeply savory with a slight bitterness from charred tortilla and black chiles; the most complex of Mexico's regional moles.
+      Mole complejo de Oaxaca elaborado con varios chiles y chocolate.
   verde:
     name_es: Mole Verde
     name_en: Green Mole
@@ -85,3 +103,178 @@ variants:
       Mole rojo de fonda, más sencillo que el poblano; chiles guajillo/ancho con un toque de cacahuate y especias.
     description_en: >
       Everyday red mole — simpler than Poblano-style, with guajillo and ancho chiles, peanuts, and spices.
+  poblano_con_pollo:
+    name_es: Mole poblano con pollo
+    name_en: Chicken with Poblano Mole Sauce
+    extra_ingredients:
+      - pollo
+      - chile_ancho
+      - chile_mulato
+      - chocolate
+      - ajonjoli
+      - especias
+      - tortilla_o_pan
+    technique: 
+    description_es: >
+      Pollo servido con una salsa espesa y compleja elaborada con chiles, especias, chocolate y otros ingredientes.
+    description_en: >
+      Pollo servido con una salsa espesa y compleja elaborada con chiles, especias, chocolate y otros ingredientes.
+  en_mole_verde:
+    name_es: Pollo en mole verde
+    name_en: Chicken in Green Mole
+    extra_ingredients:
+      - pollo
+      - pepita
+      - tomate_verde
+      - cilantro
+      - chile_verde
+    technique: 
+    description_es: >
+      Pollo con mole verde de pepita.
+    description_en: >
+      Pollo con mole verde de pepita.
+  amarillo:
+    name_es: Mole amarillo
+    name_en: Yellow Mole
+    extra_ingredients:
+      - chile_chilhuacle_amarillo
+      - masa_de_maiz
+      - tomate
+    technique: 
+    description_es: >
+      Mole tradicional oaxaqueño de color amarillo elaborado con chiles y masa.
+    description_en: >
+      Mole tradicional oaxaqueño de color amarillo elaborado con chiles y masa.
+  coloradito:
+    name_es: Mole coloradito
+    name_en: Oaxacan Red Mole
+    extra_ingredients:
+      - chile_ancho
+      - chile_guajillo
+      - ajonjoli
+    technique: 
+    description_es: >
+      Mole oaxaqueño de sabor ligeramente dulce y color rojizo.
+    description_en: >
+      Mole oaxaqueño de sabor ligeramente dulce y color rojizo.
+  chichilo:
+    name_es: Mole chichilo
+    name_en: Chichilo Mole
+    extra_ingredients:
+      - chile_chilhuacle_negro
+      - ajo
+      - comino
+    technique: 
+    description_es: >
+      Mole oaxaqueño oscuro elaborado con chiles tostados y especias.
+    description_en: >
+      Mole oaxaqueño oscuro elaborado con chiles tostados y especias.
+  manchamanteles:
+    name_es: Mole manchamanteles
+    name_en: Manchamanteles Mole
+    extra_ingredients:
+      - pina
+      - platano
+      - chile_ancho
+      - pollo
+    technique: 
+    description_es: >
+      Mole afrutado preparado con frutas y chiles.
+    description_en: >
+      Mole afrutado preparado con frutas y chiles.
+  de_mole_negro:
+    name_es: Tamal de mole negro
+    name_en: Black Mole Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - mole_negro
+      - pollo
+    technique: 
+    description_es: >
+      Tamal relleno con mole negro y carne.
+    description_en: >
+      Tamal relleno con mole negro y carne.
+  de_mole_verde:
+    name_es: Tamal de mole verde
+    name_en: Green Mole Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - pepita
+      - pollo
+    technique: 
+    description_es: >
+      Tamal con mole verde de pepita.
+    description_en: >
+      Tamal con mole verde de pepita.
+  de_mole_rojo:
+    name_es: Tamal de mole rojo
+    name_en: Red Mole Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - mole_rojo
+      - pollo
+    technique: 
+    description_es: >
+      Tamal con mole rojo tradicional.
+    description_en: >
+      Tamal con mole rojo tradicional.
+  de_mole_poblano:
+    name_es: Tamal de mole poblano
+    name_en: Poblano Mole Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - mole_poblano
+      - pollo
+    technique: 
+    description_es: >
+      Tamal bañado en mole poblano espeso.
+    description_en: >
+      Tamal bañado en mole poblano espeso.
+  de_elote_con_mole_verde:
+    name_es: Tamal de elote con mole verde
+    name_en: Green Mole Corn Tamale
+    extra_ingredients:
+      - elote
+      - pepita
+      - chile_verde
+    technique: 
+    description_es: >
+      Tamal de elote bañado o mezclado con mole verde de pepita.
+    description_en: >
+      Tamal de elote bañado o mezclado con mole verde de pepita.
+  de_elote_con_mole_rojo:
+    name_es: Tamal de elote con mole rojo
+    name_en: Red Mole Corn Tamale
+    extra_ingredients:
+      - elote
+      - chile_guajillo
+      - especias
+    technique: 
+    description_es: >
+      Tamal de elote con mole rojo tradicional.
+    description_en: >
+      Tamal de elote con mole rojo tradicional.
+  de_elote_con_mole_poblano:
+    name_es: Tamal de elote con mole poblano
+    name_en: Poblano Mole Corn Tamale
+    extra_ingredients:
+      - elote
+      - chocolate
+      - chiles_secos
+    technique: 
+    description_es: >
+      Tamal de elote con mole poblano espeso.
+    description_en: >
+      Tamal de elote con mole poblano espeso.
+  en_mole_rojo:
+    name_es: Pollo en mole rojo
+    name_en: Chicken in Red Mole
+    extra_ingredients:
+      - pollo
+      - chile_guajillo
+      - especias
+    technique: 
+    description_es: >
+      Pollo bañado en mole rojo espeso.
+    description_en: >
+      Pollo bañado en mole rojo espeso.

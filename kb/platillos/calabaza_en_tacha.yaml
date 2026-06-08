@@ -1,0 +1,21 @@
+canonical_name: calabaza_en_tacha
+common_names:
+  - Calabaza en tacha
+category: platillo_principal
+base_ingredients:
+  - calabaza
+  - piloncillo
+  - canela
+variants:
+  calabaza_en_tacha:
+    name_es: Calabaza en tacha
+    name_en: Candied Pumpkin
+    extra_ingredients:
+      - calabaza
+      - piloncillo
+      - canela
+    technique: 
+    description_es: >
+      Calabaza cocida en piloncillo, típico de Día de Muertos.
+    description_en: >
+      Calabaza cocida en piloncillo, típico de Día de Muertos.

@@ -1,0 +1,23 @@
+canonical_name: concha_de_fresa
+common_names:
+  - Concha de fresa
+category: platillo_principal
+base_ingredients:
+  - harina
+  - azucar
+  - mantequilla
+  - saborizante_de_fresa
+variants:
+  concha_de_fresa:
+    name_es: Concha de fresa
+    name_en: Strawberry Concha Sweet Bread
+    extra_ingredients:
+      - harina
+      - azucar
+      - mantequilla
+      - saborizante_de_fresa
+    technique: 
+    description_es: >
+      Pan dulce mexicano con cubierta azucarada sabor fresa.
+    description_en: >
+      Pan dulce mexicano con cubierta azucarada sabor fresa.

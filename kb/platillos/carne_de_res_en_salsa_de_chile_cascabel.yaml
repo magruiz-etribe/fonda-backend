@@ -1,0 +1,21 @@
+canonical_name: carne_de_res_en_salsa_de_chile_cascabel
+common_names:
+  - Carne de res en salsa de chile cascabel
+category: platillo_principal
+base_ingredients:
+  - res
+  - chile_cascabel
+  - ajo
+variants:
+  carne_de_res_en_salsa_de_chile_cascabel:
+    name_es: Carne de res en salsa de chile cascabel
+    name_en: Beef in Cascabel Chili Sauce
+    extra_ingredients:
+      - res
+      - chile_cascabel
+      - ajo
+    technique: 
+    description_es: >
+      Guiso de res en salsa de chile cascabel.
+    description_en: >
+      Guiso de res en salsa de chile cascabel.

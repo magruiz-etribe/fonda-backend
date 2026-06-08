@@ -4,6 +4,9 @@ common_names:
   - pozole blanco
   - pozole rojo
   - pozole verde
+  - Pozole rojo
+  - Pozole verde
+  - Pozole blanco
 category: caldo
 base_ingredients:
   - maiz_cacahuazintle
@@ -13,7 +16,7 @@ base_ingredients:
   - sal
 variants:
   blanco:
-    name_es: Pozole Blanco
+    name_es: Pozole blanco
     name_en: White pozole
     extra_ingredients:
       - lechuga
@@ -21,13 +24,18 @@ variants:
       - oregano_seco
       - limon
       - tostadas
+      - maiz_cacahuazintle
+      - carne_de_cerdo
+      - ajo
+      - cebolla
+      - maiz_pozolero
     technique: cocción lenta de maíz y carne en caldo claro sin chile base
     description_es: >
-      maíz cacahuazintle nixtamalizado cocido, junto con carne de cerdo o pollo, en un caldo claro sin chile en su base.
+      Pozole sin chile rojo, más suave.
     description_en: >
-      Hominy and pork (or chicken) in a clear, mild broth — garnished with shredded cabbage, radish, oregano, and lime at the table.
+      Pozole sin chile rojo, más suave.
   rojo:
-    name_es: Pozole Rojo
+    name_es: Pozole rojo
     name_en: Red pozole
     extra_ingredients:
       - chile_guajillo
@@ -38,13 +46,18 @@ variants:
       - oregano_seco
       - limon
       - tostadas
+      - maiz_cacahuazintle
+      - carne_de_cerdo
+      - ajo
+      - cebolla
+      - maiz_pozolero
     technique: caldo de chile guajillo y ancho hidratados, cocción lenta
     description_es: >
-      maíz cacahuazintle nixtamalizado cocido y carne de cerdo o pollo, cocidos en un caldo al que se añade una salsa de chiles secos, principalmente guajillo, ancho o pasilla, previamente hidratados y molidos
+      Sopa de maíz pozolero con carne y chile rojo.
     description_en: >
-      Hominy and pork cooked in a rich red broth of rehydrated guajillo and ancho chiles — deep, slightly smoky, and boldly flavored.
+      Sopa de maíz pozolero con carne y chile rojo.
   verde:
-    name_es: Pozole Verde
+    name_es: Pozole verde
     name_en: green pozole
     extra_ingredients:
       - tomatillo
@@ -54,8 +67,13 @@ variants:
       - lechuga
       - rabano
       - limon
+      - maiz_cacahuazintle
+      - carne_de_cerdo_o_pollo
+      - tomate_verde
+      - maiz_pozolero
+      - pollo
     technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
     description_es: >
-      maíz cacahuazintle nixtamalizado cocido y carne (generalmente cerdo o pollo), cocidos en un caldo al que se incorpora una salsa verde hecha a base de tomatillo, chile verde, pepitas (semillas de calabaza), cilantro y otras hierbas.
+      Pozole con salsa verde de tomatillo y pepita.
     description_en: >
-      Hominy and pork in a green tomatillo and pumpkin seed broth — fresh, herbal, and mildly tangy.
+      Pozole con salsa verde de tomatillo y pepita.

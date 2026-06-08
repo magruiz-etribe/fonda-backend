@@ -1,0 +1,34 @@
+canonical_name: barbacoa
+common_names:
+  - Barbacoa de res
+  - Barbacoa de borrego
+category: platillo_principal
+base_ingredients:
+  - res
+  - ajo
+  - especias
+variants:
+  de_res:
+    name_es: Barbacoa de res
+    name_en: Mexican Beef Barbacoa
+    extra_ingredients:
+      - res
+      - ajo
+      - especias
+    technique: 
+    description_es: >
+      Carne cocida lentamente hasta quedar suave y jugosa.
+    description_en: >
+      Carne cocida lentamente hasta quedar suave y jugosa.
+  de_borrego:
+    name_es: Barbacoa de borrego
+    name_en: Lamb Barbacoa
+    extra_ingredients:
+      - borrego
+      - hoja_de_maguey
+      - especias
+    technique: 
+    description_es: >
+      Borrego cocido tradicionalmente en horno de tierra.
+    description_en: >
+      Borrego cocido tradicionalmente en horno de tierra.

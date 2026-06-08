@@ -6,6 +6,20 @@ common_names:
   - arroz verde
   - arroz mexicano
   - arroz a la mexicana
+  - Arroz rojo
+  - Arroz verde
+  - Puerco con arroz
+  - Arroz con leche y pasas
+  - Atole de arroz con leche
+  - Tamal de arroz con leche
+  - Tamal de elote con harina de arroz
+  - Caldo de pollo con arroz
+  - Arroz blanco
+  - Sopa de arroz con verduras
+  - Arroz con plátano macho
+  - Arroz con pollo estilo fonda
+  - Arroz con mariscos
+  - Tacos de arroz
 category: guarnicion
 base_ingredients:
   - arroz
@@ -16,37 +30,175 @@ base_ingredients:
   - cebolla
 variants:
   rojo:
-    name_es: Arroz Rojo
+    name_es: Arroz rojo
     name_en: Mexican Red Rice
     extra_ingredients:
       - jitomate
       - zanahoria
       - chicharos
+      - arroz
+      - ajo
     technique: sofrito de arroz con jitomate licuado y cocción en caldo
     description_es: >
-      Arroz frito con jitomate y caldo de pollo, plato típico de comida corrida mexicana.
+      Arroz cocido en jitomate con ajo y cebolla.
     description_en: >
-      Mexican red rice cooked in blended tomato with garlic and onion — the classic fonda side dish, savory and vibrant.
+      Arroz cocido en jitomate con ajo y cebolla.
   blanco:
-    name_es: Arroz Blanco
+    name_es: Arroz blanco
     name_en: White Rice
     extra_ingredients:
       - perejil
+      - arroz
+      - ajo
+      - cebolla
     technique: sofrito sencillo sin jitomate, cocción en caldo claro
     description_es: >
-      Arroz cocido con un toque de ajo y cebolla; acompañamiento neutro.
+      Arroz simple estilo mexicano.
     description_en: >
-      Plain white rice cooked in a light broth with garlic and onion — a neutral side that pairs well with saucy dishes.
+      Arroz simple estilo mexicano.
   verde:
-    name_es: Arroz Verde
+    name_es: Arroz verde
     name_en: Green Rice
     extra_ingredients:
       - chile_poblano
       - espinaca
       - cilantro
       - perejil
+      - arroz
     technique: licuado de hierbas y chile poblano, cocción en caldo
     description_es: >
-      Arroz cocido con chile poblano molido y cilantro, color verde característico.
+      Arroz preparado con hierbas verdes y chiles suaves.
     description_en: >
-      Green rice blended with poblano chile, spinach, and fresh herbs — vibrant color and a mild herbal flavor.
+      Arroz preparado con hierbas verdes y chiles suaves.
+  puerco_con_arroz:
+    name_es: Puerco con arroz
+    name_en: Pork with Rice
+    extra_ingredients:
+      - carne_de_cerdo
+      - arroz
+      - jitomate
+    technique: 
+    description_es: >
+      Guiso chiapaneco de cerdo acompañado de arroz sazonado.
+    description_en: >
+      Guiso chiapaneco de cerdo acompañado de arroz sazonado.
+  y_pasas:
+    name_es: Arroz con leche y pasas
+    name_en: Rice Pudding with Raisins
+    extra_ingredients:
+      - arroz
+      - leche
+      - pasas
+      - canela
+    technique: 
+    description_es: >
+      Arroz cocido en leche con pasas y canela.
+    description_en: >
+      Arroz cocido en leche con pasas y canela.
+  atole_de_arroz_con_leche:
+    name_es: Atole de arroz con leche
+    name_en: Rice Milk Atole
+    extra_ingredients:
+      - arroz
+      - leche
+      - canela
+    technique: 
+    description_es: >
+      Bebida espesa hecha con arroz y leche.
+    description_en: >
+      Bebida espesa hecha con arroz y leche.
+  de_arroz_con_leche:
+    name_es: Tamal de arroz con leche
+    name_en: Rice Pudding Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - arroz
+      - leche
+    technique: 
+    description_es: >
+      Tamal dulce con relleno de arroz con leche.
+    description_en: >
+      Tamal dulce con relleno de arroz con leche.
+  de_elote_con_harina_de_arroz:
+    name_es: Tamal de elote con harina de arroz
+    name_en: Rice Flour Corn Tamale
+    extra_ingredients:
+      - elote
+      - harina_de_arroz
+      - azucar
+    technique: 
+    description_es: >
+      Tamal de elote con harina de arroz.
+    description_en: >
+      Tamal de elote con harina de arroz.
+  de_pollo_con_arroz:
+    name_es: Caldo de pollo con arroz
+    name_en: Chicken Soup with Rice
+    extra_ingredients:
+      - pollo
+      - arroz
+      - zanahoria
+      - calabaza
+    technique: 
+    description_es: >
+      Caldo casero de pollo con verduras y arroz, muy común en fondas.
+    description_en: >
+      Caldo casero de pollo con verduras y arroz, muy común en fondas.
+  de_arroz_con_verduras:
+    name_es: Sopa de arroz con verduras
+    name_en: Rice Soup with Vegetables
+    extra_ingredients:
+      - arroz
+      - zanahoria
+      - calabaza
+    technique: 
+    description_es: >
+      Sopa ligera de arroz con verduras.
+    description_en: >
+      Sopa ligera de arroz con verduras.
+  con_platano_macho:
+    name_es: Arroz con plátano macho
+    name_en: Rice with Plantain
+    extra_ingredients:
+      - arroz
+      - platano_macho
+    technique: 
+    description_es: >
+      Arroz salado acompañado de plátano macho frito.
+    description_en: >
+      Arroz salado acompañado de plátano macho frito.
+  con_pollo_estilo_fonda:
+    name_es: Arroz con pollo estilo fonda
+    name_en: Chicken Rice Mexican Style
+    extra_ingredients:
+      - arroz
+      - pollo
+      - jitomate
+    technique: 
+    description_es: >
+      Arroz rojo con pollo guisado.
+    description_en: >
+      Arroz rojo con pollo guisado.
+  con_mariscos:
+    name_es: Arroz con mariscos
+    name_en: Seafood Rice
+    extra_ingredients:
+      - arroz
+      - camaron
+      - pescado
+    technique: 
+    description_es: >
+      Arroz rojo preparado con mariscos.
+    description_en: >
+      Arroz rojo preparado con mariscos.
+  de_arroz:
+    name_es: Tacos de arroz
+    name_en: Rice Tacos
+    extra_ingredients:
+      - arroz
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos económicos de arroz rojo.
+    description_en: >
+      Tacos económicos de arroz rojo.

@@ -1,0 +1,21 @@
+canonical_name: champurrado
+common_names:
+  - Champurrado
+category: platillo_principal
+base_ingredients:
+  - chocolate
+  - masa_de_maiz
+  - piloncillo
+variants:
+  champurrado:
+    name_es: Champurrado
+    name_en: Mexican Chocolate Atole
+    extra_ingredients:
+      - masa_de_maiz
+      - chocolate
+      - piloncillo
+    technique: 
+    description_es: >
+      Atole espeso con chocolate y piloncillo.
+    description_en: >
+      Atole espeso con chocolate y piloncillo.

@@ -1,0 +1,21 @@
+canonical_name: plato_combinado_de_fonda_mexicana
+common_names:
+  - Plato combinado de fonda mexicana
+category: platillo_principal
+base_ingredients:
+  - arroz
+  - frijol
+  - guisado_del_dia
+variants:
+  plato_combinado_de_fonda_mexicana:
+    name_es: Plato combinado de fonda mexicana
+    name_en: Mexican Fonda Combo Plate
+    extra_ingredients:
+      - arroz
+      - frijol
+      - guisado_del_dia
+    technique: 
+    description_es: >
+      Plato típico de fonda con dos guisados, arroz y frijoles.
+    description_en: >
+      Plato típico de fonda con dos guisados, arroz y frijoles.

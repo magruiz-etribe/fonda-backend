@@ -1,0 +1,21 @@
+canonical_name: cuerno_de_mantequilla
+common_names:
+  - Cuerno de mantequilla
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - levadura
+variants:
+  cuerno_de_mantequilla:
+    name_es: Cuerno de mantequilla
+    name_en: Butter Croissant
+    extra_ingredients:
+      - harina
+      - mantequilla
+      - levadura
+    technique: 
+    description_es: >
+      Pan hojaldrado de textura suave y sabor a mantequilla.
+    description_en: >
+      Pan hojaldrado de textura suave y sabor a mantequilla.

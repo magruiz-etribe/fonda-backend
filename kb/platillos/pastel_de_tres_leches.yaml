@@ -1,0 +1,21 @@
+canonical_name: pastel_de_tres_leches
+common_names:
+  - Pastel de tres leches
+category: platillo_principal
+base_ingredients:
+  - leche_evaporada
+  - condensada
+  - crema
+variants:
+  pastel_de_tres_leches:
+    name_es: Pastel de tres leches
+    name_en: Three Milks Cake
+    extra_ingredients:
+      - leche_evaporada
+      - condensada
+      - crema
+    technique: 
+    description_es: >
+      Bizcocho humedecido con mezcla de tres tipos de leche.
+    description_en: >
+      Bizcocho humedecido con mezcla de tres tipos de leche.

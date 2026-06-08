@@ -2,6 +2,16 @@ canonical_name: rajas_con_crema
 common_names:
   - rajas
   - rajas con crema
+  - Tamal de rajas
+  - Rajas con crema
+  - Rajas poblanas con elote
+  - Rajas poblanas con pollo
+  - Tamal de rajas con queso y elote
+  - Tamal de pollo con rajas
+  - Tamal de cerdo con rajas
+  - Tamal de elote con salsa de rajas
+  - Tamales de rajas con queso
+  - Rajas con queso
 category: guisado
 base_ingredients:
   - chile_poblano
@@ -14,14 +24,123 @@ base_ingredients:
   - sal_y_pimienta
 variants:
   rajas_con_crema:
-    name_es: Rajas Con Crema
-    name_en: Poblano Strips
+    name_es: Rajas con crema
+    name_en: Poblano Strips with Cream
     extra_ingredients:
-      - pollo
-      - leche
-      - epazote
+      - chile_poblano
+      - crema
+      - cebolla
+      - elote
     technique: 
     description_es: >
-      Tiras de chile poblano asado mezcladas con crema, elote y a veces trozos de queso.
+      Rajas de chile poblano en crema.
     description_en: >
-      Tiras de chile poblano asado mezcladas con crema, elote y a veces trozos de queso.
+      Rajas de chile poblano en crema.
+  de_rajas:
+    name_es: Tamal de rajas
+    name_en: Poblano Pepper Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - chile_poblano
+      - queso
+    technique: 
+    description_es: >
+      Tamal relleno de tiras de chile poblano y queso.
+    description_en: >
+      Tamal relleno de tiras de chile poblano y queso.
+  poblanas_con_elote:
+    name_es: Rajas poblanas con elote
+    name_en: Poblano Strips with Corn
+    extra_ingredients:
+      - chile_poblano
+      - crema
+      - elote
+    technique: 
+    description_es: >
+      Chiles poblanos en tiras cocinados con crema y elote.
+    description_en: >
+      Chiles poblanos en tiras cocinados con crema y elote.
+  poblanas_con_pollo:
+    name_es: Rajas poblanas con pollo
+    name_en: Poblano Strips with Chicken
+    extra_ingredients:
+      - pollo
+      - chile_poblano
+      - crema
+    technique: 
+    description_es: >
+      Pollo desmenuzado preparado con rajas poblanas en crema.
+    description_en: >
+      Pollo desmenuzado preparado con rajas poblanas en crema.
+  de_rajas_con_queso_y_elote:
+    name_es: Tamal de rajas con queso y elote
+    name_en: Poblano Corn Cheese Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - chile_poblano
+      - queso
+      - elote
+    technique: 
+    description_es: >
+      Tamal con rajas, queso y granos de elote.
+    description_en: >
+      Tamal con rajas, queso y granos de elote.
+  de_pollo_con_rajas:
+    name_es: Tamal de pollo con rajas
+    name_en: Chicken Poblano Strips Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - pollo
+      - chile_poblano
+    technique: 
+    description_es: >
+      Tamal con pollo y rajas de chile poblano.
+    description_en: >
+      Tamal con pollo y rajas de chile poblano.
+  de_cerdo_con_rajas:
+    name_es: Tamal de cerdo con rajas
+    name_en: Pork Poblano Strips Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - carne_de_cerdo
+      - chile_poblano
+    technique: 
+    description_es: >
+      Tamal con cerdo y rajas poblanas.
+    description_en: >
+      Tamal con cerdo y rajas poblanas.
+  de_elote_con_salsa_de_rajas:
+    name_es: Tamal de elote con salsa de rajas
+    name_en: Poblano Strips Corn Tamale
+    extra_ingredients:
+      - elote
+      - chile_poblano
+      - crema
+    technique: 
+    description_es: >
+      Tamal de elote con rajas de chile poblano en crema.
+    description_en: >
+      Tamal de elote con rajas de chile poblano en crema.
+  de_rajas_con_queso:
+    name_es: Tamales de rajas con queso
+    name_en: Cheese and Chile Tamales
+    extra_ingredients:
+      - masa_de_maiz
+      - chile_poblano
+      - queso_oaxaca
+    technique: 
+    description_es: >
+      Tamales de masa con rajas de chile poblano y queso.
+    description_en: >
+      Tamales de masa con rajas de chile poblano y queso.
+  con_queso:
+    name_es: Rajas con queso
+    name_en: Chile Strips with Cheese
+    extra_ingredients:
+      - chile_poblano
+      - queso_oaxaca
+    technique: 
+    description_es: >
+      Rajas de poblano con queso derretido.
+    description_en: >
+      Rajas de poblano con queso derretido.

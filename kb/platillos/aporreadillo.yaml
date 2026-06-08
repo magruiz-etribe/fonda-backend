@@ -1,0 +1,21 @@
+canonical_name: aporreadillo
+common_names:
+  - Aporreadillo
+category: platillo_principal
+base_ingredients:
+  - cecina_seca
+  - huevo
+  - jitomate
+variants:
+  aporreadillo:
+    name_es: Aporreadillo
+    name_en: Dried Beef Scramble
+    extra_ingredients:
+      - cecina_seca
+      - huevo
+      - jitomate
+    technique: 
+    description_es: >
+      Carne seca desmenuzada cocinada con huevo y salsa.
+    description_en: >
+      Carne seca desmenuzada cocinada con huevo y salsa.

@@ -1,0 +1,21 @@
+canonical_name: bunuelos
+common_names:
+  - Buñuelos
+category: platillo_principal
+base_ingredients:
+  - harina
+  - azucar
+  - canela
+variants:
+  bunuelos:
+    name_es: Buñuelos
+    name_en: Mexican Fritters
+    extra_ingredients:
+      - harina
+      - azucar
+      - canela
+    technique: 
+    description_es: >
+      Discos de masa frita espolvoreados con azúcar y canela.
+    description_en: >
+      Discos de masa frita espolvoreados con azúcar y canela.

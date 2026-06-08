@@ -1,0 +1,21 @@
+canonical_name: tortitas_de_atun
+common_names:
+  - Tortitas de atún
+category: platillo_principal
+base_ingredients:
+  - atun
+  - huevo
+  - pan_molido
+variants:
+  tortitas_de_atun:
+    name_es: Tortitas de atún
+    name_en: Tuna Patties
+    extra_ingredients:
+      - atun
+      - huevo
+      - pan_molido
+    technique: 
+    description_es: >
+      Tortitas preparadas con atún mezclado con huevo y especias.
+    description_en: >
+      Tortitas preparadas con atún mezclado con huevo y especias.

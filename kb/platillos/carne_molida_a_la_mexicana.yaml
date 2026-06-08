@@ -1,0 +1,21 @@
+canonical_name: carne_molida_a_la_mexicana
+common_names:
+  - Carne molida a la mexicana
+category: platillo_principal
+base_ingredients:
+  - carne_molida
+  - jitomate
+  - cebolla
+variants:
+  carne_molida_a_la_mexicana:
+    name_es: Carne molida a la mexicana
+    name_en: Mexican-Style Ground Beef
+    extra_ingredients:
+      - carne_molida
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Carne molida preparada con jitomate, cebolla y chile.
+    description_en: >
+      Carne molida preparada con jitomate, cebolla y chile.

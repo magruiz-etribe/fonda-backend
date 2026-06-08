@@ -1,0 +1,21 @@
+canonical_name: pastel_de_vainilla
+common_names:
+  - Pastel de vainilla
+category: platillo_principal
+base_ingredients:
+  - harina
+  - huevo
+  - vainilla
+variants:
+  pastel_de_vainilla:
+    name_es: Pastel de vainilla
+    name_en: Vanilla Cake
+    extra_ingredients:
+      - harina
+      - huevo
+      - vainilla
+    technique: 
+    description_es: >
+      Pastel clásico aromatizado con vainilla.
+    description_en: >
+      Pastel clásico aromatizado con vainilla.

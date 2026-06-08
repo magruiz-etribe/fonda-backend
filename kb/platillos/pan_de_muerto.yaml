@@ -1,0 +1,24 @@
+canonical_name: pan_de_muerto
+common_names:
+  - Pan de muerto
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - azucar
+  - huevo
+variants:
+  pan_de_muerto:
+    name_es: Pan de muerto
+    name_en: Day of the Dead Bread
+    extra_ingredients:
+      - harina
+      - azucar
+      - mantequilla
+      - naranja
+      - huevo
+    technique: 
+    description_es: >
+      Pan dulce aromático de temporada de Día de Muertos.
+    description_en: >
+      Pan dulce aromático de temporada de Día de Muertos.

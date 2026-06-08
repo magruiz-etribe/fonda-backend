@@ -1,0 +1,21 @@
+canonical_name: corbata
+common_names:
+  - Corbata
+category: platillo_principal
+base_ingredients:
+  - harina
+  - mantequilla
+  - azucar
+variants:
+  corbata:
+    name_es: Corbata
+    name_en: Bow-Tie Pastry
+    extra_ingredients:
+      - harina
+      - mantequilla
+      - azucar
+    technique: 
+    description_es: >
+      Pan dulce hojaldrado con forma de corbata.
+    description_en: >
+      Pan dulce hojaldrado con forma de corbata.

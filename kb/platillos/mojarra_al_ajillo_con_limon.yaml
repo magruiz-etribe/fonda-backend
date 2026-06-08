@@ -1,0 +1,21 @@
+canonical_name: mojarra_al_ajillo_con_limon
+common_names:
+  - Mojarra al ajillo con limón
+category: platillo_principal
+base_ingredients:
+  - mojarra
+  - ajo
+  - limon
+variants:
+  mojarra_al_ajillo_con_limon:
+    name_es: Mojarra al ajillo con limón
+    name_en: Garlic Tilapia with Lime
+    extra_ingredients:
+      - mojarra
+      - ajo
+      - limon
+    technique: 
+    description_es: >
+      Mojarra frita o asada con ajo y limón.
+    description_en: >
+      Mojarra frita o asada con ajo y limón.

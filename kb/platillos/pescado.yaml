@@ -2,6 +2,18 @@ canonical_name: pescado
 common_names:
   - pescado a la veracruzana
   - pescado  empanizado
+  - Pescado a la veracruzana
+  - Huachinango a la talla
+  - Pescado empapelado
+  - Tacos de pescado
+  - Tamal de pescado
+  - Tamal de pescado ahumado
+  - Tamal de elote con pescado y limón
+  - Pescado empanizado
+  - Pescado a la diabla
+  - Filete de pescado al mojo de ajo
+  - Filete de pescado empapelado
+  - Tacos de pescado capeado
 category: platillo_principal
 base_ingredients:
   - pescado_blanco
@@ -23,7 +35,7 @@ variants:
       - papas
       - pimiento_morr_n
       - vino_blanco
-    technique: 
+    technique: None
     description_es: >
       Filete cocinado con jitomate, aceitunas y alcaparras.
     description_en: >
@@ -32,13 +44,138 @@ variants:
     name_es: Pescado empanizado
     name_en: Breaded Fish
     extra_ingredients:
-      - pan_molido
-      - harina
-      - aceite
+      - pescado
       - huevo
-      - leche
+      - pan_molido
     technique: 
     description_es: >
-      Filete de pescado cubierto con harina o pan molido y frito hasta quedar crujiente.
+      Filete de pescado empanizado y frito.
     description_en: >
-      Filete de pescado cubierto con harina o pan molido y frito hasta quedar crujiente.
+      Filete de pescado empanizado y frito.
+  a_la_veracruzana:
+    name_es: Pescado a la veracruzana
+    name_en: Veracruz Style Fish
+    extra_ingredients:
+      - pescado
+      - jitomate
+      - aceituna
+      - aceitunas
+      - alcaparras
+    technique: 
+    description_es: >
+      Pescado en salsa de jitomate con aceitunas.
+    description_en: >
+      Pescado en salsa de jitomate con aceitunas.
+  a_la_talla:
+    name_es: Huachinango a la talla
+    name_en: Grilled Red Snapper Talla Style
+    extra_ingredients:
+      - huachinango
+      - chile_guajillo
+      - chile_ancho
+      - ajo
+      - limon
+    technique: 
+    description_es: >
+      Pescado abierto en mariposa y asado con adobo de chiles.
+    description_en: >
+      Pescado abierto en mariposa y asado con adobo de chiles.
+  empapelado:
+    name_es: Pescado empapelado
+    name_en: Foil-Baked Fish
+    extra_ingredients:
+      - pescado
+      - cebolla
+      - jitomate
+      - limon
+    technique: 
+    description_es: >
+      Filete de pescado horneado con verduras y especias.
+    description_en: >
+      Filete de pescado horneado con verduras y especias.
+  de_pescado:
+    name_es: Tamal de pescado
+    name_en: Fish Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - pescado
+      - especias
+      - tortilla
+      - col
+    technique: 
+    description_es: >
+      Tamal relleno de pescado sazonado.
+    description_en: >
+      Tamal relleno de pescado sazonado.
+  de_pescado_ahumado:
+    name_es: Tamal de pescado ahumado
+    name_en: Smoked Fish Tamale
+    extra_ingredients:
+      - masa_de_maiz
+      - pescado_ahumado
+      - especias
+    technique: 
+    description_es: >
+      Tamal con pescado ahumado.
+    description_en: >
+      Tamal con pescado ahumado.
+  de_elote_con_pescado_y_limon:
+    name_es: Tamal de elote con pescado y limón
+    name_en: Fish Lime Corn Tamale
+    extra_ingredients:
+      - elote
+      - pescado
+      - limon
+    technique: 
+    description_es: >
+      Tamal de elote con pescado sazonado con limón.
+    description_en: >
+      Tamal de elote con pescado sazonado con limón.
+  a_la_diabla:
+    name_es: Pescado a la diabla
+    name_en: Devil’s Style Fish
+    extra_ingredients:
+      - pescado
+      - chile_de_arbol
+      - ajo
+    technique: 
+    description_es: >
+      Pescado en salsa muy picante de chile seco.
+    description_en: >
+      Pescado en salsa muy picante de chile seco.
+  filete_de_pescado_al_mojo_de_ajo:
+    name_es: Filete de pescado al mojo de ajo
+    name_en: Fish in Garlic Sauce
+    extra_ingredients:
+      - pescado
+      - ajo
+      - mantequilla
+    technique: 
+    description_es: >
+      Filete de pescado en salsa de ajo.
+    description_en: >
+      Filete de pescado en salsa de ajo.
+  filete_de_pescado_empapelado:
+    name_es: Filete de pescado empapelado
+    name_en: Foil-Baked Fish
+    extra_ingredients:
+      - pescado
+      - jitomate
+      - cebolla
+    technique: 
+    description_es: >
+      Pescado cocido al vapor en papel aluminio con verduras.
+    description_en: >
+      Pescado cocido al vapor en papel aluminio con verduras.
+  de_pescado_capeado:
+    name_es: Tacos de pescado capeado
+    name_en: Battered Fish Tacos
+    extra_ingredients:
+      - pescado
+      - harina
+      - tortilla
+    technique: 
+    description_es: >
+      Tacos de pescado frito estilo fonda/costa.
+    description_en: >
+      Tacos de pescado frito estilo fonda/costa.

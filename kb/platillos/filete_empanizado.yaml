@@ -1,0 +1,21 @@
+canonical_name: filete_empanizado
+common_names:
+  - Filete empanizado
+category: platillo_principal
+base_ingredients:
+  - pescado
+  - pan_molido
+  - huevo
+variants:
+  filete_empanizado:
+    name_es: Filete empanizado
+    name_en: Breaded Fish Fillet
+    extra_ingredients:
+      - pescado
+      - pan_molido
+      - huevo
+    technique: 
+    description_es: >
+      Filete de pescado cubierto con pan molido y frito.
+    description_en: >
+      Filete de pescado cubierto con pan molido y frito.

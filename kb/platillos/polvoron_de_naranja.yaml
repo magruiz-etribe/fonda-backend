@@ -1,0 +1,21 @@
+canonical_name: polvoron_de_naranja
+common_names:
+  - Polvorón de naranja
+category: platillo_principal
+base_ingredients:
+  - harina
+  - manteca
+  - esencia_de_naranja
+variants:
+  polvoron_de_naranja:
+    name_es: Polvorón de naranja
+    name_en: Orange Shortbread Cookie
+    extra_ingredients:
+      - harina
+      - manteca
+      - esencia_de_naranja
+    technique: 
+    description_es: >
+      Galleta suave con sabor a naranja.
+    description_en: >
+      Galleta suave con sabor a naranja.

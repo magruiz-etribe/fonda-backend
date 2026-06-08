@@ -1,0 +1,21 @@
+canonical_name: bunuelos_de_viento
+common_names:
+  - Buñuelos de viento
+category: platillo_principal
+base_ingredients:
+  - harina
+  - huevo
+  - azucar
+variants:
+  bunuelos_de_viento:
+    name_es: Buñuelos de viento
+    name_en: Wind Fritters
+    extra_ingredients:
+      - harina
+      - huevo
+      - azucar
+    technique: 
+    description_es: >
+      Buñuelos ligeros y crujientes elaborados con moldes especiales.
+    description_en: >
+      Buñuelos ligeros y crujientes elaborados con moldes especiales.
