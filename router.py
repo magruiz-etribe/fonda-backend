@@ -7,6 +7,7 @@ from typing import Final
 
 import classifier as cls_module
 import flag_llm
+import flags as flags_module
 import generation as gen_module
 import retrieval
 import timing
@@ -97,27 +98,65 @@ def handle(
                 k: dish_flags.get(k, [])
                 for k in ("allergen_triggers", "gluten_triggers", "spicy_triggers")
             }
+        # Detect KB companion dishes added while A1 is pending.
+        # These land in current_dishes (not extra_user_ingredients), so
+        # _try_short_circuit RAMA AGREGA would miss them without this check.
+        _prev_dishes = set(current_dishes)
+        _new_dishes  = set(cr.current_dishes)
+        _companion_added = (
+            bool(_prev_dishes)
+            and _prev_dishes.issubset(_new_dishes)
+            and _new_dishes != _prev_dishes
+            and (confirmation_state or {}).get("completeness_confirmed") is None
+            and not cr.pending_slots
+            and not cr.translate_now
+        )
+
         short: GenResult | None = None
         with timing.stage("router.short_circuit"):
             if (cr.intent == "traduccion" and cr.current_dishes
                     and not cr.pending_slots and not cr.translate_now
                     and confirmation_state is not None):
-                short = _try_short_circuit(cr, confirmation_state, trigger_info_for_gen or {}, message)
+                cs_for_short = (
+                    {**confirmation_state, "completeness_confirmed": True}
+                    if _companion_added else confirmation_state
+                )
+                short = _try_short_circuit(cr, cs_for_short, trigger_info_for_gen or {}, message)
         if short is not None:
             short.intent = cr.intent
             short.flags = _clean_flags(dish_flags)
             return short
 
-        # RAMA AGREGA sin triggers: A1 pendiente + ingrediente añadido → confirmar A1
-        # para que el LLM genere ETAPA B en este mismo turno sin volver a preguntar
-        _rama_agrega_forced = False
+        # ── Forced-confirmation tracking ──────────────────────────────────────
+        # Pre-compute values to apply after LLM call in case the LLM omits them
+        # (which causes the confirmation stage to repeat on the next turn).
+        _force_after_llm: dict[str, bool] = {}
+        cs = confirmation_state or {}
+        is_resp = gen_module._is_confirmation(message)
+        ti = trigger_info_for_gen or {}
+        _a_tr = ti.get("allergen_triggers") or []
+        _g_tr = ti.get("gluten_triggers") or []
+        _s_tr = ti.get("spicy_triggers") or []
+
+        # RAMA AGREGA: extra ingredients OR new companion KB dishes added while A1 pending
         if (conf_state_for_gen is not None
                 and conf_state_for_gen.get("completeness_confirmed") is None
-                and cr.extra_user_ingredients
+                and (cr.extra_user_ingredients or _companion_added)
                 and not cr.pending_slots
                 and not cr.translate_now):
             conf_state_for_gen = {**conf_state_for_gen, "completeness_confirmed": True}
-            _rama_agrega_forced = True
+            _force_after_llm["completeness_confirmed"] = True
+
+        # A2/A3/A4 PROCESA RESPUESTA → ETAPA B: force confirmed fields if LLM omits them
+        if cs.get("completeness_confirmed") and is_resp and not cr.pending_slots:
+            _a_done = (not _a_tr) or (cs.get("allergens_confirmed") is not None)
+            _g_done = (not _g_tr) or (cs.get("gluten_confirmed")   is not None)
+            if _a_tr and cs.get("allergens_confirmed") is None:
+                _force_after_llm["allergens_confirmed"] = gen_module._is_yes(message)
+            elif _a_done and _g_tr and cs.get("gluten_confirmed") is None:
+                _force_after_llm["gluten_confirmed"] = gen_module._is_yes(message)
+            elif _a_done and _g_done and _s_tr and cs.get("spicy_confirmed") is None:
+                _force_after_llm["spicy_confirmed"] = gen_module._is_yes(message)
 
         with timing.stage("router.generation"):
             result = gen_module.generate(
@@ -126,8 +165,9 @@ def handle(
             )
         result = _ensure_pending_slot_buttons(result, cr)
         result = _guard_etapa_b_integrity(result, confirmation_state)
-        if _rama_agrega_forced and result.completeness_confirmed is None:
-            result = replace(result, completeness_confirmed=True)
+        for _k, _v in _force_after_llm.items():
+            if getattr(result, _k) is None:
+                result = replace(result, **{_k: _v})
         if cr.translate_now:
             result = _ensure_english_translation(result, dish_context, history)
         result.intent = cr.intent
@@ -538,15 +578,43 @@ def _compute_dish_flags(
     history: list[dict[str, str]],
     kb_context: str,
 ) -> dict:
-    """Compute dietary flags using LLM analysis of all available dish context."""
+    """Compute dietary flags: LLM result merged with deterministic KB pass.
+
+    The LLM provides the primary result; the deterministic pass ensures KB
+    ingredients (e.g. crema in enchiladas suizas) are never silently missed.
+    """
     conversation = retrieval.conversation_text(message, history)
-    return flag_llm.compute_flags_llm(
+    llm_result = flag_llm.compute_flags_llm(
         cr.current_dishes,
         cr.resolved_variants,
         cr.extra_user_ingredients,
         conversation,
         kb_context,
     )
+
+    # Deterministic pass: collect KB ingredients and run flags.compute_flags()
+    kb_ingredients: list[str] = list(cr.extra_user_ingredients or [])
+    for dish in cr.current_dishes:
+        kb_ingredients.extend(
+            retrieval.collect_ingredients_for_flags(dish, cr.resolved_variants, conversation)
+        )
+    det_result = flags_module.compute_flags(kb_ingredients) if kb_ingredients else {}
+
+    # Merge: take union of triggers so neither source silently drops a flag
+    def _merge_triggers(key: str) -> list[str]:
+        return sorted(set(llm_result.get(key) or []) | set(det_result.get(key) or []))
+
+    merged = dict(llm_result)
+    merged["allergen_triggers"] = _merge_triggers("allergen_triggers")
+    merged["gluten_triggers"]   = _merge_triggers("gluten_triggers")
+    merged["spicy_triggers"]    = _merge_triggers("spicy_triggers")
+    if merged["allergen_triggers"]:
+        merged["allergens"] = True
+    if merged["gluten_triggers"]:
+        merged["gluten_free"] = False
+    if merged["spicy_triggers"] and merged.get("spicy_level", "none") == "none":
+        merged["spicy_level"] = det_result.get("spicy_level", "mild")
+    return merged
 
 
 def _normalize_flags(flags: dict) -> dict:
