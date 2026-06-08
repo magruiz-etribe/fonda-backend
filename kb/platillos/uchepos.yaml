@@ -1,6 +1,5 @@
 canonical_name: uchepos
 common_names:
-  - Uchepos
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tamales suaves elaborados con maíz tierno.
     description_en: >
-      Tamales suaves elaborados con maíz tierno.
+      Tamales suaves elaborados with corn tierno.

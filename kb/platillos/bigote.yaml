@@ -1,6 +1,5 @@
 canonical_name: bigote
 common_names:
-  - Bigote
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce hojaldrado con forma característica de bigote.
     description_en: >
-      Pan dulce hojaldrado con forma característica de bigote.
+      Pan dulce hojaldrado with forma característica of bigote.

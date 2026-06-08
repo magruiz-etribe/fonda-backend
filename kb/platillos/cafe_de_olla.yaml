@@ -1,6 +1,5 @@
 canonical_name: cafe_de_olla
 common_names:
-  - Café de olla
 category: platillo_principal
 base_ingredients:
   - cafe
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Café tradicional con canela y piloncillo.
     description_en: >
-      Café tradicional con canela y piloncillo.
+      Coffee traditional with canela and piloncillo.

@@ -1,6 +1,5 @@
 canonical_name: lonche_de_jamon
 common_names:
-  - Lonche de jamón
 category: platillo_principal
 base_ingredients:
   - pan
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan relleno con jamón y vegetales frescos.
     description_en: >
-      Pan relleno con jamón y vegetales frescos.
+      Ham Roll Sandwich made with pan, jamon and tomato.

@@ -1,6 +1,5 @@
 canonical_name: champurrado_espeso
 common_names:
-  - Champurrado espeso
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Versión más espesa del champurrado tradicional.
     description_en: >
-      Versión más espesa del champurrado tradicional.
+      Versión más thick del champurrado traditional.

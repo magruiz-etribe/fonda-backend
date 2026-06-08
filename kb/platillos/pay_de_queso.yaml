@@ -1,6 +1,5 @@
 canonical_name: pay_de_queso
 common_names:
-  - Pay de queso
 category: platillo_principal
 base_ingredients:
   - queso_crema
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Postre cremoso preparado con queso crema.
     description_en: >
-      Postre cremoso preparado con queso crema.
+      Postre cremoso preparado with queso crema.

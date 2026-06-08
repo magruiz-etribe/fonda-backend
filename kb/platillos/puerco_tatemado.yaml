@@ -1,6 +1,5 @@
 canonical_name: puerco_tatemado
 common_names:
-  - Puerco tatemado
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cerdo cocinado con chiles tostados y especias.
     description_en: >
-      Cerdo cocinado con chiles tostados y especias.
+      Pork cocinado with chiles tostados and spices.

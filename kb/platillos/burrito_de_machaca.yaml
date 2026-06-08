@@ -1,6 +1,5 @@
 canonical_name: burrito_de_machaca
 common_names:
-  - Burrito de machaca
 category: platillo_principal
 base_ingredients:
   - tortilla_de_harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Burrito relleno de machaca sazonada.
     description_en: >
-      Burrito relleno de machaca sazonada.
+      Burrito stuffed of machaca sazonada.

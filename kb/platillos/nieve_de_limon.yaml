@@ -1,6 +1,5 @@
 canonical_name: nieve_de_limon
 common_names:
-  - Nieve de limón
 category: platillo_principal
 base_ingredients:
   - limon
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Postre helado refrescante elaborado con limón.
     description_en: >
-      Postre helado refrescante elaborado con limón.
+      Dessert helado refrescante made with lime.

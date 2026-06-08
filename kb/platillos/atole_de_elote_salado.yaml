@@ -1,6 +1,5 @@
 canonical_name: atole_de_elote_salado
 common_names:
-  - Atole de elote salado
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Versión salada del atole de elote.
     description_en: >
-      Versión salada del atole de elote.
+      Versión salada del atole of corn.

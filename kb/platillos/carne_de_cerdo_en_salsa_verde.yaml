@@ -1,6 +1,5 @@
 canonical_name: carne_de_cerdo_en_salsa_verde
 common_names:
-  - Carne de cerdo en salsa verde
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Guiso de cerdo en salsa verde de tomatillo, típico de fondas.
     description_en: >
-      Guiso de cerdo en salsa verde de tomatillo, típico de fondas.
+      Stew of pork in sauce verde of tomatillo, típico of fondas.

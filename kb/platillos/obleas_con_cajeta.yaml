@@ -1,6 +1,5 @@
 canonical_name: obleas_con_cajeta
 common_names:
-  - Obleas con cajeta
 category: platillo_principal
 base_ingredients:
   - obleas
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Delgadas obleas rellenas con cajeta.
     description_en: >
-      Delgadas obleas rellenas con cajeta.
+      Wafer Cookies with Cajeta made with obleas and cajeta.

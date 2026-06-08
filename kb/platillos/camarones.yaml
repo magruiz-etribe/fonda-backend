@@ -1,9 +1,5 @@
 canonical_name: camarones
 common_names:
-  - Camarones al mojo de ajo
-  - Camarones a la diabla
-  - Camarones al ajillo
-  - Camarones empanizados
 category: platillo_principal
 base_ingredients:
   - camaron
@@ -23,7 +19,7 @@ variants:
     description_es: >
       Camarones salteados en mantequilla con abundante ajo.
     description_en: >
-      Camarones salteados en mantequilla con abundante ajo.
+      Camarones salteados in mantequilla with abundante ajo.
   a_la_diabla:
     name_es: Camarones a la diabla
     name_en: Devil's Shrimp
@@ -36,7 +32,7 @@ variants:
     description_es: >
       Camarones en salsa muy picante de chiles secos.
     description_en: >
-      Camarones en salsa muy picante de chiles secos.
+      Camarones in sauce muy picante of chiles secos.
   al_ajillo:
     name_es: Camarones al ajillo
     name_en: Garlic Shrimp
@@ -48,7 +44,7 @@ variants:
     description_es: >
       Camarones salteados en mantequilla y ajo.
     description_en: >
-      Camarones salteados en mantequilla y ajo.
+      Camarones salteados in mantequilla and ajo.
   empanizados:
     name_es: Camarones empanizados
     name_en: Breaded Shrimp
@@ -60,4 +56,4 @@ variants:
     description_es: >
       Camarones fritos empanizados.
     description_en: >
-      Camarones fritos empanizados.
+      Breaded Shrimp made with shrimp, egg and breadcrumbs.

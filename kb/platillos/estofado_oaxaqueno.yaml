@@ -1,6 +1,5 @@
 canonical_name: estofado_oaxaqueno
 common_names:
-  - Estofado oaxaqueño
 category: platillo_principal
 base_ingredients:
   - pollo
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Guiso de carne con aceitunas, especias y verduras.
     description_en: >
-      Guiso de carne con aceitunas, especias y verduras.
+      Stew of beef with aceitunas, spices and vegetables.

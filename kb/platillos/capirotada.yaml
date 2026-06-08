@@ -1,7 +1,5 @@
 canonical_name: capirotada
 common_names:
-  - capirotada
-  - Capirotada
 category: postre
 base_ingredients:
   - pan
@@ -22,4 +20,4 @@ variants:
     description_es: >
       Postre elaborado con pan, piloncillo y frutas secas.
     description_en: >
-      Postre elaborado con pan, piloncillo y frutas secas.
+      Dessert made with pan, piloncillo and frutas secas.

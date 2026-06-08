@@ -1,6 +1,5 @@
 canonical_name: nieve_de_tuna
 common_names:
-  - Nieve de tuna
 category: platillo_principal
 base_ingredients:
   - tuna
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Helado artesanal elaborado con fruta de tuna.
     description_en: >
-      Helado artesanal elaborado con fruta de tuna.
+      Helado artesanal made with fruit of tuna.

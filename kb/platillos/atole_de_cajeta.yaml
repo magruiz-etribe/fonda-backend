@@ -1,6 +1,5 @@
 canonical_name: atole_de_cajeta
 common_names:
-  - Atole de cajeta
 category: platillo_principal
 base_ingredients:
   - cajeta
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Atole dulce preparado con cajeta de leche de cabra.
     description_en: >
-      Atole dulce preparado con cajeta de leche de cabra.
+      Atole dulce prepared with cajeta of milk of cabra.

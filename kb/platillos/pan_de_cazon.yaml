@@ -1,6 +1,5 @@
 canonical_name: pan_de_cazon
 common_names:
-  - Pan de cazón
 category: platillo_principal
 base_ingredients:
   - cazon
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Platillo campechano elaborado con tortillas y cazón.
     description_en: >
-      Platillo campechano elaborado con tortillas y cazón.
+      Platillo campechano made with tortillas and cazón.

@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_nopal
 common_names:
-  - Tortitas de nopal
 category: platillo_principal
 base_ingredients:
   - nopal
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas de nopal con huevo, suaves y ligeras.
     description_en: >
-      Tortitas de nopal con huevo, suaves y ligeras.
+      Tortitas of nopal with egg, suaves and ligeras.

@@ -1,16 +1,9 @@
 canonical_name: carne_asada
 common_names:
-  - carne asada
   - tacos de carne asada
   - torta de carne asada
   - burritos de carne asada
-  - gringas de carne asada
-  - arrachera
-  - Carne asada
-  - Arrachera
-  - Gringa
   - Burrito de carne asada
-  - Carne asada estilo fonda
 category: platillo_principal
 base_ingredients:
   - carne_de_res
@@ -30,51 +23,7 @@ variants:
     description_es: >
       Carne de res a la plancha o parrilla con cebollitas, nopales, guacamole y salsa.
     description_en: >
-      Grilled beef served with green onions, cactus strips, guacamole, and salsa — the classic Mexican grilled platter.
-  tacos:
-    name_es: Tacos de Carne Asada
-    name_en: Grilled beef tacos
-    extra_ingredients:
-      - tortilla_de_maiz
-      - cebolla
-      - cilantro
-      - salsa
-      - guacamole
-    technique: carne a la plancha, servida en tortilla de maíz
-    description_es: >
-      Carne de res en tortilla de maíz con cebolla, cilantro y salsa.
-    description_en: >
-      Grilled beef in warm corn tortillas with onion, cilantro, and salsa — simple and incredibly popular.
-  torta:
-    name_es: Torta de Carne Asada
-    name_en: Grilled beef sandwich (Mexican-style torta)
-    extra_ingredients:
-      - bolillo
-      - aguacate
-      - frijoles
-      - queso
-      - jitomate
-      - jalapeno
-    technique: carne a la plancha, armado en bolillo tostado con complementos
-    description_es: >
-      Carne de res en bolillo con aguacate, frijoles, queso, jitomate y jalapeño.
-    description_en: >
-      Grilled beef on a crusty bolillo roll with avocado, beans, cheese, tomato, and jalapeño — a hearty Mexican sandwich.
-  burritos:
-    name_es: Burritos de Carne Asada
-    name_en: Grilled beef burritos
-    extra_ingredients:
-      - tortilla_de_harina
-      - arroz
-      - queso
-      - crema
-      - salsa
-      - frijoles
-    technique: carne a la plancha, envuelta en tortilla de harina grande
-    description_es: >
-      Carne asada envuelta en tortilla grande de harina
-    description_en: >
-      Grilled beef with rice, beans, and cheese wrapped in a large flour tortilla.
+      Grilled beef served with spring onions, nopales, guacamole, and salsa.
   gringas:
     name_es: Gringas de Carne Asada
     name_en: Flour tortilla quesadilla with grilled beef
@@ -88,7 +37,7 @@ variants:
     description_es: >
       Quesadilla grande con carne asada y queso derretido
     description_en: >
-      Flour tortilla quesadilla filled with grilled beef and melted cheese — crispy and richly flavored.
+      Large flour tortilla quesadilla with grilled beef and melted cheese.
   carne_asada:
     name_es: Carne asada
     name_en: Grilled Beef
@@ -100,7 +49,7 @@ variants:
     description_es: >
       Cortes de carne cocinados a la parrilla.
     description_en: >
-      Cortes de carne cocinados a la parrilla.
+      Beef cuts grilled over charcoal or on a flat-top griddle.
   arrachera:
     name_es: Arrachera
     name_en: Skirt Steak
@@ -112,31 +61,7 @@ variants:
     description_es: >
       Corte de res marinado y asado.
     description_en: >
-      Corte de res marinado y asado.
-  gringa:
-    name_es: Gringa
-    name_en: Pastor Quesadilla
-    extra_ingredients:
-      - pastor
-      - queso_oaxaca
-      - tortilla_de_harina
-    technique: 
-    description_es: >
-      Tortilla de harina rellena de carne al pastor y queso.
-    description_en: >
-      Tortilla de harina rellena de carne al pastor y queso.
-  burrito_de_carne_asada:
-    name_es: Burrito de carne asada
-    name_en: Grilled Beef Burrito
-    extra_ingredients:
-      - tortilla_de_harina
-      - carne_asada
-      - frijoles
-    technique: 
-    description_es: >
-      Tortilla de harina enrollada con carne asada y complementos.
-    description_en: >
-      Tortilla de harina enrollada con carne asada y complementos.
+      Marinated skirt steak grilled to order.
   estilo_fonda:
     name_es: Carne asada estilo fonda
     name_en: Grilled Beef
@@ -148,4 +73,4 @@ variants:
     description_es: >
       Carne asada servida con guarniciones sencillas.
     description_en: >
-      Carne asada servida con guarniciones sencillas.
+      Grilled beef served with simple sides.

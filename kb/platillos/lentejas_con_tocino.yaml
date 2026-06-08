@@ -11,8 +11,8 @@ variants:
     name_en: Lentils with Bacon
     extra_ingredients:
       - verduras
-    technique: None
+    technique: 
     description_es: >
       Sopa de leguminosas cocinada con trozos de tocino, jitomate, cebolla y a veces plátano macho.
     description_en: >
-      Sopa de leguminosas cocinada con trozos de tocino, jitomate, cebolla y a veces plátano macho.
+      Sopa of leguminosas cocinada with trozos of tocino, tomato, onion and a veces plátano macho.

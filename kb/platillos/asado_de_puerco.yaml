@@ -1,8 +1,6 @@
 canonical_name: asado_de_puerco
 common_names:
-  - asado de puerco
   - asado de cerdo
-  - Asado de puerco
 category: guisado
 base_ingredients:
   - carne_de_cerdo
@@ -25,4 +23,4 @@ variants:
     description_es: >
       Carne de cerdo preparada en salsa roja espesa.
     description_en: >
-      Carne de cerdo preparada en salsa roja espesa.
+      Beef of pork preparada in sauce roja thick.

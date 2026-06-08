@@ -1,6 +1,5 @@
 canonical_name: cecina_enchilada
 common_names:
-  - Cecina enchilada
 category: antojito
 base_ingredients:
   - res
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Carne de res curada y adobada con chile.
     description_en: >
-      Carne de res curada y adobada con chile.
+      Marinated Beef Cecina made with beef, guajillo chile and ajo.

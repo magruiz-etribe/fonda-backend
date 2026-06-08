@@ -1,6 +1,5 @@
 canonical_name: pastel_de_zanahoria
 common_names:
-  - Pastel de zanahoria
 category: platillo_principal
 base_ingredients:
   - zanahoria
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pastel húmedo preparado con zanahoria rallada y especias.
     description_en: >
-      Pastel húmedo preparado con zanahoria rallada y especias.
+      Pastel húmedo prepared with carrot rallada and spices.

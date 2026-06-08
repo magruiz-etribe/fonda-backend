@@ -1,6 +1,5 @@
 canonical_name: rosca_de_reyes
 common_names:
-  - Rosca de Reyes
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce circular decorado con fruta cristalizada.
     description_en: >
-      Pan dulce circular decorado con fruta cristalizada.
+      Pan dulce circular decorado with fruit cristalizada.

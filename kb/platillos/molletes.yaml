@@ -1,10 +1,6 @@
 canonical_name: molletes
 common_names:
-  - molletes
   - molletes con frijoles
-  - Molletes
-  - Molletes con pico de gallo
-  - Molletes con chorizo y queso
 category: antojito
 base_ingredients:
   - bolillo
@@ -25,7 +21,7 @@ variants:
     description_es: >
       Bolillo con frijoles y queso gratinado.
     description_en: >
-      Bolillo con frijoles y queso gratinado.
+      Bolillo with beans and cheese gratinado.
   con_pico_de_gallo:
     name_es: Molletes con pico de gallo
     name_en: Bean Toast with Salsa
@@ -37,7 +33,7 @@ variants:
     description_es: >
       Bolillo con frijol, queso y pico de gallo.
     description_en: >
-      Bolillo con frijol, queso y pico de gallo.
+      Bolillo with bean, cheese and pico of gallo.
   con_chorizo_y_queso:
     name_es: Molletes con chorizo y queso
     name_en: Bean Toast with Chorizo and Cheese
@@ -49,4 +45,4 @@ variants:
     description_es: >
       Bolillo con frijoles, chorizo y queso gratinado.
     description_en: >
-      Bolillo con frijoles, chorizo y queso gratinado.
+      Bolillo with beans, chorizo and cheese gratinado.

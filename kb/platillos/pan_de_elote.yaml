@@ -1,6 +1,5 @@
 canonical_name: pan_de_elote
 common_names:
-  - Pan de elote
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce elaborado con granos de maíz.
     description_en: >
-      Pan dulce elaborado con granos de maíz.
+      Pan dulce made with kernels of corn.

@@ -1,6 +1,5 @@
 canonical_name: pay_de_limon
 common_names:
-  - Pay de limón
 category: platillo_principal
 base_ingredients:
   - limon
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pay frío elaborado con limón y leche condensada.
     description_en: >
-      Pay frío elaborado con limón y leche condensada.
+      Pay frío made with lime and milk condensed.

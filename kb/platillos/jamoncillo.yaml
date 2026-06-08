@@ -1,6 +1,5 @@
 canonical_name: jamoncillo
 common_names:
-  - Jamoncillo
 category: platillo_principal
 base_ingredients:
   - leche
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Dulce suave preparado con leche y azúcar.
     description_en: >
-      Dulce suave preparado con leche y azúcar.
+      Dulce smooth prepared with milk and sugar.

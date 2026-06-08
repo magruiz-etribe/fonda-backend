@@ -1,6 +1,5 @@
 canonical_name: cabrito_al_pastor
 common_names:
-  - Cabrito al pastor
 category: platillo_principal
 base_ingredients:
   - cabrito
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cabrito asado lentamente al estilo norteño.
     description_en: >
-      Cabrito asado lentamente al estilo norteño.
+      Cabrito asado slowly al estilo norteño.

@@ -1,6 +1,5 @@
 canonical_name: tlacoyos_de_chicharron
 common_names:
-  - Tlacoyos de chicharrón
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Tlacoyos rellenos de chicharrón.
     description_en: >
-      Tlacoyos rellenos de chicharrón.
+      Tlacoyos rellenos of chicharrón.

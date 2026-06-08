@@ -1,6 +1,5 @@
 canonical_name: borrachitos
 common_names:
-  - Borrachitos
 category: platillo_principal
 base_ingredients:
   - leche
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dulce gelatinoso aromatizado con licor.
     description_en: >
-      Dulce gelatinoso aromatizado con licor.
+      Dulce gelatinoso flavored with licor.

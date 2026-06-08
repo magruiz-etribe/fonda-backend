@@ -1,10 +1,5 @@
 canonical_name: tostadas
 common_names:
-  - tostadas
-  - Tostada de pata
-  - Tostadas de pollo
-  - Tostadas de frijol con queso
-  - Tostadas de pata de res
 category: antojito
 base_ingredients:
   - tortilla_de_maiz
@@ -24,11 +19,11 @@ variants:
       - queso
       - aguacate
       - ceviche
-    technique: None
+    technique: 
     description_es: >
       Tortilla de maiz crujiente con frijoles y guisados como pollo deshebrado, carne,picadillo, tinga o pata de res. Complementadas con lechuga, crema, queso, jitomate, cebolla, aguacate y salsa al gusto.
     description_en: >
-      Tortilla de maiz crujiente con frijoles y guisados como pollo deshebrado, carne,picadillo, tinga o pata de res. Complementadas con lechuga, crema, queso, jitomate, cebolla, aguacate y salsa al gusto.
+      tostadas made with beans, chicken, tinga, pata de res and picadillo.
   de_pata:
     name_es: Tostada de pata
     name_en: Pickled Beef Foot Tostada
@@ -41,7 +36,7 @@ variants:
     description_es: >
       Tostada cubierta con pata de res en escabeche.
     description_en: >
-      Tostada cubierta con pata de res en escabeche.
+      Tostada topped with pata of beef in escabeche.
   de_pollo:
     name_es: Tostadas de pollo
     name_en: Chicken Tostadas
@@ -54,7 +49,7 @@ variants:
     description_es: >
       Tostadas crujientes con pollo y frijoles.
     description_en: >
-      Tostadas crujientes con pollo y frijoles.
+      Tostadas crujientes with chicken and beans.
   de_frijol_con_queso:
     name_es: Tostadas de frijol con queso
     name_en: Bean Tostadas with Cheese
@@ -66,7 +61,7 @@ variants:
     description_es: >
       Tostadas sencillas de frijol y queso.
     description_en: >
-      Tostadas sencillas de frijol y queso.
+      Tostadas simple of bean and cheese.
   de_pata_de_res:
     name_es: Tostadas de pata de res
     name_en: Beef Foot Tostadas
@@ -78,4 +73,4 @@ variants:
     description_es: >
       Tostadas con pata de res en escabeche.
     description_en: >
-      Tostadas con pata de res en escabeche.
+      Tostadas with pata of beef in escabeche.

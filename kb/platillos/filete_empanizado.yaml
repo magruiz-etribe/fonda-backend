@@ -1,6 +1,5 @@
 canonical_name: filete_empanizado
 common_names:
-  - Filete empanizado
 category: platillo_principal
 base_ingredients:
   - pescado
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Filete de pescado cubierto con pan molido y frito.
     description_en: >
-      Filete de pescado cubierto con pan molido y frito.
+      Cutlet of pescado topped with breadcrumbs and fried.

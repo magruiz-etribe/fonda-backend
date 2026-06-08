@@ -1,6 +1,5 @@
 canonical_name: atole_de_maicena
 common_names:
-  - Atole de maicena
 category: platillo_principal
 base_ingredients:
   - maicena
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida espesa elaborada con fécula de maíz.
     description_en: >
-      Bebida espesa elaborada con fécula de maíz.
+      Drink thick elaborada with fécula of corn.

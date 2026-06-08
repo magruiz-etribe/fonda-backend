@@ -1,6 +1,5 @@
 canonical_name: bacalao_a_la_vizcaina
 common_names:
-  - Bacalao a la vizcaína
 category: platillo_principal
 base_ingredients:
   - bacalao
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Bacalao guisado con jitomate, aceitunas y papas, típico de Navidad.
     description_en: >
-      Bacalao guisado con jitomate, aceitunas y papas, típico de Navidad.
+      Bacalao stewed with tomato, aceitunas and potatoes, típico of Navidad.

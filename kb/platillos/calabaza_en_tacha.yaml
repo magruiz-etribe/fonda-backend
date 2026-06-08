@@ -1,6 +1,5 @@
 canonical_name: calabaza_en_tacha
 common_names:
-  - Calabaza en tacha
 category: platillo_principal
 base_ingredients:
   - calabaza
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Calabaza cocida en piloncillo, típico de Día de Muertos.
     description_en: >
-      Calabaza cocida en piloncillo, típico de Día de Muertos.
+      Candied Pumpkin made with zucchini, piloncillo and canela.

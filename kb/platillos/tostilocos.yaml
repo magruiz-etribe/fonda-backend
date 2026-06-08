@@ -1,6 +1,5 @@
 canonical_name: tostilocos
 common_names:
-  - Tostilocos
 category: platillo_principal
 base_ingredients:
   - totopos_comerciales
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Botana preparada con frituras, verduras y salsas.
     description_en: >
-      Botana preparada con frituras, verduras y salsas.
+      Botana preparada with frituras, vegetables and salsas.

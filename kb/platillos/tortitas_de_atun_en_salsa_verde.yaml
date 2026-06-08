@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_atun_en_salsa_verde
 common_names:
-  - Tortitas de atún en salsa verde
 category: platillo_principal
 base_ingredients:
   - atun
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas de atún en salsa verde ligera.
     description_en: >
-      Tortitas de atún en salsa verde ligera.
+      Tortitas of tuna in sauce verde ligera.

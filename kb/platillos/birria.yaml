@@ -3,15 +3,11 @@ common_names:
   - birria
   - birria de res
   - birria de chivo
-  - Birria
-  - Tacos de birria
-  - Quesabirria
-  - Birria de res
-  - Birria de chivo
-  - Tacos de birria dorados
+  - tacos de birria
+  - quesabirria
 category: platillo_principal
 base_ingredients:
-  - carne_de_res
+  - carne
   - chiles_secos
   - ajo
   - cebolla
@@ -19,77 +15,31 @@ base_ingredients:
   - especias
   - sal
 variants:
-  birria:
-    name_es: Birria
-    name_en: Mexican Birria Stew
-    extra_ingredients:
-      - carne_de_res_o_chivo
-      - chile_guajillo
-      - ajo
-      - comino
-      - clavo
-    technique: 
-    description_es: >
-      Guiso de carne cocida lentamente en una salsa de chiles y especias.
-    description_en: >
-      Guiso de carne cocida lentamente en una salsa de chiles y especias.
-  de_birria:
-    name_es: Tacos de birria
-    name_en: Birria Tacos
-    extra_ingredients:
-      - birria
-      - tortilla
-      - cebolla
-    technique: 
-    description_es: >
-      Tacos rellenos de birria de res o chivo.
-    description_en: >
-      Tacos rellenos de birria de res o chivo.
-  quesabirria:
-    name_es: Quesabirria
-    name_en: Birria Cheese Taco
-    extra_ingredients:
-      - birria
-      - queso_oaxaca
-      - tortilla
-    technique: 
-    description_es: >
-      Taco dorado relleno de birria y queso fundido.
-    description_en: >
-      Taco dorado relleno de birria y queso fundido.
   de_res:
     name_es: Birria de res
     name_en: Beef Birria
     extra_ingredients:
       - res
       - chile_guajillo
-      - especias
-    technique: 
+      - chile_ancho
+      - comino
+      - clavo
+    technique: carne de res cocida lentamente en adobo de chiles secos y especias
     description_es: >
       Guiso de res en adobo de chiles secos, muy común en fondas.
     description_en: >
-      Guiso de res en adobo de chiles secos, muy común en fondas.
+      Beef slow-braised in a spiced dried-chile adobo — served with its rich consomé for dipping.
   de_chivo:
     name_es: Birria de chivo
     name_en: Goat Birria
     extra_ingredients:
       - chivo
       - chile_ancho
-      - ajo
-    technique: 
-    description_es: >
-      Birria tradicional de cabra con especias y chiles.
-    description_en: >
-      Birria tradicional de cabra con especias y chiles.
-  de_birria_dorados:
-    name_es: Tacos de birria dorados
-    name_en: Crispy Birria Tacos
-    extra_ingredients:
-      - res
       - chile_guajillo
-      - tortilla
-    technique: 
+      - ajo
+      - comino
+    technique: chivo cocido lentamente en adobo de chiles y especias
     description_es: >
-      Tacos de birria fritos y bañados en consomé.
+      Birria tradicional de cabra con especias y chiles.
     description_en: >
-      Tacos de birria fritos y bañados en consomé.
+      Traditional goat birria braised in a complex chile and spice adobo — the Jalisco classic.

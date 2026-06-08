@@ -1,6 +1,5 @@
 canonical_name: champinones_a_la_mexicana
 common_names:
-  - Champiñones a la mexicana
 category: platillo_principal
 base_ingredients:
   - champinones
@@ -19,4 +18,4 @@ variants:
     description_es: >
       Champiñones con jitomate, cebolla y chile.
     description_en: >
-      Champiñones con jitomate, cebolla y chile.
+      Mexican Style Mushrooms made with champinon, tomato, onion and mushrooms.

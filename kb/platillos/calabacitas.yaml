@@ -1,12 +1,5 @@
 canonical_name: calabacitas
 common_names:
-  - calabacitas
-  - calabacitas a la mexicana
-  - calabacitas con puerco
-  - Calabacitas a la mexicana
-  - Calabacitas con queso
-  - Calabacitas con elote
-  - Calabacitas con crema
   - Tacos de calabacitas con crema
 category: guisado
 base_ingredients:
@@ -28,7 +21,7 @@ variants:
     description_es: >
       Calabazas salteadas con jitomate, cebolla y chile.
     description_en: >
-      Calabazas salteadas con jitomate, cebolla y chile.
+      Mexican-Style Zucchini made with zucchini, tomato, onion and chile.
   con_puerco:
     name_es: Calabacitas con Puerco
     name_en: Zucchini with Pork Stew
@@ -52,7 +45,7 @@ variants:
     description_es: >
       Calabacitas cocinadas con queso fresco o panela.
     description_en: >
-      Calabacitas cocinadas con queso fresco o panela.
+      Calabacitas cocinadas with cheese fresh or panela.
   con_elote:
     name_es: Calabacitas con elote
     name_en: Zucchini with Corn
@@ -65,7 +58,7 @@ variants:
     description_es: >
       Guiso ligero de calabaza y elote.
     description_en: >
-      Guiso ligero de calabaza y elote.
+      Stew ligero of calabaza and corn.
   con_crema:
     name_es: Calabacitas con crema
     name_en: Zucchini with Cream
@@ -77,16 +70,4 @@ variants:
     description_es: >
       Guiso suave de calabacitas con crema.
     description_en: >
-      Guiso suave de calabacitas con crema.
-  de_calabacitas_con_crema:
-    name_es: Tacos de calabacitas con crema
-    name_en: Zucchini Tacos with Cream
-    extra_ingredients:
-      - calabaza
-      - crema
-      - tortilla
-    technique: 
-    description_es: >
-      Tacos suaves de calabacitas con crema.
-    description_en: >
-      Tacos suaves de calabacitas con crema.
+      Zucchini with Cream made with zucchini, Mexican crema and corn.

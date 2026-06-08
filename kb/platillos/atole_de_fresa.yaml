@@ -1,6 +1,5 @@
 canonical_name: atole_de_fresa
 common_names:
-  - Atole de fresa
 category: platillo_principal
 base_ingredients:
   - fresa
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida caliente con sabor a fresa.
     description_en: >
-      Bebida caliente con sabor a fresa.
+      Drink caliente with sabor a fresa.

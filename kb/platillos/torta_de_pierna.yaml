@@ -1,6 +1,5 @@
 canonical_name: torta_de_pierna
 common_names:
-  - Torta de pierna
 category: platillo_principal
 base_ingredients:
   - bolillo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Torta rellena de pierna de cerdo adobada.
     description_en: >
-      Torta rellena de pierna de cerdo adobada.
+      Torta stuffed of pierna of pork adobada.

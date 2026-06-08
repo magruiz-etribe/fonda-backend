@@ -1,10 +1,6 @@
 canonical_name: gelatina
 common_names:
   - gelatina de agua
-  - gelatina  de leche
-  - Gelatina de mosaico
-  - Gelatina de leche
-  - Gelatina de café
 category: postre
 base_ingredients:
   - agua
@@ -19,11 +15,11 @@ variants:
       - fruta
       - pasas
       - nuez
-    technique: None
+    technique: 
     description_es: >
-      elaborado a base de grenetina o gelatina disuelta en agua, leche o jugos de fruta. Puede prepararse en distintos sabores y colores, y servirse sola o acompañada con fruta, crema o leche condensada.
+      Elaborado a base de grenetina o gelatina disuelta en agua, leche o jugos de fruta. Puede prepararse en distintos sabores y colores, y servirse sola o acompañada con fruta, crema o leche condensada.
     description_en: >
-      elaborado a base de grenetina o gelatina disuelta en agua, leche o jugos de fruta. Puede prepararse en distintos sabores y colores, y servirse sola o acompañada con fruta, crema o leche condensada.
+      Gelatin dessert made with water, milk, or fruit juice. Served plain or with fruit, crema, or condensed milk.
   de_mosaico:
     name_es: Gelatina de mosaico
     name_en: Mosaic Gelatin
@@ -35,7 +31,7 @@ variants:
     description_es: >
       Postre elaborado con cubos de gelatina de colores en base cremosa.
     description_en: >
-      Postre elaborado con cubos de gelatina de colores en base cremosa.
+      Colorful gelatin cubes set in a creamy base.
   de_leche:
     name_es: Gelatina de leche
     name_en: Milk Gelatin
@@ -47,7 +43,7 @@ variants:
     description_es: >
       Postre suave preparado con leche y grenetina.
     description_en: >
-      Postre suave preparado con leche y grenetina.
+      Smooth milk gelatin dessert.
   de_cafe:
     name_es: Gelatina de café
     name_en: Coffee Gelatin
@@ -59,4 +55,4 @@ variants:
     description_es: >
       Gelatina aromatizada con café.
     description_en: >
-      Gelatina aromatizada con café.
+      Coffee-flavored gelatin dessert.

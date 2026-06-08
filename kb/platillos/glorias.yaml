@@ -1,6 +1,5 @@
 canonical_name: glorias
 common_names:
-  - Glorias
 category: platillo_principal
 base_ingredients:
   - leche
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dulce norteño elaborado con leche quemada y nuez.
     description_en: >
-      Dulce norteño elaborado con leche quemada y nuez.
+      Dulce norteño made with milk quemada and walnut.

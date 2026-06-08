@@ -1,6 +1,5 @@
 canonical_name: volovan_de_atun
 common_names:
-  - Volován de atún
 category: platillo_principal
 base_ingredients:
   - hojaldre
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Hojaldre relleno con ensalada de atún.
     description_en: >
-      Hojaldre relleno con ensalada de atún.
+      Hojaldre stuffed with salad of tuna.

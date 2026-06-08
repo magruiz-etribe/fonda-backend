@@ -1,6 +1,5 @@
 canonical_name: ejotes_guisados
 common_names:
-  - Ejotes guisados
 category: platillo_principal
 base_ingredients:
   - ejote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Ejotes cocidos en salsa de jitomate.
     description_en: >
-      Ejotes cocidos en salsa de jitomate.
+      Ejotes cocidos in sauce of tomato.

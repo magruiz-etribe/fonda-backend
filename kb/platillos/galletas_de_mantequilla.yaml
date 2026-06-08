@@ -1,6 +1,5 @@
 canonical_name: galletas_de_mantequilla
 common_names:
-  - Galletas de mantequilla
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Galletas suaves y crujientes elaboradas con mantequilla.
     description_en: >
-      Galletas suaves y crujientes elaboradas con mantequilla.
+      Galletas suaves and crujientes elaboradas with mantequilla.

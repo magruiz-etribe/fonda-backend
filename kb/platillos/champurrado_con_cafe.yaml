@@ -1,6 +1,5 @@
 canonical_name: champurrado_con_cafe
 common_names:
-  - Champurrado con café
 category: platillo_principal
 base_ingredients:
   - cafe
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida que combina café y champurrado.
     description_en: >
-      Bebida que combina café y champurrado.
+      Drink que combina coffee and champurrado.

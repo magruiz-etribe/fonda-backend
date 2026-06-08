@@ -7,8 +7,6 @@ common_names:
   - caldo tlalpeño
   - sopa de pollo
   - sopa de res
-  - Caldo de pollo
-  - Caldo tlalpeño
 category: caldo
 base_ingredients:
   - agua
@@ -17,36 +15,25 @@ base_ingredients:
   - ajo
   - sal
 variants:
-  habas:
-    name_es: Caldo de Habas
-    name_en: Fava Bean Soup
-    extra_ingredients:
-      - haba_seca
-      - jitomate
-      - epazote
-    technique: cocción lenta de habas con jitomate y hierbas de olor
-    description_es: >
-      Habas en caldo con ajo, cebolla, jitomate y epazote.
-    description_en: >
-      Traditional fava bean soup slow-cooked with garlic, onion, tomato, and epazote herb — earthy and comforting.
   pollo:
-    name_es: Caldo de Pollo
-    name_en: Chicken soup
+    name_es: Caldo de pollo
+    name_en: Chicken Soup
     extra_ingredients:
       - pollo
       - zanahoria
       - calabaza
       - papa
       - arroz
+      - elote
       - cilantro
-    technique: cocción lenta de pollo con verduras en agua o caldo
+    technique: cocción lenta de pollo con verduras en caldo
     description_es: >
       Sopa caliente con pollo, verduras y arroz.
     description_en: >
-      Comforting chicken soup with carrot, zucchini, potato, and rice — a fonda classic for warming up.
+      Comforting chicken soup with carrot, zucchini, potato, rice, and corn — a fonda classic for warming up.
   res:
-    name_es: Caldo de Res
-    name_en: Beef soup
+    name_es: Caldo de res
+    name_en: Beef Soup
     extra_ingredients:
       - carne_de_res
       - zanahoria
@@ -59,6 +46,18 @@ variants:
       Sopa con carne de res y verduras cocidas lentamente.
     description_en: >
       Hearty beef soup with carrot, potato, chayote, and corn, slow-cooked until the broth is rich and flavorful.
+  habas:
+    name_es: Caldo de habas
+    name_en: Fava Bean Soup
+    extra_ingredients:
+      - haba_seca
+      - jitomate
+      - epazote
+    technique: cocción lenta de habas con jitomate y hierbas de olor
+    description_es: >
+      Habas en caldo con ajo, cebolla, jitomate y epazote.
+    description_en: >
+      Traditional fava bean soup slow-cooked with garlic, onion, tomato, and epazote — earthy and comforting.
   tlalpeno:
     name_es: Caldo tlalpeño
     name_en: Tlalpeño Soup
@@ -67,24 +66,9 @@ variants:
       - garbanzo
       - chipotle
       - zanahoria
-    technique: 
+      - aguacate
+    technique: caldo de pollo con chipotle, garbanzos y verduras
     description_es: >
       Caldo de pollo con chipotle, verduras y aguacate.
     description_en: >
-      Caldo de pollo con chipotle, verduras y aguacate.
-  de_pollo:
-    name_es: Caldo de pollo
-    name_en: Chicken Soup
-    extra_ingredients:
-      - pollo
-      - zanahoria
-      - papa
-      - calabaza
-      - elote
-      - cebolla
-      - cilantro
-    technique: 
-    description_es: >
-      Sopa tradicional preparada con pollo y diversas verduras cocidas en caldo.
-    description_en: >
-      Sopa tradicional preparada con pollo y diversas verduras cocidas en caldo.
+      Spiced chicken broth with chipotle, chickpeas, vegetables, and avocado — a CDMX fonda favorite.

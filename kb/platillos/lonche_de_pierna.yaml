@@ -1,6 +1,5 @@
 canonical_name: lonche_de_pierna
 common_names:
-  - Lonche de pierna
 category: platillo_principal
 base_ingredients:
   - pan_birote
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Sándwich tradicional jalisciense relleno de pierna de cerdo.
     description_en: >
-      Sándwich tradicional jalisciense relleno de pierna de cerdo.
+      Sándwich traditional jalisciense stuffed of pierna of pork.

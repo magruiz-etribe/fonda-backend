@@ -1,8 +1,6 @@
 canonical_name: moronga
 common_names:
   - relleno negro
-  - Moronga en salsa
-  - Moronga frita
 category: antojito
 base_ingredients:
   - sangre_de_cerdo
@@ -19,11 +17,11 @@ variants:
     name_en: Blood Sausage
     extra_ingredients:
       - arroz
-    technique: None
+    technique: 
     description_es: >
       Embutido a base de sangre de cerdo cocinada con especias y cebolla, servido generalmente en tacos.
     description_en: >
-      Embutido a base de sangre de cerdo cocinada con especias y cebolla, servido generalmente en tacos.
+      Blood Sausage made with rice.
   en_salsa:
     name_es: Moronga en salsa
     name_en: Blood Sausage in Sauce
@@ -35,7 +33,7 @@ variants:
     description_es: >
       Embutido de sangre cocinado en salsa casera.
     description_en: >
-      Embutido de sangre cocinado en salsa casera.
+      Embutido of sangre cocinado in sauce casera.
   frita:
     name_es: Moronga frita
     name_en: Fried Blood Sausage
@@ -46,4 +44,4 @@ variants:
     description_es: >
       Moronga rebanada y frita hasta dorar.
     description_en: >
-      Moronga rebanada y frita hasta dorar.
+      Moronga rebanada and frita hasta dorar.

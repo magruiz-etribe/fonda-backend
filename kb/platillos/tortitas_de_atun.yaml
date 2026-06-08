@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_atun
 common_names:
-  - Tortitas de atún
 category: platillo_principal
 base_ingredients:
   - atun
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas preparadas con atún mezclado con huevo y especias.
     description_en: >
-      Tortitas preparadas con atún mezclado con huevo y especias.
+      Tortitas preparadas with tuna mixed with egg and spices.

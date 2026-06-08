@@ -1,6 +1,5 @@
 canonical_name: tlacoyos_de_frijol_con_salsa_roja
 common_names:
-  - Tlacoyos de frijol con salsa roja
 category: platillo_principal
 base_ingredients:
   - frijol
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tlacoyos de frijol bañados en salsa roja.
     description_en: >
-      Tlacoyos de frijol bañados en salsa roja.
+      Tlacoyos of bean bañados in sauce roja.

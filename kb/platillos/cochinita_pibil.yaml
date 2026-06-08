@@ -1,8 +1,6 @@
 canonical_name: cochinita_pibil
 common_names:
-  - Cochinita Pibil
   - cochinita
-  - Cochinita pibil
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -20,4 +18,4 @@ variants:
     description_es: >
       Cerdo marinado en achiote y cocido lentamente.
     description_en: >
-      Cerdo marinado en achiote y cocido lentamente.
+      Pork marinated in achiote and cooked slowly.

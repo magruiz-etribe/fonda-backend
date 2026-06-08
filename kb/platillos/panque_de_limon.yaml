@@ -1,6 +1,5 @@
 canonical_name: panque_de_limon
 common_names:
-  - Panqué de limón
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce con aroma y sabor cítrico.
     description_en: >
-      Pan dulce con aroma y sabor cítrico.
+      Pan dulce with aroma and sabor cítrico.

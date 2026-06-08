@@ -1,6 +1,5 @@
 canonical_name: torta_cubana
 common_names:
-  - Torta cubana
 category: platillo_principal
 base_ingredients:
   - jamon
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Torta abundante con varios tipos de carne y queso.
     description_en: >
-      Torta abundante con varios tipos de carne y queso.
+      Torta abundante with varios tipos of beef and cheese.

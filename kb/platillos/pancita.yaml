@@ -1,10 +1,5 @@
 canonical_name: pancita
 common_names:
-  - Pancita
-  - Menudo
-  - Menudo rojo
-  - Menudo blanco
-  - Pancita en rojo estilo fonda
 category: caldo
 base_ingredients:
   - panza_de_res
@@ -26,7 +21,7 @@ variants:
       - or_gano_seco
       - chile_en_polvo
       - tortilla_o_pan
-    technique: None
+    technique: 
     description_es: >
       Panza de res en caldo con chiles, ajo y cebolla; acompañamiento cebolla, orégano, limón y tortillas.
     description_en: >
@@ -44,7 +39,7 @@ variants:
     description_es: >
       Caldo preparado con pancita de res y chiles rojos, muy popular para desayunos de fin de semana.
     description_en: >
-      Caldo preparado con pancita de res y chiles rojos, muy popular para desayunos de fin de semana.
+      Beef Tripe Soup made with pancita de res, guajillo chile, ajo, onion and oregano.
   rojo:
     name_es: Menudo rojo
     name_en: Red Menudo
@@ -56,7 +51,7 @@ variants:
     description_es: >
       Sopa de pancita de res en chile rojo.
     description_en: >
-      Sopa de pancita de res en chile rojo.
+      Red Menudo made with panza de res, guajillo chile and maiz.
   blanco:
     name_es: Menudo blanco
     name_en: White Menudo
@@ -68,7 +63,7 @@ variants:
     description_es: >
       Sopa de pancita sin chile rojo.
     description_en: >
-      Sopa de pancita sin chile rojo.
+      White Menudo made with pancita de res, maiz and ajo.
   pancita_en_rojo_estilo_fonda:
     name_es: Pancita en rojo estilo fonda
     name_en: Red Tripe Soup
@@ -80,4 +75,4 @@ variants:
     description_es: >
       Menudo más espeso y casero estilo fonda.
     description_en: >
-      Menudo más espeso y casero estilo fonda.
+      Menudo más thick and casero estilo fonda.

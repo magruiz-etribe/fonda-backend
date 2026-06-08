@@ -15,8 +15,8 @@ variants:
     extra_ingredients:
       - papas_a_la_francesa
       - ensalada
-    technique: None
+    technique: 
     description_es: >
       Filete fino de res o cerdo cubierto con pan molido y huevo, frito hasta quedar dorado.
     description_en: >
-      Filete fino de res o cerdo cubierto con pan molido y huevo, frito hasta quedar dorado.
+      Cutlet fino of beef or pork topped with breadcrumbs and egg, fried until golden.

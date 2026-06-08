@@ -1,6 +1,5 @@
 canonical_name: pepino_preparado
 common_names:
-  - Pepino preparado
 category: platillo_principal
 base_ingredients:
   - pepino
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pepino fresco servido con limón, chile y sal.
     description_en: >
-      Pepino fresco servido con limón, chile y sal.
+      Prepared Cucumber Snack made with cucumber, limon and chile.

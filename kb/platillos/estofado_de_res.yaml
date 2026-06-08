@@ -1,6 +1,5 @@
 canonical_name: estofado_de_res
 common_names:
-  - Estofado de res
 category: platillo_principal
 base_ingredients:
   - res
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Carne de res cocinada lentamente con verduras y especias.
     description_en: >
-      Carne de res cocinada lentamente con verduras y especias.
+      Beef of beef cocinada slowly with vegetables and spices.

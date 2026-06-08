@@ -1,6 +1,5 @@
 canonical_name: asado_de_boda
 common_names:
-  - Asado de boda
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Platillo tradicional del norte elaborado con carne de cerdo y chiles.
     description_en: >
-      Platillo tradicional del norte elaborado con carne de cerdo y chiles.
+      Platillo traditional del norte made with beef of pork and chiles.

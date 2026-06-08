@@ -1,6 +1,5 @@
 canonical_name: raspado_de_grosella
 common_names:
-  - Raspado de grosella
 category: platillo_principal
 base_ingredients:
   - hielo
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Postre frío elaborado con hielo y jarabe sabor grosella.
     description_en: >
-      Postre frío elaborado con hielo y jarabe sabor grosella.
+      Dessert frío made with hielo and jarabe sabor grosella.

@@ -1,6 +1,5 @@
 canonical_name: chileatole
 common_names:
-  - Chileatole
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Sopa espesa elaborada con maíz y chile.
     description_en: >
-      Sopa espesa elaborada con maíz y chile.
+      Corn and Chile Soup made with corn, chile poblano and epazote.

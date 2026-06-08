@@ -1,6 +1,5 @@
 canonical_name: carne_deshebrada_en_salsa_verde
 common_names:
-  - Carne deshebrada en salsa verde
 category: platillo_principal
 base_ingredients:
   - res
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Carne deshebrada en salsa verde.
     description_en: >
-      Carne deshebrada en salsa verde.
+      Beef shredded in sauce verde.

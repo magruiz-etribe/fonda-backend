@@ -1,6 +1,5 @@
 canonical_name: paleta_de_mango
 common_names:
-  - Paleta de mango
 category: platillo_principal
 base_ingredients:
   - mango
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Paleta helada preparada con mango natural.
     description_en: >
-      Paleta helada preparada con mango natural.
+      Paleta helada preparada with mango natural.

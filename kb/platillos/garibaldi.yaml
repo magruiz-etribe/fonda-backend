@@ -1,6 +1,5 @@
 canonical_name: garibaldi
 common_names:
-  - Garibaldi
 category: platillo_principal
 base_ingredients:
   - harina
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Pan cubierto de mermelada y grageas de chocolate.
     description_en: >
-      Pan cubierto de mermelada y grageas de chocolate.
+      Pan topped of mermelada and grageas of chocolate.

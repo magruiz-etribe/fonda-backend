@@ -1,6 +1,5 @@
 canonical_name: maruchan_preparada
 common_names:
-  - Maruchan preparada
 category: platillo_principal
 base_ingredients:
   - fideos_instantaneos
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Sopa instantánea complementada con verduras, salsas y botanas.
     description_en: >
-      Sopa instantánea complementada con verduras, salsas y botanas.
+      Sopa instantánea complementada with vegetables, salsas and botanas.

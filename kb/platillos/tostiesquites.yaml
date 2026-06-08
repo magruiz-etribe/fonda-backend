@@ -1,6 +1,5 @@
 canonical_name: tostiesquites
 common_names:
-  - Tostiesquites
 category: platillo_principal
 base_ingredients:
   - elote
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Esquites servidos sobre frituras crujientes.
     description_en: >
-      Esquites servidos sobre frituras crujientes.
+      Corn and Chips Snack made with corn, frituras, cheese and mayonnaise.

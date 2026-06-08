@@ -1,6 +1,5 @@
 canonical_name: dulce_de_leche_quemada
 common_names:
-  - Dulce de leche quemada
 category: platillo_principal
 base_ingredients:
   - leche
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Dulce tradicional cocido hasta caramelizar.
     description_en: >
-      Dulce tradicional cocido hasta caramelizar.
+      Dulce traditional cooked hasta caramelizar.

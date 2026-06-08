@@ -1,6 +1,5 @@
 canonical_name: atole_de_guayaba
 common_names:
-  - Atole de guayaba
 category: platillo_principal
 base_ingredients:
   - guayaba
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Atole aromatizado con pulpa de guayaba.
     description_en: >
-      Atole aromatizado con pulpa de guayaba.
+      Atole flavored with pulp of guava.

@@ -1,6 +1,5 @@
 canonical_name: atole_de_vainilla
 common_names:
-  - Atole de vainilla
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida caliente espesa de maíz con vainilla.
     description_en: >
-      Bebida caliente espesa de maíz con vainilla.
+      Drink caliente thick of corn with vainilla.

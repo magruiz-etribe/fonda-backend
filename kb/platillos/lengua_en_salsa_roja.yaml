@@ -1,6 +1,5 @@
 canonical_name: lengua_en_salsa_roja
 common_names:
-  - Lengua en salsa roja
 category: platillo_principal
 base_ingredients:
   - lengua
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Lengua de res en salsa roja.
     description_en: >
-      Lengua de res en salsa roja.
+      Lengua of beef in sauce roja.

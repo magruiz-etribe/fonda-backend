@@ -1,6 +1,5 @@
 canonical_name: bunuelos
 common_names:
-  - Buñuelos
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Discos de masa frita espolvoreados con azúcar y canela.
     description_en: >
-      Discos de masa frita espolvoreados con azúcar y canela.
+      Discos of masa frita espolvoreados with sugar and canela.

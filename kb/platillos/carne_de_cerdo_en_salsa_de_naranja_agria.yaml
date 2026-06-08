@@ -1,6 +1,5 @@
 canonical_name: carne_de_cerdo_en_salsa_de_naranja_agria
 common_names:
-  - Carne de cerdo en salsa de naranja agria
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cerdo guisado con naranja agria estilo casero.
     description_en: >
-      Cerdo guisado con naranja agria estilo casero.
+      Pork stewed with sour orange estilo casero.

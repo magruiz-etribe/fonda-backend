@@ -1,6 +1,5 @@
 canonical_name: atole_de_chocolate
 common_names:
-  - Atole de chocolate
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Atole espeso con cacao.
     description_en: >
-      Atole espeso con cacao.
+      Atole thick with cacao.

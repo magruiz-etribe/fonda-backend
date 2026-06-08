@@ -1,6 +1,5 @@
 canonical_name: pavo_en_adobo_navideno
 common_names:
-  - Pavo en adobo navideño
 category: platillo_principal
 base_ingredients:
   - pavo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pavo marinado en adobo de chiles secos.
     description_en: >
-      Pavo marinado en adobo de chiles secos.
+      Pavo marinated in adobo of chiles secos.

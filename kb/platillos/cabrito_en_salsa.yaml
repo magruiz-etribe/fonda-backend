@@ -1,6 +1,5 @@
 canonical_name: cabrito_en_salsa
 common_names:
-  - Cabrito en salsa
 category: platillo_principal
 base_ingredients:
   - cabrito
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cabrito cocido en salsa de chiles y especias.
     description_en: >
-      Cabrito cocido en salsa de chiles y especias.
+      Cabrito cooked in sauce of chiles and spices.

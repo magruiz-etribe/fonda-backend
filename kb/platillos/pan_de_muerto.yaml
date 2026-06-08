@@ -1,6 +1,5 @@
 canonical_name: pan_de_muerto
 common_names:
-  - Pan de muerto
 category: platillo_principal
 base_ingredients:
   - harina
@@ -21,4 +20,4 @@ variants:
     description_es: >
       Pan dulce aromático de temporada de Día de Muertos.
     description_en: >
-      Pan dulce aromático de temporada de Día de Muertos.
+      Pan dulce aromático of temporada of Día of Muertos.

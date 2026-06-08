@@ -1,34 +1,35 @@
 canonical_name: barbacoa
 common_names:
-  - Barbacoa de res
-  - Barbacoa de borrego
+  - barbacoa
+  - barbacoa de res
+  - barbacoa de borrego
 category: platillo_principal
 base_ingredients:
-  - res
+  - carne
   - ajo
+  - sal
   - especias
 variants:
   de_res:
     name_es: Barbacoa de res
-    name_en: Mexican Beef Barbacoa
+    name_en: Beef Barbacoa
     extra_ingredients:
       - res
-      - ajo
-      - especias
-    technique: 
+      - hoja_de_maguey
+    technique: cocción lenta de res en vapor o horno hasta deshebrarse
     description_es: >
-      Carne cocida lentamente hasta quedar suave y jugosa.
+      Carne de res cocida lentamente hasta quedar suave y jugosa.
     description_en: >
-      Carne cocida lentamente hasta quedar suave y jugosa.
+      Beef slow-cooked until fall-apart tender — traditionally steamed with maguey leaves for deep, earthy flavor.
   de_borrego:
     name_es: Barbacoa de borrego
     name_en: Lamb Barbacoa
     extra_ingredients:
       - borrego
       - hoja_de_maguey
-      - especias
-    technique: 
+      - aguacate_hoja
+    technique: borrego cocido lentamente en horno de tierra o vapor
     description_es: >
       Borrego cocido tradicionalmente en horno de tierra.
     description_en: >
-      Borrego cocido tradicionalmente en horno de tierra.
+      Lamb slow-cooked in an earthen pit or steamer until succulent — the classic weekend barbacoa.

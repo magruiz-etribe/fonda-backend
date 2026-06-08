@@ -1,6 +1,5 @@
 canonical_name: mazapan_de_cacahuate
 common_names:
-  - Mazapán de cacahuate
 category: platillo_principal
 base_ingredients:
   - cacahuate
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Dulce desmoronable elaborado con cacahuate molido.
     description_en: >
-      Dulce desmoronable elaborado con cacahuate molido.
+      Dulce desmoronable made with cacahuate molido.

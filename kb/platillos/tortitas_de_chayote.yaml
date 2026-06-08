@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_chayote
 common_names:
-  - Tortitas de chayote
 category: platillo_principal
 base_ingredients:
   - chayote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas suaves de chayote hervido.
     description_en: >
-      Tortitas suaves de chayote hervido.
+      Tortitas suaves of chayote hervido.

@@ -1,6 +1,5 @@
 canonical_name: huaraches
 common_names:
-  - Huarache
 category: antojito
 base_ingredients:
   - masa_de_maiz
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Antojito elaborado con masa de maíz alargada cubierta con diversos ingredientes.
     description_en: >
-      Antojito elaborado con masa de maíz alargada cubierta con diversos ingredientes.
+      Mexican Huarache made with corn masa, beans, carne and salsa.

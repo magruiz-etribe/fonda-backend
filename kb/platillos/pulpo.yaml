@@ -1,6 +1,5 @@
 canonical_name: pulpo
 common_names:
-  - Pulpo enamorado
 category: platillo_principal
 base_ingredients:
   - pulpo
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Ensalada fresca de pulpo con verduras y aderezos cítricos.
     description_en: >
-      Ensalada fresca de pulpo con verduras y aderezos cítricos.
+      Salad fresca of pulpo with vegetables and aderezos cítricos.

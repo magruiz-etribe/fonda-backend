@@ -1,6 +1,5 @@
 canonical_name: tasajo
 common_names:
-  - Tasajo
 category: platillo_principal
 base_ingredients:
   - res
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Carne de res salada y asada típica de Oaxaca.
     description_en: >
-      Carne de res salada y asada típica de Oaxaca.
+      Oaxacan Beef Tasajo made with beef and sal.

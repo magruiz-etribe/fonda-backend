@@ -1,6 +1,5 @@
 canonical_name: tlacoyos_de_frijol
 common_names:
-  - Tlacoyos de frijol
 category: platillo_principal
 base_ingredients:
   - masa_azul_o_blanca
@@ -19,4 +18,4 @@ variants:
     description_es: >
       Tlacoyos rellenos de frijol.
     description_en: >
-      Tlacoyos rellenos de frijol.
+      Tlacoyos rellenos of bean.

@@ -1,7 +1,6 @@
 canonical_name: mole_de_olla
 common_names:
   - caldo de mole
-  - Mole de olla
 category: caldo
 base_ingredients:
   - carne_de_res
@@ -25,4 +24,4 @@ variants:
     description_es: >
       Caldo tradicional con carne de res, verduras y chile.
     description_en: >
-      Caldo tradicional con carne de res, verduras y chile.
+      Beef and Vegetable Soup made with beef, corn, zucchini and guajillo chile.

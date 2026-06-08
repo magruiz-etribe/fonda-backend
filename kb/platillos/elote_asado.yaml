@@ -1,6 +1,5 @@
 canonical_name: elote_asado
 common_names:
-  - Elote asado
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Elote cocinado a la parrilla y servido con diversos condimentos.
     description_en: >
-      Elote cocinado a la parrilla y servido con diversos condimentos.
+      Grilled Corn on the Cob made with corn, mantequilla and chile en polvo.

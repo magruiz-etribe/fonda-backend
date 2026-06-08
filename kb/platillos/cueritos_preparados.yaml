@@ -1,6 +1,5 @@
 canonical_name: cueritos_preparados
 common_names:
-  - Cueritos preparados
 category: platillo_principal
 base_ingredients:
   - cueritos
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Cueritos servidos con verduras frescas y salsa.
     description_en: >
-      Cueritos servidos con verduras frescas y salsa.
+      Cueritos servidos with vegetables fresh and sauce.

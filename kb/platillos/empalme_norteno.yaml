@@ -1,6 +1,5 @@
 canonical_name: empalme_norteno
 common_names:
-  - Empalme norteño
 category: platillo_principal
 base_ingredients:
   - tortilla
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortillas superpuestas con frijoles y carne.
     description_en: >
-      Tortillas superpuestas con frijoles y carne.
+      Tortillas superpuestas with beans and beef.

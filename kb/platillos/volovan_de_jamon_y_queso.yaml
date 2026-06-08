@@ -1,6 +1,5 @@
 canonical_name: volovan_de_jamon_y_queso
 common_names:
-  - Volován de jamón y queso
 category: platillo_principal
 base_ingredients:
   - hojaldre
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Hojaldre relleno con jamón y queso.
     description_en: >
-      Hojaldre relleno con jamón y queso.
+      Hojaldre stuffed with jamón and cheese.

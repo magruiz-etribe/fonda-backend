@@ -4,9 +4,6 @@ common_names:
   - pozole blanco
   - pozole rojo
   - pozole verde
-  - Pozole rojo
-  - Pozole verde
-  - Pozole blanco
 category: caldo
 base_ingredients:
   - maiz_cacahuazintle
@@ -17,26 +14,21 @@ base_ingredients:
 variants:
   blanco:
     name_es: Pozole blanco
-    name_en: White pozole
+    name_en: White Pozole
     extra_ingredients:
       - lechuga
       - rabano
       - oregano_seco
       - limon
       - tostadas
-      - maiz_cacahuazintle
-      - carne_de_cerdo
-      - ajo
-      - cebolla
-      - maiz_pozolero
     technique: cocción lenta de maíz y carne en caldo claro sin chile base
     description_es: >
       Pozole sin chile rojo, más suave.
     description_en: >
-      Pozole sin chile rojo, más suave.
+      Hominy and pork in a clear, mild broth — served with lettuce, radish, oregano, lime, and tostadas.
   rojo:
     name_es: Pozole rojo
-    name_en: Red pozole
+    name_en: Red Pozole
     extra_ingredients:
       - chile_guajillo
       - chile_ancho
@@ -46,19 +38,14 @@ variants:
       - oregano_seco
       - limon
       - tostadas
-      - maiz_cacahuazintle
-      - carne_de_cerdo
-      - ajo
-      - cebolla
-      - maiz_pozolero
     technique: caldo de chile guajillo y ancho hidratados, cocción lenta
     description_es: >
       Sopa de maíz pozolero con carne y chile rojo.
     description_en: >
-      Sopa de maíz pozolero con carne y chile rojo.
+      Hominy and pork in a rich red chile broth — a fonda staple garnished with fresh toppings.
   verde:
     name_es: Pozole verde
-    name_en: green pozole
+    name_en: Green Pozole
     extra_ingredients:
       - tomatillo
       - chile_serrano
@@ -67,13 +54,9 @@ variants:
       - lechuga
       - rabano
       - limon
-      - maiz_cacahuazintle
-      - carne_de_cerdo_o_pollo
-      - tomate_verde
-      - maiz_pozolero
       - pollo
     technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
     description_es: >
       Pozole con salsa verde de tomatillo y pepita.
     description_en: >
-      Pozole con salsa verde de tomatillo y pepita.
+      Hominy stew in a green tomatillo, pumpkin-seed, and serrano chile sauce — often made with pork or chicken.

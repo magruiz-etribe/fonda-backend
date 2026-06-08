@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_frijol
 common_names:
-  - Tortitas de frijol
 category: platillo_principal
 base_ingredients:
   - frijol
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas fritas de frijol molido.
     description_en: >
-      Tortitas fritas de frijol molido.
+      Tortitas fritas of bean molido.

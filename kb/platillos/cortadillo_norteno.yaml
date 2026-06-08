@@ -1,6 +1,5 @@
 canonical_name: cortadillo_norteno
 common_names:
-  - Cortadillo norteño
 category: platillo_principal
 base_ingredients:
   - res
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Carne de res en cubos cocinada con salsa roja.
     description_en: >
-      Carne de res en cubos cocinada con salsa roja.
+      Beef of beef in cubes cocinada with sauce roja.

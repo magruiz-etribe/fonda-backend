@@ -1,6 +1,5 @@
 canonical_name: tortas_de_huauzontle
 common_names:
-  - tortas de huauzontle
   - huauzontle
 category: platillo_principal
 base_ingredients:
@@ -20,9 +19,9 @@ variants:
       - caldo_de_pollo
     technique: capeado en huevo y harina, frito; salsa de chile pasilla hidratado
     description_es: >
-      ramitos de huauzontle cocido, rellenos comúnmente con queso fresco o panela, cubiertos con huevo batido (capeado) y fritos. Servidos con una salsa de chile pasilla, preparada con chiles secos, ajo, cebolla y caldo(res, pollo o agua).
+      Ramitos de huauzontle cocido, rellenos comúnmente con queso fresco o panela, cubiertos con huevo batido (capeado) y fritos. Servidos con una salsa de chile pasilla, preparada con chiles secos, ajo, cebolla y caldo(res, pollo o agua).
     description_en: >
-      Cooked huauzontle (herb similar to amaranth) stuffed with fresh cheese, egg-battered and fried — served in a smoky pasilla chile sauce.
+      Huauzontle patties in pasilla chili sauce. Capeado in huevo and harina, fried; salsa of chile pasilla hidratado.
   en_jitomate:
     name_es: Tortas de Huauzontle en Jitomate
     name_en: Huauzontle patties in tomato sauce
@@ -32,6 +31,6 @@ variants:
       - cebolla
     technique: capeado en huevo y harina, frito; salsa de jitomate cocido
     description_es: >
-      ramitos de huauzontle cocido, rellenos comúnmente con queso fresco o panela, cubiertos con huevo batido (capeado) y fritos. bañados en salsa de jitomate, preparada con tomate rojo, ajo, cebolla y, en ocasiones, un toque ligero de chile.
+      Ramitos de huauzontle cocido, rellenos comúnmente con queso fresco o panela, cubiertos con huevo batido (capeado) y fritos. bañados en salsa de jitomate, preparada con tomate rojo, ajo, cebolla y, en ocasiones, un toque ligero de chile.
     description_en: >
       Egg-battered huauzontle and cheese patties fried until golden, served in a tomato sauce with garlic and onion.

@@ -1,6 +1,5 @@
 canonical_name: bionico
 common_names:
-  - Bionico
 category: platillo_principal
 base_ingredients:
   - manzana
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Postre de frutas frescas con crema dulce.
     description_en: >
-      Postre de frutas frescas con crema dulce.
+      Postre of frutas frescas with crema dulce.

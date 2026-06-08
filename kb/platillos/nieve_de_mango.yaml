@@ -1,6 +1,5 @@
 canonical_name: nieve_de_mango
 common_names:
-  - Nieve de mango
 category: platillo_principal
 base_ingredients:
   - mango
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Nieve preparada con pulpa de mango natural.
     description_en: >
-      Nieve preparada con pulpa de mango natural.
+      Nieve preparada with pulp of mango natural.

@@ -1,6 +1,5 @@
 canonical_name: atole_blanco
 common_names:
-  - Atole blanco
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Bebida caliente preparada con masa de maíz.
     description_en: >
-      Bebida caliente preparada con masa de maíz.
+      Drink caliente preparada with masa of corn.

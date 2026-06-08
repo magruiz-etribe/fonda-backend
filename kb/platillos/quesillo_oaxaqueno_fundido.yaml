@@ -1,6 +1,5 @@
 canonical_name: quesillo_oaxaqueno_fundido
 common_names:
-  - Quesillo oaxaqueño fundido
 category: platillo_principal
 base_ingredients:
   - quesillo_oaxaqueno
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Quesillo fundido servido como entrada o acompañamiento tradicional.
     description_en: >
-      Quesillo fundido servido como entrada o acompañamiento tradicional.
+      Melted Oaxacan String Cheese made with quesillo oaxaqueno and mantequilla.

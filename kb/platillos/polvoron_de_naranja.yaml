@@ -1,6 +1,5 @@
 canonical_name: polvoron_de_naranja
 common_names:
-  - Polvorón de naranja
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Galleta suave con sabor a naranja.
     description_en: >
-      Galleta suave con sabor a naranja.
+      Galleta smooth with sabor a naranja.

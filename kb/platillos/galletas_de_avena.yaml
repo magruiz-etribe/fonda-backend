@@ -1,6 +1,5 @@
 canonical_name: galletas_de_avena
 common_names:
-  - Galletas de avena
 category: platillo_principal
 base_ingredients:
   - avena
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Galletas preparadas con avena y azúcar morena.
     description_en: >
-      Galletas preparadas con avena y azúcar morena.
+      Galletas preparadas with avena and sugar morena.

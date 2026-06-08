@@ -1,6 +1,5 @@
 canonical_name: discada
 common_names:
-  - Discada
 category: platillo_principal
 base_ingredients:
   - res
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Mezcla de carnes cocinadas en disco metálico.
     description_en: >
-      Mezcla de carnes cocinadas en disco metálico.
+      Mezcla of carnes cocinadas in disco metálico.

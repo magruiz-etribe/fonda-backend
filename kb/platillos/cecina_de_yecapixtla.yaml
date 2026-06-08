@@ -1,6 +1,5 @@
 canonical_name: cecina_de_yecapixtla
 common_names:
-  - Cecina de Yecapixtla
 category: platillo_principal
 base_ingredients:
   - res
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Carne delgada de res salada y asada.
     description_en: >
-      Carne delgada de res salada y asada.
+      Beef delgada of beef salada and asada.

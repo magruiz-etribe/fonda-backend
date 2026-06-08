@@ -1,6 +1,5 @@
 canonical_name: atole_de_pinole
 common_names:
-  - Atole de pinole
 category: platillo_principal
 base_ingredients:
   - pinole
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida tradicional hecha con maíz tostado molido.
     description_en: >
-      Bebida tradicional hecha con maíz tostado molido.
+      Drink traditional made with corn tostado molido.

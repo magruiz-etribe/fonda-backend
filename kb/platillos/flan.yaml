@@ -1,8 +1,5 @@
 canonical_name: flan
 common_names:
-  - flan napolitano
-  - Flan napolitano
-  - Flan de queso
 category: postre
 base_ingredients:
   - huevo
@@ -13,7 +10,7 @@ variants:
     name_en: Custard Flan
     extra_ingredients:
       - vainilla
-    technique: None
+    technique: 
     description_es: >
       Postre de leche, huevo, azúcar y vainilla, horneado o a baño maría.
     description_en: >
@@ -29,7 +26,7 @@ variants:
     description_es: >
       Postre cremoso elaborado con huevo y leche caramelizada.
     description_en: >
-      Postre cremoso elaborado con huevo y leche caramelizada.
+      Dessert creamy made with egg and milk caramelizada.
   de_queso:
     name_es: Flan de queso
     name_en: Cheese Flan
@@ -41,4 +38,4 @@ variants:
     description_es: >
       Variante del flan preparada con queso crema.
     description_en: >
-      Variante del flan preparada con queso crema.
+      Cheese Flan made with queso crema, egg and milk.

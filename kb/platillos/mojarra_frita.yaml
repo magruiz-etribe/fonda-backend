@@ -1,6 +1,5 @@
 canonical_name: mojarra_frita
 common_names:
-  - Mojarra frita
 category: platillo_principal
 base_ingredients:
   - mojarra
@@ -19,4 +18,4 @@ variants:
     description_es: >
       Mojarra frita entera estilo fonda.
     description_en: >
-      Mojarra frita entera estilo fonda.
+      Fried Tilapia made with mojarra, sal, aceite and limon.

@@ -1,6 +1,5 @@
 canonical_name: corbata
 common_names:
-  - Corbata
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce hojaldrado con forma de corbata.
     description_en: >
-      Pan dulce hojaldrado con forma de corbata.
+      Pan dulce hojaldrado with forma of corbata.

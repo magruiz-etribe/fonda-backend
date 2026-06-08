@@ -1,6 +1,5 @@
 canonical_name: dorilocos
 common_names:
-  - Dorilocos
 category: platillo_principal
 base_ingredients:
   - doritos
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Botana callejera preparada dentro de una bolsa de frituras.
     description_en: >
-      Botana callejera preparada dentro de una bolsa de frituras.
+      Botana callejera preparada dentro of una bolsa of frituras.

@@ -1,6 +1,5 @@
 canonical_name: butifarra_chiapaneca
 common_names:
-  - Butifarra chiapaneca
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Embutido tradicional de carne de cerdo condimentada.
     description_en: >
-      Embutido tradicional de carne de cerdo condimentada.
+      Chiapas Sausage made with pork, ajo and especias.

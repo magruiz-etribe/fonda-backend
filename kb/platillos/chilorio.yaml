@@ -1,6 +1,5 @@
 canonical_name: chilorio
 common_names:
-  - Chilorio
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cerdo deshebrado cocinado en salsa de chile pasilla.
     description_en: >
-      Cerdo deshebrado cocinado en salsa de chile pasilla.
+      Sinaloan Chilorio made with pork, chile pasilla and ajo.

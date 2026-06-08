@@ -1,6 +1,5 @@
 canonical_name: pastel_de_tres_leches
 common_names:
-  - Pastel de tres leches
 category: platillo_principal
 base_ingredients:
   - leche_evaporada
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bizcocho humedecido con mezcla de tres tipos de leche.
     description_en: >
-      Bizcocho humedecido con mezcla de tres tipos de leche.
+      Bizcocho humedecido with mezcla of tres tipos of milk.

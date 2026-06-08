@@ -1,6 +1,5 @@
 canonical_name: panque_de_nuez
 common_names:
-  - Panqué de nuez
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce húmedo elaborado con nuez picada.
     description_en: >
-      Pan dulce húmedo elaborado con nuez picada.
+      Pan dulce húmedo made with walnut picada.

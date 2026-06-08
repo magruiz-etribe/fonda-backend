@@ -1,6 +1,5 @@
 canonical_name: elote_preparado
 common_names:
-  - Elote preparado
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Elote cocido cubierto con mayonesa, queso y chile.
     description_en: >
-      Elote cocido cubierto con mayonesa, queso y chile.
+      Mexican Street Corn made with corn, mayonnaise and queso rallado.

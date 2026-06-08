@@ -1,8 +1,6 @@
 canonical_name: chimichanga
 common_names:
-  - chimichanga
   - chimichangas
-  - Chimichanga
 category: antojito
 base_ingredients:
   - tortilla_de_harina
@@ -22,4 +20,4 @@ variants:
     description_es: >
       Burrito relleno y posteriormente frito.
     description_en: >
-      Burrito relleno y posteriormente frito.
+      Burrito stuffed and posteriormente fried.

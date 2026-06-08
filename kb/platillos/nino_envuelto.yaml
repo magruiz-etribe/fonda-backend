@@ -1,6 +1,5 @@
 canonical_name: nino_envuelto
 common_names:
-  - Niño envuelto
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bizcocho enrollado relleno de crema o mermelada.
     description_en: >
-      Bizcocho enrollado relleno de crema o mermelada.
+      Swiss Roll Cake made with harina, egg and mermelada.

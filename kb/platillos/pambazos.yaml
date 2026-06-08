@@ -1,7 +1,5 @@
 canonical_name: pambazos
 common_names:
-  - Pambazos
-  - Pambazo
 category: antojito
 base_ingredients:
   - pan
@@ -18,11 +16,11 @@ variants:
       - crema
       - lechuga
       - salsa
-    technique: None
+    technique: 
     description_es: >
       Pan bañado en salsa roja y relleno de papa con chorizo.
     description_en: >
-      Pan bañado en salsa roja y relleno de papa con chorizo.
+      Pan topped in sauce roja and stuffed of potato with chorizo.
   pambazo:
     name_es: Pambazo
     name_en: Pambazo Sandwich
@@ -34,4 +32,4 @@ variants:
     description_es: >
       Pan remojado en salsa roja y relleno de papa con chorizo.
     description_en: >
-      Pan remojado en salsa roja y relleno de papa con chorizo.
+      Pan remojado in sauce roja and stuffed of potato with chorizo.

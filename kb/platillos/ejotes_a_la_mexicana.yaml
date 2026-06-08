@@ -1,6 +1,5 @@
 canonical_name: ejotes_a_la_mexicana
 common_names:
-  - Ejotes a la mexicana
 category: platillo_principal
 base_ingredients:
   - ejotes
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Ejotes preparados con jitomate, cebolla y chile.
     description_en: >
-      Ejotes preparados con jitomate, cebolla y chile.
+      Mexican-Style Green Beans made with green beans, tomato, onion and chile.

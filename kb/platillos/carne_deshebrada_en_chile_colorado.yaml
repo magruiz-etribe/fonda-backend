@@ -1,6 +1,5 @@
 canonical_name: carne_deshebrada_en_chile_colorado
 common_names:
-  - Carne deshebrada en chile colorado
 category: platillo_principal
 base_ingredients:
   - res
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Carne deshebrada en salsa roja tradicional.
     description_en: >
-      Carne deshebrada en salsa roja tradicional.
+      Beef shredded in sauce roja traditional.

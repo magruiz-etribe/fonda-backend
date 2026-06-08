@@ -1,6 +1,5 @@
 canonical_name: mueganos
 common_names:
-  - Muéganos
 category: platillo_principal
 base_ingredients:
   - harina
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Pequeños trozos de masa unidos con miel de piloncillo.
     description_en: >
-      Pequeños trozos de masa unidos con miel de piloncillo.
+      Pequeños trozos of masa unidos with miel of piloncillo.

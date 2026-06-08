@@ -1,6 +1,5 @@
 canonical_name: atole_de_elote_dulce
 common_names:
-  - Atole de elote dulce
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Bebida espesa hecha con granos de elote.
     description_en: >
-      Bebida espesa hecha con granos de elote.
+      Drink thick made with kernels of corn.

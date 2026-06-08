@@ -1,6 +1,5 @@
 canonical_name: rebanada_de_mantequilla
 common_names:
-  - Rebanada de mantequilla
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce suave cubierto con mantequilla y azúcar.
     description_en: >
-      Pan dulce suave cubierto con mantequilla y azúcar.
+      Pan dulce smooth topped with mantequilla and sugar.

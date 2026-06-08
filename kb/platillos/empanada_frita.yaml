@@ -1,11 +1,5 @@
 canonical_name: empanada_frita
 common_names:
-  - empanada
-  - Empanadas de camarón
-  - Empanadas de cazón
-  - Empanada de cajeta
-  - Empanada de piña
-  - Empanada de camote
 category: antojito
 base_ingredients:
   - masa
@@ -18,11 +12,11 @@ variants:
       - queso
       - carne
       - pollo
-    technique: None
+    technique: 
     description_es: >
       Masa doblada rellena de queso, carne o pollo, sellada y frita hasta dorarse.
     description_en: >
-      Masa doblada rellena de queso, carne o pollo, sellada y frita hasta dorarse.
+      Masa folded stuffed of cheese, beef or chicken, sellada and frita hasta dorarse.
   empanadas_de_camaron:
     name_es: Empanadas de camarón
     name_en: Shrimp Empanadas
@@ -34,7 +28,7 @@ variants:
     description_es: >
       Masa rellena de camarón sazonado y frita.
     description_en: >
-      Masa rellena de camarón sazonado y frita.
+      Masa stuffed of camarón sazonado and frita.
   empanadas_de_cazon:
     name_es: Empanadas de cazón
     name_en: Dogfish Empanadas
@@ -46,7 +40,7 @@ variants:
     description_es: >
       Empanadas rellenas con cazón guisado.
     description_en: >
-      Empanadas rellenas con cazón guisado.
+      Dogfish Empanadas made with cazon, corn masa and tomato.
   de_cajeta:
     name_es: Empanada de cajeta
     name_en: Cajeta Empanada
@@ -58,7 +52,7 @@ variants:
     description_es: >
       Empanada dulce rellena con cajeta.
     description_en: >
-      Empanada dulce rellena con cajeta.
+      Empanada dulce stuffed with cajeta.
   de_pina:
     name_es: Empanada de piña
     name_en: Pineapple Empanada
@@ -70,7 +64,7 @@ variants:
     description_es: >
       Empanada dulce rellena con mermelada de piña.
     description_en: >
-      Empanada dulce rellena con mermelada de piña.
+      Empanada dulce stuffed with mermelada of piña.
   de_camote:
     name_es: Empanada de camote
     name_en: Sweet Potato Empanada
@@ -82,4 +76,4 @@ variants:
     description_es: >
       Empanada rellena con dulce de camote.
     description_en: >
-      Empanada rellena con dulce de camote.
+      Empanada stuffed with dulce of camote.

@@ -1,6 +1,5 @@
 canonical_name: queso_fresco_asado
 common_names:
-  - Queso fresco asado
 category: platillo_principal
 base_ingredients:
   - queso_fresco
@@ -14,4 +13,4 @@ variants:
     description_es: >
       Queso fresco dorado en comal, sencillo y casero.
     description_en: >
-      Queso fresco dorado en comal, sencillo y casero.
+      Cheese fresh golden in comal, sencillo and casero.

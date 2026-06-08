@@ -1,6 +1,5 @@
 canonical_name: alegria
 common_names:
-  - Alegría
 category: platillo_principal
 base_ingredients:
   - amaranto
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dulce elaborado con amaranto y miel o piloncillo.
     description_en: >
-      Dulce elaborado con amaranto y miel o piloncillo.
+      Dulce made with amaranto and miel or piloncillo.

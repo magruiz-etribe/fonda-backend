@@ -1,7 +1,6 @@
 canonical_name: higado_encebollado
 common_names:
   - Hígado con cebolla
-  - Higado encebollado
 category: platillo_principal
 base_ingredients:
   - higado
@@ -21,4 +20,4 @@ variants:
     description_es: >
       Hígado de res salteado con cebolla.
     description_en: >
-      Hígado de res salteado con cebolla.
+      Hígado of beef salteado with onion.

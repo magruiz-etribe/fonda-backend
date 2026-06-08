@@ -1,6 +1,5 @@
 canonical_name: coctel_de_camaron
 common_names:
-  - Cóctel de camarón
 category: platillo_principal
 base_ingredients:
   - camaron
@@ -22,4 +21,4 @@ variants:
     description_es: >
       Preparación fría de camarones servidos en salsa de tomate condimentada.
     description_en: >
-      Preparación fría de camarones servidos en salsa de tomate condimentada.
+      Preparación fría of camarones servidos in sauce of tomate condimentada.

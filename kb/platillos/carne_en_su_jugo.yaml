@@ -1,7 +1,5 @@
 canonical_name: carne_en_su_jugo
 common_names:
-  - carne en su jugo
-  - Carne en su jugo estilo fonda
 category: caldo
 base_ingredients:
   - carne_de_res
@@ -35,4 +33,4 @@ variants:
     description_es: >
       Carne de res en su propio jugo con frijoles y tocino.
     description_en: >
-      Carne de res en su propio jugo con frijoles y tocino.
+      Beef of beef in su propio juice with beans and tocino.

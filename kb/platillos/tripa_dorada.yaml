@@ -1,6 +1,5 @@
 canonical_name: tripa_dorada
 common_names:
-  - Tripa dorada
 category: platillo_principal
 base_ingredients:
   - tripa
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tripa de res frita hasta quedar crujiente.
     description_en: >
-      Tripa de res frita hasta quedar crujiente.
+      Tripa of beef frita until crispy.

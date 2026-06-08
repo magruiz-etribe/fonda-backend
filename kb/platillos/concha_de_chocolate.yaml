@@ -1,6 +1,5 @@
 canonical_name: concha_de_chocolate
 common_names:
-  - Concha de chocolate
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Variante de la concha con cubierta sabor chocolate.
     description_en: >
-      Variante de la concha con cubierta sabor chocolate.
+      Chocolate Concha Sweet Bread made with harina, cacao and sugar.

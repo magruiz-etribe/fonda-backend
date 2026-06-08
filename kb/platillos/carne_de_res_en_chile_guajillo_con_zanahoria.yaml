@@ -1,6 +1,5 @@
 canonical_name: carne_de_res_en_chile_guajillo_con_zanahoria
 common_names:
-  - Carne de res en chile guajillo con zanahoria
 category: platillo_principal
 base_ingredients:
   - res
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Guiso de res con zanahoria en salsa roja.
     description_en: >
-      Guiso de res con zanahoria en salsa roja.
+      Stew of beef with carrot in sauce roja.

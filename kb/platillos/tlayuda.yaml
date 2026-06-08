@@ -1,6 +1,5 @@
 canonical_name: tlayuda
 common_names:
-  - Tlayuda
 category: platillo_principal
 base_ingredients:
   - tortilla_tlayuda
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortilla grande y crujiente cubierta con frijoles, carne y queso.
     description_en: >
-      Tortilla grande y crujiente cubierta con frijoles, carne y queso.
+      Oaxacan Giant Tortilla made with tortilla tlayuda, asiento and quesillo.

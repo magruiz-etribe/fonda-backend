@@ -1,6 +1,5 @@
 canonical_name: bunuelos_banados
 common_names:
-  - Buñuelos bañados
 category: platillo_principal
 base_ingredients:
   - bunuelos
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Buñuelos cubiertos con miel de piloncillo.
     description_en: >
-      Buñuelos cubiertos con miel de piloncillo.
+      Buñuelos cubiertos with miel of piloncillo.

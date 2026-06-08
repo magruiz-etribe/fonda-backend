@@ -1,6 +1,5 @@
 canonical_name: lengua_en_salsa_verde
 common_names:
-  - Lengua en salsa verde
 category: platillo_principal
 base_ingredients:
   - lengua_de_res
@@ -21,4 +20,4 @@ variants:
     description_es: >
       Lengua de res en salsa verde.
     description_en: >
-      Lengua de res en salsa verde.
+      Lengua of beef in sauce verde.

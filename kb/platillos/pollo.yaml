@@ -1,19 +1,17 @@
 canonical_name: pollo
 common_names:
-  - Pollo en adobo
-  - Pollo encacahuatado
-  - Pollo a la jardinera
-  - Pollo en salsa de chipotle
-  - Pollo con verduras
-  - Pollo en salsa de guajillo
-  - Pollo en salsa de pasilla
-  - Pollo en salsa de tomatillo asado
-  - Pollo con chipotle y papa
-  - Pollo rostizado estilo fonda
-  - Pollo en salsa de chile cascabel
-  - Pollo en salsa de cacahuate
-  - Pollo en salsa de naranja
-  - Pollo en salsa de cerveza
+  - pollo en adobo
+  - pollo encacahuatado
+  - pollo a la jardinera
+  - pollo en salsa de chipotle
+  - pollo en salsa de guajillo
+  - pollo en salsa de pasilla
+  - pollo en salsa de tomatillo asado
+  - pollo con chipotle y papa
+  - pollo rostizado
+  - pollo en salsa de chile cascabel
+  - pollo en salsa de naranja
+  - pollo en salsa de cerveza
 category: platillo_principal
 base_ingredients:
   - pollo
@@ -25,169 +23,126 @@ variants:
     name_es: Pollo en adobo
     name_en: Chicken Adobo
     extra_ingredients:
-      - pollo
       - chile_ancho
       - ajo
       - vinagre
-    technique: 
+    technique: pollo marinado en adobo de chiles secos y cocido en salsa
     description_es: >
       Pollo marinado en adobo de chiles secos.
     description_en: >
-      Pollo marinado en adobo de chiles secos.
+      Chicken marinated in dried chile adobo with garlic and vinegar — deep and tangy.
   encacahuatado:
     name_es: Pollo encacahuatado
     name_en: Peanut Sauce Chicken
     extra_ingredients:
-      - pollo
       - cacahuate
       - chile_ancho
-    technique: 
+    technique: pollo guisado en salsa de cacahuate molido con chile
     description_es: >
       Pollo bañado en salsa preparada con cacahuate molido.
     description_en: >
-      Pollo bañado en salsa preparada con cacahuate molido.
+      Chicken bathed in a rich sauce of ground peanuts and dried chile.
   a_la_jardinera:
     name_es: Pollo a la jardinera
-    name_en: Garden-Style Chicken
+    name_en: Garden-style Chicken
     extra_ingredients:
-      - pollo
       - zanahoria
       - chicharos
       - papa
-    technique: 
+      - calabaza
+    technique: pollo guisado con verduras mixtas en caldo ligero
     description_es: >
-      Pollo cocinado con diversas verduras frescas.
+      Pollo cocinado con zanahoria, chícharos, papa y calabaza.
     description_en: >
-      Pollo cocinado con diversas verduras frescas.
+      Chicken stewed with mixed vegetables — carrot, peas, potato, and squash.
   en_salsa_de_chipotle:
     name_es: Pollo en salsa de chipotle
     name_en: Chipotle Chicken
     extra_ingredients:
-      - pollo
       - chipotle
       - crema
-    technique: 
+      - papa
+    technique: pollo guisado en salsa cremosa de chipotle; a veces con papa
     description_es: >
-      Pollo en salsa cremosa de chipotle.
+      Pollo en salsa cremosa de chipotle; común con papa.
     description_en: >
-      Pollo en salsa cremosa de chipotle.
-  con_verduras:
-    name_es: Pollo con verduras
-    name_en: Chicken with Vegetables
-    extra_ingredients:
-      - pollo
-      - zanahoria
-      - calabaza
-    technique: 
-    description_es: >
-      Guiso de pollo con verduras mixtas.
-    description_en: >
-      Guiso de pollo con verduras mixtas.
+      Chicken in creamy chipotle sauce — smoky, mildly spicy, often with potato.
   en_salsa_de_guajillo:
     name_es: Pollo en salsa de guajillo
     name_en: Chicken in Guajillo Sauce
     extra_ingredients:
-      - pollo
       - chile_guajillo
       - ajo
-    technique: 
+      - jitomate
+    technique: pollo cocido en salsa roja de guajillo
     description_es: >
       Pollo en salsa roja de guajillo.
     description_en: >
-      Pollo en salsa roja de guajillo.
+      Chicken simmered in mild red guajillo chile and tomato sauce.
   en_salsa_de_pasilla:
     name_es: Pollo en salsa de pasilla
     name_en: Chicken in Pasilla Sauce
     extra_ingredients:
-      - pollo
       - chile_pasilla
       - jitomate
-    technique: 
+    technique: pollo guisado en salsa oscura de chile pasilla
     description_es: >
       Pollo en salsa oscura de chile pasilla.
     description_en: >
-      Pollo en salsa oscura de chile pasilla.
+      Chicken in dark pasilla chile sauce — earthy and moderately spicy.
   en_salsa_de_tomatillo_asado:
     name_es: Pollo en salsa de tomatillo asado
     name_en: Chicken in Roasted Tomatillo Sauce
     extra_ingredients:
-      - pollo
       - tomatillo
       - chile_serrano
-    technique: 
+    technique: pollo guisado en salsa verde de tomatillo tatemado
     description_es: >
-      Pollo en salsa verde de tomatillo tatemado.
+      Pollo en salsa verde de tomatillo asado.
     description_en: >
-      Pollo en salsa verde de tomatillo tatemado.
-  con_chipotle_y_papa:
-    name_es: Pollo con chipotle y papa
-    name_en: Chicken with Chipotle and Potato
-    extra_ingredients:
-      - pollo
-      - papa
-      - chipotle
-    technique: 
-    description_es: >
-      Guiso casero de pollo con papa en chipotle.
-    description_en: >
-      Guiso casero de pollo con papa en chipotle.
-  rostizado_estilo_fonda:
-    name_es: Pollo rostizado estilo fonda
+      Chicken in roasted tomatillo green sauce — tangy and bright.
+  rostizado:
+    name_es: Pollo rostizado
     name_en: Roast Chicken
     extra_ingredients:
-      - pollo
       - ajo
       - especias
-    technique: 
+    technique: pollo entero sazonado y rostizado al horno o en rotisserie
     description_es: >
       Pollo entero rostizado con especias simples.
     description_en: >
-      Pollo entero rostizado con especias simples.
+      Whole chicken roasted with simple spices — golden skin and juicy meat.
   en_salsa_de_chile_cascabel:
     name_es: Pollo en salsa de chile cascabel
     name_en: Chicken in Cascabel Sauce
     extra_ingredients:
-      - pollo
       - chile_cascabel
       - jitomate
-    technique: 
+    technique: pollo guisado en salsa de chile cascabel y jitomate
     description_es: >
       Pollo en salsa ligeramente picante de chile cascabel.
     description_en: >
-      Pollo en salsa ligeramente picante de chile cascabel.
-  en_salsa_de_cacahuate:
-    name_es: Pollo en salsa de cacahuate
-    name_en: Chicken in Peanut Sauce
-    extra_ingredients:
-      - pollo
-      - cacahuate
-      - especias
-    technique: 
-    description_es: >
-      Pollo guisado en salsa de cacahuate.
-    description_en: >
-      Pollo guisado en salsa de cacahuate.
+      Chicken in cascabel chile sauce — nutty, mildly spicy, and deep red.
   en_salsa_de_naranja:
     name_es: Pollo en salsa de naranja
     name_en: Chicken in Orange Sauce
     extra_ingredients:
-      - pollo
       - naranja
       - especias
-    technique: 
+    technique: pollo guisado en salsa dulce de jugo de naranja
     description_es: >
       Pollo en salsa dulce de naranja.
     description_en: >
-      Pollo en salsa dulce de naranja.
+      Chicken in sweet orange sauce — bright citrus notes with warm spices.
   en_salsa_de_cerveza:
     name_es: Pollo en salsa de cerveza
     name_en: Chicken in Beer Sauce
     extra_ingredients:
-      - pollo
       - cerveza
       - ajo
-    technique: 
+      - jitomate
+    technique: pollo cocido en salsa de cerveza, jitomate y especias
     description_es: >
       Pollo cocido en salsa de cerveza y especias.
     description_en: >
-      Pollo cocido en salsa de cerveza y especias.
+      Chicken braised in beer, tomato, and spices — savory with a malty depth.

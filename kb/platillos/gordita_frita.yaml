@@ -1,148 +1,36 @@
 canonical_name: gordita_frita
 common_names:
   - gordita
-  - Gorditas de nata
-  - Gorditas de maíz quebrado
-  - Gorditas de requesón
-  - Gorditas de migajas
-  - Gorditas de frijol
-  - Gorditas de queso
-  - Gorditas de papa
-  - Gorditas de chicharrón
-  - Gorditas de pollo
-  - Gorditas de frijol con queso
+  - gorditas de chicharrón
+  - gorditas de frijol
+  - gorditas de queso
+  - gorditas de papa
+  - gorditas de pollo
+  - gorditas de requesón
+  - gorditas de migajas
+  - gorditas de frijol con queso
 category: antojito
 base_ingredients:
   - masa_de_maiz
 variants:
   gordita_frita:
-    name_es: Gordita Frita
+    name_es: Gordita frita
     name_en: Fried Stuffed Corn Cake
     extra_ingredients:
-      - chicharr_n
-      - queso
+      - chicharrón
       - frijoles
+      - queso
+      - papa
+      - pollo
+      - requesón
+      - migajas_de_chicharron
       - salsa
       - cilantro
       - cebolla
-    technique: None
+    technique: masa gruesa rellena, frita hasta inflarse y quedar crujiente por fuera
     description_es: >
-      Masa gruesa de maíz rellena de guisos como chicharrón, frijoles o queso, cocinada en aceite hasta quedar inflada y crujiente por fuera. acompañada con salsa y queso al gusto
+      Masa gruesa de maíz rellena de guisos como chicharrón, frijoles, queso, papa o pollo,
+      cocinada en aceite hasta quedar inflada y crujiente por fuera, acompañada con salsa al gusto.
     description_en: >
-      Masa gruesa de maíz rellena de guisos como chicharrón, frijoles o queso, cocinada en aceite hasta quedar inflada y crujiente por fuera. acompañada con salsa y queso al gusto
-  gorditas_de_nata:
-    name_es: Gorditas de nata
-    name_en: Cream Gorditas
-    extra_ingredients:
-      - harina
-      - nata
-      - azucar
-    technique: 
-    description_es: >
-      Panecillos dulces elaborados con nata.
-    description_en: >
-      Panecillos dulces elaborados con nata.
-  gorditas_de_maiz_quebrado:
-    name_es: Gorditas de maíz quebrado
-    name_en: Cracked Corn Gorditas
-    extra_ingredients:
-      - maiz_quebrado
-      - manteca
-    technique: 
-    description_es: >
-      Gorditas elaboradas con maíz molido grueso.
-    description_en: >
-      Gorditas elaboradas con maíz molido grueso.
-  gorditas_de_requeson:
-    name_es: Gorditas de requesón
-    name_en: Cottage Cheese Gorditas
-    extra_ingredients:
-      - harina_o_masa
-      - requeson
-    technique: 
-    description_es: >
-      Gorditas rellenas de requesón dulce o salado.
-    description_en: >
-      Gorditas rellenas de requesón dulce o salado.
-  gorditas_de_migajas:
-    name_es: Gorditas de migajas
-    name_en: Pork Crumb Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - migajas_de_chicharron
-    technique: 
-    description_es: >
-      Gorditas rellenas con migajas de chicharrón.
-    description_en: >
-      Gorditas rellenas con migajas de chicharrón.
-  gorditas_de_frijol:
-    name_es: Gorditas de frijol
-    name_en: Bean-Stuffed Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - frijol
-      - manteca
-      - frijoles
-    technique: 
-    description_es: >
-      Gorditas rellenas de frijol refrito.
-    description_en: >
-      Gorditas rellenas de frijol refrito.
-  gorditas_de_queso:
-    name_es: Gorditas de queso
-    name_en: Cheese Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - queso
-    technique: 
-    description_es: >
-      Gorditas rellenas de queso.
-    description_en: >
-      Gorditas rellenas de queso.
-  gorditas_de_papa:
-    name_es: Gorditas de papa
-    name_en: Potato Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - papa
-    technique: 
-    description_es: >
-      Gorditas rellenas de papa sazonada.
-    description_en: >
-      Gorditas rellenas de papa sazonada.
-  gorditas_de_chicharron:
-    name_es: Gorditas de chicharrón
-    name_en: Pork Crackling Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - chicharron
-      - salsa
-    technique: 
-    description_es: >
-      Gorditas rellenas de chicharrón prensado.
-    description_en: >
-      Gorditas rellenas de chicharrón prensado.
-  gorditas_de_pollo:
-    name_es: Gorditas de pollo
-    name_en: Chicken Gorditas
-    extra_ingredients:
-      - masa_de_maiz
-      - pollo
-      - salsa
-    technique: 
-    description_es: >
-      Gorditas rellenas de pollo deshebrado.
-    description_en: >
-      Gorditas rellenas de pollo deshebrado.
-  gorditas_de_frijol_con_queso:
-    name_es: Gorditas de frijol con queso
-    name_en: Bean and Cheese Gorditas
-    extra_ingredients:
-      - frijol
-      - queso
-      - masa_de_maiz
-    technique: 
-    description_es: >
-      Gorditas rellenas de frijol y queso.
-    description_en: >
-      Gorditas rellenas de frijol y queso.
+      Thick corn masa pocket stuffed with chicharrón, beans, cheese, potato, or shredded chicken,
+      deep-fried until puffed and crisp outside — served with salsa, cilantro, and onion.

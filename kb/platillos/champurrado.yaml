@@ -1,6 +1,5 @@
 canonical_name: champurrado
 common_names:
-  - Champurrado
 category: platillo_principal
 base_ingredients:
   - chocolate
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Atole espeso con chocolate y piloncillo.
     description_en: >
-      Atole espeso con chocolate y piloncillo.
+      Atole thick with chocolate and piloncillo.

@@ -1,6 +1,5 @@
 canonical_name: beso
 common_names:
-  - Beso
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dos piezas de pan unidas por relleno dulce.
     description_en: >
-      Dos piezas de pan unidas por relleno dulce.
+      Dos piezas of pan unidas por stuffed dulce.

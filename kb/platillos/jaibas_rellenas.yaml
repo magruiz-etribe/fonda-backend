@@ -1,6 +1,5 @@
 canonical_name: jaibas_rellenas
 common_names:
-  - Jaibas rellenas
 category: platillo_principal
 base_ingredients:
   - jaiba
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Caparazones de jaiba rellenos con carne sazonada.
     description_en: >
-      Caparazones de jaiba rellenos con carne sazonada.
+      Caparazones of jaiba rellenos with beef sazonada.

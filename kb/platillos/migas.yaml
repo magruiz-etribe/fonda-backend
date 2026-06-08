@@ -1,6 +1,5 @@
 canonical_name: migas
 common_names:
-  - Migas
 category: platillo_principal
 base_ingredients:
   - tortilla
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Trozos de tortilla frita cocidos con huevo y salsa.
     description_en: >
-      Trozos de tortilla frita cocidos con huevo y salsa.
+      Mexican Migas made with tortilla, egg, chile and tomato.

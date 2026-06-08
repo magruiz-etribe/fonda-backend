@@ -1,6 +1,5 @@
 canonical_name: ate_de_guayaba
 common_names:
-  - Ate de guayaba
 category: platillo_principal
 base_ingredients:
   - guayaba
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Dulce compacto preparado con guayaba cocida.
     description_en: >
-      Dulce compacto preparado con guayaba cocida.
+      Guava Paste made with guava and sugar.

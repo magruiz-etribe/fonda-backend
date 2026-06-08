@@ -1,6 +1,5 @@
 canonical_name: champurrado_de_chocolate_blanco
 common_names:
-  - Champurrado de chocolate blanco
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Variante del champurrado con chocolate blanco.
     description_en: >
-      Variante del champurrado con chocolate blanco.
+      Variante del champurrado with chocolate blanco.

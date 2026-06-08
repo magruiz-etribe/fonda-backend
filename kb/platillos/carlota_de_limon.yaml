@@ -1,6 +1,5 @@
 canonical_name: carlota_de_limon
 common_names:
-  - Carlota de limón
 category: platillo_principal
 base_ingredients:
   - galletas_maria
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Postre frío preparado con galletas y crema de limón.
     description_en: >
-      Postre frío preparado con galletas y crema de limón.
+      Postre frío preparado with galletas and crema of limón.

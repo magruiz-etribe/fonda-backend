@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_calabaza_en_salsa_verde
 common_names:
-  - Tortitas de calabaza en salsa verde
 category: platillo_principal
 base_ingredients:
   - calabaza
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas ligeras de calabaza en salsa verde.
     description_en: >
-      Tortitas ligeras de calabaza en salsa verde.
+      Tortitas ligeras of calabaza in sauce verde.

@@ -7,13 +7,10 @@ common_names:
   - tacos dorados de papa
   - tacos dorados de pollo
   - tacos dorados de res
-  - Flautas de pollo
-  - Tacos dorados
-  - Tacos dorados de papa
-  - Tacos dorados de pollo
-  - Tacos dorados de frijol
-  - Tacos dorados de pollo con lechuga
-  - Tacos dorados de frijol con queso
+  - tacos dorados de frijol
+  - tacos dorados de barbacoa
+  - tacos dorados de chicharrón
+  - tacos dorados de camarón
 category: antojito
 base_ingredients:
   - tortilla_de_maiz
@@ -21,7 +18,7 @@ base_ingredients:
   - sal
 variants:
   papa:
-    name_es: Tacos Dorados de Papa
+    name_es: Tacos dorados de papa
     name_en: Crispy Potato Tacos
     extra_ingredients:
       - papa
@@ -32,11 +29,11 @@ variants:
       - aguacate
     technique: tortilla rellena de puré de papa sazonado, frita hasta dorar
     description_es: >
-      Tortillas de maíz rellenas de puré de papa sazonado y fritas hasta quedar crujientes.
+      Tortillas rellenas de papa sazonada y fritas hasta quedar crujientes.
     description_en: >
-      Corn tortillas stuffed with seasoned mashed potato, fried until crispy — topped with shredded lettuce, cream, fresh cheese, and salsa.
+      Corn tortillas stuffed with seasoned mashed potato and fried crisp — topped with lettuce, cream, cheese, and salsa.
   pollo:
-    name_es: Tacos Dorados de Pollo
+    name_es: Tacos dorados de pollo
     name_en: Crispy Chicken Tacos
     extra_ingredients:
       - pollo_deshebrado
@@ -47,11 +44,11 @@ variants:
       - aguacate
     technique: tortilla rellena de pollo deshebrado sazonado, frita hasta dorar
     description_es: >
-      Tortillas fritas rellenas de pollo deshebrado sazonado.
+      Tortillas fritas rellenas de pollo deshebrado con lechuga, crema y queso.
     description_en: >
-      Fried corn tortillas stuffed with seasoned shredded chicken, served with lettuce, sour cream, fresh cheese, and salsa.
+      Fried tortillas stuffed with seasoned shredded chicken — served with lettuce, sour cream, and fresh cheese.
   res:
-    name_es: Tacos Dorados de Res
+    name_es: Tacos dorados de res
     name_en: Crispy Beef Tacos
     extra_ingredients:
       - carne_de_res
@@ -61,11 +58,11 @@ variants:
       - salsa
     technique: tortilla rellena de carne de res deshebrada, frita hasta dorar
     description_es: >
-      Tacos fritos rellenos de carne de res deshebrada o molida con especias.
+      Tacos fritos rellenos de carne de res deshebrada o molida.
     description_en: >
-      Fried tacos stuffed with seasoned shredded or ground beef — crispy and flavorful.
+      Fried tacos stuffed with seasoned shredded or ground beef — crispy and savory.
   barbacoa:
-    name_es: Tacos Dorados de Barbacoa
+    name_es: Tacos dorados de barbacoa
     name_en: Crispy Barbacoa Tacos
     extra_ingredients:
       - barbacoa
@@ -74,13 +71,13 @@ variants:
       - queso_fresco
       - cilantro
       - limon
-    technique: tortilla rellena de barbacoa cocida lentamente, frita hasta dorar
+    technique: tortilla rellena de barbacoa, frita hasta dorar
     description_es: >
-      Tortillas crujientes rellenas de carne de barbacoa cocida lentamente y condimentada.
+      Tortillas crujientes rellenas de barbacoa cocida lentamente.
     description_en: >
-      Crispy tortillas stuffed with slow-cooked, richly flavored barbacoa beef — deeply savory and juicy.
+      Crispy tortillas stuffed with slow-cooked barbacoa — deeply savory and juicy.
   frijol:
-    name_es: Tacos Dorados de Frijol
+    name_es: Tacos dorados de frijol
     name_en: Crispy Bean Tacos
     extra_ingredients:
       - frijoles_refritos
@@ -88,14 +85,15 @@ variants:
       - crema
       - queso_fresco
       - salsa
+      - queso
     technique: tortilla rellena de frijoles refritos, frita hasta dorar
     description_es: >
-      Tortillas fritas rellenas de frijoles refritos o machacados.
+      Tortillas fritas rellenas de frijoles refritos; a veces con queso.
     description_en: >
-      Fried tortillas stuffed with refried beans — a vegetarian crispy taco option served with lettuce, sour cream, and cheese.
+      Fried tortillas stuffed with refried beans — a vegetarian option topped with lettuce, cream, and cheese.
   requeson:
-    name_es: Tacos Dorados de Requesón
-    name_en: Crispy Ricotta-Style Cheese Tacos
+    name_es: Tacos dorados de requesón
+    name_en: Crispy Ricotta-style Cheese Tacos
     extra_ingredients:
       - requeson
       - epazote
@@ -105,10 +103,10 @@ variants:
     description_es: >
       Tacos fritos rellenos de requesón con epazote.
     description_en: >
-      Crispy tacos stuffed with soft, lightly salted requesón (Mexican ricotta-style cheese) and epazote herb.
+      Crispy tacos stuffed with soft requesón cheese and epazote herb.
   flautas:
-    name_es: Flautas
-    name_en: flautas
+    name_es: Flautas de pollo
+    name_en: Chicken Flautas
     extra_ingredients:
       - pollo_deshebrado
       - lechuga
@@ -116,13 +114,13 @@ variants:
       - queso_fresco
       - salsa
       - aguacate
-    technique: tortilla enrollada y frita, generalmente más delgada y larga
+    technique: tortilla enrollada con relleno, frita hasta dorar; más delgada y larga que el taco dorado
     description_es: >
-      Tortillas enrolladas y fritas, generalmente más largas y delgadas que los tacos dorados tradicionales.
+      Tortillas enrolladas y fritas, generalmente de pollo, más largas y delgadas.
     description_en: >
-      Long, thin rolled and fried tortillas — similar to crispy tacos but thinner; usually filled with shredded chicken.
+      Long thin rolled fried tortillas — usually chicken-filled, crispier and narrower than standard tacos dorados.
   chicharron_prensado:
-    name_es: Tacos Dorados de Chicharrón Prensado
+    name_es: Tacos dorados de chicharrón prensado
     name_en: Crispy Pressed Pork Crackling Tacos
     extra_ingredients:
       - chicharron_prensado
@@ -132,11 +130,11 @@ variants:
       - salsa
     technique: tortilla rellena de chicharrón prensado en salsa, frita hasta dorar
     description_es: >
-      Tacos fritos rellenos de chicharrón prensado cocinado en salsa roja o verde.
+      Tacos fritos rellenos de chicharrón prensado guisado en salsa.
     description_en: >
-      Fried tacos stuffed with pressed pork cracklings braised in red or green salsa — rich and deeply savory.
+      Fried tacos stuffed with pressed pork cracklings braised in red or green salsa.
   camaron:
-    name_es: Tacos Dorados De Camarón
+    name_es: Tacos dorados de camarón
     name_en: Crispy Shrimp Tacos
     extra_ingredients:
       - camaron
@@ -146,94 +144,6 @@ variants:
       - limon
     technique: tortilla rellena de camarón sazonado, frita hasta dorar
     description_es: >
-      Tortillas fritas rellenas de camarón sazonado, comunes en regiones costeras.
+      Tortillas fritas rellenas de camarón sazonado.
     description_en: >
-      Fried tortillas stuffed with seasoned shrimp, common in coastal regions.
-  de_pollo:
-    name_es: Flautas de pollo
-    name_en: Chicken Flautas
-    extra_ingredients:
-      - tortilla
-      - pollo
-      - aceite
-      - tortilla_de_maiz
-      - crema
-      - queso
-      - lechuga
-    technique: 
-    description_es: >
-      Tortillas fritas rellenas de pollo.
-    description_en: >
-      Tortillas fritas rellenas de pollo.
-  tacos_dorados:
-    name_es: Tacos dorados
-    name_en: Crispy Tacos
-    extra_ingredients:
-      - tortilla
-      - pollo
-      - papa_o_res
-    technique: 
-    description_es: >
-      Tortillas rellenas y fritas hasta quedar crujientes.
-    description_en: >
-      Tortillas rellenas y fritas hasta quedar crujientes.
-  dorados_de_papa:
-    name_es: Tacos dorados de papa
-    name_en: Crispy Potato Tacos
-    extra_ingredients:
-      - papa
-      - tortilla
-      - aceite
-    technique: 
-    description_es: >
-      Tacos fritos rellenos de papa.
-    description_en: >
-      Tacos fritos rellenos de papa.
-  dorados_de_pollo:
-    name_es: Tacos dorados de pollo
-    name_en: Fried Chicken Tacos
-    extra_ingredients:
-      - pollo
-      - tortilla
-      - aceite
-    technique: 
-    description_es: >
-      Tacos fritos rellenos de pollo.
-    description_en: >
-      Tacos fritos rellenos de pollo.
-  dorados_de_frijol:
-    name_es: Tacos dorados de frijol
-    name_en: Fried Bean Tacos
-    extra_ingredients:
-      - frijol
-      - tortilla
-      - aceite
-    technique: 
-    description_es: >
-      Tacos fritos rellenos de frijoles.
-    description_en: >
-      Tacos fritos rellenos de frijoles.
-  dorados_de_pollo_con_lechuga:
-    name_es: Tacos dorados de pollo con lechuga
-    name_en: Crispy Chicken Tacos with Lettuce
-    extra_ingredients:
-      - pollo
-      - tortilla
-      - lechuga
-    technique: 
-    description_es: >
-      Tacos fritos de pollo con lechuga y crema.
-    description_en: >
-      Tacos fritos de pollo con lechuga y crema.
-  dorados_de_frijol_con_queso:
-    name_es: Tacos dorados de frijol con queso
-    name_en: Crispy Bean and Cheese Tacos
-    extra_ingredients:
-      - frijol
-      - queso
-      - tortilla
-    technique: 
-    description_es: >
-      Tacos fritos rellenos de frijol y queso.
-    description_en: >
-      Tacos fritos rellenos de frijol y queso.
+      Fried tortillas stuffed with seasoned shrimp — common in coastal fondas.

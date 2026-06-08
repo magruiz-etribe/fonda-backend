@@ -1,6 +1,5 @@
 canonical_name: tlacoyos_de_habas
 common_names:
-  - Tlacoyos de habas
 category: platillo_principal
 base_ingredients:
   - haba
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tlacoyos rellenos de haba molida.
     description_en: >
-      Tlacoyos rellenos de haba molida.
+      Tlacoyos rellenos of haba molida.

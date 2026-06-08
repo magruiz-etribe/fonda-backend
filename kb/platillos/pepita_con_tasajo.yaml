@@ -1,6 +1,5 @@
 canonical_name: pepita_con_tasajo
 common_names:
-  - Pepita con tasajo
 category: platillo_principal
 base_ingredients:
   - pepita_de_calabaza
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tasajo servido con salsa espesa de pepita de calabaza.
     description_en: >
-      Tasajo servido con salsa espesa de pepita de calabaza.
+      Tasajo served with sauce thick of pepita of calabaza.

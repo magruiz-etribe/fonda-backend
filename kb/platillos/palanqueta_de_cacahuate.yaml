@@ -1,6 +1,5 @@
 canonical_name: palanqueta_de_cacahuate
 common_names:
-  - Palanqueta de cacahuate
 category: platillo_principal
 base_ingredients:
   - cacahuate
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Dulce crujiente de cacahuate unido con caramelo.
     description_en: >
-      Dulce crujiente de cacahuate unido con caramelo.
+      Dulce crispy of cacahuate unido with caramelo.

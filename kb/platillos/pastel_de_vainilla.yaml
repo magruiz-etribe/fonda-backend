@@ -1,6 +1,5 @@
 canonical_name: pastel_de_vainilla
 common_names:
-  - Pastel de vainilla
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pastel clásico aromatizado con vainilla.
     description_en: >
-      Pastel clásico aromatizado con vainilla.
+      Pastel clásico flavored with vainilla.

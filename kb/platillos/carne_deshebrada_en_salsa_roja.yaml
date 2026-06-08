@@ -1,6 +1,5 @@
 canonical_name: carne_deshebrada_en_salsa_roja
 common_names:
-  - Carne deshebrada en salsa roja
 category: platillo_principal
 base_ingredients:
   - res
@@ -19,4 +18,4 @@ variants:
     description_es: >
       Carne deshebrada en salsa de chile rojo.
     description_en: >
-      Carne deshebrada en salsa de chile rojo.
+      Shredded Beef in Red Sauce made with beef, guajillo chile, ajo and tomato.

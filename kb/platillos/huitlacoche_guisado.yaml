@@ -1,6 +1,5 @@
 canonical_name: huitlacoche_guisado
 common_names:
-  - Huitlacoche guisado
 category: platillo_principal
 base_ingredients:
   - huitlacoche
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Huitlacoche cocinado con cebolla y especias.
     description_en: >
-      Huitlacoche cocinado con cebolla y especias.
+      Corn truffle cocinado with onion and spices.

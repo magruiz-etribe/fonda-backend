@@ -1,6 +1,5 @@
 canonical_name: coctel_de_frutas
 common_names:
-  - Coctel de frutas
 category: platillo_principal
 base_ingredients:
   - papaya
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Mezcla de frutas frescas servidas en vaso.
     description_en: >
-      Mezcla de frutas frescas servidas en vaso.
+      Mezcla of frutas fresh servidas in vaso.

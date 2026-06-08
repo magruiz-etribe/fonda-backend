@@ -1,210 +1,41 @@
 canonical_name: consome
 common_names:
   - consomé
-  - Caldo
-  - Caldo de camarón
-  - Consomé de barbacoa
-  - Caldo de res con verduras
-  - Cabeza de res en consomé
-  - Tortitas de camarón en caldo
-  - Caldo de pollo con chipotle
-  - Caldo de res con garbanzo
-  - Caldo de pescado
-  - Caldo de gallina
-  - Caldo de oso (estilo norteño)
-  - Caldo de pollo con verduras mixtas
-  - Caldo de res con verduras mixtas
-  - Sopa de fideo caldoso
+  - consomé de barbacoa
+  - consomé de borrego
+  - consomé de verduras
 category: caldo
 base_ingredients:
   - caldo
   - verduras
-  - carne_de_borrego
 variants:
-  de_borrego:
-    name_es: Consomé De Borrego
-    name_en: Lamb Consommé
-    extra_ingredients:
-      - garbanzo
-      - arroz
-    technique: None
-    description_es: >
-      Caldo claro resultante de la cocción de la barbacoa, servido con garbanzos y arroz.
-    description_en: >
-      Caldo claro resultante de la cocción de la barbacoa, servido con garbanzos y arroz.
-  de_verduras:
-    name_es: Consomé De Verduras
-    name_en: Vegetable Broth Soup
-    extra_ingredients:
-      - pasta
-      - arroz
-    technique: None
-    description_es: >
-      Caldo con zanahoria, papa, calabaza, chayote o apio; opcional arroz, pollo, limón o tortillas.
-    description_en: >
-      Broth with carrot, potato, squash, chayote, or celery; optional rice, chicken, lime, or tortillas.
-  de_camaron:
-    name_es: Caldo de camarón
-    name_en: Shrimp Soup
-    extra_ingredients:
-      - camaron
-      - jitomate
-      - chile
-      - chile_guajillo
-      - zanahoria
-      - papa
-    technique: 
-    description_es: >
-      Caldo picante de camarón estilo fonda.
-    description_en: >
-      Caldo picante de camarón estilo fonda.
   de_barbacoa:
     name_es: Consomé de barbacoa
-    name_en: Barbacoa Broth
+    name_en: Barbacoa Consommé
     extra_ingredients:
       - carne_de_borrego
-      - jugos_de_coccion
-      - especias
-      - caldo_de_borrego
       - garbanzo
       - arroz
-    technique: 
-    description_es: >
-      Caldo que acompaña la barbacoa de fin de semana.
-    description_en: >
-      Caldo que acompaña la barbacoa de fin de semana.
-  de_res_con_verduras:
-    name_es: Caldo de res con verduras
-    name_en: Beef Vegetable Soup
-    extra_ingredients:
-      - res
-      - papa
-      - zanahoria
-      - chayote
-    technique: 
-    description_es: >
-      Caldo tradicional de res con verduras variadas.
-    description_en: >
-      Caldo tradicional de res con verduras variadas.
-  cabeza_de_res_en_consome:
-    name_es: Cabeza de res en consomé
-    name_en: Beef Head Soup
-    extra_ingredients:
-      - res
-      - cebolla
       - cilantro
-    technique: 
+      - cebolla
+    technique: caldo claro de la cocción lenta de barbacoa, servido con garbanzo y arroz
     description_es: >
-      Consomé con carne de cabeza de res.
+      Caldo claro y sustancioso que acompaña la barbacoa de fin de semana.
     description_en: >
-      Consomé con carne de cabeza de res.
-  en_caldo:
-    name_es: Tortitas de camarón en caldo
-    name_en: Shrimp Patties in Broth
+      Clear, rich broth from slow-cooked barbacoa — served with chickpeas, rice, and chopped onion.
+  de_verduras:
+    name_es: Consomé de verduras
+    name_en: Vegetable Consommé
     extra_ingredients:
-      - camaron_seco
-      - huevo
-      - jitomate
-    technique: 
-    description_es: >
-      Tortitas de camarón servidas en caldo ligero.
-    description_en: >
-      Tortitas de camarón servidas en caldo ligero.
-  de_pollo_con_chipotle:
-    name_es: Caldo de pollo con chipotle
-    name_en: Chicken Soup with Chipotle
-    extra_ingredients:
-      - pollo
-      - chipotle
-      - zanahoria
-    technique: 
-    description_es: >
-      Caldo de pollo con toque de chipotle.
-    description_en: >
-      Caldo de pollo con toque de chipotle.
-  de_res_con_garbanzo:
-    name_es: Caldo de res con garbanzo
-    name_en: Beef Soup with Chickpeas
-    extra_ingredients:
-      - res
-      - garbanzo
-      - zanahoria
-    technique: 
-    description_es: >
-      Caldo de res con garbanzo y verduras.
-    description_en: >
-      Caldo de res con garbanzo y verduras.
-  de_pescado:
-    name_es: Caldo de pescado
-    name_en: Fish Soup
-    extra_ingredients:
-      - pescado
-      - jitomate
-      - zanahoria
-    technique: 
-    description_es: >
-      Caldo ligero de pescado con verduras.
-    description_en: >
-      Caldo ligero de pescado con verduras.
-  de_gallina:
-    name_es: Caldo de gallina
-    name_en: Hen Soup
-    extra_ingredients:
-      - gallina
       - zanahoria
       - papa
-      - arroz
-    technique: 
-    description_es: >
-      Caldo tradicional más sustancioso que el de pollo, típico de fondas.
-    description_en: >
-      Caldo tradicional más sustancioso que el de pollo, típico de fondas.
-  de_oso_estilo_norteno:
-    name_es: Caldo de oso (estilo norteño)
-    name_en: Bear Stew (Northern Style)
-    extra_ingredients:
-      - res
-      - papa
-      - zanahoria
-      - chile_rojo
-    technique: 
-    description_es: >
-      Caldo espeso del norte de México con carne de res y verduras.
-    description_en: >
-      Caldo espeso del norte de México con carne de res y verduras.
-  de_pollo_con_verduras_mixtas:
-    name_es: Caldo de pollo con verduras mixtas
-    name_en: Chicken Vegetable Soup
-    extra_ingredients:
-      - pollo
-      - zanahoria
       - calabaza
-    technique: 
-    description_es: >
-      Caldo casero de pollo con muchas verduras.
-    description_en: >
-      Caldo casero de pollo con muchas verduras.
-  de_res_con_verduras_mixtas:
-    name_es: Caldo de res con verduras mixtas
-    name_en: Beef Vegetable Soup
-    extra_ingredients:
-      - res
-      - papa
-      - zanahoria
-    technique: 
-    description_es: >
-      Caldo de res con verduras variadas.
-    description_en: >
-      Caldo de res con verduras variadas.
-  de_fideo_caldoso:
-    name_es: Sopa de fideo caldoso
-    name_en: Brothy Noodle Soup
-    extra_ingredients:
+      - chayote
+      - apio
       - pasta
-      - jitomate
-      - caldo
-    technique: 
+      - arroz
+    technique: verduras cocidas en caldo claro; opcional pasta o arroz
     description_es: >
-      Sopa de fideo en caldo ligero.
+      Caldo ligero con zanahoria, papa, calabaza, chayote o apio.
     description_en: >
-      Sopa de fideo en caldo ligero.
+      Light broth with carrot, potato, squash, chayote, or celery — optionally with rice or pasta.

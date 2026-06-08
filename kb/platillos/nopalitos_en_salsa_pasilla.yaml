@@ -1,6 +1,5 @@
 canonical_name: nopalitos_en_salsa_pasilla
 common_names:
-  - Nopalitos en salsa pasilla
 category: platillo_principal
 base_ingredients:
   - nopales
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Nopales cocidos en una salsa elaborada con chile pasilla.
     description_en: >
-      Nopales cocidos en una salsa elaborada con chile pasilla.
+      Cactus in Pasilla Sauce made with nopales, chile pasilla and ajo.

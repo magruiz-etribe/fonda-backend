@@ -1,6 +1,5 @@
 canonical_name: flor_de_calabaza_guisada
 common_names:
-  - Flor de calabaza guisada
 category: platillo_principal
 base_ingredients:
   - flor_de_calabaza
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Flor de calabaza salteada con cebolla y epazote.
     description_en: >
-      Flor de calabaza salteada con cebolla y epazote.
+      Flor of calabaza salteada with onion and epazote.

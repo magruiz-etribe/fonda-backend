@@ -1,6 +1,5 @@
 canonical_name: paleta_de_tamarindo
 common_names:
-  - Paleta de tamarindo
 category: platillo_principal
 base_ingredients:
   - tamarindo
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Paleta congelada elaborada con pulpa de tamarindo.
     description_en: >
-      Paleta congelada elaborada con pulpa de tamarindo.
+      Paleta congelada elaborada with pulp of tamarindo.

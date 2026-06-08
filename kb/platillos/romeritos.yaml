@@ -1,7 +1,5 @@
 canonical_name: romeritos
 common_names:
-  - Romeritos con mole
-  - Romeritos
 category: guisado
 base_ingredients:
   - romeritos
@@ -21,7 +19,7 @@ variants:
     description_es: >
       Platillo tradicional preparado con romeritos, mole y tortitas de camarón.
     description_en: >
-      Platillo tradicional preparado con romeritos, mole y tortitas de camarón.
+      Platillo traditional prepared with romeritos, mole and tortitas of camarón.
   con_mole:
     name_es: Romeritos con mole
     name_en: Mexican Sea Rosemary with Mole
@@ -34,4 +32,4 @@ variants:
     description_es: >
       Platillo navideño con romeritos en mole y tortitas de camarón.
     description_en: >
-      Platillo navideño con romeritos en mole y tortitas de camarón.
+      Platillo navideño with romeritos in mole and tortitas of camarón.

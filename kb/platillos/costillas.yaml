@@ -1,66 +1,59 @@
 canonical_name: costillas
 common_names:
+  - costillas en salsa verde
+  - costillas en salsa roja
+  - costillas en chile pasilla
+  - costilla de cerdo en salsa de chile morita
   - costillitas verdes
   - costillitas rojas
-  - Costillas en salsa verde
-  - Costillas en chile pasilla
-  - Costillas en salsa roja
-  - Costilla de cerdo en salsa de chile morita
 category: guisado
 base_ingredients:
   - costillas_de_cerdo
-  - tomatillo
-  - jitomate
-  - chile_serrano
-  - chile_morita
+  - cebolla
+  - ajo
+  - sal
 variants:
   en_salsa_verde:
     name_es: Costillas en salsa verde
     name_en: Pork Ribs in Green Sauce
     extra_ingredients:
-      - carne_de_cerdo
       - tomatillo
       - chile_serrano
-      - costilla_de_cerdo
-      - tomate_verde
-    technique: 
+    technique: costillas cocidas en salsa verde de tomatillo
     description_es: >
       Costillas de cerdo en salsa verde.
     description_en: >
-      Costillas de cerdo en salsa verde.
+      Pork ribs braised until tender in a tangy green tomatillo and serrano chile sauce.
   en_salsa_roja:
     name_es: Costillas en salsa roja
     name_en: Pork Ribs in Red Sauce
     extra_ingredients:
-      - carne_de_cerdo
       - chile_guajillo
       - jitomate
-    technique: 
+    technique: costillas cocidas en salsa roja de jitomate y chile
     description_es: >
       Costillas en salsa roja picante.
     description_en: >
-      Costillas en salsa roja picante.
+      Pork ribs simmered in a spicy red tomato and guajillo chile sauce.
   en_chile_pasilla:
     name_es: Costillas en chile pasilla
     name_en: Pork Ribs in Pasilla Sauce
     extra_ingredients:
-      - costillas
       - chile_pasilla
       - ajo
-    technique: 
+    technique: costillas cocidas en salsa de chile pasilla
     description_es: >
       Costillas cocinadas en salsa oscura de chile pasilla.
     description_en: >
-      Costillas cocinadas en salsa oscura de chile pasilla.
-  de_cerdo_en_salsa_de_chile_morita:
+      Pork ribs cooked in a deep, dark pasilla chile sauce with garlic.
+  en_chile_morita:
     name_es: Costilla de cerdo en salsa de chile morita
     name_en: Pork Ribs in Morita Sauce
     extra_ingredients:
-      - carne_de_cerdo
       - chile_morita
       - jitomate
-    technique: 
+    technique: costillas cocidas en salsa ahumada de chile morita
     description_es: >
       Costillas en salsa ahumada de chile morita.
     description_en: >
-      Costillas en salsa ahumada de chile morita.
+      Pork ribs in a smoky morita chile and tomato sauce — rich and slightly spicy.

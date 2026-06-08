@@ -1,6 +1,5 @@
 canonical_name: pay_de_nuez
 common_names:
-  - Pay de nuez
 category: platillo_principal
 base_ingredients:
   - nuez
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tarta dulce rellena con nuez y caramelo.
     description_en: >
-      Tarta dulce rellena con nuez y caramelo.
+      Tarta dulce stuffed with walnut and caramelo.

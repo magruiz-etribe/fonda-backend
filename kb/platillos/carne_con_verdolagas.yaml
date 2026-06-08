@@ -1,10 +1,7 @@
 canonical_name: carne_con_verdolagas
 common_names:
-  - carne de cerdo con verdolagas
   - verdolagas con puerco
   - verdolagas
-  - Carne de puerco con verdolagas
-  - Verdolagas en salsa verde
 category: guisado
 base_ingredients:
   - carne_de_cerdo
@@ -38,7 +35,7 @@ variants:
     description_es: >
       Guiso tradicional preparado con carne de cerdo y verdolagas.
     description_en: >
-      Guiso tradicional preparado con carne de cerdo y verdolagas.
+      Stew traditional prepared with beef of pork and verdolagas.
   verdolagas_en_salsa_verde:
     name_es: Verdolagas en salsa verde
     name_en: Purslane in Green Sauce
@@ -50,4 +47,4 @@ variants:
     description_es: >
       Verdolagas cocinadas en salsa verde tradicional.
     description_en: >
-      Verdolagas cocinadas en salsa verde tradicional.
+      Verdolagas cocinadas in sauce verde traditional.

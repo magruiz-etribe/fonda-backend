@@ -1,150 +1,56 @@
 canonical_name: papas
 common_names:
   - papas con chorizo
-  - papas fritas o  papas a la francesa
-  - Pollo guisado con papas
-  - Carne molida con papas
-  - Tamal de res con papas
-  - Pollo con papas guisadas
-  - Carne con papas
-  - Papas con chorizo
-  - Papas en salsa verde
-  - Papas en salsa roja
-  - Carne de res en chile ancho con papas
+  - papas a la francesa
+  - papas en salsa verde
+  - papas en salsa roja
 category: guarnicion
 base_ingredients:
   - papas
-  - chorizo
-  - cebolla
   - aceite
+  - sal
 variants:
   con_chorizo:
     name_es: Papas con chorizo
     name_en: Potatoes with Chorizo
     extra_ingredients:
-      - pan_o_tortilla
+      - chorizo
+      - cebolla
       - salsa
-    technique: None
+    technique: papas cocidas y salteadas con chorizo
     description_es: >
       Cubos de papa cocidos y salteados con chorizo de cerdo picado.
     description_en: >
-      Cubos de papa cocidos y salteados con chorizo de cerdo picado.
+      Diced potatoes cooked and sautéed with crumbled pork chorizo and onion.
   a_la_francesa:
     name_es: Papas a la francesa
     name_en: French Fries
     extra_ingredients:
-      - aderezos_varios
-    technique: None
+      - sal
+    technique: papas fritas en aceite caliente
     description_es: >
       Papas cortadas en tiras o cubos y fritas en aceite caliente hasta quedar crujientes.
     description_en: >
-      Papas cortadas en tiras o cubos y fritas en aceite caliente hasta quedar crujientes.
-  guisado_con_papas:
-    name_es: Pollo guisado con papas
-    name_en: Stewed Chicken with Potatoes
-    extra_ingredients:
-      - pollo
-      - papa
-      - jitomate
-      - cebolla
-    technique: 
-    description_es: >
-      Pollo cocido lentamente con papas en salsa casera.
-    description_en: >
-      Pollo cocido lentamente con papas en salsa casera.
-  carne_molida_con_papas:
-    name_es: Carne molida con papas
-    name_en: Ground Beef with Potatoes
-    extra_ingredients:
-      - carne_molida
-      - papa
-      - jitomate
-    technique: 
-    description_es: >
-      Carne molida guisada con cubos de papa.
-    description_en: >
-      Carne molida guisada con cubos de papa.
-  de_res_con_papas:
-    name_es: Tamal de res con papas
-    name_en: Beef and Potato Tamale
-    extra_ingredients:
-      - masa_de_maiz
-      - res
-      - papa
-    technique: 
-    description_es: >
-      Tamal relleno de carne de res y papa.
-    description_en: >
-      Tamal relleno de carne de res y papa.
-  con_papas_guisadas:
-    name_es: Pollo con papas guisadas
-    name_en: Chicken with Stewed Potatoes
-    extra_ingredients:
-      - pollo
-      - papa
-      - jitomate
-    technique: 
-    description_es: >
-      Guiso de pollo con papas en salsa.
-    description_en: >
-      Guiso de pollo con papas en salsa.
-  carne_con_papas:
-    name_es: Carne con papas
-    name_en: Beef with Potatoes
-    extra_ingredients:
-      - res
-      - papa
-      - jitomate
-    technique: 
-    description_es: >
-      Guiso de res con papas en salsa roja.
-    description_en: >
-      Guiso de res con papas en salsa roja.
-  papas_con_chorizo:
-    name_es: Papas con chorizo
-    name_en: Potatoes with Chorizo
-    extra_ingredients:
-      - papa
-      - chorizo
-      - cebolla
-    technique: 
-    description_es: >
-      Guiso clásico de papas con chorizo frito.
-    description_en: >
-      Guiso clásico de papas con chorizo frito.
-  papas_en_salsa_verde:
+      Potatoes cut into strips or cubes and deep-fried until golden and crisp.
+  en_salsa_verde:
     name_es: Papas en salsa verde
     name_en: Potatoes in Green Sauce
     extra_ingredients:
-      - papa
       - tomatillo
       - chile_serrano
-    technique: 
+    technique: papas cocidas en salsa verde de tomatillo
     description_es: >
       Papas cocidas en salsa verde de tomatillo.
     description_en: >
-      Papas cocidas en salsa verde de tomatillo.
-  papas_en_salsa_roja:
+      Potatoes simmered in a tangy green tomatillo and serrano chile sauce.
+  en_salsa_roja:
     name_es: Papas en salsa roja
     name_en: Potatoes in Red Sauce
     extra_ingredients:
-      - papa
       - jitomate
       - chile_guajillo
-    technique: 
+    technique: papas cocidas en salsa roja de jitomate
     description_es: >
       Papas en salsa roja casera.
     description_en: >
-      Papas en salsa roja casera.
-  carne_de_res_en_chile_ancho_con_papas:
-    name_es: Carne de res en chile ancho con papas
-    name_en: Beef in Ancho Chili with Potatoes
-    extra_ingredients:
-      - res
-      - chile_ancho
-      - papa
-    technique: 
-    description_es: >
-      Res en salsa suave de chile ancho con papas.
-    description_en: >
-      Res en salsa suave de chile ancho con papas.
+      Potatoes cooked in a homestyle red tomato and guajillo chile sauce.

@@ -1,6 +1,5 @@
 canonical_name: morisqueta
 common_names:
-  - Morisqueta
 category: platillo_principal
 base_ingredients:
   - arroz
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Arroz blanco servido con frijoles y salsa roja.
     description_en: >
-      Arroz blanco servido con frijoles y salsa roja.
+      Rice blanco served with beans and sauce roja.

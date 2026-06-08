@@ -1,6 +1,5 @@
 canonical_name: camote_poblano
 common_names:
-  - Camote poblano
 category: platillo_principal
 base_ingredients:
   - camote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dulce tradicional elaborado con camote y azúcar.
     description_en: >
-      Dulce tradicional elaborado con camote y azúcar.
+      Dulce traditional made with camote and sugar.

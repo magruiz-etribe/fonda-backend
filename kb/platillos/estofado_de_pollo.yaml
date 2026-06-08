@@ -1,6 +1,5 @@
 canonical_name: estofado_de_pollo
 common_names:
-  - Estofado de pollo
 category: platillo_principal
 base_ingredients:
   - pollo
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Pollo cocinado con verduras en caldo espeso.
     description_en: >
-      Pollo cocinado con verduras en caldo espeso.
+      Chicken cocinado with vegetables in caldo thick.

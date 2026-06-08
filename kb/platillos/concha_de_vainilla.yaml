@@ -1,6 +1,5 @@
 canonical_name: concha_de_vainilla
 common_names:
-  - Concha de vainilla
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan dulce mexicano cubierto con costra azucarada.
     description_en: >
-      Pan dulce mexicano cubierto con costra azucarada.
+      Pan dulce mexicano topped with costra azucarada.

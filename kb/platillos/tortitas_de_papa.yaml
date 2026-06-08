@@ -1,9 +1,5 @@
 canonical_name: tortitas_de_papa
 common_names:
-  - tortitas de papa
-  - Tortitas de papa
-  - Tortitas de papa en caldillo
-  - Tortitas de papa en salsa verde
 category: antojito
 base_ingredients:
   - papa
@@ -23,7 +19,7 @@ variants:
     description_es: >
       Tortitas elaboradas con puré de papa y fritas.
     description_en: >
-      Tortitas elaboradas con puré de papa y fritas.
+      Tortitas elaboradas with puré of potato and fritas.
   en_caldillo:
     name_es: Tortitas de papa en caldillo
     name_en: Potato Patties in Tomato Sauce
@@ -36,7 +32,7 @@ variants:
     description_es: >
       Tortitas de papa suaves servidas en caldillo rojo casero.
     description_en: >
-      Tortitas de papa suaves servidas en caldillo rojo casero.
+      Tortitas of potato suaves servidas in caldillo rojo casero.
   en_salsa_verde:
     name_es: Tortitas de papa en salsa verde
     name_en: Potato Patties in Green Sauce
@@ -48,4 +44,4 @@ variants:
     description_es: >
       Tortitas de papa suaves en salsa verde.
     description_en: >
-      Tortitas de papa suaves en salsa verde.
+      Tortitas of potato suaves in sauce verde.

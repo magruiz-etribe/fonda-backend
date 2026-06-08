@@ -1,18 +1,12 @@
 canonical_name: nopales
 common_names:
-  - Nopales en salsa
+  - nopales guisados
   - nopales navegantes
-  - Nopales en salsa roja
-  - Ensalada de nopales
-  - Nopales con chorizo
-  - Chicharrón con nopales
-  - Tamal de nopales
-  - Tamal de elote con nopales y queso
-  - Nopales guisados
-  - Nopales con carne de res
-  - Pollo con nopales en salsa verde
-  - Tlacoyos de requesón con nopales
-  - Nopales con huevo
+  - nopales en salsa
+  - nopales en salsa roja
+  - nopales con chorizo
+  - nopales con carne de res
+  - nopales con huevo
 category: guarnicion
 base_ingredients:
   - nopales
@@ -23,147 +17,71 @@ base_ingredients:
   - sal
   - agua_o_caldo
 variants:
-  en_salsa:
-    name_es: Nopales en salsa
-    name_en: Cactus in Sauce
+  guisados:
+    name_es: Nopales guisados
+    name_en: Stewed Cactus Paddles
     extra_ingredients:
-      - queso
-    technique: None
+      - jitomate
+      - cebolla
+    technique: nopales cocidos y guisados con jitomate, cebolla y chile
     description_es: >
-      Nopales cocinados en salsa roja o verde.
+      Nopales cocidos con jitomate y cebolla.
     description_en: >
-      Nopales cocinados en salsa roja o verde.
+      Cactus paddles simmered with tomato and onion — a classic fonda side or guarnición.
   navegantes:
-    name_es: Nopales Navegantes
-    name_en: Mixed Cactus Salad
+    name_es: Nopales navegantes
+    name_en: Nopales Navegantes
     extra_ingredients:
+      - jitomate
+      - cebolla
+      - chile
       - queso
-    technique: None
+    technique: nopales cocidos y salteados con jitomate, cebolla y chile
     description_es: >
-      nopales cocidos y salteados, combinados con ingredientes como jitomate, cebolla, chile y, en algunas versiones, queso o carne.
+      Nopales cocidos y salteados con jitomate, cebolla, chile y, en algunas versiones, queso.
     description_en: >
-      nopales cocidos y salteados, combinados con ingredientes como jitomate, cebolla, chile y, en algunas versiones, queso o carne.
+      Cooked cactus paddles sautéed with tomato, onion, and chile — sometimes finished with cheese.
   en_salsa_roja:
     name_es: Nopales en salsa roja
     name_en: Cactus in Red Sauce
     extra_ingredients:
-      - nopales
       - jitomate
-      - chile
-    technique: 
+      - chile_guajillo
+    technique: nopales cocidos en salsa roja de jitomate y chile
     description_es: >
       Nopales cocinados en salsa de jitomate y chile.
     description_en: >
-      Nopales cocinados en salsa de jitomate y chile.
-  de_nopales:
-    name_es: Tamal de nopales
-    name_en: Cactus Tamale
-    extra_ingredients:
-      - masa_de_maiz
-      - nopales
-      - queso
-      - jitomate
-      - cebolla
-      - cilantro
-    technique: 
-    description_es: >
-      Tamal con nopales cocidos y sazonados.
-    description_en: >
-      Tamal con nopales cocidos y sazonados.
+      Cactus paddles simmered in a seasoned red tomato and dried-chile sauce.
   con_chorizo:
     name_es: Nopales con chorizo
     name_en: Cactus with Chorizo
     extra_ingredients:
-      - nopales
       - chorizo
       - cebolla
-    technique: 
+    technique: nopales salteados con chorizo y cebolla
     description_es: >
       Guiso de nopales mezclados con chorizo.
     description_en: >
-      Guiso de nopales mezclados con chorizo.
-  chicharron_con_nopales:
-    name_es: Chicharrón con nopales
-    name_en: Pork Crackling with Cactus
-    extra_ingredients:
-      - chicharron
-      - nopales
-      - salsa_verde
-    technique: 
-    description_es: >
-      Guiso tradicional que combina chicharrón suave con nopales.
-    description_en: >
-      Guiso tradicional que combina chicharrón suave con nopales.
-  de_elote_con_nopales_y_queso:
-    name_es: Tamal de elote con nopales y queso
-    name_en: Nopal Cheese Corn Tamale
-    extra_ingredients:
-      - elote
-      - nopales
-      - queso
-    technique: 
-    description_es: >
-      Tamal de elote con nopales y queso fresco.
-    description_en: >
-      Tamal de elote con nopales y queso fresco.
-  guisados:
-    name_es: Nopales guisados
-    name_en: Cooked Nopales
-    extra_ingredients:
-      - nopal
-      - jitomate
-      - cebolla
-    technique: 
-    description_es: >
-      Nopales cocidos con jitomate y cebolla.
-    description_en: >
-      Nopales cocidos con jitomate y cebolla.
+      Sautéed cactus paddles mixed with Mexican chorizo and onion.
   con_carne_de_res:
     name_es: Nopales con carne de res
     name_en: Cactus with Beef
     extra_ingredients:
-      - nopal
       - res
       - jitomate
-    technique: 
+    technique: nopales guisados con carne de res en salsa
     description_es: >
       Nopales guisados con carne de res.
     description_en: >
-      Nopales guisados con carne de res.
-  con_nopales_en_salsa_verde:
-    name_es: Pollo con nopales en salsa verde
-    name_en: Chicken with Cactus in Green Sauce
-    extra_ingredients:
-      - pollo
-      - nopal
-      - tomatillo
-    technique: 
-    description_es: >
-      Guiso de pollo con nopales en salsa verde.
-    description_en: >
-      Guiso de pollo con nopales en salsa verde.
-  tlacoyos_de_requeson_con_nopales:
-    name_es: Tlacoyos de requesón con nopales
-    name_en: Cottage Cheese Tlacoyos with Cactus
-    extra_ingredients:
-      - requeson
-      - nopal
-      - masa_de_maiz
-    technique: None
-    description_es: >
-      Tlacoyos con requesón y nopales.
-    description_en: >
-      Tlacoyos con requesón y nopales.
+      Cactus paddles stewed with beef in a light tomato-based sauce.
   con_huevo:
     name_es: Nopales con huevo
-    name_en: Cactus with Eggs
+    name_en: Cactus with Scrambled Eggs
     extra_ingredients:
-      - nopales
       - huevo
       - cebolla
-      - nopal
-    technique: 
+    technique: nopales salteados con huevo revuelto
     description_es: >
       Nopales salteados con huevo revuelto.
     description_en: >
-      Nopales salteados con huevo revuelto.
+      Sautéed cactus paddles folded into scrambled eggs with onion.

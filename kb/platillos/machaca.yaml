@@ -1,7 +1,5 @@
 canonical_name: machaca
 common_names:
-  - Machaca a la mexicana
-  - Machaca con huevo
 category: platillo_principal
 base_ingredients:
   - machaca
@@ -21,7 +19,7 @@ variants:
     description_es: >
       Carne seca cocinada con jitomate, cebolla y chile.
     description_en: >
-      Carne seca cocinada con jitomate, cebolla y chile.
+      Mexican-Style Dried Beef made with machaca, tomato, onion and chile.
   con_huevo:
     name_es: Machaca con huevo
     name_en: Dried Beef with Eggs
@@ -34,4 +32,4 @@ variants:
     description_es: >
       Carne seca deshebrada cocinada con huevo.
     description_en: >
-      Carne seca deshebrada cocinada con huevo.
+      Beef seca shredded cocinada with egg.

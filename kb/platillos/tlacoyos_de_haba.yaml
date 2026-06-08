@@ -1,6 +1,5 @@
 canonical_name: tlacoyos_de_haba
 common_names:
-  - Tlacoyos de haba
 category: platillo_principal
 base_ingredients:
   - masa_de_maiz
@@ -17,4 +16,4 @@ variants:
     description_es: >
       Masa ovalada rellena de haba.
     description_en: >
-      Masa ovalada rellena de haba.
+      Masa ovalada stuffed of haba.

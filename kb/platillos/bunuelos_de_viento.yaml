@@ -1,6 +1,5 @@
 canonical_name: bunuelos_de_viento
 common_names:
-  - Buñuelos de viento
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Buñuelos ligeros y crujientes elaborados con moldes especiales.
     description_en: >
-      Buñuelos ligeros y crujientes elaborados con moldes especiales.
+      Buñuelos ligeros and crujientes elaborados with moldes especiales.

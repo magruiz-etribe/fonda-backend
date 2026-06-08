@@ -1,6 +1,5 @@
 canonical_name: torta_ahogada
 common_names:
-  - Torta ahogada
 category: platillo_principal
 base_ingredients:
   - birote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Torta típica de Jalisco bañada en salsa de jitomate y chile.
     description_en: >
-      Torta típica de Jalisco bañada en salsa de jitomate y chile.
+      Drowned Sandwich made with birote, carnitas and salsa de chile de arbol.

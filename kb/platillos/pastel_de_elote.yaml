@@ -1,6 +1,5 @@
 canonical_name: pastel_de_elote
 common_names:
-  - Pastel de elote
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pastel dulce elaborado con granos de maíz.
     description_en: >
-      Pastel dulce elaborado con granos de maíz.
+      Pastel dulce made with kernels of corn.

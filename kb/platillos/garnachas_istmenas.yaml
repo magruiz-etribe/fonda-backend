@@ -1,6 +1,5 @@
 canonical_name: garnachas_istmenas
 common_names:
-  - Garnachas istmeñas
 category: platillo_principal
 base_ingredients:
   - tortilla
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pequeñas tortillas fritas cubiertas con carne y salsa.
     description_en: >
-      Pequeñas tortillas fritas cubiertas con carne y salsa.
+      Pequeñas tortillas fritas cubiertas with beef and sauce.

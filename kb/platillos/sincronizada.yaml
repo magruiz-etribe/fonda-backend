@@ -1,6 +1,5 @@
 canonical_name: sincronizada
 common_names:
-  - Sincronizada
 category: platillo_principal
 base_ingredients:
   - tortilla_de_harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Dos tortillas de harina rellenas de jamón y queso.
     description_en: >
-      Dos tortillas de harina rellenas de jamón y queso.
+      Ham and Cheese Synchronizada made with tortilla de harina, jamon and cheese.

@@ -1,6 +1,5 @@
 canonical_name: carne_de_cerdo_en_salsa_roja
 common_names:
-  - Carne de cerdo en salsa roja
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cerdo cocido en salsa roja de chile guajillo.
     description_en: >
-      Cerdo cocido en salsa roja de chile guajillo.
+      Pork in Red Sauce made with pork, tomato and guajillo chile.

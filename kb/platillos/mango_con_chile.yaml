@@ -1,6 +1,5 @@
 canonical_name: mango_con_chile
 common_names:
-  - Mango con chile
 category: platillo_principal
 base_ingredients:
   - mango
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Rebanadas de mango servidas con chile en polvo y limón.
     description_en: >
-      Rebanadas de mango servidas con chile en polvo y limón.
+      Mango with Chili made with mango, chile en polvo and limon.

@@ -1,45 +1,37 @@
 canonical_name: tacos
 common_names:
-  - Taco al pastor
-  - Tacos de cecina
-  - Tacos de suadero
-  - Tacos de tripa
-  - Tacos de cabeza
-  - Tacos de lengua
-  - Tacos de canasta
-  - Tacos de papa
-  - Tacos de chicharrón
-  - Tacos de barbacoa
-  - Tacos de camarón
-  - Taco gobernador
-  - Tacos de longaniza
-  - Tacos de guisado surtido
-  - Tacos de nopal con queso
-  - Tacos de camarón capeado
-  - Tacos de papa con chile verde
-  - Tacos de chorizo con papa
-  - Tacos de carne al pastor estilo fonda
-  - Tacos de barbacoa de res dorados
-  - Tacos de papa con chorizo verde
-  - Tacos de champiñones al ajillo
-  - Tacos de calabaza con elote
-  - Tacos de nopal asado
-  - Tacos de pollo a la plancha
-  - Tacos de pollo en salsa verde
-  - Tacos de carne deshebrada en chile guajillo
-  - Tacos de carne deshebrada en chipotle
+  - taco al pastor
+  - tacos de cecina
+  - tacos de suadero
+  - tacos de tripa
+  - tacos de cabeza
+  - tacos de lengua
+  - tacos de canasta
+  - tacos de papa
+  - tacos de chicharrón
+  - tacos de barbacoa
+  - tacos de camarón
+  - taco gobernador
+  - tacos de longaniza
+  - tacos de guisado surtido
+  - tacos de nopal con queso
+  - tacos de camarón capeado
+  - tacos de papa con chile verde
+  - tacos de chorizo con papa
+  - tacos de champiñones al ajillo
+  - tacos de calabaza con elote
+  - tacos de nopal asado
+  - tacos de pollo a la plancha
+  - tacos de pollo en salsa verde
+  - tacos de carne deshebrada en chile guajillo
+  - tacos de carne deshebrada en chipotle
 category: antojito
 base_ingredients:
-  - carne_de_cerdo
-  - achiote
-  - chile_guajillo
-  - pina
-  - cebolla
-  - cilantro
+  - tortilla_de_maiz
 variants:
   al_pastor:
     name_es: Taco al pastor
-    name_en: Pork Pastor Taco
+    name_en: Al Pastor Taco
     extra_ingredients:
       - carne_de_cerdo
       - achiote
@@ -47,70 +39,64 @@ variants:
       - pina
       - cebolla
       - cilantro
-      - tortilla_de_maiz
-    technique: 
+    technique: carne de cerdo marinada en achiote, cocinada en trompo o plancha y servida en tortilla
     description_es: >
-      Taco elaborado con carne de cerdo marinada en achiote y especias, cocinada en trompo y servida en tortilla de maíz. Generalmente se acompaña con cebolla, cilantro y piña.
+      Taco de cerdo adobado con achiote, piña, cebolla y cilantro.
     description_en: >
-      Taco elaborado con carne de cerdo marinada en achiote y especias, cocinada en trompo y servida en tortilla de maíz. Generalmente se acompaña con cebolla, cilantro y piña.
+      Pork marinated in achiote and spices, cooked on a vertical spit or griddle — served with pineapple, onion, and cilantro.
   de_cecina:
     name_es: Tacos de cecina
     name_en: Cecina Tacos
     extra_ingredients:
       - cecina
-      - tortilla
       - cebolla
-    technique: 
+    technique: cecina asada en comal, servida en tortilla con cebolla
     description_es: >
-      Tacos preparados con carne de cecina asada.
+      Tacos preparados con cecina de res asada.
     description_en: >
-      Tacos preparados con carne de cecina asada.
+      Tacos filled with thin salted dried beef, grilled and served with onion.
   de_suadero:
     name_es: Tacos de suadero
     name_en: Suadero Tacos
     extra_ingredients:
       - suadero
-      - tortilla
       - cebolla
-    technique: 
+    technique: suadero confitado en manteca y dorado en plancha
     description_es: >
-      Tacos de carne suave cocida en grasa.
+      Tacos de carne suave cocida lentamente en grasa.
     description_en: >
-      Tacos de carne suave cocida en grasa.
+      Tacos of beef brisket slow-cooked in fat until tender and crisped on the griddle.
   de_tripa:
     name_es: Tacos de tripa
     name_en: Tripe Tacos
     extra_ingredients:
       - tripa_de_res
-      - tortilla
-    technique: 
+    technique: tripa de res lavada, cocida y dorada hasta quedar crujiente
     description_es: >
-      Tacos preparados con intestino de res dorado.
+      Tacos preparados con tripa de res dorada.
     description_en: >
-      Tacos preparados con intestino de res dorado.
+      Tacos of beef tripe cooked until tender and crisped golden.
   de_cabeza:
     name_es: Tacos de cabeza
     name_en: Beef Head Tacos
     extra_ingredients:
       - cabeza_de_res
-      - tortilla
-    technique: 
+    technique: carne de cabeza de res cocida lentamente, deshebrada y servida en tortilla
     description_es: >
-      Tacos elaborados con diferentes partes de la cabeza de res.
+      Tacos elaborados con diferentes cortes de la cabeza de res.
     description_en: >
-      Tacos elaborados con diferentes partes de la cabeza de res.
+      Tacos filled with assorted slow-cooked beef head cuts — rich and gelatinous.
   de_lengua:
     name_es: Tacos de lengua
     name_en: Beef Tongue Tacos
     extra_ingredients:
       - lengua_de_res
-      - tortilla
       - cilantro
-    technique: 
+    technique: lengua de res cocida lentamente, cortada y servida en tortilla
     description_es: >
       Tacos preparados con lengua de res cocida lentamente.
     description_en: >
-      Tacos preparados con lengua de res cocida lentamente.
+      Tacos of beef tongue braised until tender — mild, buttery, and classic at taquerías.
   de_canasta:
     name_es: Tacos de canasta
     name_en: Basket Tacos
@@ -118,86 +104,88 @@ variants:
       - papa
       - frijol
       - chicharron
-      - tortilla
-    technique: 
+    technique: tacos rellenos mantenidos al vapor en canasta con aceite y salsa
     description_es: >
-      Tacos suaves guardados al vapor en canasta.
+      Tacos suaves guardados al vapor en canasta con aceite.
     description_en: >
-      Tacos suaves guardados al vapor en canasta.
+      Soft steamed tacos kept warm in a basket — filled with potato, beans, or chicharrón.
   de_papa:
     name_es: Tacos de papa
     name_en: Potato Tacos
     extra_ingredients:
       - papa
-      - tortilla
+      - tomatillo
       - lechuga
-    technique: 
+    technique: tortilla rellena de papa sazonada; a veces guisada en salsa verde
     description_es: >
-      Tacos rellenos de puré de papa sazonado.
+      Tacos rellenos de papa sazonada; comunes con chile verde.
     description_en: >
-      Tacos rellenos de puré de papa sazonado.
+      Tacos stuffed with seasoned potato — often stewed in green tomatillo sauce.
   de_chicharron:
     name_es: Tacos de chicharrón
     name_en: Pork Crackling Tacos
     extra_ingredients:
       - chicharron_prensado
-      - tortilla
-    technique: 
+    technique: chicharrón prensado guisado en salsa y servido en tortilla
     description_es: >
       Tacos rellenos de chicharrón guisado en salsa.
     description_en: >
-      Tacos rellenos de chicharrón guisado en salsa.
+      Tacos filled with pressed pork cracklings braised in red or green salsa.
   de_barbacoa:
     name_es: Tacos de barbacoa
     name_en: Barbacoa Tacos
     extra_ingredients:
-      - res_o_borrego
-      - chile
-      - especias
       - barbacoa
-      - tortilla
       - cilantro
-    technique: 
+    technique: carne de barbacoa deshebrada servida en tortilla con cilantro y limón
     description_es: >
-      Tacos de carne cocida lentamente al vapor o pozo.
+      Tacos de carne de barbacoa cocida lentamente.
     description_en: >
-      Tacos de carne cocida lentamente al vapor o pozo.
+      Tacos of slow-steamed barbacoa beef or lamb — juicy and deeply savory.
   de_camaron:
     name_es: Tacos de camarón
     name_en: Shrimp Tacos
     extra_ingredients:
       - camaron
-      - tortilla
       - col
-    technique: 
+    technique: camarón sazonado y cocido, servido en tortilla con col rallada
     description_es: >
       Tacos rellenos de camarón sazonado.
     description_en: >
-      Tacos rellenos de camarón sazonado.
+      Tacos filled with seasoned shrimp — often with shredded cabbage and lime.
   gobernador:
     name_es: Taco gobernador
     name_en: Governor Taco
     extra_ingredients:
       - camaron
       - queso
-      - tortilla
-    technique: 
+    technique: camarón salteado con queso fundido en tortilla de harina o maíz
     description_es: >
-      Taco de camarón con queso fundido originario de Sinaloa.
+      Taco de camarón con queso fundido, originario de Sinaloa.
     description_en: >
-      Taco de camarón con queso fundido originario de Sinaloa.
+      Shrimp taco with melted cheese — a Sinaloa specialty occasionally found in CDMX fondas.
+  de_camaron_capeado:
+    name_es: Tacos de camarón capeado
+    name_en: Battered Shrimp Tacos
+    extra_ingredients:
+      - camaron
+      - harina
+    technique: camarón empanizado frito y servido en tortilla
+    description_es: >
+      Tacos de camarón empanizado frito.
+    description_en: >
+      Tacos of battered and fried shrimp — crisp outside, tender inside.
   de_longaniza:
     name_es: Tacos de longaniza
-    name_en: Sausage Tacos
+    name_en: Longaniza Tacos
     extra_ingredients:
       - longaniza
-      - tortilla
       - cebolla
-    technique: 
+    technique: longaniza desmoronada y frita en comal, servida en tortilla
     description_es: >
-      Tacos de longaniza frita.
+      Tacos de longaniza frita con cebolla.
     description_en: >
-      Tacos de longaniza frita.
+      Tacos of crumbled Mexican sausage fried until crisp with onion.
   de_guisado_surtido:
     name_es: Tacos de guisado surtido
     name_en: Mixed Stew Tacos
@@ -206,176 +194,97 @@ variants:
       - papa
       - chicharron
       - pollo
-    technique: 
+    technique: tortilla rellena con guisado del día de la fonda
     description_es: >
-      Tacos de diferentes guisos de fonda.
+      Tacos de diferentes guisos caseros de fonda.
     description_en: >
-      Tacos de diferentes guisos de fonda.
-  de_nopal_con_queso:
-    name_es: Tacos de nopal con queso
-    name_en: Cactus and Cheese Tacos
+      Tacos filled with whatever homestyle stew the fonda is serving that day.
+  de_nopal:
+    name_es: Tacos de nopal
+    name_en: Cactus Tacos
     extra_ingredients:
       - nopal
       - queso
-      - tortilla
-    technique: 
+    technique: nopal asado o guisado con queso en tortilla
     description_es: >
-      Tacos ligeros de nopal con queso.
+      Tacos de nopal asado o guisado con queso.
     description_en: >
-      Tacos ligeros de nopal con queso.
-  de_camaron_capeado:
-    name_es: Tacos de camarón capeado
-    name_en: Battered Shrimp Tacos
-    extra_ingredients:
-      - camaron
-      - harina
-      - tortilla
-    technique: 
-    description_es: >
-      Tacos de camarón empanizado frito.
-    description_en: >
-      Tacos de camarón empanizado frito.
-  de_papa_con_chile_verde:
-    name_es: Tacos de papa con chile verde
-    name_en: Potato Tacos in Green Chili
-    extra_ingredients:
-      - papa
-      - tomatillo
-      - tortilla
-    technique: 
-    description_es: >
-      Tacos de papa guisada en salsa verde.
-    description_en: >
-      Tacos de papa guisada en salsa verde.
+      Tacos of grilled or stewed cactus paddles — often with melted cheese.
   de_chorizo_con_papa:
     name_es: Tacos de chorizo con papa
     name_en: Chorizo and Potato Tacos
     extra_ingredients:
       - chorizo
       - papa
-      - tortilla
-    technique: 
-    description_es: >
-      Tacos de chorizo con papa cocida.
-    description_en: >
-      Tacos de chorizo con papa cocida.
-  de_carne_al_pastor_estilo_fonda:
-    name_es: Tacos de carne al pastor estilo fonda
-    name_en: Home-style Al Pastor Tacos
-    extra_ingredients:
-      - carne_de_cerdo
-      - achiote
-      - pina
-    technique: 
-    description_es: >
-      Tacos de carne adobada estilo casero sin trompo.
-    description_en: >
-      Tacos de carne adobada estilo casero sin trompo.
-  de_barbacoa_de_res_dorados:
-    name_es: Tacos de barbacoa de res dorados
-    name_en: Crispy Beef Barbacoa Tacos
-    extra_ingredients:
-      - res
-      - tortilla
-      - consome
-    technique: 
-    description_es: >
-      Tacos de barbacoa dorados en plancha.
-    description_en: >
-      Tacos de barbacoa dorados en plancha.
-  de_papa_con_chorizo_verde:
-    name_es: Tacos de papa con chorizo verde
-    name_en: Potato with Green Chorizo Tacos
-    extra_ingredients:
-      - papa
       - chorizo_verde
-      - tortilla
-    technique: 
+    technique: chorizo desmenuzado guisado con papa y servido en tortilla
     description_es: >
-      Tacos de papa con chorizo verde picante.
+      Tacos de chorizo rojo o verde con papa.
     description_en: >
-      Tacos de papa con chorizo verde picante.
+      Tacos of crumbled chorizo stewed with potato — red or green chorizo.
   de_champinones_al_ajillo:
     name_es: Tacos de champiñones al ajillo
     name_en: Garlic Mushroom Tacos
     extra_ingredients:
       - champinon
       - ajo
-      - tortilla
-    technique: 
+    technique: champiñones salteados con ajo y servidos en tortilla
     description_es: >
-      Tacos vegetarianos de champiñones salteados.
+      Tacos vegetarianos de champiñones salteados al ajillo.
     description_en: >
-      Tacos vegetarianos de champiñones salteados.
+      Vegetarian tacos of mushrooms sautéed with garlic until fragrant.
   de_calabaza_con_elote:
     name_es: Tacos de calabaza con elote
     name_en: Zucchini and Corn Tacos
     extra_ingredients:
       - calabaza
       - elote
-      - tortilla
-    technique: 
+    technique: calabaza guisada con elote y servida en tortilla
     description_es: >
       Tacos de calabaza con granos de elote.
     description_en: >
-      Tacos de calabaza con granos de elote.
-  de_nopal_asado:
-    name_es: Tacos de nopal asado
-    name_en: Grilled Cactus Tacos
-    extra_ingredients:
-      - nopal
-      - tortilla
-      - sal
-    technique: 
-    description_es: >
-      Tacos de nopal asado en comal.
-    description_en: >
-      Tacos de nopal asado en comal.
+      Tacos of zucchini stewed with sweet corn kernels — light and seasonal.
   de_pollo_a_la_plancha:
     name_es: Tacos de pollo a la plancha
     name_en: Grilled Chicken Tacos
     extra_ingredients:
       - pollo
-      - tortilla
       - limon
-    technique: 
+    technique: pollo asado en plancha, cortado y servido en tortilla
     description_es: >
-      Tacos de pollo asado sencillo.
+      Tacos de pollo asado sencillo con limón.
     description_en: >
-      Tacos de pollo asado sencillo.
+      Simple grilled chicken tacos finished with lime.
   de_pollo_en_salsa_verde:
     name_es: Tacos de pollo en salsa verde
     name_en: Green Sauce Chicken Tacos
     extra_ingredients:
       - pollo
       - tomatillo
-      - tortilla
-    technique: 
+    technique: pollo deshebrado guisado en salsa verde y servido en tortilla
     description_es: >
-      Tacos de pollo guisado en salsa verde.
+      Tacos de pollo guisado en salsa verde de tomatillo.
     description_en: >
-      Tacos de pollo guisado en salsa verde.
+      Tacos of shredded chicken stewed in tangy green tomatillo sauce.
   de_carne_deshebrada_en_chile_guajillo:
     name_es: Tacos de carne deshebrada en chile guajillo
-    name_en: Shredded Beef in Guajillo Tacos
+    name_en: Shredded Beef Guajillo Tacos
     extra_ingredients:
       - res
       - chile_guajillo
-      - tortilla
-    technique: 
+    technique: carne deshebrada guisada en salsa de guajillo y servida en tortilla
     description_es: >
-      Tacos de carne deshebrada en salsa roja.
+      Tacos de carne deshebrada en salsa roja de guajillo.
     description_en: >
-      Tacos de carne deshebrada en salsa roja.
+      Tacos of shredded beef in mild red guajillo chile sauce.
   de_carne_deshebrada_en_chipotle:
     name_es: Tacos de carne deshebrada en chipotle
-    name_en: Shredded Beef in Chipotle Tacos
+    name_en: Shredded Beef Chipotle Tacos
     extra_ingredients:
       - res
       - chipotle
-      - tortilla
-    technique: 
+    technique: carne deshebrada guisada en salsa de chipotle y servida en tortilla
     description_es: >
       Tacos de carne en salsa chipotle ahumada.
     description_en: >
-      Tacos de carne en salsa chipotle ahumada.
+      Tacos of shredded beef in smoky chipotle sauce.

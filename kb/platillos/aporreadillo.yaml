@@ -1,6 +1,5 @@
 canonical_name: aporreadillo
 common_names:
-  - Aporreadillo
 category: platillo_principal
 base_ingredients:
   - cecina_seca
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Carne seca desmenuzada cocinada con huevo y salsa.
     description_en: >
-      Carne seca desmenuzada cocinada con huevo y salsa.
+      Beef seca desmenuzada cocinada with egg and sauce.

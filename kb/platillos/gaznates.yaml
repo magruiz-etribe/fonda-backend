@@ -1,6 +1,5 @@
 canonical_name: gaznates
 common_names:
-  - Gaznates
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tubos crujientes rellenos de merengue.
     description_en: >
-      Tubos crujientes rellenos de merengue.
+      Tubos crujientes rellenos of merengue.

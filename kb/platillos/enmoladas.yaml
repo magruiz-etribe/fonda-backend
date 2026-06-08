@@ -1,6 +1,5 @@
 canonical_name: enmoladas
 common_names:
-  - Enmoladas
 category: platillo_principal
 base_ingredients:
   - tortilla
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortillas bañadas en mole.
     description_en: >
-      Tortillas bañadas en mole.
+      Tortillas bañadas in mole.

@@ -1,6 +1,5 @@
 canonical_name: carne_en_salsa_verde
 common_names:
-  - Carne en salsa verde
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -22,4 +21,4 @@ variants:
     description_es: >
       Trozos de carne de cerdo cocinados en salsa verde hecha a base de tomate verde y chiles.
     description_en: >
-      Trozos de carne de cerdo cocinados en salsa verde hecha a base de tomate verde y chiles.
+      Pork in Green Sauce made with pork, tomatillo, serrano chile, onion and ajo.

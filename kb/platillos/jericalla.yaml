@@ -1,7 +1,6 @@
 canonical_name: jericalla
 common_names:
   - postre tapatío
-  - Jericalla
 category: postre
 base_ingredients:
   - leche
@@ -22,4 +21,4 @@ variants:
     description_es: >
       Postre tapatío horneado con textura similar al flan.
     description_en: >
-      Postre tapatío horneado con textura similar al flan.
+      Dessert tapatío horneado with textura similar al flan.

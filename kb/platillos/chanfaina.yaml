@@ -1,6 +1,5 @@
 canonical_name: chanfaina
 common_names:
-  - Chanfaina
 category: platillo_principal
 base_ingredients:
   - visceras_de_borrego
@@ -16,4 +15,4 @@ variants:
     description_es: >
       Guiso elaborado con vísceras de borrego.
     description_en: >
-      Guiso elaborado con vísceras de borrego.
+      Stew made with vísceras of borrego.

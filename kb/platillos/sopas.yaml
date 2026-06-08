@@ -3,27 +3,20 @@ common_names:
   - sopa de fideo
   - sopa de lentejas
   - sopa de tortilla
-  - Sopa de lima
-  - Sopa de tortilla
-  - Sopa de fideo
-  - Sopa de letras
-  - Sopa de guías
-  - Sopa de pan
-  - Sopa de fideo rojo
-  - Sopa de verduras
-  - Sopa de lentejas
-  - Sopa de habas
-  - Sopa de coditos
-  - Sopa de ajo
-  - Sopa de mariscos mixta
-  - Sopa de fideo seco
+  - sopa de lima
+  - sopa de letras
+  - sopa de guías
+  - sopa de pan
+  - sopa de verduras
+  - sopa de habas
+  - sopa de ajo
+  - sopa de mariscos
 category: caldo
 base_ingredients:
-  - carne_de_res_deshebrada
+  - caldo_de_pollo
   - jitomate
   - cebolla
   - ajo
-  - caldo_de_pollo
   - sal
 variants:
   de_fideo:
@@ -31,14 +24,12 @@ variants:
     name_en: Mexican Noodle Soup
     extra_ingredients:
       - fideo
-      - jitomate
-      - ajo
-      - cebolla
-    technique: 
+      - pasta
+    technique: pasta dorada en aceite, cocida en caldo de jitomate
     description_es: >
-      Pasta dorada cocida en caldo de jitomate.
+      Pasta de fideo, coditos o letras dorada en caldo de jitomate.
     description_en: >
-      Pasta dorada cocida en caldo de jitomate.
+      Thin noodles, elbow pasta, or alphabet pasta toasted in oil and cooked in tomato broth.
   de_lentejas:
     name_es: Sopa de lentejas
     name_en: Lentil Soup
@@ -46,24 +37,25 @@ variants:
       - lentejas
       - zanahoria
       - jitomate
-    technique: 
+    technique: lentejas cocidas con verduras en caldo sazonado
     description_es: >
       Sopa casera de lentejas con verduras.
     description_en: >
-      Sopa casera de lentejas con verduras.
+      Homestyle lentil soup with carrots and tomato — hearty and nourishing.
   de_tortilla:
     name_es: Sopa de tortilla
     name_en: Tortilla Soup
     extra_ingredients:
       - tortilla
-      - jitomate
       - chile_pasilla
       - aguacate
-    technique: 
+      - crema
+      - queso_fresco
+    technique: caldo de jitomate con tiras de tortilla frita y chile pasilla
     description_es: >
       Caldo de jitomate con tiras de tortilla frita.
     description_en: >
-      Caldo de jitomate con tiras de tortilla frita.
+      Tomato broth with crispy fried tortilla strips, pasilla chile, avocado, and cream.
   de_lima:
     name_es: Sopa de lima
     name_en: Lime Soup
@@ -72,25 +64,11 @@ variants:
       - lima
       - tortilla_frita
       - cebolla
-    technique: 
+    technique: caldo de pollo con lima yucateca, servido con tortilla frita
     description_es: >
-      Sopa típica yucateca elaborada con caldo de pollo y lima.
+      Sopa yucateca de pollo con jugo de lima agria.
     description_en: >
-      Sopa típica yucateca elaborada con caldo de pollo y lima.
-  de_letras:
-    name_es: Sopa de letras
-    name_en: Alphabet Pasta Soup
-    extra_ingredients:
-      - pasta
-      - jitomate
-      - verduras
-      - pasta_de_letras
-      - caldo_de_pollo
-    technique: 
-    description_es: >
-      Sopa de pasta en forma de letras.
-    description_en: >
-      Sopa de pasta en forma de letras.
+      Yucatecan chicken soup brightened with sour lime juice and crispy tortilla strips.
   de_guias:
     name_es: Sopa de guías
     name_en: Squash Vine Soup
@@ -98,11 +76,11 @@ variants:
       - guias_de_calabaza
       - elote
       - flor_de_calabaza
-    technique: 
+    technique: guías de calabaza cocidas con elote y flor de calabaza en caldo
     description_es: >
-      Sopa oaxaqueña preparada con guías de calabaza y vegetales.
+      Sopa oaxaqueña con guías de calabaza, elote y flor de calabaza.
     description_en: >
-      Sopa oaxaqueña preparada con guías de calabaza y vegetales.
+      Oaxacan soup of squash vines with corn and squash blossoms — delicate and seasonal.
   de_pan:
     name_es: Sopa de pan
     name_en: Bread Soup
@@ -110,23 +88,11 @@ variants:
       - pan
       - caldo_de_pollo
       - jitomate
-    technique: 
+    technique: pan remojado en caldo de pollo con jitomate y especias
     description_es: >
-      Sopa tradicional elaborada con pan remojado en caldo.
+      Sopa tradicional con pan remojado en caldo.
     description_en: >
-      Sopa tradicional elaborada con pan remojado en caldo.
-  de_fideo_rojo:
-    name_es: Sopa de fideo rojo
-    name_en: Red Vermicelli Soup
-    extra_ingredients:
-      - fideo
-      - jitomate
-      - ajo
-    technique: 
-    description_es: >
-      Sopa ligera de fideo en caldo de jitomate.
-    description_en: >
-      Sopa ligera de fideo en caldo de jitomate.
+      Traditional soup of bread soaked in seasoned chicken broth with tomato.
   de_verduras:
     name_es: Sopa de verduras
     name_en: Vegetable Soup
@@ -135,11 +101,11 @@ variants:
       - papa
       - calabaza
       - chayote
-    technique: 
+    technique: verduras mixtas cocidas en caldo ligero
     description_es: >
       Sopa casera con verduras mixtas.
     description_en: >
-      Sopa casera con verduras mixtas.
+      Homestyle soup of mixed vegetables in light broth.
   de_habas:
     name_es: Sopa de habas
     name_en: Fava Bean Soup
@@ -147,23 +113,11 @@ variants:
       - haba
       - ajo
       - jitomate
-    technique: 
+    technique: habas cocidas y licuadas parcialmente en caldo con ajo y jitomate
     description_es: >
       Sopa espesa de habas típica de fonda.
     description_en: >
-      Sopa espesa de habas típica de fonda.
-  de_coditos:
-    name_es: Sopa de coditos
-    name_en: Elbow Pasta Soup
-    extra_ingredients:
-      - pasta
-      - jitomate
-      - ajo
-    technique: 
-    description_es: >
-      Sopa de pasta codito en jitomate.
-    description_en: >
-      Sopa de pasta codito en jitomate.
+      Thick fava bean soup with garlic and tomato — earthy and filling.
   de_ajo:
     name_es: Sopa de ajo
     name_en: Garlic Soup
@@ -171,33 +125,21 @@ variants:
       - ajo
       - pan
       - caldo
-    technique: 
+    technique: ajo dorado en caldo con pan tostado
     description_es: >
       Sopa ligera con ajo y pan.
     description_en: >
-      Sopa ligera con ajo y pan.
-  de_mariscos_mixta:
-    name_es: Sopa de mariscos mixta
+      Light garlic broth with toasted bread — simple and aromatic.
+  de_mariscos:
+    name_es: Sopa de mariscos
     name_en: Mixed Seafood Soup
     extra_ingredients:
       - camaron
       - pescado
       - almeja
       - jitomate
-    technique: 
+    technique: mariscos cocidos en caldo de jitomate con verduras
     description_es: >
-      Caldo con varios mariscos, típico de fondas costeras.
+      Caldo con camarón, pescado y almejas en salsa de jitomate.
     description_en: >
-      Caldo con varios mariscos, típico de fondas costeras.
-  de_fideo_seco:
-    name_es: Sopa de fideo seco
-    name_en: Dry Fried Noodle Soup
-    extra_ingredients:
-      - pasta
-      - jitomate
-      - ajo
-    technique: 
-    description_es: >
-      Fideo frito servido seco con salsa.
-    description_en: >
-      Fideo frito servido seco con salsa.
+      Tomato-based broth with shrimp, fish, and clams — typical of coastal fondas.

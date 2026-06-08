@@ -1,6 +1,5 @@
 canonical_name: chanfaina_chiapaneca
 common_names:
-  - Chanfaina chiapaneca
 category: platillo_principal
 base_ingredients:
   - visceras
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Guiso elaborado con vísceras de res o borrego.
     description_en: >
-      Guiso elaborado con vísceras de res o borrego.
+      Stew made with vísceras of beef or borrego.

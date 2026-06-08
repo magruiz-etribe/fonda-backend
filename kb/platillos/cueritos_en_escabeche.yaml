@@ -1,6 +1,5 @@
 canonical_name: cueritos_en_escabeche
 common_names:
-  - Cueritos en escabeche
 category: platillo_principal
 base_ingredients:
   - cueritos
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Piel de cerdo curtida en vinagre y especias.
     description_en: >
-      Piel de cerdo curtida en vinagre y especias.
+      Piel of pork curtida in vinegar and spices.

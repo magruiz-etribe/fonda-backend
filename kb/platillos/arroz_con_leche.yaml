@@ -1,7 +1,5 @@
 canonical_name: arroz_con_leche
 common_names:
-  - arroz con leche
-  - Arroz con leche
 category: postre
 base_ingredients:
   - arroz
@@ -25,4 +23,4 @@ variants:
     description_es: >
       Postre tradicional de arroz cocido con leche y canela.
     description_en: >
-      Postre tradicional de arroz cocido con leche y canela.
+      Dessert traditional of rice cooked with milk and canela.

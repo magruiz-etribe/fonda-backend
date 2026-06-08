@@ -1,6 +1,5 @@
 canonical_name: esquites
 common_names:
-  - Esquites
 category: platillo_principal
 base_ingredients:
   - elote
@@ -20,4 +19,4 @@ variants:
     description_es: >
       Granos de elote cocidos servidos en vaso con condimentos.
     description_en: >
-      Granos de elote cocidos servidos en vaso con condimentos.
+      Kernels of corn cocidos servidos in vaso with condimentos.

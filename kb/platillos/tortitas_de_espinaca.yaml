@@ -1,6 +1,5 @@
 canonical_name: tortitas_de_espinaca
 common_names:
-  - Tortitas de espinaca
 category: platillo_principal
 base_ingredients:
   - espinaca
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortitas de espinaca con huevo, típicas de fonda casera.
     description_en: >
-      Tortitas de espinaca con huevo, típicas de fonda casera.
+      Tortitas of espinaca with egg, típicas of fonda casera.

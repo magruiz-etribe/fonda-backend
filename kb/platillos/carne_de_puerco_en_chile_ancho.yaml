@@ -1,6 +1,5 @@
 canonical_name: carne_de_puerco_en_chile_ancho
 common_names:
-  - Carne de puerco en chile ancho
 category: platillo_principal
 base_ingredients:
   - carne_de_cerdo
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Cerdo en salsa suave de chile ancho.
     description_en: >
-      Cerdo en salsa suave de chile ancho.
+      Pork in Ancho Chili Sauce made with pork, chile ancho and tomato.

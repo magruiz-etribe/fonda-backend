@@ -1,6 +1,5 @@
 canonical_name: galletas_de_coco
 common_names:
-  - Galletas de coco
 category: platillo_principal
 base_ingredients:
   - coco
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Galletas aromatizadas con coco rallado.
     description_en: >
-      Galletas aromatizadas con coco rallado.
+      Galletas aromatizadas with coco rallado.

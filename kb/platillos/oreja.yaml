@@ -1,6 +1,5 @@
 canonical_name: oreja
 common_names:
-  - Oreja
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Pan hojaldrado crujiente cubierto de azúcar caramelizada.
     description_en: >
-      Pan hojaldrado crujiente cubierto de azúcar caramelizada.
+      Pan hojaldrado crispy topped of sugar caramelizada.

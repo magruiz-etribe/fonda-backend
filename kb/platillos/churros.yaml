@@ -1,10 +1,5 @@
 canonical_name: churros
 common_names:
-  - churros
-  - churros rellenos
-  - Churros
-  - Churros rellenos de cajeta
-  - Churros rellenos de chocolate
 category: postre
 base_ingredients:
   - harina_de_trigo
@@ -48,7 +43,7 @@ variants:
     description_es: >
       Masa frita espolvoreada con azúcar y canela.
     description_en: >
-      Masa frita espolvoreada con azúcar y canela.
+      Masa frita espolvoreada with sugar and canela.
   rellenos_de_cajeta:
     name_es: Churros rellenos de cajeta
     name_en: Cajeta-Filled Churros
@@ -60,7 +55,7 @@ variants:
     description_es: >
       Churros rellenos con dulce de leche de cabra.
     description_en: >
-      Churros rellenos con dulce de leche de cabra.
+      Churros rellenos with dulce of milk of cabra.
   rellenos_de_chocolate:
     name_es: Churros rellenos de chocolate
     name_en: Chocolate-Filled Churros
@@ -72,4 +67,4 @@ variants:
     description_es: >
       Churros rellenos con crema de chocolate.
     description_en: >
-      Churros rellenos con crema de chocolate.
+      Chocolate-Filled Churros made with harina, chocolate and sugar.

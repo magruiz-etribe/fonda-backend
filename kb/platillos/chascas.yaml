@@ -1,6 +1,5 @@
 canonical_name: chascas
 common_names:
-  - Chascas
 category: platillo_principal
 base_ingredients:
   - elote
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Variante norteña de los esquites preparada con queso y crema.
     description_en: >
-      Variante norteña de los esquites preparada con queso y crema.
+      Chihuahua Corn Cup made with corn, Mexican crema and queso menonita.

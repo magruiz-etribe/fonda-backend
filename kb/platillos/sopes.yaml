@@ -1,13 +1,5 @@
 canonical_name: sopes
 common_names:
-  - sopes
-  - Sopes
-  - Sopes de chorizo
-  - Sopes de pollo
-  - Sopes de carne deshebrada
-  - Sopes de tinga de pollo
-  - Sopes de chorizo con papa
-  - Sopes de frijol con queso
 category: antojito
 base_ingredients:
   - masa_de_maiz
@@ -27,7 +19,7 @@ variants:
     description_es: >
       Base gruesa de maíz cubierta con frijoles, carne y vegetales.
     description_en: >
-      Base gruesa de maíz cubierta con frijoles, carne y vegetales.
+      Thick corn masa bases topped with beans, meat, and vegetables.
   de_chorizo:
     name_es: Sopes de chorizo
     name_en: Chorizo Sopes
@@ -39,7 +31,7 @@ variants:
     description_es: >
       Sopes con chorizo frito y crema.
     description_en: >
-      Sopes con chorizo frito y crema.
+      Thick corn sopes topped with fried chorizo and crema.
   de_pollo:
     name_es: Sopes de pollo
     name_en: Chicken Sopes
@@ -51,7 +43,7 @@ variants:
     description_es: >
       Sopes con pollo deshebrado.
     description_en: >
-      Sopes con pollo deshebrado.
+      Thick corn sopes topped with shredded chicken.
   de_carne_deshebrada:
     name_es: Sopes de carne deshebrada
     name_en: Shredded Beef Sopes
@@ -63,7 +55,7 @@ variants:
     description_es: >
       Sopes con carne de res deshebrada.
     description_en: >
-      Sopes con carne de res deshebrada.
+      Sopes with beef of beef shredded.
   de_tinga_de_pollo:
     name_es: Sopes de tinga de pollo
     name_en: Chicken Tinga Sopes
@@ -75,7 +67,7 @@ variants:
     description_es: >
       Sopes con pollo en chipotle.
     description_en: >
-      Sopes con pollo en chipotle.
+      Sopes with chicken in chipotle.
   de_chorizo_con_papa:
     name_es: Sopes de chorizo con papa
     name_en: Chorizo and Potato Sopes
@@ -87,7 +79,7 @@ variants:
     description_es: >
       Sopes con chorizo y papa.
     description_en: >
-      Sopes con chorizo y papa.
+      Sopes with chorizo and potato.
   de_frijol_con_queso:
     name_es: Sopes de frijol con queso
     name_en: Bean and Cheese Sopes
@@ -99,4 +91,4 @@ variants:
     description_es: >
       Sopes sencillos de frijol y queso.
     description_en: >
-      Sopes sencillos de frijol y queso.
+      Simple sopes with beans and cheese.

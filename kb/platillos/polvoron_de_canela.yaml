@@ -1,6 +1,5 @@
 canonical_name: polvoron_de_canela
 common_names:
-  - Polvorón de canela
 category: platillo_principal
 base_ingredients:
   - harina
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Galleta tradicional aromatizada con canela.
     description_en: >
-      Galleta tradicional aromatizada con canela.
+      Cinnamon Shortbread Cookie made with harina, canela and sugar.

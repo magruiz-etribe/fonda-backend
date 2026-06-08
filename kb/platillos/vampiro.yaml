@@ -1,6 +1,5 @@
 canonical_name: vampiro
 common_names:
-  - Vampiro
 category: platillo_principal
 base_ingredients:
   - tortilla_crujiente
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Tortilla tostada con carne, queso y salsa.
     description_en: >
-      Tortilla tostada con carne, queso y salsa.
+      Crispy Birria Tortilla made with tortilla crujiente, carne and cheese.

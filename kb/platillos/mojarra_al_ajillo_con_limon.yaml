@@ -1,6 +1,5 @@
 canonical_name: mojarra_al_ajillo_con_limon
 common_names:
-  - Mojarra al ajillo con limón
 category: platillo_principal
 base_ingredients:
   - mojarra
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Mojarra frita o asada con ajo y limón.
     description_en: >
-      Mojarra frita o asada con ajo y limón.
+      Mojarra frita or asada with ajo and lime.

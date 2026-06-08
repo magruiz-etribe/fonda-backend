@@ -1,6 +1,5 @@
 canonical_name: mulita
 common_names:
-  - Mulita
 category: platillo_principal
 base_ingredients:
   - tortilla
@@ -18,4 +17,4 @@ variants:
     description_es: >
       Preparación con dos tortillas y relleno de carne y queso.
     description_en: >
-      Preparación con dos tortillas y relleno de carne y queso.
+      Preparación with dos tortillas and stuffed of beef and cheese.
