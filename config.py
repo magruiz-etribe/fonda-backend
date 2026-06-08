@@ -30,9 +30,7 @@ CLASSIFIER_MAX_TOKENS: Final[int] = 512
 GEN_MAX_TOKENS: Final[int] = 1200
 WEB_GROUNDING_MAX_TOKENS: Final[int] = 800
 
-WEB_GROUNDING_ENABLED: Final[bool] = os.environ.get(
-    "WEB_GROUNDING_ENABLED", "false"
-).lower() in ("1", "true", "yes")
+WEB_GROUNDING_ENABLED: Final[bool] = False
 
 BEDROCK_READ_TIMEOUT_S: Final[int] = 60
 BEDROCK_CONNECT_TIMEOUT_S: Final[int] = 10
