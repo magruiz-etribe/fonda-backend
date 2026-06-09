@@ -1,59 +1,20 @@
 canonical_name: frijoles
 common_names:
-  - frijoles rancheros
-  - frijoles cocidos
-  - frijoles charros
-  - frijoles puercos
-  - frijoles de la olla
-  - frijoles refritos
-category: guarnicion
-base_ingredients:
   - frijoles
-  - sal
-  - ajo
+  - frijolitos
+  - frijoles de olla
+  - frijoles refritos
+  - frijoles negros
+  - frijoles fritos
+  - frijoles de la olla
+  - frijoles machucados
+category: guarnicion
+base_description: "Frijoles [tipo_de_frijoles]."
+variables_requeridas:
+  - tipo_de_frijoles
+ingredientes_base_default:
+  - frijol negro
   - cebolla
-variants:
-  charros:
-    name_es: Frijoles charros
-    name_en: Charro Beans
-    extra_ingredients:
-      - frijoles_pintos
-      - tocino
-      - chorizo
-      - chile
-    technique: frijoles cocidos con tocino, chorizo y chile en caldo espeso
-    description_es: >
-      Frijoles con tocino, chorizo y chile.
-    description_en: >
-      Pinto beans simmered with bacon, chorizo, and chile in a hearty broth.
-  de_la_olla:
-    name_es: Frijoles de la olla
-    name_en: Pot Beans
-    extra_ingredients:
-      - epazote
-    technique: cocción lenta en olla con ajo, cebolla y epazote
-    description_es: >
-      Frijoles cocidos lentamente en olla con ajo, cebolla y epazote.
-    description_en: >
-      Slow-simmered beans cooked in water with garlic, onion, and epazote.
-  puercos:
-    name_es: Frijoles puercos
-    name_en: Pork Beans
-    extra_ingredients:
-      - chorizo
-      - queso
-    technique: frijoles refritos mezclados con chorizo y queso
-    description_es: >
-      Frijoles refritos con chorizo y queso.
-    description_en: >
-      Refried beans mixed with chorizo and melted cheese.
-  refritos:
-    name_es: Frijoles refritos
-    name_en: Refried Beans
-    extra_ingredients:
-      - manteca
-    technique: frijoles cocidos machacados y fritos en manteca con cebolla
-    description_es: >
-      Frijoles machacados y fritos con manteca.
-    description_en: >
-      Cooked beans mashed and fried in lard with onion until creamy.
+  - ajo
+  - epazote
+  - manteca de cerdo

@@ -1,0 +1,16 @@
+canonical_name: chalupas
+common_names:
+  - chalupas
+  - chalupa
+  - chalupas de pollo
+  - chalupas de carne
+  - chalupas poblanas
+category: antojito
+base_description: "Base de masa de maíz frita con [guiso] y salsa."
+variables_requeridas:
+  - guiso
+ingredientes_base_default:
+  - masa de maíz
+  - aceite
+  - salsa
+  - cebolla

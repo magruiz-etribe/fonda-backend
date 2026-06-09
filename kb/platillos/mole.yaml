@@ -1,139 +1,23 @@
 canonical_name: mole
 common_names:
   - mole
-  - mole poblano
   - mole rojo
   - mole negro
-  - mole oaxaqueño
   - mole verde
-  - mole amarillo
-  - mole coloradito
-  - mole chichilo
-  - mole manchamanteles
-  - mole de la abuela
-category: salsa
-base_ingredients:
-  - chile_ancho
-  - chile_mulato
-  - chile_pasilla
-  - jitomate
-  - cebolla
+  - mole poblano
+  - mole de fonda
+  - pollo en mole
+  - guajolote en mole
+  - mole de olla
+category: plato_fuerte
+base_description: "Pieza de [tipo_de_carne] bañada en mole de chiles secos y chocolate."
+variables_requeridas:
+  - tipo_de_carne
+ingredientes_base_default:
+  - chiles secos
+  - chocolate
+  - cacahuate
+  - caldo
+  - tortilla
   - ajo
-  - chocolate_de_mesa
-  - caldo_de_pollo
-  - sal
-  - aceite
-variants:
-  poblano:
-    name_es: Mole poblano
-    name_en: Mole Poblano
-    extra_ingredients:
-      - chile_chipotle
-      - almendra
-      - cacahuate
-      - ajonjoli
-      - pasitas
-      - canela
-      - clavo
-      - comino
-      - pan
-      - tortilla
-    technique: molienda larga con especias tostadas y frutos secos
-    description_es: >
-      Salsa de chiles secos, especias, frutos secos, chocolate y pan.
-    description_en: >
-      Rich Puebla-style sauce with dried chiles, warm spices, nuts, chocolate, and bread.
-  negro:
-    name_es: Mole negro
-    name_en: Oaxacan Black Mole
-    extra_ingredients:
-      - chile_chilhuacle_negro
-      - chile_mulato_oscuro
-      - chocolate_oaxaqueño
-      - tortilla_quemada
-      - pasitas
-      - almendra
-      - ajonjoli
-      - clavo
-      - canela
-    technique: tostado de chiles hasta quemar, chocolate oaxaqueño
-    description_es: >
-      Mole oaxaqueño elaborado con varios chiles tostados y chocolate.
-    description_en: >
-      Complex Oaxacan black mole with deeply toasted chiles and Oaxacan chocolate.
-  verde:
-    name_es: Mole verde
-    name_en: Green Mole
-    extra_ingredients:
-      - tomatillo
-      - pepita_de_calabaza
-      - cilantro
-      - epazote
-      - chile_serrano
-    technique: molido en crudo con tomatillo y hierbas frescas
-    description_es: >
-      Salsa de tomatillo, pepita de calabaza, cilantro y epazote.
-    description_en: >
-      Fresh green mole with tomatillo, pumpkin seeds, cilantro, and epazote.
-  rojo:
-    name_es: Mole rojo
-    name_en: Red Mole
-    extra_ingredients:
-      - chile_guajillo
-      - ajonjoli
-      - cacahuate
-      - canela
-      - clavo
-    technique: salteado de chiles secos con especias
-    description_es: >
-      Mole rojo de fonda con chiles guajillo y ancho, cacahuate y especias.
-    description_en: >
-      Everyday red mole with guajillo and ancho chiles, peanuts, and warm spices.
-  amarillo:
-    name_es: Mole amarillo
-    name_en: Yellow Mole
-    extra_ingredients:
-      - chile_chilhuacle_amarillo
-      - masa_de_maiz
-      - tomate
-    technique: cocción de chiles amarillos con masa de maíz
-    description_es: >
-      Mole oaxaqueño amarillo elaborado con chiles y masa.
-    description_en: >
-      Oaxacan yellow mole thickened with corn masa and yellow chiles.
-  coloradito:
-    name_es: Mole coloradito
-    name_en: Oaxacan Red Mole
-    extra_ingredients:
-      - chile_ancho
-      - chile_guajillo
-      - ajonjoli
-    technique: molienda de chiles rojos con ajonjolí
-    description_es: >
-      Mole oaxaqueño de color rojizo y sabor ligeramente dulce.
-    description_en: >
-      Oaxacan red mole with a slightly sweet, reddish flavor profile.
-  chichilo:
-    name_es: Mole chichilo
-    name_en: Chichilo Mole
-    extra_ingredients:
-      - chile_chilhuacle_negro
-      - ajo
-      - comino
-    technique: tostado intenso de chiles con ajo y comino
-    description_es: >
-      Mole oaxaqueño oscuro con chiles tostados y especias.
-    description_en: >
-      Dark Oaxacan mole with intensely toasted chiles, garlic, and cumin.
-  manchamanteles:
-    name_es: Mole manchamanteles
-    name_en: Manchamanteles
-    extra_ingredients:
-      - pina
-      - platano
-      - chile_ancho
-    technique: cocción de chiles con frutas tropicales
-    description_es: >
-      Mole afrutado preparado con piña, plátano y chiles.
-    description_en: >
-      Fruity mole with pineapple, plantain, and ancho chile.
+  - cebolla

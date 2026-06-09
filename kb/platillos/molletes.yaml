@@ -1,48 +1,15 @@
 canonical_name: molletes
 common_names:
+  - molletes
+  - mollete
   - molletes con frijoles
-category: antojito
-base_ingredients:
+  - pan con frijoles y queso
+  - mollete de frijol
+category: desayuno
+base_description: "Pan bolillo tostado con frijoles refritos y queso fundido."
+variables_requeridas: []
+ingredientes_base_default:
   - bolillo
-  - frijoles
+  - frijol
   - queso
-variants:
-  molletes:
-    name_es: Molletes
-    name_en: Mexican Bean Toast
-    extra_ingredients:
-      - pan
-      - frijol
-      - queso
-      - bolillo
-      - frijoles_refritos
-      - queso_manchego
-    technique: 
-    description_es: >
-      Bolillo con frijoles y queso gratinado.
-    description_en: >
-      Bolillo with beans and cheese gratinado.
-  con_pico_de_gallo:
-    name_es: Molletes con pico de gallo
-    name_en: Bean Toast with Salsa
-    extra_ingredients:
-      - pan
-      - frijol
-      - jitomate
-    technique: 
-    description_es: >
-      Bolillo con frijol, queso y pico de gallo.
-    description_en: >
-      Bolillo with bean, cheese and pico of gallo.
-  con_chorizo_y_queso:
-    name_es: Molletes con chorizo y queso
-    name_en: Bean Toast with Chorizo and Cheese
-    extra_ingredients:
-      - pan
-      - frijol
-      - chorizo
-    technique: 
-    description_es: >
-      Bolillo con frijoles, chorizo y queso gratinado.
-    description_en: >
-      Bolillo with beans, chorizo and cheese gratinado.
+  - mantequilla

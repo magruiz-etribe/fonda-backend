@@ -1,62 +1,20 @@
 canonical_name: pozole
 common_names:
   - pozole
-  - pozole blanco
   - pozole rojo
   - pozole verde
+  - pozole blanco
+  - pozole guerrero
+  - pozole de cerdo
+  - pozole de pollo
 category: caldo
-base_ingredients:
-  - maiz_cacahuazintle
-  - carne_de_cerdo
+base_description: "Caldo [tipo_de_caldo] de maíz cacahuazintle con cerdo."
+variables_requeridas:
+  - tipo_de_caldo
+ingredientes_base_default:
+  - maíz cacahuazintle
+  - carne de cerdo
+  - chile guajillo
   - ajo
   - cebolla
-  - sal
-variants:
-  blanco:
-    name_es: Pozole blanco
-    name_en: White Pozole
-    extra_ingredients:
-      - lechuga
-      - rabano
-      - oregano_seco
-      - limon
-      - tostadas
-    technique: cocción lenta de maíz y carne en caldo claro sin chile base
-    description_es: >
-      Pozole sin chile rojo, más suave.
-    description_en: >
-      Hominy and pork in a clear, mild broth — served with lettuce, radish, oregano, lime, and tostadas.
-  rojo:
-    name_es: Pozole rojo
-    name_en: Red Pozole
-    extra_ingredients:
-      - chile_guajillo
-      - chile_ancho
-      - chile_pasilla
-      - lechuga
-      - rabano
-      - oregano_seco
-      - limon
-      - tostadas
-    technique: caldo de chile guajillo y ancho hidratados, cocción lenta
-    description_es: >
-      Sopa de maíz pozolero con carne y chile rojo.
-    description_en: >
-      Hominy and pork in a rich red chile broth — a fonda staple garnished with fresh toppings.
-  verde:
-    name_es: Pozole verde
-    name_en: Green Pozole
-    extra_ingredients:
-      - tomatillo
-      - chile_serrano
-      - pepita_de_calabaza
-      - cilantro
-      - lechuga
-      - rabano
-      - limon
-      - pollo
-    technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
-    description_es: >
-      Pozole con salsa verde de tomatillo y pepita.
-    description_en: >
-      Hominy stew in a green tomatillo, pumpkin-seed, and serrano chile sauce — often made with pork or chicken.
+  - orégano

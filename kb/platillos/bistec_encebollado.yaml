@@ -1,0 +1,14 @@
+canonical_name: bistec_encebollado
+common_names:
+  - bistec encebollado
+  - bistec con cebolla
+  - carne encebollada
+  - bistec a la plancha con cebolla
+category: plato_fuerte
+base_description: "Bistec de res frito con cebolla."
+variables_requeridas: []
+ingredientes_base_default:
+  - bistec de res
+  - cebolla
+  - aceite
+  - sal

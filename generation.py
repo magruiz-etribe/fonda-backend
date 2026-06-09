@@ -33,6 +33,13 @@ class GenResult:
     link: dict | None = None
     links: list[dict] = field(default_factory=list)
     intent: str = ""
+    # State machine fields
+    dish_status: str | None = None
+    collected_ingredients: list[str] = field(default_factory=list)
+    detected_flags: list[str] = field(default_factory=list)
+    variables_complete: bool | None = None
+    save_to_menu: bool = False
+    # Legacy confirmation fields (kept for backward compat with non-traduccion path)
     completeness_confirmed: bool | None = None
     allergens_confirmed: bool | None = None
     gluten_confirmed: bool | None = None
@@ -391,6 +398,278 @@ def looks_spanish(text: str) -> bool:
     spanish_hits = len(_SPANISH_MARKERS.findall(text))
     english_hits = len(_ENGLISH_MARKERS.findall(text))
     return spanish_hits >= 2 and english_hits == 0
+
+
+# ── New state-machine generation functions ────────────────────────────────────
+
+def generate_extracting(
+    *,
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    message: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> GenResult:
+    system = load_prompt("extracting_system.txt")
+    user_text = _build_extracting_text(
+        current_dish, companions, collected_ingredients, message, history, kb_data
+    )
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_PRO_MODEL_ID,
+            system,
+            messages,
+            inference_config={"maxTokens": 512, "temperature": 0.3},
+            stage="gen_extracting",
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
+        return GenResult(**_FALLBACK)
+
+    return _parse_extracting(raw, collected_ingredients)
+
+
+def _build_extracting_text(
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    message: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> str:
+    hist_lines: list[str] = []
+    for h in history[-6:]:
+        role = "usuario" if h.get("role") == "user" else "agente"
+        text = str(h.get("text", "")).strip().replace("\n", " ")
+        if len(text) > 300:
+            text = text[:297] + "…"
+        hist_lines.append(f"  {role}: {text}")
+    hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
+
+    comp_str = ", ".join(companions) if companions else "(ninguno)"
+    vars_req = json.dumps(kb_data.get("variables_requeridas") or [], ensure_ascii=False)
+    base_desc = kb_data.get("base_description") or ""
+
+    return (
+        f"current_dish: {current_dish}\n"
+        f"companions: {comp_str}\n"
+        f"variables_requeridas: {vars_req}\n"
+        f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"
+        f"base_description: {base_desc}\n\n"
+        f"Historial:\n{hist_block}\n\n"
+        f"Mensaje del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+
+
+def _parse_extracting(raw: str, fallback_collected: list[str]) -> GenResult:
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("gen_extracting_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return GenResult(**_FALLBACK)
+
+    if not isinstance(data, dict):
+        return GenResult(**_FALLBACK)
+
+    raw_response = data.get("response") or []
+    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+
+    variables_complete = bool(data.get("variables_complete", False))
+
+    raw_collected = data.get("collected_ingredients")
+    collected: list[str] = []
+    if isinstance(raw_collected, list):
+        for c in raw_collected:
+            if isinstance(c, str) and c.strip():
+                collected.append(c.strip().lower())
+    if not collected:
+        collected = list(fallback_collected)
+
+    logger.info("gen_extracting_ok", extra={"variables_complete": variables_complete, "collected": collected})
+
+    return GenResult(
+        response=response,
+        variables_complete=variables_complete,
+        collected_ingredients=collected,
+        buttons=[],
+    )
+
+
+def generate_confirming_flags(
+    *,
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    message: str,
+    history: list[dict[str, str]],
+) -> GenResult:
+    system = load_prompt("confirming_flags_system.txt")
+    user_text = _build_confirming_flags_text(
+        current_dish, companions, collected_ingredients, detected_flags, message, history
+    )
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_PRO_MODEL_ID,
+            system,
+            messages,
+            inference_config={"maxTokens": 512, "temperature": 0.3},
+            stage="gen_confirming_flags",
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("gen_confirming_flags_bedrock_error", extra={"error": str(e)})
+        return GenResult(**_FALLBACK)
+
+    return _parse_confirming_flags(raw)
+
+
+def _build_confirming_flags_text(
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    message: str,
+    history: list[dict[str, str]],
+) -> str:
+    hist_lines: list[str] = []
+    for h in history[-6:]:
+        role = "usuario" if h.get("role") == "user" else "agente"
+        text = str(h.get("text", "")).strip().replace("\n", " ")
+        if len(text) > 300:
+            text = text[:297] + "…"
+        hist_lines.append(f"  {role}: {text}")
+    hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
+
+    comp_str = ", ".join(companions) if companions else "(ninguno)"
+    flags_str = ", ".join(detected_flags) if detected_flags else "(ninguno)"
+
+    return (
+        f"current_dish: {current_dish}\n"
+        f"companions: {comp_str}\n"
+        f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"
+        f"detected_flags: {flags_str}\n\n"
+        f"Historial:\n{hist_block}\n\n"
+        f"Mensaje del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+
+
+def _parse_confirming_flags(raw: str) -> GenResult:
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("gen_confirming_flags_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return GenResult(**_FALLBACK)
+
+    if not isinstance(data, dict):
+        return GenResult(**_FALLBACK)
+
+    raw_response = data.get("response") or []
+    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not response:
+        return GenResult(**_FALLBACK)
+
+    return GenResult(response=response, buttons=[])
+
+
+def generate_drafting(
+    *,
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    message: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> GenResult:
+    system = load_prompt("drafting_system.txt")
+    user_text = _build_drafting_text(
+        current_dish, companions, collected_ingredients, detected_flags, message, history, kb_data
+    )
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        raw = bedrock_client.converse(
+            config.NOVA_PRO_MODEL_ID,
+            system,
+            messages,
+            inference_config={"maxTokens": config.GEN_MAX_TOKENS, "temperature": 0.5},
+            stage="gen_drafting",
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("gen_drafting_bedrock_error", extra={"error": str(e)})
+        return GenResult(**_FALLBACK)
+
+    return _parse_drafting(raw, current_dish, companions)
+
+
+def _build_drafting_text(
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    message: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> str:
+    hist_lines: list[str] = []
+    for h in history[-6:]:
+        role = "usuario" if h.get("role") == "user" else "agente"
+        text = str(h.get("text", "")).strip().replace("\n", " ")
+        if len(text) > 300:
+            text = text[:297] + "…"
+        hist_lines.append(f"  {role}: {text}")
+    hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
+
+    comp_str = ", ".join(companions) if companions else "(ninguno)"
+    flags_str = ", ".join(detected_flags) if detected_flags else "(ninguno)"
+    base_desc = kb_data.get("base_description") or ""
+
+    return (
+        f"current_dish: {current_dish}\n"
+        f"companions: {comp_str}\n"
+        f"base_description: {base_desc}\n"
+        f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"
+        f"detected_flags: {flags_str}\n\n"
+        f"Historial:\n{hist_block}\n\n"
+        f"Mensaje del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+
+
+def _parse_drafting(raw: str, current_dish: str, companions: list[str]) -> GenResult:
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("gen_drafting_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return GenResult(**_FALLBACK)
+
+    if not isinstance(data, dict):
+        return GenResult(**_FALLBACK)
+
+    raw_response = data.get("response") or []
+    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not response:
+        return GenResult(**_FALLBACK)
+
+    raw_buttons = data.get("buttons") or []
+    buttons = [b.strip() for b in raw_buttons if isinstance(b, str) and b.strip()]
+
+    dishes_out = [current_dish] + companions
+
+    logger.info("gen_drafting_ok", extra={"bubbles": len(response), "buttons": buttons})
+
+    return GenResult(
+        response=response,
+        buttons=buttons,
+        current_dishes=dishes_out,
+    )
 
 
 def translate_menu_card(

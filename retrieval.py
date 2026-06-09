@@ -135,23 +135,41 @@ def _parse_json_array(text: str) -> list[dict]:
 
 @lru_cache(maxsize=1)
 def get_entities_index() -> dict[str, str]:
-    full = os.path.join(config.KB_PATH, "entities_index.json")
+    """Build alias → canonical_name index from YAML common_names fields."""
+    platillos_dir = os.path.join(config.KB_PATH, "platillos")
+    index: dict[str, str] = {}
+    if not _YAML_AVAILABLE:
+        return index
     try:
-        with open(full, encoding="utf-8") as f:
-            data = json.load(f)
-    except FileNotFoundError:
-        logger.warning("entities_index_missing", extra={"path": full})
-        return {}
-    except json.JSONDecodeError as e:
-        logger.error("entities_index_invalid_json", extra={"path": full, "error": str(e)})
-        return {}
+        for fname in sorted(os.listdir(platillos_dir)):
+            if not fname.endswith(".yaml"):
+                continue
+            canonical = fname[:-5]
+            path = os.path.join(platillos_dir, fname)
+            try:
+                with open(path, encoding="utf-8") as f:
+                    data = _yaml.safe_load(f)
+                if not isinstance(data, dict):
+                    continue
+                index[canonical] = canonical
+                for alias in data.get("common_names") or []:
+                    alias_normalized = str(alias).strip().lower()
+                    if alias_normalized:
+                        index[alias_normalized] = canonical
+            except (_yaml.YAMLError, OSError):
+                pass
+    except OSError:
+        logger.warning("platillos_dir_missing", extra={"path": platillos_dir})
+    return index
 
-    if not isinstance(data, dict):
-        return {}
+
+def get_new_schema_context(entity: str) -> dict:
+    """Return new-schema fields for flag computation and description generation."""
+    data = get_dish_data(entity) or {}
     return {
-        str(k): str(v)
-        for k, v in data.items()
-        if isinstance(k, str) and isinstance(v, str)
+        "base_description": str(data.get("base_description") or ""),
+        "variables_requeridas": list(data.get("variables_requeridas") or []),
+        "ingredientes_base_default": list(data.get("ingredientes_base_default") or []),
     }
 
 

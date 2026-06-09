@@ -1,0 +1,18 @@
+canonical_name: machaca_con_huevo
+common_names:
+  - machaca con huevo
+  - machaca
+  - huevo con machaca
+  - carne seca con huevo
+  - machaca norteña
+  - machacado con huevo
+category: desayuno
+base_description: "Carne seca de res deshebrada revuelta con huevo, jitomate, chile y cebolla."
+variables_requeridas: []
+ingredientes_base_default:
+  - carne seca de res
+  - huevo
+  - jitomate
+  - chile serrano
+  - cebolla
+  - ajo

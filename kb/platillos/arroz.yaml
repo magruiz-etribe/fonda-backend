@@ -1,88 +1,21 @@
 canonical_name: arroz
 common_names:
+  - arroz
   - arroz rojo
   - arroz blanco
   - arroz verde
+  - arroz amarillo
+  - arroz mexicano
+  - arroz de la fonda
+  - arroz guisado
   - arroz a la mexicana
-  - arroz con plátano macho
-  - arroz con pollo
-  - arroz con mariscos
 category: guarnicion
-base_ingredients:
+base_description: "Arroz [tipo_de_arroz]."
+variables_requeridas:
+  - tipo_de_arroz
+ingredientes_base_default:
   - arroz
-  - agua
-  - sal
-  - aceite
-  - ajo
+  - caldo
   - cebolla
-variants:
-  rojo:
-    name_es: Arroz rojo
-    name_en: Mexican Red Rice
-    extra_ingredients:
-      - jitomate
-      - zanahoria
-      - chicharos
-    technique: sofrito de arroz con jitomate licuado y cocción en caldo
-    description_es: >
-      Arroz cocido en jitomate con ajo y cebolla.
-    description_en: >
-      Rice cooked in blended tomato with garlic and onion — the classic Mexican red rice.
-  blanco:
-    name_es: Arroz blanco
-    name_en: Mexican White Rice
-    extra_ingredients:
-      - perejil
-    technique: sofrito sencillo sin jitomate, cocción en caldo claro
-    description_es: >
-      Arroz simple estilo mexicano.
-    description_en: >
-      Simple Mexican-style white rice — lightly seasoned with garlic and onion.
-  verde:
-    name_es: Arroz verde
-    name_en: Green Rice
-    extra_ingredients:
-      - chile_poblano
-      - espinaca
-      - cilantro
-      - perejil
-    technique: licuado de hierbas y chile poblano, cocción del arroz en caldo verde
-    description_es: >
-      Arroz preparado con hierbas verdes y chile poblano.
-    description_en: >
-      Rice cooked in a blend of poblano pepper, spinach, cilantro, and parsley — fresh and herbaceous.
-  con_platano_macho:
-    name_es: Arroz con plátano macho
-    name_en: Rice with Fried Plantain
-    extra_ingredients:
-      - platano_macho
-    technique: arroz rojo o blanco servido con plátano macho frito
-    description_es: >
-      Arroz salado acompañado de plátano macho frito.
-    description_en: >
-      Seasoned rice served with sweet fried plantain slices.
-  con_pollo:
-    name_es: Arroz con pollo
-    name_en: Mexican Chicken and Rice
-    extra_ingredients:
-      - pollo
-      - jitomate
-      - zanahoria
-      - chicharos
-    technique: arroz rojo cocido con pollo guisado y verduras
-    description_es: >
-      Arroz rojo guisado con pollo y verduras.
-    description_en: >
-      Red rice stewed with chicken and vegetables — a hearty one-pot fonda plate.
-  con_mariscos:
-    name_es: Arroz con mariscos
-    name_en: Seafood Rice
-    extra_ingredients:
-      - camaron
-      - pescado
-      - jitomate
-    technique: arroz rojo preparado con mariscos en salsa de jitomate
-    description_es: >
-      Arroz rojo preparado con camarón y pescado.
-    description_en: >
-      Red rice cooked with shrimp and fish in tomato sauce — coastal fonda specialty.
+  - ajo
+  - aceite

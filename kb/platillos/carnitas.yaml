@@ -1,23 +1,18 @@
 canonical_name: carnitas
 common_names:
   - carnitas
-  - tacos de carnitas
-  - tacos de carnitas surtidas
-category: platillo_principal
-base_ingredients:
-  - carne_de_cerdo
-  - manteca_de_cerdo
+  - carnitas de cerdo
+  - carnitas michoacanas
+  - carnitas surtidas
+  - carnitas de puerco
+  - maciza de carnitas
+category: plato_fuerte
+base_description: "Carne de cerdo cocida lentamente en manteca."
+variables_requeridas: []
+ingredientes_base_default:
+  - carne de cerdo
+  - manteca de cerdo
+  - naranja
+  - ajo
+  - cebolla
   - sal
-variants:
-  carnitas:
-    name_es: Carnitas
-    name_en: Mexican Pork Carnitas
-    extra_ingredients:
-      - naranja
-      - ajo
-      - laurel
-    technique: cocción lenta en manteca (confitado)
-    description_es: >
-      Carne de cerdo cocinada lentamente en su propia grasa.
-    description_en: >
-      Slow-cooked pork confit, tender inside with lightly crisped edges — braised in its own fat with orange and bay leaf.

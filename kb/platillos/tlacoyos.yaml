@@ -1,0 +1,15 @@
+canonical_name: tlacoyos
+common_names:
+  - tlacoyos
+  - tlacoyo
+  - tlacoyos de frijol
+  - tlacoyos de haba
+  - tlacoyos de requesón
+  - tlacoyos de queso
+category: antojito
+base_description: "Masa de maíz en forma ovalada rellena de [relleno], cocinada en comal."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - masa de maíz
+  - sal

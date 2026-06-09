@@ -45,7 +45,6 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         body = _parse_body(event)
         session_id = _require_str(body, "session_id")
         message = _require_str(body, "message")
-        current_dishes = _optional_list(body, "current_dishes")
     except _BadRequest as e:
         logger.warning("bad_request", extra={"request_id": request_id, "error": str(e)})
         return _response(400, {"error": str(e)})
@@ -56,7 +55,6 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             "request_id": request_id,
             "session_id": session_id,
             "msg_len": len(message),
-            "current_dishes_in": current_dishes,
         },
     )
 
@@ -72,45 +70,12 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         )
         history = loaded["ddb.get_history"]
         session_state = loaded["ddb.get_session_state"]
-        if "current_dishes" in session_state:
-            current_dishes = session_state["current_dishes"]
-
-        _CONF_KEYS = (
-            "completeness_confirmed", "allergens_confirmed",
-            "gluten_confirmed", "spicy_confirmed",
-        )
-        confirmation_state = {k: session_state.get(k) for k in _CONF_KEYS}
-        dish_context: dict = session_state.get("dish_context") or {}
 
         with timing.stage("router.handle"):
-            result = router.handle(
-                message, current_dishes, history, confirmation_state, dish_context or None,
-            )
-
-        # Merge new confirmations from this turn into the running state
-        prev_primary = (session_state.get("current_dishes") or [""])[0]
-        curr_primary = (result.current_dishes or [""])[0]
-        primary_changed = bool(curr_primary) and curr_primary != prev_primary
-
-        if result.current_dishes and not primary_changed:
-            merged_conf: dict = {k: v for k, v in confirmation_state.items() if v is not None}
-        else:
-            merged_conf = {}  # reset when dish flow ends or primary dish changes
-
-        for key, val in [
-            ("completeness_confirmed", result.completeness_confirmed),
-            ("allergens_confirmed", result.allergens_confirmed),
-            ("gluten_confirmed", result.gluten_confirmed),
-            ("spicy_confirmed", result.spicy_confirmed),
-        ]:
-            if val is not None:
-                merged_conf[key] = val
+            result = router.handle(message, session_state, history)
 
         menu_del_dia: list = session_state.get("menu_del_dia", [])
-        if result.menu_entry:
-            result.menu_entry["flags"] = _apply_flag_confirmations(
-                result.menu_entry["flags"], merged_conf,
-            )
+        if result.save_to_menu and result.menu_entry:
             name_en = result.menu_entry.get("name_en", "")
             menu_del_dia = (
                 [e for e in menu_del_dia if e.get("name_en") != name_en]
@@ -118,29 +83,38 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             )
             menu_del_dia = menu_del_dia + [result.menu_entry]
 
-        # Update dish_context
-        if primary_changed or result.menu_entry:
-            dish_context = {}
-
-        if result.current_dishes:
-            dish_context["main_dish"] = curr_primary
-            persisted_rv: dict = dish_context.get("resolved_variants") or {}
-            dish_context["resolved_variants"] = {**persisted_rv, **result.resolved_variants}
-            existing_extras: list = dish_context.get("extra_ingredients") or []
-            for ing in result.extra_user_ingredients:
-                if ing not in existing_extras:
-                    existing_extras.append(ing)
-            dish_context["extra_ingredients"] = existing_extras
-            if "✅ Adaptar al inglés" in result.buttons:
-                last_response = "\n\n".join(result.response)
-                dish_context["last_description_es"] = last_response
-
-        new_state: dict = {
-            "current_dishes": result.current_dishes,
-            "menu_del_dia": menu_del_dia,
-            "dish_context": dish_context,
-        }
-        new_state.update(merged_conf)
+        if result.intent == "traduccion":
+            if result.save_to_menu:
+                new_state: dict = {
+                    "menu_del_dia": menu_del_dia,
+                    "current_dish": None,
+                    "companions": [],
+                    "dish_status": None,
+                    "collected_ingredients": [],
+                    "detected_flags": [],
+                    "current_dishes": [],
+                }
+            else:
+                new_state = {
+                    "menu_del_dia": menu_del_dia,
+                    "current_dish": result.current_dishes[0] if result.current_dishes else None,
+                    "companions": list(result.current_dishes[1:]),
+                    "dish_status": result.dish_status,
+                    "collected_ingredients": list(result.collected_ingredients or []),
+                    "detected_flags": list(result.detected_flags or []),
+                    "current_dishes": list(result.current_dishes),
+                }
+        else:
+            # Non-traduccion: preserve existing dish state
+            new_state = {
+                "menu_del_dia": menu_del_dia,
+                "current_dish": session_state.get("current_dish"),
+                "companions": session_state.get("companions", []),
+                "dish_status": session_state.get("dish_status"),
+                "collected_ingredients": session_state.get("collected_ingredients", []),
+                "detected_flags": session_state.get("detected_flags", []),
+                "current_dishes": session_state.get("current_dishes", []),
+            }
         with timing.stage("ddb.set_session_state"):
             history_store.set_session_state(session_id, new_state)
 
@@ -227,17 +201,6 @@ def _is_preflight(event: dict[str, Any]) -> bool:
     )
     return method.upper() == "OPTIONS"
 
-
-def _apply_flag_confirmations(flags: dict, conf: dict) -> dict:
-    """Override clean flags based on what the fondero confirmed."""
-    flags = dict(flags)
-    if conf.get("allergens_confirmed") is False:
-        flags["allergens"] = False
-    if conf.get("gluten_confirmed") is False:
-        flags["gluten_free"] = True
-    if conf.get("spicy_confirmed") is False:
-        flags["spicy_level"] = "none"
-    return flags
 
 
 def _response(status: int, body: dict[str, Any] | None) -> dict[str, Any]:

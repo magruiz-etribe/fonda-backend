@@ -4,25 +4,14 @@ common_names:
   - picadillo de res
   - picadillo mexicano
   - carne molida guisada
-category: guisado
-base_ingredients:
-  - carne_molida
+  - carne molida con papa
+category: plato_fuerte
+base_description: "Carne de res molida guisada con papa, zanahoria y jitomate."
+variables_requeridas: []
+ingredientes_base_default:
+  - carne molida de res
   - papa
   - zanahoria
-  - chicharos
+  - jitomate
+  - cebolla
   - ajo
-  - aceite
-  - sal_y_pimienta
-variants:
-  picadillo:
-    name_es: Picadillo
-    name_en: Mexican Picadillo
-    extra_ingredients:
-      - jitomate
-      - cebolla
-      - chile_serrano
-    technique: carne molida guisada con verduras en salsa de jitomate
-    description_es: >
-      Carne molida con verduras en salsa de jitomate.
-    description_en: >
-      Seasoned ground beef with potato, carrot, and peas in a tomato sauce — a versatile fonda guisado.

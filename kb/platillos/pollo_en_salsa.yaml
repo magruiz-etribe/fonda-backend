@@ -1,0 +1,19 @@
+canonical_name: pollo_en_salsa
+common_names:
+  - pollo en salsa
+  - pollo en salsa verde
+  - pollo en salsa roja
+  - pollo guisado
+  - pollo en chile
+  - pollo en salsa de tomate
+  - pollo en tomatillo
+category: plato_fuerte
+base_description: "Pieza de pollo guisada en salsa [tipo_de_salsa]."
+variables_requeridas:
+  - tipo_de_salsa
+ingredientes_base_default:
+  - pollo
+  - cebolla
+  - ajo
+  - cilantro
+  - aceite

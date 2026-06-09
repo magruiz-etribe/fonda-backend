@@ -1,74 +1,22 @@
 canonical_name: caldo
 common_names:
   - caldo
-  - caldo de pollo
   - caldo de res
-  - caldo de habas
-  - caldo tlalpeño
-  - sopa de pollo
+  - caldo de pollo
   - sopa de res
+  - sopa de pollo
+  - caldito
+  - caldo de gallina
+  - caldo de costilla
+  - cocido
 category: caldo
-base_ingredients:
-  - agua
-  - carne
+base_description: "Caldo [tipo_de_caldo] con verduras de temporada."
+variables_requeridas:
+  - tipo_de_caldo
+ingredientes_base_default:
   - cebolla
   - ajo
-  - sal
-variants:
-  pollo:
-    name_es: Caldo de pollo
-    name_en: Chicken Soup
-    extra_ingredients:
-      - pollo
-      - zanahoria
-      - calabaza
-      - papa
-      - arroz
-      - elote
-      - cilantro
-    technique: cocción lenta de pollo con verduras en caldo
-    description_es: >
-      Sopa caliente con pollo, verduras y arroz.
-    description_en: >
-      Comforting chicken soup with carrot, zucchini, potato, rice, and corn — a fonda classic for warming up.
-  res:
-    name_es: Caldo de res
-    name_en: Beef Soup
-    extra_ingredients:
-      - carne_de_res
-      - zanahoria
-      - papa
-      - chayote
-      - elote
-      - cilantro
-    technique: cocción lenta de hueso y carne de res con verduras
-    description_es: >
-      Sopa con carne de res y verduras cocidas lentamente.
-    description_en: >
-      Hearty beef soup with carrot, potato, chayote, and corn, slow-cooked until the broth is rich and flavorful.
-  habas:
-    name_es: Caldo de habas
-    name_en: Fava Bean Soup
-    extra_ingredients:
-      - haba_seca
-      - jitomate
-      - epazote
-    technique: cocción lenta de habas con jitomate y hierbas de olor
-    description_es: >
-      Habas en caldo con ajo, cebolla, jitomate y epazote.
-    description_en: >
-      Traditional fava bean soup slow-cooked with garlic, onion, tomato, and epazote — earthy and comforting.
-  tlalpeno:
-    name_es: Caldo tlalpeño
-    name_en: Tlalpeño Soup
-    extra_ingredients:
-      - pollo
-      - garbanzo
-      - chipotle
-      - zanahoria
-      - aguacate
-    technique: caldo de pollo con chipotle, garbanzos y verduras
-    description_es: >
-      Caldo de pollo con chipotle, verduras y aguacate.
-    description_en: >
-      Spiced chicken broth with chipotle, chickpeas, vegetables, and avocado — a CDMX fonda favorite.
+  - zanahoria
+  - papa
+  - calabaza
+  - cilantro

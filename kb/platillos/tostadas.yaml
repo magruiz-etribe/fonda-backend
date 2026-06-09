@@ -1,76 +1,21 @@
 canonical_name: tostadas
 common_names:
+  - tostadas
+  - tostadas de pollo
+  - tostadas de tinga
+  - tostadas de frijol
+  - tostadas de atún
+  - tostadas de ceviche
+  - tostadas de carne
+  - tostadas de pata
 category: antojito
-base_ingredients:
-  - tortilla_de_maiz
-  - tortilla_de_maiz
-variants:
-  tostadas:
-    name_es: Tostadas
-    name_en: tostadas
-    extra_ingredients:
-      - frijoles
-      - pollo
-      - tinga
-      - pata_de_res
-      - picadillo
-      - lechuga
-      - crema
-      - queso
-      - aguacate
-      - ceviche
-    technique: 
-    description_es: >
-      Tortilla de maiz crujiente con frijoles y guisados como pollo deshebrado, carne,picadillo, tinga o pata de res. Complementadas con lechuga, crema, queso, jitomate, cebolla, aguacate y salsa al gusto.
-    description_en: >
-      tostadas made with beans, chicken, tinga, pata de res and picadillo.
-  de_pata:
-    name_es: Tostada de pata
-    name_en: Pickled Beef Foot Tostada
-    extra_ingredients:
-      - pata_de_res
-      - tostada
-      - lechuga
-      - crema
-    technique: 
-    description_es: >
-      Tostada cubierta con pata de res en escabeche.
-    description_en: >
-      Tostada topped with pata of beef in escabeche.
-  de_pollo:
-    name_es: Tostadas de pollo
-    name_en: Chicken Tostadas
-    extra_ingredients:
-      - tostada
-      - pollo
-      - frijol
-      - crema
-    technique: 
-    description_es: >
-      Tostadas crujientes con pollo y frijoles.
-    description_en: >
-      Tostadas crujientes with chicken and beans.
-  de_frijol_con_queso:
-    name_es: Tostadas de frijol con queso
-    name_en: Bean Tostadas with Cheese
-    extra_ingredients:
-      - frijol
-      - queso
-      - tortilla
-    technique: 
-    description_es: >
-      Tostadas sencillas de frijol y queso.
-    description_en: >
-      Tostadas simple of bean and cheese.
-  de_pata_de_res:
-    name_es: Tostadas de pata de res
-    name_en: Beef Foot Tostadas
-    extra_ingredients:
-      - pata_de_res
-      - vinagre
-      - verduras
-    technique: 
-    description_es: >
-      Tostadas con pata de res en escabeche.
-    description_en: >
-      Tostadas with pata of beef in escabeche.
+base_description: "Tortilla de maíz frita con [topping], cubierta con lechuga, crema y queso."
+variables_requeridas:
+  - topping
+ingredientes_base_default:
+  - tortilla de maíz
+  - aceite
+  - frijol
+  - lechuga
+  - crema
+  - queso

@@ -1,0 +1,16 @@
+canonical_name: gorditas
+common_names:
+  - gorditas
+  - gordita
+  - gorditas de chicharrón
+  - gorditas de frijol
+  - gorditas de queso
+  - gorditas de papa
+  - gorditas rellenas
+category: antojito
+base_description: "Masa de maíz gruesa rellena de [relleno], cocinada en comal."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - masa de maíz
+  - sal

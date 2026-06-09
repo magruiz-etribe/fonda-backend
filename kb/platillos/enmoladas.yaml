@@ -1,20 +1,16 @@
 canonical_name: enmoladas
 common_names:
-category: platillo_principal
-base_ingredients:
-  - tortilla
-  - mole
-  - pollo
-variants:
-  enmoladas:
-    name_es: Enmoladas
-    name_en: Mole Enchiladas
-    extra_ingredients:
-      - tortilla
-      - mole
-      - pollo
-    technique: 
-    description_es: >
-      Tortillas bañadas en mole.
-    description_en: >
-      Tortillas bañadas in mole.
+  - enmoladas
+  - enmoladas de pollo
+  - enmoladas de queso
+  - enchiladas de mole
+category: antojito
+base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en mole."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - tortilla de maíz
+  - chiles secos
+  - chocolate
+  - cacahuate
+  - caldo

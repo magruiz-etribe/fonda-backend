@@ -1,0 +1,19 @@
+canonical_name: flautas
+common_names:
+  - flautas
+  - flautas de pollo
+  - flautas de res
+  - flautas de papa
+  - taquitos fritos
+  - taquitos dorados
+  - taquitos de pollo
+category: antojito
+base_description: "Tortilla de maíz enrollada y frita, rellena de [relleno], servida con lechuga, crema y queso."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - tortilla de maíz
+  - aceite
+  - lechuga
+  - crema
+  - queso

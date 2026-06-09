@@ -1,0 +1,18 @@
+canonical_name: huevos_revueltos
+common_names:
+  - huevos revueltos
+  - huevo revuelto
+  - huevos con jamón
+  - huevos con tocino
+  - huevos con salchicha
+  - huevos con chorizo
+  - huevos con longaniza
+  - huevos con carne
+category: desayuno
+base_description: "Huevos revueltos con [acompañamiento]."
+variables_requeridas:
+  - acompañamiento
+ingredientes_base_default:
+  - huevo
+  - aceite
+  - sal

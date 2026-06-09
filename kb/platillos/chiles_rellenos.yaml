@@ -1,61 +1,20 @@
 canonical_name: chiles_rellenos
 common_names:
   - chiles rellenos
+  - chile relleno
+  - chile poblano relleno
   - chiles rellenos de queso
   - chiles rellenos de picadillo
-  - chiles en nogada
-category: platillo_principal
-base_ingredients:
-  - chile_poblano
+  - chiles capeados
+category: plato_fuerte
+base_description: "Chile poblano relleno de [relleno], capoteado en huevo y frito, bañado en salsa de jitomate."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - chile poblano
+  - huevo
+  - harina
   - jitomate
-  - tomatillo
   - cebolla
   - ajo
   - aceite
-  - sal
-variants:
-  en_nogada:
-    name_es: Chiles en nogada
-    name_en: Chiles in Walnut Cream Sauce
-    extra_ingredients:
-      - carne_molida
-      - nuez
-      - crema
-      - granada
-      - durazno
-      - pera
-      - pasitas
-      - almendra
-      - canela
-      - perejil
-    technique: chile asado y pelado, relleno de picadillo dulce-salado, capeado, salsa fría de nuez
-    description_es: >
-      Chiles poblanos rellenos de guisado de carne, frutas y especias, cubiertos con salsa de nuez (nogada).
-    description_en: >
-      Poblano chile stuffed with a sweet-savory meat and fruit picadillo, egg-battered, and topped with a cold walnut cream sauce, pomegranate seeds, and parsley.
-  de_queso:
-    name_es: Chiles rellenos de queso
-    name_en: Cheese-Stuffed Poblano Chiles
-    extra_ingredients:
-      - queso_oaxaca
-      - huevo
-      - salsa_de_jitomate
-    technique: chile asado y pelado, relleno de queso, capeado en huevo
-    description_es: >
-      Chiles poblanos rellenos de queso y capeados en huevo, bañados en salsa de jitomate.
-    description_en: >
-      Roasted poblano chiles stuffed with Oaxaca cheese, egg-battered and fried, served in tomato sauce.
-  de_picadillo:
-    name_es: Chiles rellenos de picadillo
-    name_en: Meat-Stuffed Poblano Chiles
-    extra_ingredients:
-      - carne_molida
-      - papa
-      - zanahoria
-      - huevo
-      - salsa_de_jitomate
-    technique: chile asado y pelado, relleno de picadillo, capeado en huevo
-    description_es: >
-      Chiles poblanos rellenos de carne con verduras, capeados en huevo.
-    description_en: >
-      Roasted poblano chiles stuffed with seasoned ground meat, potato, and carrot, egg-battered and fried, served in tomato sauce.

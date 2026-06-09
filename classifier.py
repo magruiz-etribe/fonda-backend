@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 from dataclasses import dataclass, field
 from typing import Final
@@ -9,11 +8,7 @@ import bedrock_client
 import config
 import timing
 from prompt_loader import load_prompt
-from retrieval import (
-    get_entities_index,
-    get_entities_with_variants,
-    get_variant_keys_for_slot,
-)
+from retrieval import get_entities_index
 
 logger = logging.getLogger(__name__)
 
@@ -31,14 +26,19 @@ _VALID_PLATFORMS: Final[frozenset[str]] = frozenset({"google_maps", "yelp", "tri
 
 @dataclass
 class PendingSlot:
+    """Kept for backward compat — non-traduccion path in generation._build_user_text."""
     entity: str
-    slot_name: str  # "variant" | "filling" | "sauce"
+    slot_name: str
     options: list[str] = field(default_factory=list)
 
 
 @dataclass
 class ClassifierResult:
     intent: str
+    # New traduccion fields
+    current_dish: str = ""
+    companions: list[str] = field(default_factory=list)
+    # Legacy fields — used by non-traduccion generation path
     current_dishes: list[str] = field(default_factory=list)
     translate_now: bool = False
     pending_slots: list[PendingSlot] = field(default_factory=list)
@@ -56,16 +56,15 @@ class ClassifierResult:
 
 def classify(
     message: str,
-    current_dishes: list[str],
+    current_dish: str,
     history: list[dict[str, str]],
-    dish_context: dict | None = None,
 ) -> ClassifierResult:
     intent, platform = _classify_intent(message, history)
 
     if intent == "traduccion":
-        return _extract_traduccion(message, current_dishes, history, dish_context, intent)
+        return _extract_traduccion(message, current_dish, history, intent)
 
-    return ClassifierResult(intent=intent, current_dishes=[], platform=platform)
+    return ClassifierResult(intent=intent, platform=platform)
 
 
 # ── Stage 1: intent classification ───────────────────────────────────────────
@@ -132,17 +131,13 @@ def _build_classifier_text(message: str, history: list[dict[str, str]]) -> str:
 
 def _extract_traduccion(
     message: str,
-    current_dishes: list[str],
+    current_dish: str,
     history: list[dict[str, str]],
-    dish_context: dict | None,
     intent: str,
 ) -> ClassifierResult:
     with timing.stage("classifier.kb_load"):
         entities_index = get_entities_index()
-        entities_with_variants = get_entities_with_variants()
-        user_text = _build_extractor_text(
-            message, current_dishes, history, entities_index, entities_with_variants, dish_context,
-        )
+        user_text = _build_extractor_text(message, current_dish, history, entities_index)
     system = load_prompt(_EXTRACTOR_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
@@ -156,18 +151,16 @@ def _extract_traduccion(
         )
     except bedrock_client.BedrockError as e:
         logger.warning("extractor_bedrock_error", extra={"error": str(e)})
-        return ClassifierResult(intent=intent, current_dishes=current_dishes)
+        return ClassifierResult(intent=intent, current_dish=current_dish)
 
-    return _parse_extraction(raw, current_dishes, intent)
+    return _parse_extraction(raw, current_dish, intent)
 
 
 def _build_extractor_text(
     message: str,
-    current_dishes: list[str],
+    current_dish: str,
     history: list[dict[str, str]],
     entities_index: dict[str, str],
-    entities_with_variants: list[str],
-    dish_context: dict | None = None,
 ) -> str:
     hist_lines: list[str] = []
     for h in history[-6:]:
@@ -180,99 +173,55 @@ def _build_extractor_text(
 
     canonicals = sorted(set(entities_index.values()))
     entities_block = ", ".join(canonicals) if canonicals else "(ninguno)"
-    variants_block = ", ".join(entities_with_variants) if entities_with_variants else "(ninguno)"
 
-    dish_ctx_block = ""
-    if dish_context:
-        dc = dish_context
-        rv = json.dumps(dc.get("resolved_variants") or {}, ensure_ascii=False)
-        extras = ", ".join(dc.get("extra_ingredients") or []) or "(ninguno)"
-        dish_ctx_block = (
-            "[CONTEXTO DEL PLATILLO EN CURSO — fuente de verdad]\n"
-            f"Platillo principal: {dc.get('main_dish', '')}\n"
-            f"Variantes confirmadas: {rv}\n"
-            f"Ingredientes extras confirmados: {extras}\n\n"
+    current_dish_block = ""
+    if current_dish:
+        current_dish_block = (
+            f"Platillo en curso (NO lo cambies salvo que el usuario mencione uno diferente): "
+            f"{current_dish}\n\n"
         )
 
     return (
-        f"{dish_ctx_block}"
-        f"Platillos en contexto actual (current_dishes): {current_dishes}\n\n"
-        f"Entidades canónicas en KB: {entities_block}\n\n"
-        f"Entidades con variantes en KB: {variants_block}\n\n"
+        f"{current_dish_block}"
+        f"Platillos canónicos disponibles en KB: {entities_block}\n\n"
         f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
         f"Mensaje actual del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."
     )
 
 
-def _parse_extraction(raw: str, current_dishes: list[str], intent: str) -> ClassifierResult:
+def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierResult:
     try:
         data = bedrock_client.parse_json_strict(raw)
     except Exception as e:
         logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return ClassifierResult(intent=intent, current_dishes=current_dishes)
+        return ClassifierResult(intent=intent, current_dish=current_dish)
 
     if not isinstance(data, dict):
-        return ClassifierResult(intent=intent, current_dishes=current_dishes)
+        return ClassifierResult(intent=intent, current_dish=current_dish)
 
-    raw_dishes = data.get("current_dishes") or []
-    dishes: list[str] = []
-    if isinstance(raw_dishes, list):
-        for d in raw_dishes:
-            if isinstance(d, str):
-                d_clean = d.strip().lower()
-                if d_clean:
-                    dishes.append(d_clean)
+    new_dish = str(data.get("current_dish", "")).strip().lower()
 
-    translate_now = bool(data.get("translate_now", False))
-
-    raw_slots = data.get("pending_slots") or []
-    pending_slots: list[PendingSlot] = []
-    if isinstance(raw_slots, list):
-        for slot_data in raw_slots:
-            if not isinstance(slot_data, dict):
-                continue
-            entity = slot_data.get("entity", "")
-            if not isinstance(entity, str) or not entity.strip():
-                continue
-            entity = entity.strip().lower()
-            slot_name = str(slot_data.get("slot_name", "variant")).lower().strip()
-            options: list[str] = []
-            if slot_name == "variant":
-                options = get_variant_keys_for_slot(entity)
-            pending_slots.append(PendingSlot(entity=entity, slot_name=slot_name, options=options))
-
-    raw_rv = data.get("resolved_variants") or {}
-    resolved_variants: dict[str, str] = {}
-    if isinstance(raw_rv, dict):
-        for k, v in raw_rv.items():
-            if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
-                resolved_variants[k.lower().strip()] = v.lower().strip()
-
-    raw_eui = data.get("extra_user_ingredients") or []
-    extra_user_ingredients: list[str] = []
-    if isinstance(raw_eui, list):
-        for ing in raw_eui:
-            if isinstance(ing, str) and ing.strip():
-                extra_user_ingredients.append(ing.strip().lower())
+    raw_companions = data.get("companions") or []
+    companions: list[str] = []
+    if isinstance(raw_companions, list):
+        for c in raw_companions:
+            if isinstance(c, str) and c.strip():
+                companions.append(c.strip().lower())
 
     logger.info(
         "extractor_result",
         extra={
             "intent": intent,
-            "current_dishes": dishes,
-            "translate_now": translate_now,
-            "pending_slots": [(s.entity, s.slot_name) for s in pending_slots],
-            "resolved_variants": resolved_variants,
-            "reasoning": str(data.get("reasoning", ""))[:500],
+            "current_dish": new_dish,
+            "companions": companions,
+            "reasoning": str(data.get("reasoning", ""))[:300],
         },
     )
 
     return ClassifierResult(
         intent=intent,
-        current_dishes=dishes,
-        translate_now=translate_now,
-        pending_slots=pending_slots,
-        resolved_variants=resolved_variants,
-        extra_user_ingredients=extra_user_ingredients,
+        current_dish=new_dish,
+        companions=companions,
+        current_dishes=[new_dish] if new_dish else [],
     )

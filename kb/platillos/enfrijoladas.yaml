@@ -1,57 +1,16 @@
 canonical_name: enfrijoladas
 common_names:
   - enfrijoladas
-  - enfrijoladas con pollo
-  - enfrijoladas con queso
-  - enfrijoladas de frijol negro
+  - enfrijoladas de queso
+  - enfrijoladas de pollo
+  - enchiladas de frijol
+  - tacos de frijol
 category: antojito
-base_ingredients:
-  - tortilla_de_maiz
-  - frijoles
-  - aceite
-  - sal
-variants:
-  con_huevo:
-    name_es: Enfrijoladas
-    name_en: Bean-sauce Enchiladas
-    extra_ingredients:
-      - frijoles_negros
-      - huevo
-      - queso_fresco
-      - crema
-      - cebolla
-      - cilantro
-    technique: tortilla pasada por salsa espesa de frijol molido, servida con huevo estrellado
-    description_es: >
-      Tortillas bañadas en salsa de frijol negro.
-    description_en: >
-      Corn tortillas coated in thick blended black bean sauce, topped with fresh cheese.
-  con_pollo:
-    name_es: Enfrijoladas con pollo
-    name_en: Bean-sauce Enchiladas with Chicken
-    extra_ingredients:
-      - frijoles_negros
-      - pollo
-      - queso_fresco
-      - crema
-      - cebolla
-      - cilantro
-    technique: tortilla pasada por salsa de frijol, rellena de pollo deshebrado
-    description_es: >
-      Tortillas bañadas en salsa de frijol negro, rellenas de pollo deshebrado.
-    description_en: >
-      Corn tortillas in thick black bean sauce filled with shredded chicken, topped with crema and fresh cheese.
-  con_queso:
-    name_es: Enfrijoladas con queso
-    name_en: Bean-sauce Enchiladas with Cheese
-    extra_ingredients:
-      - frijoles_negros
-      - queso_fresco
-      - crema
-      - cebolla
-      - cilantro
-    technique: tortilla pasada por salsa de frijol, rellena de queso fresco
-    description_es: >
-      Tortillas bañadas en salsa de frijol negro, rellenas de queso fresco.
-    description_en: >
-      Corn tortillas in thick black bean sauce filled with fresh cheese, finished with crema and cilantro.
+base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en salsa de frijol."
+variables_requeridas:
+  - relleno
+ingredientes_base_default:
+  - tortilla de maíz
+  - frijol negro
+  - cebolla
+  - ajo

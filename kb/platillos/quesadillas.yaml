@@ -1,79 +1,18 @@
 canonical_name: quesadillas
 common_names:
+  - quesadillas
+  - quesadilla
+  - quesadillas de queso
+  - quesadillas de huitlacoche
+  - quesadillas de flor de calabaza
+  - quesadillas de hongos
+  - quesadillas de chorizo
+  - quesadillas de rajas
+  - quesadillas fritas
 category: antojito
-base_ingredients:
-  - masa_de_maiz
+base_description: "Tortilla de maíz doblada con queso fundido y [relleno], cocinada en comal."
+variables_requeridas:
   - relleno
-  - aceite
-variants:
-  frita:
-    name_es: Quesadilla Frita
-    name_en: Fried Quesadilla
-    extra_ingredients:
-      - relleno_a_elegir
-      - salsa
-      - queso
-    technique: 
-    description_es: >
-      Tortilla de maíz doblada y rellena normalmente de queso, papa, hongos o carne. Se fríe en aceite hasta quedar dorada y crujiente.
-    description_en: >
-      Folded corn tortilla filled with cheese, potato, mushrooms, or meat, then fried until golden and crisp.
-  clasica:
-    name_es: Quesadilla
-    name_en: Quesadillas
-    extra_ingredients:
-      - relleno_a_elegir
-      - salsa
-      - queso
-    technique: 
-    description_es: >
-      Tortilla doblada con queso o guisos.
-    description_en: >
-      Folded tortilla filled with cheese or stew.
-  de_flor_de_calabaza:
-    name_es: Quesadilla de flor de calabaza
-    name_en: Squash Blossom Quesadilla
-    extra_ingredients:
-      - tortilla_de_maiz
-      - queso_oaxaca
-      - flor_de_calabaza
-    technique: 
-    description_es: >
-      Tortilla rellena de queso y flor de calabaza cocida.
-    description_en: >
-      Tortilla filled with cheese and cooked squash blossom.
-  de_huitlacoche:
-    name_es: Quesadilla de huitlacoche
-    name_en: Corn Truffle Quesadilla
-    extra_ingredients:
-      - tortilla_de_maiz
-      - huitlacoche
-      - queso_oaxaca
-    technique: 
-    description_es: >
-      Quesadilla rellena con huitlacoche y queso fundido.
-    description_en: >
-      Quesadilla filled with huitlacoche and melted Oaxaca cheese.
-  de_queso:
-    name_es: Quesadillas de queso
-    name_en: Cheese Quesadillas
-    extra_ingredients:
-      - tortilla
-      - queso
-    technique: 
-    description_es: >
-      Tortillas de maíz o harina con queso derretido.
-    description_en: >
-      Corn or flour tortillas filled with melted cheese.
-  de_hongos:
-    name_es: Quesadillas de hongos
-    name_en: Mushroom Quesadillas
-    extra_ingredients:
-      - tortilla
-      - champinones
-      - queso
-    technique: 
-    description_es: >
-      Quesadillas rellenas de champiñones.
-    description_en: >
-      Quesadillas filled with sautéed mushrooms.
+ingredientes_base_default:
+  - tortilla de maíz
+  - queso
