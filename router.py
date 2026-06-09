@@ -22,9 +22,9 @@ _FALLBACK_RESULT: Final[GenResult] = GenResult(
 )
 
 _OUT_OF_DOMAIN_RESPONSE: Final[str] = (
-    "No puedo ayudarte con ese tema. Soy Huevito y estoy aquí para apoyarte con tu fonda: "
-    "adaptar platillos al inglés, registro en plataformas, higiene en cocina y el programa Menú del Día. "
-    "¿Te ayudo con algo de eso? 😊"
+    "Lo siento, por ahora no puedo ayudarte con ese tema. Estoy enfocado en adaptar menús de fondas "
+    "y apoyar la presencia digital de tu negocio. ✨\n"
+    "Pero con gusto puedo ayudarte con lo que sí está disponible. ¿Qué te gustaría hacer?"
 )
 
 _DISH_INFO_RESPONSE: Final[str] = (
@@ -32,6 +32,21 @@ _DISH_INFO_RESPONSE: Final[str] = (
     "ayudarte a crear la descripción en inglés para tu menú. "
     "Si quieres, dime el nombre del platillo y te ayudo a adaptarlo. 😊"
 )
+
+_DISH_NOT_FOUND_RESPONSE: Final[str] = (
+    "¡Vaya! No he encontrado información sobre ese platillo.\n"
+    "Pero podemos intentarlo con otro o revisar alguna otra opción:"
+)
+
+# CTA buttons shown on fallback, out-of-domain and unrecognized dish responses.
+_CTA_BUTTONS: Final[list[str]] = [
+    "Adaptar otro platillo 🍳",
+    "¿Cómo registrar mi negocio en plataformas digitales? 🗺️",
+    "Iniciativa Menú del Día ℹ️",
+]
+
+# Single CTA appended to every non-translation topic response.
+_CTA_ADAPT_BUTTON: Final[str] = "Adaptar un platillo 🍳"
 
 _DISH_INFO_RE: re.Pattern[str] = re.compile(
     r"^¿?\s*qu[eé]\s+es\b",
@@ -84,7 +99,7 @@ def handle(
             return GenResult(
                 response=[_OUT_OF_DOMAIN_RESPONSE],
                 current_dishes=session_state.get("current_dishes", []),
-                buttons=[],
+                buttons=list(_CTA_BUTTONS),
                 intent="out_of_domain",
             )
 
@@ -98,7 +113,7 @@ def handle(
             return GenResult(
                 response=[_DISH_INFO_RESPONSE],
                 current_dishes=session_state.get("current_dishes", []),
-                buttons=[],
+                buttons=list(_CTA_BUTTONS),
                 intent="fallback",
             )
 
@@ -127,6 +142,9 @@ def _handle_other_intent(
 
     result.intent = cr.intent
     result.links = kb_links
+    # Always surface the main CTA so users can jump into the translation flow.
+    if _CTA_ADAPT_BUTTON not in result.buttons:
+        result.buttons = [_CTA_ADAPT_BUTTON] + result.buttons
     return result
 
 
@@ -190,9 +208,9 @@ def _handle_traduccion(
     if effective_dish == "custom":
         if not cr.custom_dish_known:
             return GenResult(
-                response=["No reconozco ese como un platillo real, así que no puedo ayudarte a adaptarlo al menú. Si tienes otro platillo de tu fonda — tacos, pozole, enchiladas, lo que prepares — con gusto te ayudo. 😊"],
+                response=[_DISH_NOT_FOUND_RESPONSE],
                 current_dishes=[],
-                buttons=[],
+                buttons=list(_CTA_BUTTONS),
                 dish_status=None,
                 intent="traduccion",
             )
