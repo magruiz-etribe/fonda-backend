@@ -103,9 +103,20 @@ def handle(
                 intent="out_of_domain",
             )
 
-        # Deflect "¿qué es X?" dish-info questions when there is no active translation flow.
-        # During an active flow (EXTRACTING, DRAFTING, etc.) these go through normally so
-        # the conversation context handles them without interrupting the user's work.
+        # Non-translation intents go directly to their handler — never intercepted by dish checks.
+        if cr.intent != "traduccion":
+            result = _handle_other_intent(cr, message, history)
+            # If the classifier detected a second topic in the same message, handle it too
+            # and merge both responses into one turn.
+            if cr.intent2:
+                cr2 = cls_module.ClassifierResult(intent=cr.intent2)
+                result2 = _handle_other_intent(cr2, message, history)
+                result = _merge_multi_intent(result, result2)
+            return result
+
+        # Deflect "¿qué es X?" only when the classifier already said traduccion and there is
+        # no active dish flow. This way "¿qué es placemaking?" routes to its proper intent
+        # above, while "¿qué es el mole?" (classified as traduccion) hits this deflection.
         if (
             _DISH_INFO_RE.match(message.strip())
             and not session_state.get("dish_status")
@@ -117,14 +128,43 @@ def handle(
                 intent="fallback",
             )
 
-        if cr.intent != "traduccion":
-            return _handle_other_intent(cr, message, history)
-
         return _handle_traduccion(cr, session_state, message, history)
 
     except Exception as e:
         logger.exception("router_unhandled_exception", extra={"error": str(e)})
         return _FALLBACK_RESULT
+
+
+# ── Multi-intent merge ────────────────────────────────────────────────────────
+
+def _merge_multi_intent(r1: GenResult, r2: GenResult) -> GenResult:
+    """Combine two non-translation intent results into a single response turn."""
+    combined_response = r1.response + r2.response
+
+    # Merge links deduplicating by URL
+    seen_urls: set[str] = set()
+    merged_links: list[dict] = []
+    for link in (r1.links + r2.links):
+        url = link.get("url", "")
+        if url not in seen_urls:
+            seen_urls.add(url)
+            merged_links.append(link)
+
+    # Merge buttons: CTA first, then any others, deduplicated
+    seen_btns: set[str] = set()
+    merged_buttons: list[str] = []
+    for btn in (r1.buttons + r2.buttons):
+        if btn not in seen_btns:
+            seen_btns.add(btn)
+            merged_buttons.append(btn)
+
+    return GenResult(
+        response=combined_response,
+        current_dishes=r1.current_dishes,
+        buttons=merged_buttons,
+        links=merged_links,
+        intent=r1.intent,
+    )
 
 
 # ── Non-translation intents ───────────────────────────────────────────────────

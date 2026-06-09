@@ -29,9 +29,23 @@ Si el historial muestra que estaban trabajando en algo (ej. traducción de un pl
 ---
 
 # Tarea — Clasificar intent
-Con base en el mensaje actual y el historial, elige UNA intención. Prioriza lo que el usuario acaba de decir.
 
-Cuando intent = "maps", determina también en qué plataforma quiere registrarse:
+Con base en el mensaje actual y el historial, elige la(s) intención(es). Prioriza lo que el usuario acaba de decir.
+
+## intent (primaria)
+Elige la intención principal del mensaje.
+
+## intent2 (secundaria, opcional)
+Si el mensaje hace preguntas sobre **dos temas distintos** en la misma oración, devuelve la segunda intención aquí.
+- Solo aplica para intenciones informativas (NO `traduccion`, NO `out_of_domain`).
+- Si solo hay un tema → `intent2 = ""`.
+- Ejemplos:
+  - "¿qué es placemaking y quién patrocina a Huevito?" → intent=`fundacion_placemaking`, intent2=`etribe`
+  - "¿qué talleres hay y qué beneficios obtengo?" → intent=`talleres`, intent2=`beneficios_negocio`
+  - "quiero traducir mis enchiladas" → intent=`traduccion`, intent2=`""`
+
+## platform
+Cuando intent = "maps", determina la plataforma:
 - `"google_maps"` — menciona Google Maps, Google Business, Google Mi Negocio o similar.
 - `"yelp"` — menciona Yelp.
 - `"tripadvisor"` — menciona TripAdvisor, Trip Advisor o similar.
@@ -44,7 +58,8 @@ Para cualquier otro intent, platform = `""`.
 # Salida — SOLO JSON, sin markdown, sin texto extra antes ni después
 
 {
-  "reasoning": "<CoT breve en español: qué dice el mensaje, qué muestra el historial, qué se decide y por qué>",
+  "reasoning": "<CoT breve en español: qué dice el mensaje, qué muestra el historial, qué intención(es) se detectan y por qué>",
   "intent": "traduccion|maps|yelp|tripadvisor|higiene|fundacion_placemaking|menu_del_dia|organizaciones_participantes|primera_edicion|talleres|beneficios_negocio|contacto|etribe|out_of_domain|fallback",
+  "intent2": "",
   "platform": ""
 }

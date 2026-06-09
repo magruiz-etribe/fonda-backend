@@ -41,13 +41,17 @@ CLASSIFIER_INTENT: Final[dict[str, Any]] = {
     "type": "object",
     "properties": {
         "reasoning": {"type": "string", "description": "Brief chain of thought in Spanish"},
-        "intent": {"type": "string", "description": "Classified intent"},
+        "intent": {"type": "string", "description": "Primary classified intent"},
+        "intent2": {
+            "type": "string",
+            "description": "Second intent if the message clearly asks about two different topics; empty string otherwise",
+        },
         "platform": {
             "type": "string",
             "description": "google_maps, yelp, tripadvisor, or empty string",
         },
     },
-    "required": ["reasoning", "intent", "platform"],
+    "required": ["reasoning", "intent", "intent2", "platform"],
     "additionalProperties": False,
 }
 

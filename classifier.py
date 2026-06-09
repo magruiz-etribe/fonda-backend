@@ -36,6 +36,7 @@ class PendingSlot:
 @dataclass
 class ClassifierResult:
     intent: str
+    intent2: str = ""
     # New traduccion fields
     current_dish: str = ""
     companions: list[str] = field(default_factory=list)
@@ -61,12 +62,12 @@ def classify(
     history: list[dict[str, str]],
     dish_status: str | None = None,
 ) -> ClassifierResult:
-    intent, platform = _classify_intent(message, history)
+    intent, intent2, platform = _classify_intent(message, history)
 
     if intent == "traduccion":
         return _extract_traduccion(message, current_dish, history, intent, dish_status)
 
-    return ClassifierResult(intent=intent, platform=platform)
+    return ClassifierResult(intent=intent, intent2=intent2, platform=platform)
 
 
 # ── Stage 1: intent classification ───────────────────────────────────────────
@@ -74,7 +75,7 @@ def classify(
 def _classify_intent(
     message: str,
     history: list[dict[str, str]],
-) -> tuple[str, str]:
+) -> tuple[str, str, str]:
     user_text = _build_classifier_text(message, history)
     system = load_prompt(_CLASSIFIER_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
@@ -92,21 +93,29 @@ def _classify_intent(
         )
     except bedrock_client.BedrockError as e:
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
-        return "fallback", ""
+        return "fallback", "", ""
 
     intent = str(data.get("intent", "fallback")).strip().lower()
     if intent not in _VALID_INTENTS:
         logger.warning("classifier_unknown_intent", extra={"raw_intent": intent[:64]})
         intent = "fallback"
 
+    intent2 = str(data.get("intent2", "")).strip().lower()
+    if intent2 and intent2 not in _VALID_INTENTS:
+        intent2 = ""
+    # A second intent only makes sense for non-translation informational topics.
+    if intent2 in ("traduccion", "out_of_domain", intent, ""):
+        intent2 = ""
+
     platform = ""
     if intent == "maps":
         raw_platform = str(data.get("platform", "")).strip().lower()
         platform = raw_platform if raw_platform in _VALID_PLATFORMS else ""
 
-    logger.info("classifier_intent", extra={"intent": intent, "platform": platform,
+    logger.info("classifier_intent", extra={"intent": intent, "intent2": intent2,
+                                            "platform": platform,
                                             "reasoning": str(data.get("reasoning", ""))[:300]})
-    return intent, platform
+    return intent, intent2, platform
 
 
 def _build_classifier_text(message: str, history: list[dict[str, str]]) -> str:
