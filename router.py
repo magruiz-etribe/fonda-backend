@@ -128,7 +128,7 @@ def _handle_traduccion(
 
     if not effective_dish:
         return GenResult(
-            response=["¡Con gusto te ayudo! Cuéntame todos los detalles del platillo: nombre, proteína, relleno, tipo de salsa, guarniciones... Entre más detalles me des, más completa queda la descripción. 😊"],
+            response=["¡Con gusto te ayudo! Cuéntame cómo preparas tu platillo: nombre, proteína, tipo de salsa, relleno, guarniciones... Entre más detalles me des, más completa queda la descripción. 😊"],
             current_dishes=[],
             buttons=[],
             dish_status=None,

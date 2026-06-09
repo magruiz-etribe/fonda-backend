@@ -8,18 +8,21 @@ common_names:
   - pozole de cerdo
   - pozole de pollo
 category: caldo
-base_description: "Caldo [tipo_de_caldo] de maíz cacahuazintle con cerdo."
+base_description: "Caldo [tipo_de_caldo] de maíz cacahuazintle con [tipo_de_carne]."
 variables_requeridas:
   - tipo_de_caldo
+  - tipo_de_carne
 variable_opciones:
   tipo_de_caldo:
     - blanco
     - rojo
     - verde
+  tipo_de_carne:
+    - pollo
+    - puerco
+
 ingredientes_base_default:
   - maíz cacahuazintle
-  - carne de cerdo
-  - chile guajillo
   - ajo
   - cebolla
   - orégano
