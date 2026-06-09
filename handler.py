@@ -150,6 +150,7 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             "menu_del_dia": menu_del_dia,
             "intent": result.intent,
             "links": result.links,
+            "collected_ingredients": new_state.get("collected_ingredients", []),
         })
 
 

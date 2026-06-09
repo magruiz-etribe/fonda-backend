@@ -400,6 +400,124 @@ def looks_spanish(text: str) -> bool:
     return spanish_hits >= 2 and english_hits == 0
 
 
+# ── Extracting deterministic fallback ─────────────────────────────────────────
+
+_VARIABLE_QUESTION_TEMPLATES: Final[dict[str, str]] = {
+    "relleno": "¿Con qué relleno preparas {dish}?",
+    "tipo_de_salsa": "¿Con qué tipo de salsa preparas {dish}?",
+    "tipo_de_carne": "¿Qué proteína llevas en {dish}?",
+    "tipo_de_caldo": "¿Qué tipo de caldo usas para {dish}?",
+}
+
+
+def _normalize_ingredient(s: str) -> str:
+    return " ".join(s.strip().lower().replace("_", " ").split())
+
+
+def _ingredient_matches_option(ingredient: str, option: str) -> bool:
+    ing = _normalize_ingredient(ingredient)
+    opt = _normalize_ingredient(option)
+    if not ing or not opt:
+        return False
+    return ing == opt or opt in ing or ing in opt
+
+
+def _variable_covered(
+    variable: str,
+    collected: list[str],
+    options: list[str],
+) -> bool:
+    for ing in collected:
+        for opt in options:
+            if _ingredient_matches_option(ing, opt):
+                return True
+    var_label = _normalize_ingredient(variable)
+    for ing in collected:
+        if _ingredient_matches_option(ing, var_label):
+            return True
+    return False
+
+
+def _find_first_missing_variable(
+    collected: list[str],
+    variables_requeridas: list[str],
+    variable_opciones: dict,
+) -> str | None:
+    for var in variables_requeridas:
+        raw_options = variable_opciones.get(var) or []
+        options = (
+            [str(o).strip() for o in raw_options if str(o).strip()]
+            if isinstance(raw_options, list)
+            else []
+        )
+        if not _variable_covered(var, collected, options):
+            return var
+    return None
+
+
+def _format_dish_display_name(current_dish: str, kb_data: dict) -> str:
+    names = kb_data.get("common_names") or []
+    if names and isinstance(names[0], str) and names[0].strip():
+        return names[0].strip()
+    return current_dish.replace("_", " ")
+
+
+def _build_variable_question(variable: str, dish_display: str) -> str:
+    template = _VARIABLE_QUESTION_TEMPLATES.get(variable)
+    if template:
+        return template.format(dish=dish_display)
+    label = variable.replace("_", " ")
+    return f"¿Qué {label} llevas en {dish_display}?"
+
+
+def _options_to_buttons(options: list[str]) -> list[str]:
+    buttons: list[str] = []
+    for opt in options:
+        s = str(opt).strip()
+        if not s:
+            continue
+        buttons.append(s[0].upper() + s[1:] if len(s) > 1 else s.upper())
+    return buttons
+
+
+def _build_extracting_deterministic_fallback(
+    *,
+    current_dish: str,
+    collected_ingredients: list[str],
+    kb_data: dict,
+) -> GenResult | None:
+    variables_requeridas = list(kb_data.get("variables_requeridas") or [])
+    if not variables_requeridas:
+        return None
+
+    variable_opciones = kb_data.get("variable_opciones") or {}
+    collected = list(collected_ingredients)
+    missing = _find_first_missing_variable(collected, variables_requeridas, variable_opciones)
+
+    if missing is None:
+        return GenResult(
+            response=[],
+            variables_complete=True,
+            collected_ingredients=collected,
+            buttons=[],
+        )
+
+    dish_display = _format_dish_display_name(current_dish, kb_data)
+    question = _build_variable_question(missing, dish_display)
+    raw_options = variable_opciones.get(missing) or []
+    options = (
+        [str(o).strip() for o in raw_options if str(o).strip()]
+        if isinstance(raw_options, list)
+        else []
+    )
+    return GenResult(
+        response=[question],
+        variables_complete=False,
+        collected_ingredients=collected,
+        buttons=_options_to_buttons(options),
+    )
+
+
 # ── New state-machine generation functions ────────────────────────────────────
 
 def generate_extracting(
@@ -458,6 +576,22 @@ def generate_extracting(
             "gen_extracting_empty_question",
             extra={"attempt": attempt, "data": raw[:200]},
         )
+
+        det = _build_extracting_deterministic_fallback(
+            current_dish=current_dish,
+            collected_ingredients=result.collected_ingredients or list(collected_ingredients),
+            kb_data=kb_data,
+        )
+        if det is not None:
+            logger.info(
+                "gen_extracting_deterministic_fallback",
+                extra={
+                    "attempt": attempt,
+                    "variables_complete": det.variables_complete,
+                    "missing_var": None if det.variables_complete else "inferred",
+                },
+            )
+            return det
 
     return GenResult(**_FALLBACK)
 
