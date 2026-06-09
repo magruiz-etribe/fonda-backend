@@ -172,8 +172,20 @@ def _build_extractor_text(
         hist_lines.append(f"  {role}: {text}")
     hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
 
-    canonicals = sorted(set(entities_index.values()))
-    entities_block = ", ".join(canonicals) if canonicals else "(ninguno)"
+    # Build canonical → sorted aliases map for the extractor
+    canonical_to_aliases: dict[str, list[str]] = {}
+    for alias, canonical in entities_index.items():
+        canonical_to_aliases.setdefault(canonical, [])
+        if alias != canonical:
+            canonical_to_aliases[canonical].append(alias)
+    entities_lines: list[str] = []
+    for canonical in sorted(canonical_to_aliases.keys()):
+        aliases = sorted(canonical_to_aliases[canonical])
+        alias_str = ", ".join(aliases) if aliases else ""
+        entities_lines.append(
+            f"  {canonical}: {alias_str}" if alias_str else f"  {canonical}"
+        )
+    entities_block = "\n".join(entities_lines) if entities_lines else "  (ninguno)"
 
     current_dish_block = ""
     if current_dish:
@@ -184,7 +196,7 @@ def _build_extractor_text(
 
     return (
         f"{current_dish_block}"
-        f"Platillos canónicos disponibles en KB: {entities_block}\n\n"
+        f"Platillos en KB (canónico: alias1, alias2, …):\n{entities_block}\n\n"
         f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
         f"Mensaje actual del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."

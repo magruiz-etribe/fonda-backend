@@ -417,6 +417,8 @@ def generate_extracting(
     )
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
+    variables_requeridas = list(kb_data.get("variables_requeridas") or [])
+
     # Two attempts: first natural (0.3), retry deterministic (0.0) if LLM returns
     # variables_complete=false with empty response.
     for attempt, temperature in enumerate([0.3, 0.0]):
@@ -437,6 +439,20 @@ def generate_extracting(
             if attempt > 0:
                 logger.info("gen_extracting_retry_ok", extra={"attempt": attempt})
             return result
+
+        # LLM returned variables_complete=false with empty response — contradictory output.
+        # If there are genuinely no required variables, force-complete so the flow continues.
+        if not variables_requeridas:
+            logger.warning(
+                "gen_extracting_force_complete",
+                extra={"attempt": attempt, "reason": "no_variables_required"},
+            )
+            return GenResult(
+                response=[],
+                variables_complete=True,
+                collected_ingredients=result.collected_ingredients or list(collected_ingredients),
+                buttons=[],
+            )
 
         logger.warning(
             "gen_extracting_empty_question",

@@ -28,9 +28,12 @@ Extrae del mensaje actual **TODOS** los ingredientes, proteínas, toppings, sals
 
 ## Paso 2 — Verifica si todas las variables_requeridas están cubiertas
 Revisa si cada variable en variables_requeridas ya tiene un valor en collected_ingredients (del historial + mensaje actual).
-- Si TODAS están cubiertas → `variables_complete: true`, `response: []` (sin pregunta).
+- Si `variables_requeridas` es `[]` (lista vacía) → SIEMPRE `variables_complete: true`, `response: []`.
+- Si TODAS las variables tienen valor → `variables_complete: true`, `response: []` (sin pregunta).
 - Si el usuario indica que una variable NO aplica (ej: "no lleva relleno", "sin salsa", "solo así") → trátala como confirmada y avanza: `variables_complete: true`.
-- Si FALTA alguna → `variables_complete: false`, pregunta SOLO sobre la PRIMERA variable que falte en la lista. Nunca devuelvas `variables_complete: false` con `response` vacío.
+- Si FALTA alguna → `variables_complete: false`, pregunta SOLO sobre la PRIMERA variable que falte.
+
+⚠️ REGLA ABSOLUTA: Si `variables_complete` es `false`, `response` JAMÁS puede ser `[]`. Debes incluir exactamente UNA pregunta. Un `response` vacío con `variables_complete: false` es un error que rompe el sistema — si no sabes qué preguntar, pregunta por la primera variable de la lista.
 
 ⚠️ REGLA CRÍTICA — UNA VARIABLE POR TURNO:
 Si hay múltiples variables sin cubrir, pregunta ÚNICAMENTE sobre la primera que falte. Espera la respuesta del usuario antes de preguntar la siguiente. NUNCA hagas dos preguntas en el mismo turno aunque falten dos variables.
