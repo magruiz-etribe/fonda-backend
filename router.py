@@ -76,7 +76,6 @@ _SAVE_PHRASES: Final[frozenset[str]] = frozenset({
     "guardar en menú",
     "save to menu",
 })
-_CARD_RE: re.Pattern[str] = re.compile(r"^\*\*(.+?)\*\*(.*)", re.DOTALL)
 _ALLERGEN_NOTE_RE: re.Pattern[str] = re.compile(
     r"^\*\((?:Contiene|Contains)\b", re.IGNORECASE
 )
@@ -846,18 +845,20 @@ def _clean_flags(flags: dict) -> dict:
 
 def _extract_card_parts(bubble: str) -> tuple[str, str]:
     text = bubble.strip()
-    m = _CARD_RE.match(text)
+    # Only inspect the first line for the title so that any emoji or text after
+    # **Title** 🍳 on the same line is NOT treated as description content.
+    title_line, _, rest = text.partition("\n")
+    m = re.match(r"^\*\*(.+?)\*\*", title_line)
     if not m:
         return "", ""
     name = m.group(1).strip()
-    rest = m.group(2)  # everything after **Title** (DOTALL — may span multiple lines)
     desc_lines: list[str] = []
     for line in rest.split("\n"):
         stripped = line.strip()
         if not stripped:
             if not desc_lines:
                 continue  # skip leading blank lines between title and description
-            break  # first blank line after description = end of this section
+            break  # first blank line after description content = end of this section
         if _ALLERGEN_NOTE_RE.match(stripped):
             continue  # allergen notes live in flags, not in stored description
         if stripped.startswith("---"):

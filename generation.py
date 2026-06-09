@@ -288,6 +288,15 @@ def _fmt_bool(val: bool | None) -> str:
     return "null"
 
 
+_METADATA_LEAK_RE: re.Pattern[str] = re.compile(
+    r"^(current_dishes|current_dish|buttons|intent|links|flags|platform|"
+    r"dish_status|collected_ingredients|pending_slots|resolved_variants|"
+    r"translate_now|completeness_confirmed|allergens_confirmed|"
+    r"gluten_confirmed|spicy_confirmed)\s*[\[=:{(]",
+    re.IGNORECASE,
+)
+
+
 def _parse_data(data: dict) -> GenResult:
     if not isinstance(data, dict):
         return GenResult(**_FALLBACK)
@@ -297,7 +306,11 @@ def _parse_data(data: dict) -> GenResult:
     if isinstance(raw_response, list):
         for r in raw_response:
             if isinstance(r, str) and r.strip():
-                response.append(r.strip())
+                bubble = r.strip()
+                if _METADATA_LEAK_RE.match(bubble):
+                    logger.warning("generation_metadata_leak_dropped", extra={"bubble": bubble[:80]})
+                    continue
+                response.append(bubble)
     if not response:
         logger.warning("generation_empty_response", extra={"raw": str(data)[:200]})
         return GenResult(**_FALLBACK)
