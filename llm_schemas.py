@@ -55,14 +55,10 @@ EXTRACTOR_TRADUCCION: Final[dict[str, Any]] = {
     "type": "object",
     "properties": {
         "reasoning": {"type": "string", "description": "Brief extraction reasoning"},
-        "current_dish": {"type": "string", "description": "Canonical dish name or empty string"},
+        "current_dish": {"type": "string", "description": "Canonical dish name, 'custom' if not in KB, or empty string"},
         "companions": _string_array("Side dishes served separately"),
-        "custom_dish_known": {
-            "type": "boolean",
-            "description": "Whether a custom dish name is a real dish",
-        },
     },
-    "required": ["reasoning", "current_dish", "companions", "custom_dish_known"],
+    "required": ["reasoning", "current_dish", "companions"],
     "additionalProperties": False,
 }
 

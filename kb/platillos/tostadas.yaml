@@ -12,6 +12,20 @@ category: antojito
 base_description: "Tortilla de maíz frita con [topping], cubierta con lechuga, crema y queso."
 variables_requeridas:
   - topping
+variable_opciones:
+  topping:
+   - Tinga de pollo 
+   - Pollo deshebrado con crema o mayonesa
+   - Carne deshebrada
+   - Carnitas
+   - Picadillo
+   - Chicharrón prensado
+   - Frijoles refritos 
+   - Tostadas de ceviche 
+   - Pescado desmenuzado
+   - Atún
+   - Rajas con crema
+   - Nopales guisados
 ingredientes_base_default:
   - tortilla de maíz
   - aceite

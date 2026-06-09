@@ -39,7 +39,6 @@ class ClassifierResult:
     # New traduccion fields
     current_dish: str = ""
     companions: list[str] = field(default_factory=list)
-    custom_dish_known: bool = True
     # Legacy fields — used by non-traduccion generation path
     current_dishes: list[str] = field(default_factory=list)
     translate_now: bool = False
@@ -234,18 +233,12 @@ def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> Classi
             if isinstance(c, str) and c.strip():
                 companions.append(c.strip().lower())
 
-    raw_known = data.get("custom_dish_known")
-    custom_dish_known: bool = True if raw_known is None else bool(raw_known)
-    if new_dish != "custom":
-        custom_dish_known = True
-
     logger.info(
         "extractor_result",
         extra={
             "intent": intent,
             "current_dish": new_dish,
             "companions": companions,
-            "custom_dish_known": custom_dish_known,
             "reasoning": str(data.get("reasoning", ""))[:300],
         },
     )
@@ -255,7 +248,6 @@ def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> Classi
         current_dish=new_dish,
         companions=companions,
         current_dishes=[new_dish] if new_dish else [],
-        custom_dish_known=custom_dish_known,
     )
 
 

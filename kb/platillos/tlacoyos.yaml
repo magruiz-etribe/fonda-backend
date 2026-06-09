@@ -10,6 +10,12 @@ category: antojito
 base_description: "Masa de maíz en forma ovalada rellena de [relleno], cocinada en comal."
 variables_requeridas:
   - relleno
+variable_opciones:
+  relleno:
+   - Frijoles refritos 
+   - Haba 
+   - Chicharrón prensado 
+   - Requesón o queso fresco
 ingredientes_base_default:
   - masa de maíz
   - sal

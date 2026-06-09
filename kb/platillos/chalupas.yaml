@@ -9,6 +9,18 @@ category: antojito
 base_description: "Base de masa de maíz frita con [guiso] y salsa."
 variables_requeridas:
   - guiso
+variable_opciones:
+  guiso:
+    -Pollo deshebrado
+    -Carne de res deshebrada
+    -Carne molida
+    -Cerdo en salsa verde o roja
+    -Tinga de pollo o de res
+    -Papa con chorizo
+    -Picadillo
+   -Frijoles refritos
+   -Queso con rajas
+   -Chicharrón prensado en salsa
 ingredientes_base_default:
   - masa de maíz
   - aceite

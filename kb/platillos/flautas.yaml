@@ -11,6 +11,17 @@ category: antojito
 base_description: "Tortilla de maíz enrollada y frita, rellena de [relleno], servida con lechuga, crema y queso."
 variables_requeridas:
   - relleno
+variable_opciones:
+  relleno:
+   - Pollo deshebrado 
+   - Carne de res deshebrada
+   - Cerdo deshebrado
+   - Papa 
+   - Frijoles refritos
+   - Queso fresco o queso Oaxaca
+   - Tinga de pollo 
+   - Chicharrón prensado
+   - Hongos salteados 
 ingredientes_base_default:
   - tortilla de maíz
   - aceite

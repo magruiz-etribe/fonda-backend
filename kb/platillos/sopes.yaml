@@ -11,6 +11,19 @@ category: antojito
 base_description: "Base de masa de maíz con [guiso], decorada con lechuga, crema y queso."
 variables_requeridas:
   - guiso
+variable_opciones:
+  guiso:
+   - Frijoles refritos (como primera capa clásica)
+   - Carne deshebrada
+   - Pollo deshebrado
+   - Picadillo
+   - Chorizo con papa
+   - Tinga de pollo (muy popular)
+   - Chicharrón prensado
+   - Rajas con crema
+   - Hongos guisados
+   - Nopales guisados
+   - Cochinita pibil (muy común en el sureste)
 ingredientes_base_default:
   - masa de maíz
   - lechuga

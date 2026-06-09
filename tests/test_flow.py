@@ -370,7 +370,7 @@ class TestSingleDishFlow:
         assert result.current_dishes == ["mole"]
 
     @patch("bedrock_client.converse")
-    def test_custom_dish_no_buttons_asks_ingredients(self, mock_cv):
+    def test_custom_dish_returns_not_found_with_cta_buttons(self, mock_cv):
         result = _handle(
             mock_cv,
             message="quiero traducir mi enchilada especial",
@@ -382,14 +382,16 @@ class TestSingleDishFlow:
                 pending_variant_for=None,
             ),
             gen_kwargs=dict(
-                response=["¡Me encanta! 🍳 ¿Me puedes platicar cuáles son los ingredientes principales?"],
-                current_dishes=["custom"],
+                response=["respuesta no usada"],
+                current_dishes=[],
                 buttons=[],
             ),
         )
         assert len(result.response) == 1
-        assert result.buttons == []
-        assert result.current_dishes == ["custom"]
+        assert "¡Vaya!" in result.response[0]
+        assert len(result.buttons) == 3
+        assert result.current_dishes == []
+        assert result.dish_status is None
 
 
 # ---------------------------------------------------------------------------

@@ -10,6 +10,15 @@ category: plato_fuerte
 base_description: "Chile poblano relleno de [relleno], capoteado en huevo y frito, bañado en salsa de jitomate."
 variables_requeridas:
   - relleno
+variable_opciones:
+  relleno:
+    -Pollo deshebrado
+    -Carne deshebrada de res
+    -Chicharrón prensado
+    -Cochinita pibil
+    -Tinga de pollo
+    -Papa con chorizo
+    -Frijoles refritos con queso
 ingredientes_base_default:
   - chile poblano
   - huevo

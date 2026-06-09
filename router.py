@@ -201,29 +201,15 @@ def _handle_traduccion(
 
     current_status = effective_session["dish_status"]
 
-    # Custom dish (not in KB): gate before the normal state machine.
-    # Runs on first encounter (status=None) AND whenever the extractor explicitly
-    # signals the dish isn't real (new_dish_from_cr may be False when both old and
-    # new dish are "custom", so we check custom_dish_known regardless of status).
+    # Dish not in KB → stop here, offer alternatives.
     if effective_dish == "custom":
-        if not cr.custom_dish_known:
-            return GenResult(
-                response=[_DISH_NOT_FOUND_RESPONSE],
-                current_dishes=[],
-                buttons=list(_CTA_BUTTONS),
-                dish_status=None,
-                intent="traduccion",
-            )
-        if current_status is None:
-            return GenResult(
-                response=["¡Con gusto! No tengo ese platillo en mi base de conocimiento, pero si me describes cómo lo preparas — ingredientes principales, tipo de salsa, proteína, guarnición — yo te ayudo con la descripción para el menú. 😊"],
-                current_dishes=["custom"],
-                buttons=[],
-                dish_status="EXTRACTING",
-                collected_ingredients=[],
-                detected_flags=[],
-                intent="traduccion",
-            )
+        return GenResult(
+            response=[_DISH_NOT_FOUND_RESPONSE],
+            current_dishes=[],
+            buttons=list(_CTA_BUTTONS),
+            dish_status=None,
+            intent="traduccion",
+        )
 
     if current_status is None or current_status == "EXTRACTING":
         return _handle_extracting(effective_session, message, history)
@@ -257,9 +243,7 @@ def _handle_extracting(
             current_dish, companions, effective_collected, message, history, kb_data
         )
 
-    # Short-circuit only for KB dishes with no variables — not for custom dishes,
-    # which need the EXTRACTING LLM to pull collected_ingredients from the description.
-    if not variables_requeridas and current_dish != "custom":
+    if not variables_requeridas:
         return _transition_to_flags_or_draft(
             current_dish, companions, collected, message, history, kb_data
         )
@@ -296,20 +280,6 @@ def _transition_to_flags_or_draft(
     history: list[dict[str, str]],
     kb_data: dict,
 ) -> GenResult:
-    # Custom dishes have no KB template — require at least some ingredient data before
-    # drafting, otherwise the generated card will be generic and unusable.
-    if current_dish == "custom" and not collected:
-        return GenResult(
-            response=["Para describir tu platillo correctamente necesito saber más: "
-                      "¿qué ingredientes principales lleva y cómo se prepara?"],
-            current_dishes=["custom"],
-            buttons=[],
-            dish_status="EXTRACTING",
-            collected_ingredients=[],
-            detected_flags=[],
-            intent="traduccion",
-        )
-
     with timing.stage("router.flags"):
         raw_flags = _compute_flags(current_dish, companions, collected)
 

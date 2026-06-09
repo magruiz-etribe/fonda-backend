@@ -19,6 +19,21 @@ category: antojito
 base_description: "Tortilla de maíz doblada rellena de [tipo_de_guiso]."
 variables_requeridas:
   - tipo_de_guiso
+variable_opciones:
+  tipo de guiso:
+   -Carne asada
+   - Pollo deshebrado
+   - Carnitas
+   - Chicharrón prensado
+   - Chorizo
+   - Pastor
+   - Barbacoa
+   - Birria 
+   - Lengua
+   - Picadillo
+   - Nopales
+   - Rajas con crema
+   - Pescado empanizado 
 ingredientes_base_default:
   - tortilla de maíz
   - cebolla

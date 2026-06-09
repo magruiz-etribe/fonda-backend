@@ -22,7 +22,10 @@
       "Bash(python -m py_compile generation.py)",
       "Bash(python -m py_compile handler.py)",
       "Bash(python -m py_compile classifier.py)",
-      "Bash(python -m py_compile router.py handler.py)"
+      "Bash(python -m py_compile router.py handler.py)",
+      "Bash(python -m py_compile router.py classifier.py llm_schemas.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(python -m py_compile router.py classifier.py)"
     ]
   }
 }

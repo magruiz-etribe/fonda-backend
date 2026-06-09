@@ -13,6 +13,19 @@ category: antojito
 base_description: "Tortilla de maíz doblada con queso fundido y [relleno], cocinada en comal."
 variables_requeridas:
   - relleno
+variable_opciones:
+  relleno:
+   - Queso Oaxaca o queso Chihuahua (los más clásicos)
+   - Hongos salteados
+   - Flor de calabaza (muy tradicional)
+   - Rajas con crema
+   - Chicharrón prensado
+   - Papa con chorizo
+   - Tinga de pollo
+   - Pollo deshebrado
+   - Picadillo
+   - Huitlacoche (muy mexicano y muy tradicional)
+   - Nopales
 ingredientes_base_default:
   - tortilla de maíz
   - queso

@@ -16,6 +16,23 @@ category: antojito
 base_description: "Masa de maíz rellena de [relleno], envuelta en hoja de maíz y cocida al vapor."
 variables_requeridas:
   - relleno
+variable_opciones:
+  relleno:
+   - Pollo en mole
+   - Puerco en salsa roja
+   - Rajas con queso
+   - Chile verde con carne de cerdo
+   - Chicharrón en salsa verde
+   - Tinga de pollo
+   - Barbacoa
+   - Cochinita pibil
+   - Frijoles refritos (muy común en versiones sencillas o veganas)
+   - Dulce de piña
+   - Pasas
+   - Fresa
+   - Chocolate
+   - Elote dulce (muy tradicional)
+   - Cajeta
 ingredientes_base_default:
   - masa de maíz
   - manteca
