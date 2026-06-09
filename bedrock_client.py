@@ -69,18 +69,19 @@ def structured_tool_config(
     name: str,
     schema: dict[str, Any],
     description: str = "",
+    *,
+    strict: bool = True,
 ) -> dict[str, Any]:
     """Build a Nova toolConfig that forces schema-valid JSON via constrained decoding."""
+    tool_spec: dict[str, Any] = {
+        "name": name,
+        "description": description or f"Structured output: {name}",
+        "inputSchema": {"json": schema},
+    }
+    if strict:
+        tool_spec["strict"] = True
     return {
-        "tools": [
-            {
-                "toolSpec": {
-                    "name": name,
-                    "description": description or f"Structured output: {name}",
-                    "inputSchema": {"json": schema},
-                }
-            }
-        ],
+        "tools": [{"toolSpec": tool_spec}],
         "toolChoice": {"tool": {"name": name}},
     }
 
@@ -97,34 +98,110 @@ def converse_json(
     stage: str | None = None,
 ) -> dict[str, Any]:
     """Call Bedrock with a forced tool schema and return the parsed tool input dict."""
-    tool_config = structured_tool_config(tool_name, schema, tool_description)
-    resp = _invoke(
-        model_id,
-        system,
-        messages,
-        inference_config,
-        tool_config,
-        return_full=True,
-        stage=stage,
-        structured=True,
-    )
-    if not isinstance(resp, dict):
-        raise BedrockError("structured converse returned unexpected type")
+    structured_error: BaseException | None = None
 
+    for strict in (True, False):
+        tool_config = structured_tool_config(
+            tool_name,
+            schema,
+            tool_description,
+            strict=strict,
+        )
+        try:
+            resp = _invoke(
+                model_id,
+                system,
+                messages,
+                inference_config,
+                tool_config,
+                return_full=True,
+                stage=stage,
+                structured=True,
+            )
+        except BedrockError as e:
+            structured_error = e
+            if strict:
+                logger.warning(
+                    "converse_json_strict_failed",
+                    extra={
+                        "tool_name": tool_name,
+                        "stage": stage or "",
+                        "error": str(e)[:300],
+                    },
+                )
+                continue
+            break
+
+        if not isinstance(resp, dict):
+            structured_error = BedrockError("structured converse returned unexpected type")
+            break
+
+        parsed = _try_parse_structured_response(resp, tool_name, stage)
+        if parsed is not None:
+            return parsed
+
+        structured_error = BedrockError(f"structured output missing toolUse for {tool_name}")
+        logger.warning(
+            "converse_json_tool_use_missing",
+            extra={
+                "tool_name": tool_name,
+                "stage": stage or "",
+                "stop_reason": resp.get("stopReason"),
+                "strict": strict,
+            },
+        )
+        if strict:
+            continue
+        break
+
+    logger.info(
+        "converse_json_fallback_text",
+        extra={"tool_name": tool_name, "stage": stage or ""},
+    )
+    try:
+        text = _invoke(
+            model_id,
+            system,
+            messages,
+            inference_config,
+            None,
+            return_full=False,
+            stage=stage,
+            structured=False,
+        )
+        parsed = parse_json_lenient(text)
+        if isinstance(parsed, dict):
+            return parsed
+    except Exception as e:
+        structured_error = structured_error or e
+
+    raise BedrockError(
+        f"structured output failed for {tool_name}: {_format_bedrock_error(structured_error)}"
+    ) from structured_error
+
+
+def _try_parse_structured_response(
+    resp: dict[str, Any],
+    tool_name: str,
+    stage: str | None,
+) -> dict[str, Any] | None:
     try:
         return _extract_tool_input(resp, tool_name)
     except BedrockError:
-        logger.warning(
-            "converse_json_tool_use_missing",
-            extra={"tool_name": tool_name, "stage": stage or ""},
-        )
+        pass
 
-    # Fallback for mocks or models that still return text JSON.
-    text = _extract_text(resp)
-    parsed = parse_json_lenient(text)
-    if isinstance(parsed, dict):
-        return parsed
-    raise BedrockError(f"structured output missing toolUse for {tool_name}")
+    try:
+        text = _extract_text(resp)
+        parsed = parse_json_lenient(text)
+        if isinstance(parsed, dict):
+            logger.info(
+                "converse_json_parsed_text_fallback",
+                extra={"tool_name": tool_name, "stage": stage or ""},
+            )
+            return parsed
+    except (BedrockError, json.JSONDecodeError):
+        pass
+    return None
 
 
 def converse_with_image(
@@ -332,6 +409,19 @@ def extract_grounding_log_data(resp: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _coerce_tool_input(inp: Any) -> dict[str, Any] | None:
+    if isinstance(inp, dict) and inp:
+        return inp
+    if isinstance(inp, str) and inp.strip():
+        try:
+            parsed = parse_json_lenient(inp)
+        except (json.JSONDecodeError, ValueError):
+            return None
+        if isinstance(parsed, dict) and parsed:
+            return parsed
+    return None
+
+
 def _extract_tool_input(resp: dict[str, Any], tool_name: str) -> dict[str, Any]:
     try:
         content = resp["output"]["message"]["content"]
@@ -346,9 +436,9 @@ def _extract_tool_input(resp: dict[str, Any], tool_name: str) -> dict[str, Any]:
             continue
         if tool_use.get("name") != tool_name:
             continue
-        inp = tool_use.get("input")
-        if isinstance(inp, dict):
-            return inp
+        if data := _coerce_tool_input(tool_use.get("input")):
+            return data
+        raise BedrockError(f"toolUse input empty or invalid for {tool_name}")
     raise BedrockError(f"toolUse block not found for {tool_name}")
 
 

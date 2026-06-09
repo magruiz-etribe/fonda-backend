@@ -81,3 +81,19 @@ class TestStructuredToolConfig:
         }
         data = bedrock_client._extract_tool_input(resp, "draft_menu_card")
         assert data["response"] == ["hola"]
+
+    def test_extract_tool_input_rejects_empty_dict(self):
+        resp = {
+            "output": {
+                "message": {
+                    "content": [
+                        {"toolUse": {"name": "draft_menu_card", "input": {}}},
+                    ]
+                }
+            }
+        }
+        try:
+            bedrock_client._extract_tool_input(resp, "draft_menu_card")
+            assert False, "expected BedrockError"
+        except bedrock_client.BedrockError:
+            pass
