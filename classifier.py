@@ -6,6 +6,7 @@ from typing import Final
 
 import bedrock_client
 import config
+import llm_schemas
 import timing
 from prompt_loader import load_prompt
 from retrieval import get_entities_index
@@ -79,21 +80,18 @@ def _classify_intent(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
+            schema=llm_schemas.CLASSIFIER_INTENT,
+            tool_name="classify_intent",
+            tool_description="Classify the user message intent",
             inference_config={"maxTokens": 256, "temperature": 0.0},
             stage="classifier_intent",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
-        return "fallback", ""
-
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("classifier_parse_error", extra={"error": str(e), "raw": raw[:200]})
         return "fallback", ""
 
     intent = str(data.get("intent", "fallback")).strip().lower()
@@ -143,10 +141,13 @@ def _extract_traduccion(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
+            schema=llm_schemas.EXTRACTOR_TRADUCCION,
+            tool_name="extract_traduccion",
+            tool_description="Extract dish and companions from the user message",
             inference_config={"maxTokens": config.CLASSIFIER_MAX_TOKENS, "temperature": 0.0},
             stage="extractor",
         )
@@ -154,7 +155,7 @@ def _extract_traduccion(
         logger.warning("extractor_bedrock_error", extra={"error": str(e)})
         return ClassifierResult(intent=intent, current_dish=current_dish)
 
-    return _parse_extraction(raw, current_dish, intent)
+    return _parse_extraction_data(data, current_dish, intent)
 
 
 def _build_extractor_text(
@@ -203,13 +204,7 @@ def _build_extractor_text(
     )
 
 
-def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return ClassifierResult(intent=intent, current_dish=current_dish)
-
+def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> ClassifierResult:
     if not isinstance(data, dict):
         return ClassifierResult(intent=intent, current_dish=current_dish)
 
@@ -245,3 +240,13 @@ def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierRes
         current_dishes=[new_dish] if new_dish else [],
         custom_dish_known=custom_dish_known,
     )
+
+
+def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierResult:
+    """Backward-compatible wrapper for tests that pass raw JSON strings."""
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return ClassifierResult(intent=intent, current_dish=current_dish)
+    return _parse_extraction_data(data, current_dish, intent)

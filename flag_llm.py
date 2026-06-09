@@ -5,6 +5,7 @@ from typing import Final
 
 import bedrock_client
 import config
+import llm_schemas
 from flags import _allergens, _vegetarian_markers, _spicy_markers
 
 logger = logging.getLogger(__name__)
@@ -131,10 +132,13 @@ def compute_flags_llm(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
+            schema=llm_schemas.FLAGS,
+            tool_name="compute_flags",
+            tool_description="Compute dietary flags for the dish",
             inference_config={"maxTokens": _FLAGS_MAX_TOKENS, "temperature": 0.0},
             stage="flags",
         )
@@ -142,7 +146,7 @@ def compute_flags_llm(
         logger.warning("flag_llm_bedrock_error", extra={"error": str(e)})
         return dict(_FALLBACK)
 
-    return _parse(raw)
+    return _parse_data(data)
 
 
 def _build_user_text(
@@ -172,13 +176,7 @@ def _build_user_text(
     )
 
 
-def _parse(raw: str) -> dict:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("flag_llm_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return dict(_FALLBACK)
-
+def _parse_data(data: dict) -> dict:
     if not isinstance(data, dict):
         return dict(_FALLBACK)
 

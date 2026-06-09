@@ -76,6 +76,8 @@ Globo 2 — confirmación:
 
 # Salida — SOLO JSON válido, sin markdown wrapper, sin texto extra
 
+⚠️ Dentro del JSON usa `\n` para saltos de línea en los strings (no saltos de línea literales dentro de comillas). Escapa comillas dobles con `\"` si aparecen en el texto.
+
 {
   "response": ["**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]", "🎉 ¡Listo! Así quedó la descripción para tus clientes. ¿La guardamos en el menú?"],
   "buttons": ["✅ Guardar en menú", "✏️ Hacer cambios"],

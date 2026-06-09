@@ -61,7 +61,70 @@ def converse(
         tool_config,
         return_full=return_full,
         stage=stage,
+        structured=False,
     )
+
+
+def structured_tool_config(
+    name: str,
+    schema: dict[str, Any],
+    description: str = "",
+) -> dict[str, Any]:
+    """Build a Nova toolConfig that forces schema-valid JSON via constrained decoding."""
+    return {
+        "tools": [
+            {
+                "toolSpec": {
+                    "name": name,
+                    "description": description or f"Structured output: {name}",
+                    "inputSchema": {"json": schema},
+                }
+            }
+        ],
+        "toolChoice": {"tool": {"name": name}},
+    }
+
+
+def converse_json(
+    model_id: str,
+    system: str,
+    messages: list[dict[str, Any]],
+    *,
+    schema: dict[str, Any],
+    tool_name: str,
+    tool_description: str = "",
+    inference_config: dict[str, Any] | None = None,
+    stage: str | None = None,
+) -> dict[str, Any]:
+    """Call Bedrock with a forced tool schema and return the parsed tool input dict."""
+    tool_config = structured_tool_config(tool_name, schema, tool_description)
+    resp = _invoke(
+        model_id,
+        system,
+        messages,
+        inference_config,
+        tool_config,
+        return_full=True,
+        stage=stage,
+        structured=True,
+    )
+    if not isinstance(resp, dict):
+        raise BedrockError("structured converse returned unexpected type")
+
+    try:
+        return _extract_tool_input(resp, tool_name)
+    except BedrockError:
+        logger.warning(
+            "converse_json_tool_use_missing",
+            extra={"tool_name": tool_name, "stage": stage or ""},
+        )
+
+    # Fallback for mocks or models that still return text JSON.
+    text = _extract_text(resp)
+    parsed = parse_json_lenient(text)
+    if isinstance(parsed, dict):
+        return parsed
+    raise BedrockError(f"structured output missing toolUse for {tool_name}")
 
 
 def converse_with_image(
@@ -86,12 +149,33 @@ def converse_with_image(
 
 
 def parse_json_strict(text: str) -> Any:
+    s = _prepare_json_text(text)
+    return json.loads(s)
+
+
+def parse_json_lenient(text: str) -> Any:
+    """Parse JSON from LLM output, tolerating common formatting mistakes."""
+    last_error: Exception | None = None
+    seen: set[str] = set()
+    for candidate in _json_parse_candidates(text):
+        for variant in _json_repair_variants(candidate):
+            if variant in seen:
+                continue
+            seen.add(variant)
+            try:
+                return json.loads(variant)
+            except json.JSONDecodeError as e:
+                last_error = e
+    if last_error is not None:
+        raise last_error
+    raise json.JSONDecodeError("no JSON found", text or "", 0)
+
+
+def _prepare_json_text(text: str) -> str:
     s = (text or "").strip()
     m = _JSON_FENCE_RE.search(s)
     if m:
         s = m.group(1).strip()
-    # Fallback: try to slice the first balanced JSON object/array if the
-    # model added stray prose around it.
     if not s.startswith(("{", "[")):
         start = min(
             (i for i in (s.find("{"), s.find("[")) if i != -1),
@@ -99,7 +183,97 @@ def parse_json_strict(text: str) -> Any:
         )
         if start != -1:
             s = s[start:]
-    return json.loads(s)
+    return s
+
+
+def _json_parse_candidates(text: str) -> list[str]:
+    s = (text or "").strip()
+    candidates: list[str] = []
+    for item in (s, _prepare_json_text(s)):
+        if item and item not in candidates:
+            candidates.append(item)
+    balanced = _extract_balanced_json_object(s)
+    if balanced and balanced not in candidates:
+        candidates.append(balanced)
+    m = _JSON_FENCE_RE.search(s)
+    if m:
+        fenced = m.group(1).strip()
+        balanced_fenced = _extract_balanced_json_object(fenced)
+        for item in (fenced, balanced_fenced):
+            if item and item not in candidates:
+                candidates.append(item)
+    return candidates
+
+
+def _json_repair_variants(text: str) -> list[str]:
+    variants: list[str] = []
+    for base in (text, _fix_json_string_newlines(text)):
+        for variant in (base, _fix_trailing_commas(base), _fix_trailing_commas(_fix_json_string_newlines(text))):
+            if variant and variant not in variants:
+                variants.append(variant)
+    return variants
+
+
+def _extract_balanced_json_object(text: str) -> str | None:
+    start = text.find("{")
+    if start == -1:
+        return None
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if escape:
+            escape = False
+            continue
+        if ch == "\\" and in_string:
+            escape = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : i + 1]
+    return None
+
+
+def _fix_json_string_newlines(text: str) -> str:
+    result: list[str] = []
+    in_string = False
+    escape = False
+    for ch in text:
+        if escape:
+            result.append(ch)
+            escape = False
+            continue
+        if ch == "\\" and in_string:
+            result.append(ch)
+            escape = True
+            continue
+        if ch == '"':
+            result.append(ch)
+            in_string = not in_string
+            continue
+        if in_string and ch == "\n":
+            result.append("\\n")
+            continue
+        if in_string and ch == "\r":
+            continue
+        if in_string and ch == "\t":
+            result.append("\\t")
+            continue
+        result.append(ch)
+    return "".join(result)
+
+
+def _fix_trailing_commas(text: str) -> str:
+    return re.sub(r",(\s*[}\]])", r"\1", text)
 
 
 def _format_bedrock_error(exc: BaseException) -> str:
@@ -158,6 +332,26 @@ def extract_grounding_log_data(resp: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _extract_tool_input(resp: dict[str, Any], tool_name: str) -> dict[str, Any]:
+    try:
+        content = resp["output"]["message"]["content"]
+    except (KeyError, TypeError) as e:
+        raise BedrockError(f"unexpected response shape: {e}") from e
+
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        tool_use = block.get("toolUse")
+        if not isinstance(tool_use, dict):
+            continue
+        if tool_use.get("name") != tool_name:
+            continue
+        inp = tool_use.get("input")
+        if isinstance(inp, dict):
+            return inp
+    raise BedrockError(f"toolUse block not found for {tool_name}")
+
+
 def _invoke(
     model_id: str,
     system: str,
@@ -167,6 +361,7 @@ def _invoke(
     *,
     return_full: bool = False,
     stage: str | None = None,
+    structured: bool = False,
 ) -> str | dict[str, Any]:
     kwargs: dict[str, Any] = {
         "modelId": model_id,
@@ -196,7 +391,8 @@ def _invoke(
                         "stage": stage or "",
                         "duration_ms": round(invoke_ms, 2),
                         "stop_reason": resp.get("stopReason"),
-                        "grounding": bool(tool_config),
+                        "grounding": bool(tool_config) and not structured,
+                        "structured": structured,
                     },
                 )
                 return resp
@@ -210,7 +406,8 @@ def _invoke(
                     "duration_ms": round(invoke_ms, 2),
                     "reply_len": len(text),
                     "stop_reason": resp.get("stopReason"),
-                    "grounding": bool(tool_config),
+                    "grounding": bool(tool_config) and not structured,
+                    "structured": structured,
                 },
             )
             return text

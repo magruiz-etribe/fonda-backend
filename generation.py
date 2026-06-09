@@ -8,6 +8,7 @@ from typing import Any, Final
 
 import bedrock_client
 import config
+import llm_schemas
 from classifier import ClassifierResult
 from prompt_loader import load_prompt
 
@@ -63,10 +64,13 @@ def generate(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_PRO_MODEL_ID,
             system,
             messages,
+            schema=llm_schemas.GENERATION,
+            tool_name="generate_response",
+            tool_description="Generate the assistant response bubbles and buttons",
             inference_config={
                 "maxTokens": config.GEN_MAX_TOKENS,
                 "temperature": 0.5,
@@ -77,7 +81,7 @@ def generate(
         logger.warning("generation_bedrock_error", extra={"error": str(e)})
         return GenResult(**_FALLBACK)
 
-    return _parse(raw)
+    return _parse_data(data)
 
 
 def _build_user_text(
@@ -283,16 +287,7 @@ def _fmt_bool(val: bool | None) -> str:
     return "null"
 
 
-def _parse(raw: str) -> GenResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning(
-            "generation_parse_error",
-            extra={"error": str(e), "raw": raw[:300]},
-        )
-        return GenResult(**_FALLBACK)
-
+def _parse_data(data: dict) -> GenResult:
     if not isinstance(data, dict):
         return GenResult(**_FALLBACK)
 
@@ -541,10 +536,13 @@ def generate_extracting(
     # variables_complete=false with empty response.
     for attempt, temperature in enumerate([0.3, 0.0]):
         try:
-            raw = bedrock_client.converse(
+            data = bedrock_client.converse_json(
                 config.NOVA_PRO_MODEL_ID,
                 system,
                 messages,
+                schema=llm_schemas.EXTRACTING,
+                tool_name="extract_variables",
+                tool_description="Extract dish variables and ask for missing ones",
                 inference_config={"maxTokens": 512, "temperature": temperature},
                 stage="gen_extracting",
             )
@@ -552,7 +550,7 @@ def generate_extracting(
             logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
             return GenResult(**_FALLBACK)
 
-        result = _parse_extracting(raw, collected_ingredients)
+        result = _parse_extracting_data(data, collected_ingredients)
         if result.response or result.variables_complete:
             if attempt > 0:
                 logger.info("gen_extracting_retry_ok", extra={"attempt": attempt})
@@ -574,7 +572,7 @@ def generate_extracting(
 
         logger.warning(
             "gen_extracting_empty_question",
-            extra={"attempt": attempt, "data": raw[:200]},
+            extra={"attempt": attempt, "data": str(data)[:200]},
         )
 
         det = _build_extracting_deterministic_fallback(
@@ -632,12 +630,15 @@ def _build_extracting_text(
     )
 
 
-def _parse_extracting(raw: str, fallback_collected: list[str]) -> GenResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("gen_extracting_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return GenResult(**_FALLBACK)
+def _parse_extracting_data(raw: dict | str, fallback_collected: list[str]) -> GenResult:
+    if isinstance(raw, str):
+        try:
+            data = bedrock_client.parse_json_lenient(raw)
+        except Exception as e:
+            logger.warning("gen_extracting_parse_error", extra={"error": str(e), "raw": raw[:200]})
+            return GenResult(**_FALLBACK)
+    else:
+        data = raw
 
     if not isinstance(data, dict):
         return GenResult(**_FALLBACK)
@@ -685,10 +686,13 @@ def generate_confirming_flags(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_PRO_MODEL_ID,
             system,
             messages,
+            schema=llm_schemas.CONFIRMING_FLAGS,
+            tool_name="confirm_flags",
+            tool_description="Ask the user to confirm detected allergens",
             inference_config={"maxTokens": 512, "temperature": 0.3},
             stage="gen_confirming_flags",
         )
@@ -696,7 +700,7 @@ def generate_confirming_flags(
         logger.warning("gen_confirming_flags_bedrock_error", extra={"error": str(e)})
         return GenResult(**_FALLBACK)
 
-    return _parse_confirming_flags(raw)
+    return _parse_confirming_flags_data(data)
 
 
 def _build_confirming_flags_text(
@@ -730,13 +734,7 @@ def _build_confirming_flags_text(
     )
 
 
-def _parse_confirming_flags(raw: str) -> GenResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("gen_confirming_flags_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return GenResult(**_FALLBACK)
-
+def _parse_confirming_flags_data(data: dict) -> GenResult:
     if not isinstance(data, dict):
         return GenResult(**_FALLBACK)
 
@@ -746,6 +744,9 @@ def _parse_confirming_flags(raw: str) -> GenResult:
         return GenResult(**_FALLBACK)
 
     return GenResult(response=response, buttons=[])
+
+
+_DEFAULT_DRAFTING_BUTTONS: Final[list[str]] = ["✅ Guardar en menú", "✏️ Hacer cambios"]
 
 
 def generate_drafting(
@@ -764,19 +765,34 @@ def generate_drafting(
     )
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
-    try:
-        raw = bedrock_client.converse(
-            config.NOVA_PRO_MODEL_ID,
-            system,
-            messages,
-            inference_config={"maxTokens": config.GEN_MAX_TOKENS, "temperature": 0.5},
-            stage="gen_drafting",
-        )
-    except bedrock_client.BedrockError as e:
-        logger.warning("gen_drafting_bedrock_error", extra={"error": str(e)})
-        return GenResult(**_FALLBACK)
+    for attempt, temperature in enumerate([0.5, 0.0]):
+        try:
+            data = bedrock_client.converse_json(
+                config.NOVA_PRO_MODEL_ID,
+                system,
+                messages,
+                schema=llm_schemas.DRAFTING,
+                tool_name="draft_menu_card",
+                tool_description="Generate the bilingual menu card draft",
+                inference_config={"maxTokens": config.GEN_MAX_TOKENS, "temperature": temperature},
+                stage="gen_drafting",
+            )
+        except bedrock_client.BedrockError as e:
+            logger.warning("gen_drafting_bedrock_error", extra={"error": str(e)})
+            return GenResult(**_FALLBACK)
 
-    return _parse_drafting(raw, current_dish, companions)
+        result = _try_parse_drafting_data(data, current_dish, companions)
+        if result is not None:
+            if attempt > 0:
+                logger.info("gen_drafting_retry_ok", extra={"attempt": attempt})
+            return result
+
+        logger.warning(
+            "gen_drafting_parse_error",
+            extra={"attempt": attempt, "raw": str(data)[:200]},
+        )
+
+    return GenResult(**_FALLBACK)
 
 
 def _build_drafting_text(
@@ -813,23 +829,30 @@ def _build_drafting_text(
     )
 
 
-def _parse_drafting(raw: str, current_dish: str, companions: list[str]) -> GenResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning("gen_drafting_parse_error", extra={"error": str(e), "raw": raw[:200]})
-        return GenResult(**_FALLBACK)
+def _try_parse_drafting_data(
+    data: dict | str,
+    current_dish: str,
+    companions: list[str],
+) -> GenResult | None:
+    if isinstance(data, str):
+        try:
+            parsed = bedrock_client.parse_json_lenient(data)
+        except Exception:
+            return None
+        data = parsed
 
     if not isinstance(data, dict):
-        return GenResult(**_FALLBACK)
+        return None
 
     raw_response = data.get("response") or []
     response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
     if not response:
-        return GenResult(**_FALLBACK)
+        return None
 
     raw_buttons = data.get("buttons") or []
     buttons = [b.strip() for b in raw_buttons if isinstance(b, str) and b.strip()]
+    if not buttons:
+        buttons = list(_DEFAULT_DRAFTING_BUTTONS)
 
     dishes_out = [current_dish] + companions
 
@@ -862,14 +885,16 @@ def translate_menu_card(
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_2_LITE_MODEL_ID,
             _TRANSLATE_CARD_SYSTEM,
             messages,
+            schema=llm_schemas.TRANSLATION_CARD,
+            tool_name="translate_menu_card",
+            tool_description="Translate the Spanish menu card to English",
             inference_config={"maxTokens": 512, "temperature": 0.0},
             stage="translation_retry",
         )
-        data = bedrock_client.parse_json_strict(raw)
     except Exception as e:
         logger.warning("translation_retry_error", extra={"error": str(e)})
         return None

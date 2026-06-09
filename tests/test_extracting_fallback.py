@@ -63,14 +63,14 @@ class TestExtractingDeterministicFallback:
 
 
 class TestGenerateExtractingUsesFallback:
-    @patch("bedrock_client.converse")
-    def test_empty_llm_response_uses_deterministic_question(self, mock_converse):
-        mock_converse.return_value = json.dumps({
+    @patch("bedrock_client.converse_json")
+    def test_empty_llm_response_uses_deterministic_question(self, mock_converse_json):
+        mock_converse_json.return_value = {
             "response": [],
             "variables_complete": False,
             "collected_ingredients": ["pollo"],
             "buttons": [],
-        })
+        }
 
         result = generation.generate_extracting(
             current_dish="enchiladas",
@@ -81,19 +81,19 @@ class TestGenerateExtractingUsesFallback:
             kb_data=_ENCHILADAS_KB,
         )
 
-        assert mock_converse.call_count == 1
+        assert mock_converse_json.call_count == 1
         assert result.variables_complete is False
         assert "salsa" in result.response[0].lower()
         assert result.collected_ingredients == ["pollo"]
 
-    @patch("bedrock_client.converse")
-    def test_empty_llm_with_all_vars_covered_transitions(self, mock_converse):
-        mock_converse.return_value = json.dumps({
+    @patch("bedrock_client.converse_json")
+    def test_empty_llm_with_all_vars_covered_transitions(self, mock_converse_json):
+        mock_converse_json.return_value = {
             "response": [],
             "variables_complete": False,
             "collected_ingredients": ["pollo", "verde"],
             "buttons": [],
-        })
+        }
 
         result = generation.generate_extracting(
             current_dish="enchiladas",
