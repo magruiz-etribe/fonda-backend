@@ -26,7 +26,8 @@
       "Bash(python -m py_compile router.py classifier.py llm_schemas.py)",
       "Bash(python3 -c ' *)",
       "Bash(python -m py_compile router.py classifier.py)",
-      "Bash(python -m py_compile classifier.py router.py)"
+      "Bash(python -m py_compile classifier.py router.py)",
+      "Bash(python -m py_compile classifier.py router.py generation.py)"
     ]
   }
 }
