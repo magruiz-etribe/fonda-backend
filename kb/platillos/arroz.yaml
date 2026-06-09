@@ -13,6 +13,12 @@ category: guarnicion
 base_description: "Arroz [tipo_de_arroz]."
 variables_requeridas:
   - tipo_de_arroz
+variable_opciones:
+  tipo_de_arroz:
+    - rojo
+    - blanco
+    - verde
+    - amarillo
 ingredientes_base_default:
   - arroz
   - caldo

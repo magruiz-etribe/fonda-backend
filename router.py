@@ -252,6 +252,19 @@ def _handle_confirming_flags(
         raw_flags = _normalize_flags(raw_flags)
     clean_flags = _clean_flags(raw_flags)
 
+    # Let the user back out and edit instead of confirming allergens
+    if _EDIT_RE.match(message.strip()):
+        return GenResult(
+            response=["Claro, vamos a ajustarlo. ¿Qué cambiamos? 😊"],
+            current_dishes=[current_dish] + companions,
+            buttons=[],
+            flags=clean_flags,
+            dish_status="EXTRACTING",
+            collected_ingredients=[],
+            detected_flags=[],
+            intent="traduccion",
+        )
+
     kb_data = retrieval.get_dish_data(current_dish) or {}
     return _start_drafting(
         current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data

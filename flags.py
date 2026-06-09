@@ -90,9 +90,10 @@ def _vegetarian_markers() -> dict:
 
 
 def _normalize(s: str) -> str:
-    """Lowercase + strip accents for robust ingredient matching."""
+    """Lowercase + strip accents + unify underscores/spaces for robust ingredient matching."""
+    s = s.lower().strip().replace('_', ' ')
     return ''.join(
-        c for c in unicodedata.normalize('NFD', s.lower().strip())
+        c for c in unicodedata.normalize('NFD', s)
         if unicodedata.category(c) != 'Mn'
     )
 

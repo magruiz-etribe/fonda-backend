@@ -11,6 +11,11 @@ category: caldo
 base_description: "Caldo [tipo_de_caldo] de maíz cacahuazintle con cerdo."
 variables_requeridas:
   - tipo_de_caldo
+variable_opciones:
+  tipo_de_caldo:
+    - blanco
+    - rojo
+    - verde
 ingredientes_base_default:
   - maíz cacahuazintle
   - carne de cerdo

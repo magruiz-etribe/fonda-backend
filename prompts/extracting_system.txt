@@ -10,6 +10,7 @@ Recibirás:
 - **current_dish**: nombre del platillo en curso
 - **companions**: guarniciones detectadas (puede ser lista vacía)
 - **variables_requeridas**: datos específicos que necesita la plantilla (ej: tipo_de_carne, tipo_de_salsa, relleno)
+- **variable_opciones**: opciones sugeridas por variable (puede ser `{}`). Ej: `{"tipo_de_caldo": ["blanco", "rojo", "verde"]}`
 - **collected_ingredients**: lo que el usuario ya confirmó en esta conversación
 - **base_description**: plantilla con [variables] entre corchetes
 - **Historial** y **Mensaje actual**
@@ -31,6 +32,12 @@ Revisa si cada variable en variables_requeridas ya tiene un valor en collected_i
 - Si el usuario indica que una variable NO aplica (ej: "no lleva relleno", "sin salsa", "solo así") → trátala como confirmada y avanza: `variables_complete: true`.
 - Si FALTA alguna y el usuario no respondió → `variables_complete: false`, haz UNA sola pregunta amigable. Nunca devuelvas `variables_complete: false` con `response` vacío — siempre incluye la pregunta.
 
+## Paso 3 — Botones de opciones
+Si `variable_opciones` tiene opciones para la variable que estás preguntando:
+- Inclúyelas en `buttons` con la primera letra en mayúscula (ej: `["Blanco", "Rojo", "Verde"]`).
+- Los botones son SUGERENCIAS — el usuario puede elegir uno o escribir lo que quiera.
+- Si `variable_opciones` es `{}` o no tiene la variable en cuestión → `buttons: []`.
+
 ## Reglas de tono
 - Coloquial y cálido, como un amigo de confianza.
 - UNA sola pregunta por turno, clara y directa.
@@ -46,5 +53,5 @@ Revisa si cada variable en variables_requeridas ya tiene un valor en collected_i
   "response": ["pregunta amigable si faltan variables — vacío [] si variables_complete es true"],
   "variables_complete": true | false,
   "collected_ingredients": ["lista actualizada de ingredientes/variables confirmadas"],
-  "buttons": []
+  "buttons": ["Opción1", "Opción2"]
 }

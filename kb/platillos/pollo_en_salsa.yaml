@@ -11,6 +11,10 @@ category: plato_fuerte
 base_description: "Pieza de pollo guisada en salsa [tipo_de_salsa]."
 variables_requeridas:
   - tipo_de_salsa
+variable_opciones:
+  tipo_de_salsa:
+    - verde
+    - roja
 ingredientes_base_default:
   - pollo
   - cebolla

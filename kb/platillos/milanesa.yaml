@@ -10,6 +10,10 @@ category: plato_fuerte
 base_description: "Filete de [tipo_de_carne] empanizado y frito."
 variables_requeridas:
   - tipo_de_carne
+variable_opciones:
+  tipo_de_carne:
+    - res
+    - pollo
 ingredientes_base_default:
   - pan molido
   - huevo

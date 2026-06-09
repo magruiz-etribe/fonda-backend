@@ -12,6 +12,12 @@ category: guarnicion
 base_description: "Frijoles [tipo_de_frijoles]."
 variables_requeridas:
   - tipo_de_frijoles
+variable_opciones:
+  tipo_de_frijoles:
+    - de olla
+    - refritos
+    - negros
+    - bayos
 ingredientes_base_default:
   - frijol negro
   - cebolla

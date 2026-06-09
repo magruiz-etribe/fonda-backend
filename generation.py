@@ -417,19 +417,33 @@ def generate_extracting(
     )
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
-    try:
-        raw = bedrock_client.converse(
-            config.NOVA_PRO_MODEL_ID,
-            system,
-            messages,
-            inference_config={"maxTokens": 512, "temperature": 0.3},
-            stage="gen_extracting",
-        )
-    except bedrock_client.BedrockError as e:
-        logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
-        return GenResult(**_FALLBACK)
+    # Two attempts: first natural (0.3), retry deterministic (0.0) if LLM returns
+    # variables_complete=false with empty response.
+    for attempt, temperature in enumerate([0.3, 0.0]):
+        try:
+            raw = bedrock_client.converse(
+                config.NOVA_PRO_MODEL_ID,
+                system,
+                messages,
+                inference_config={"maxTokens": 512, "temperature": temperature},
+                stage="gen_extracting",
+            )
+        except bedrock_client.BedrockError as e:
+            logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
+            return GenResult(**_FALLBACK)
 
-    return _parse_extracting(raw, collected_ingredients)
+        result = _parse_extracting(raw, collected_ingredients)
+        if result.response or result.variables_complete:
+            if attempt > 0:
+                logger.info("gen_extracting_retry_ok", extra={"attempt": attempt})
+            return result
+
+        logger.warning(
+            "gen_extracting_empty_question",
+            extra={"attempt": attempt, "data": raw[:200]},
+        )
+
+    return GenResult(**_FALLBACK)
 
 
 def _build_extracting_text(
@@ -452,11 +466,14 @@ def _build_extracting_text(
     comp_str = ", ".join(companions) if companions else "(ninguno)"
     vars_req = json.dumps(kb_data.get("variables_requeridas") or [], ensure_ascii=False)
     base_desc = kb_data.get("base_description") or ""
+    var_opciones = kb_data.get("variable_opciones") or {}
+    opciones_str = json.dumps(var_opciones, ensure_ascii=False) if var_opciones else "{}"
 
     return (
         f"current_dish: {current_dish}\n"
         f"companions: {comp_str}\n"
         f"variables_requeridas: {vars_req}\n"
+        f"variable_opciones: {opciones_str}\n"
         f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"
         f"base_description: {base_desc}\n\n"
         f"Historial:\n{hist_block}\n\n"
@@ -489,10 +506,8 @@ def _parse_extracting(raw: str, fallback_collected: list[str]) -> GenResult:
     if not collected:
         collected = list(fallback_collected)
 
-    # Guard: if no question was generated but variables still incomplete, fallback
-    if not response and not variables_complete:
-        logger.warning("gen_extracting_empty_question", extra={"data": str(data)[:300]})
-        return GenResult(**_FALLBACK)
+    raw_buttons = data.get("buttons") or []
+    buttons = [b.strip() for b in raw_buttons if isinstance(b, str) and b.strip()]
 
     logger.info("gen_extracting_ok", extra={"variables_complete": variables_complete, "collected": collected})
 
@@ -500,7 +515,7 @@ def _parse_extracting(raw: str, fallback_collected: list[str]) -> GenResult:
         response=response,
         variables_complete=variables_complete,
         collected_ingredients=collected,
-        buttons=[],
+        buttons=buttons,
     )
 
 

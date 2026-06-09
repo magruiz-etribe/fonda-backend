@@ -12,6 +12,17 @@ base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en sa
 variables_requeridas:
   - relleno
   - tipo_de_salsa
+variable_opciones:
+  relleno:
+    - pollo
+    - queso
+    - res
+    - frijoles
+  tipo_de_salsa:
+    - verde
+    - roja
+    - mole
+    - suizas (crema)
 ingredientes_base_default:
   - tortilla de maíz
   - crema

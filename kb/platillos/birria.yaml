@@ -11,6 +11,12 @@ category: caldo
 base_description: "Estofado de [tipo_de_carne] en adobo de chiles secos y especias."
 variables_requeridas:
   - tipo_de_carne
+variable_opciones:
+  tipo_de_carne:
+    - res
+    - chivo
+    - borrego
+    - pollo
 ingredientes_base_default:
   - chile guajillo
   - chile ancho

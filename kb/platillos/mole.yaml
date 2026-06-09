@@ -13,6 +13,11 @@ category: plato_fuerte
 base_description: "Pieza de [tipo_de_carne] bañada en mole de chiles secos y chocolate."
 variables_requeridas:
   - tipo_de_carne
+variable_opciones:
+  tipo_de_carne:
+    - pollo
+    - guajolote
+    - res
 ingredientes_base_default:
   - chiles secos
   - chocolate

@@ -13,6 +13,10 @@ category: caldo
 base_description: "Caldo [tipo_de_caldo] con verduras de temporada."
 variables_requeridas:
   - tipo_de_caldo
+variable_opciones:
+  tipo_de_caldo:
+    - res
+    - pollo
 ingredientes_base_default:
   - cebolla
   - ajo
