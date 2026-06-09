@@ -70,15 +70,14 @@ Globo 1 — tarjeta bilingüe:
 
 Globo 2 — confirmación:
 
----
-*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*
+🎉 ¡Listo! Así quedó la descripción para tus clientes. ¿La guardamos en el menú?
 
 ---
 
 # Salida — SOLO JSON válido, sin markdown wrapper, sin texto extra
 
 {
-  "response": ["**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]", "---\n*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*"],
+  "response": ["**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]", "🎉 ¡Listo! Así quedó la descripción para tus clientes. ¿La guardamos en el menú?"],
   "buttons": ["✅ Guardar en menú", "✏️ Hacer cambios"],
   "current_dishes": ["nombre_canonico"]
 }
