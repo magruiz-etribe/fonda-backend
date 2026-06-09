@@ -513,6 +513,34 @@ def _build_extracting_deterministic_fallback(
     )
 
 
+def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
+    """Inject KB option buttons when the LLM asks a question but omits buttons."""
+    if result.buttons or result.variables_complete or not result.response:
+        return result
+
+    variables_requeridas = list(kb_data.get("variables_requeridas") or [])
+    variable_opciones = kb_data.get("variable_opciones") or {}
+    collected = list(result.collected_ingredients or [])
+
+    missing = _find_first_missing_variable(collected, variables_requeridas, variable_opciones)
+    if not missing:
+        return result
+
+    raw_options = variable_opciones.get(missing) or []
+    if not isinstance(raw_options, list):
+        return result
+    options = [str(o).strip() for o in raw_options if str(o).strip()]
+    if not options:
+        return result
+
+    result.buttons = _options_to_buttons(options)
+    logger.info(
+        "gen_extracting_buttons_injected",
+        extra={"variable": missing, "buttons": result.buttons},
+    )
+    return result
+
+
 # ── New state-machine generation functions ────────────────────────────────────
 
 def generate_extracting(
@@ -550,7 +578,10 @@ def generate_extracting(
             logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
             return GenResult(**_FALLBACK)
 
-        result = _parse_extracting_data(data, collected_ingredients)
+        result = _fill_extracting_buttons(
+            _parse_extracting_data(data, collected_ingredients),
+            kb_data,
+        )
         if result.response or result.variables_complete:
             if attempt > 0:
                 logger.info("gen_extracting_retry_ok", extra={"attempt": attempt})
@@ -743,7 +774,10 @@ def _parse_confirming_flags_data(data: dict) -> GenResult:
     if not response:
         return GenResult(**_FALLBACK)
 
-    return GenResult(response=response, buttons=[])
+    raw_buttons = data.get("buttons") or []
+    buttons = [b.strip() for b in raw_buttons if isinstance(b, str) and b.strip()]
+
+    return GenResult(response=response, buttons=buttons)
 
 
 _DEFAULT_DRAFTING_BUTTONS: Final[list[str]] = ["✅ Guardar en menú", "✏️ Hacer cambios"]

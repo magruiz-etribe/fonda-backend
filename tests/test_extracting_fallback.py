@@ -106,3 +106,23 @@ class TestGenerateExtractingUsesFallback:
 
         assert result.variables_complete is True
         assert result.response == []
+
+    @patch("bedrock_client.converse_json")
+    def test_injects_buttons_when_llm_omits_them(self, mock_converse_json):
+        mock_converse_json.return_value = {
+            "response": ["¿Con qué relleno preparas enchiladas?"],
+            "variables_complete": False,
+            "collected_ingredients": [],
+            "buttons": [],
+        }
+
+        result = generation.generate_extracting(
+            current_dish="enchiladas",
+            companions=[],
+            collected_ingredients=[],
+            message="enchiladas",
+            history=[],
+            kb_data=_ENCHILADAS_KB,
+        )
+
+        assert result.buttons == ["Pollo", "Queso", "Res", "Frijoles"]
