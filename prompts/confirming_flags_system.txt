@@ -25,9 +25,14 @@ Formula UNA sola pregunta natural que confirme los alérgenos detectados.
 
 ---
 
-# Salida — SOLO JSON válido, sin markdown, sin texto extra
+# Salida — usa la herramienta estructurada (schema)
 
-{
-  "response": ["pregunta natural sobre alérgenos"],
-  "buttons": []
-}
+Devuelve EXACTAMENTE:
+- **response**: UN string con la pregunta de confirmación, o `[]` si no hay nada que confirmar.
+- **buttons**: normalmente `[]`.
+
+⚠️ NO preguntes por ingredientes que el usuario ya mencionó (están en collected_ingredients o en el mensaje actual).
+⚠️ NO preguntes por acompañamientos del platillo (jamón, tocino, etc.) — esos se resuelven en EXTRACTING, no aquí.
+⚠️ Solo confirma alérgenos reales detectados en detected_flags que el usuario NO haya dicho ya.
+
+Si detected_flags está vacío o todo ya fue confirmado → `"response": []`.

@@ -60,11 +60,26 @@ Si `variable_opciones` tiene opciones para la variable que estás preguntando en
 
 ---
 
-# Salida — SOLO JSON válido, sin markdown, sin texto extra
+# Salida — usa la herramienta estructurada (schema). Todos los campos son obligatorios.
 
+Devuelve EXACTAMENTE estos campos:
+- **response**: array de strings. Vacío `[]` si `variables_complete` es `true`. Exactamente UN string si falta una variable.
+- **variables_complete**: booleano. `true` solo cuando TODAS las variables_requeridas están cubiertas en collected_ingredients.
+- **collected_ingredients**: array con TODOS los ingredientes mencionados (historial + mensaje actual), en minúsculas sin acentos (ej: `jamon`, no `jamón`).
+- **buttons**: array de opciones para la variable que preguntas; `[]` si no aplica o si variables_complete es `true`.
+
+Ejemplo cuando falta acompañamiento en huevos_revueltos:
 {
-  "response": ["pregunta amigable si faltan variables — vacío [] si variables_complete es true"],
-  "variables_complete": true | false,
-  "collected_ingredients": ["lista actualizada de ingredientes/variables confirmadas"],
-  "buttons": ["Opción1", "Opción2"]
+  "response": ["¿Con qué acompañas los huevos revueltos?"],
+  "variables_complete": false,
+  "collected_ingredients": ["huevo"],
+  "buttons": ["Jamón", "Tocino", "Chorizo"]
+}
+
+Ejemplo cuando el usuario ya dijo "huevo con jamon":
+{
+  "response": [],
+  "variables_complete": true,
+  "collected_ingredients": ["huevo", "jamon"],
+  "buttons": []
 }

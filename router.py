@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import re
+import unicodedata
 from typing import Final
 
 import classifier as cls_module
@@ -29,9 +30,18 @@ _OUT_OF_DOMAIN_RESPONSE: Final[str] = (
 _APPROVAL_RE: re.Pattern[str] = re.compile(
     r"^(✅|sí\b|si\b|guardar|listo|correcto|exacto)", re.IGNORECASE
 )
+_AFFIRMATIVE_RE: re.Pattern[str] = re.compile(
+    r"^(✅|sí\b|si\b|yes\b|yep\b|correcto|exacto|afirmativo|claro|ok\b|vale)\b",
+    re.IGNORECASE,
+)
 _EDIT_RE: re.Pattern[str] = re.compile(
     r"^(✏️|cambios|cambiar|editar|ajustar|modificar)", re.IGNORECASE
 )
+_SAVE_PHRASES: Final[frozenset[str]] = frozenset({
+    "guardar en menu",
+    "guardar en menú",
+    "save to menu",
+})
 _CARD_RE: re.Pattern[str] = re.compile(r"^\*\*(.+?)\*\*(.*)", re.DOTALL)
 _ALLERGEN_NOTE_RE: re.Pattern[str] = re.compile(
     r"^\*\((?:Contiene|Contains)\b", re.IGNORECASE
@@ -127,6 +137,11 @@ def _handle_traduccion(
 
     effective_dish = effective_session["current_dish"]
 
+    if _is_save_request(message) and _history_has_draft_card(history):
+        return _save_draft_from_history(
+            effective_session, history, message,
+        )
+
     if not effective_dish:
         return GenResult(
             response=["¡Con gusto te ayudo! Cuéntame cómo preparas tu platillo: nombre, proteína, tipo de salsa, relleno, guarniciones... Entre más detalles me des, más completa queda la descripción. 😊"],
@@ -180,6 +195,14 @@ def _handle_extracting(
     kb_data = retrieval.get_dish_data(current_dish) or {}
     variables_requeridas: list[str] = kb_data.get("variables_requeridas") or []
 
+    effective_collected = gen_module.prefill_collected(message, collected, kb_data)
+
+    # Short-circuit when the user message already covers all KB variables — skip LLM.
+    if variables_requeridas and gen_module.variables_satisfied(effective_collected, kb_data):
+        return _transition_to_flags_or_draft(
+            current_dish, companions, effective_collected, message, history, kb_data
+        )
+
     # Short-circuit only for KB dishes with no variables — not for custom dishes,
     # which need the EXTRACTING LLM to pull collected_ingredients from the description.
     if not variables_requeridas and current_dish != "custom":
@@ -225,18 +248,12 @@ def _transition_to_flags_or_draft(
     all_detected = _extract_detected_flag_names(raw_flags)
     clean_flags = _clean_flags(raw_flags)
 
-    # Only ask CONFIRMING_FLAGS for triggers that the user has NOT already stated
-    # AND that are not obvious defaults of the dish (e.g. asking "¿llevan huevo?" for
-    # huevos_revueltos is absurd — huevo is a KB default ingredient).
-    user_stated = {i.replace("_", " ").lower() for i in collected}
-    for entity in [current_dish] + companions:
-        entity_data = retrieval.get_dish_data(entity) or {}
-        for ing in (entity_data.get("ingredientes_base_default") or []):
-            user_stated.add(str(ing).strip().lower().replace("_", " "))
-    hidden_triggers = [
-        t for t in all_detected
-        if t.lower() not in user_stated and t.replace(" ", "_").lower() not in user_stated
-    ]
+    user_stated = _user_stated_ingredients(
+        collected, message, current_dish, companions, kb_data
+    )
+    hidden_triggers = _filter_hidden_allergen_triggers(
+        all_detected, user_stated, kb_data
+    )
 
     if hidden_triggers:
         with timing.stage("router.generation"):
@@ -247,6 +264,15 @@ def _transition_to_flags_or_draft(
                 detected_flags=hidden_triggers,
                 message=message,
                 history=history,
+            )
+        if not result.response:
+            logger.info(
+                "confirming_flags_skipped_empty_response",
+                extra={"hidden_triggers": hidden_triggers},
+            )
+            return _start_drafting(
+                current_dish, companions, collected, all_detected, clean_flags,
+                message, history, kb_data,
             )
         result.dish_status = "CONFIRMING_FLAGS"
         result.collected_ingredients = collected
@@ -286,6 +312,12 @@ def _handle_confirming_flags(
             collected_ingredients=[],
             detected_flags=[],
             intent="traduccion",
+        )
+
+    if _is_affirmative(message) or _is_save_request(message):
+        kb_data = retrieval.get_dish_data(current_dish) or {}
+        return _start_drafting(
+            current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
         )
 
     kb_data = retrieval.get_dish_data(current_dish) or {}
@@ -339,19 +371,24 @@ def _handle_drafting(
 
     msg_stripped = message.strip()
 
-    if _APPROVAL_RE.match(msg_stripped):
+    if _is_save_request(msg_stripped):
         menu_entry = _build_menu_entry_from_history(history, clean_flags)
-        return GenResult(
-            response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
-            current_dishes=[],
-            buttons=[],
-            flags=clean_flags,
-            menu_entry=menu_entry,
-            save_to_menu=True,
-            dish_status=None,
-            collected_ingredients=[],
-            detected_flags=[],
-            intent="traduccion",
+        if menu_entry:
+            return GenResult(
+                response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
+                current_dishes=[],
+                buttons=[],
+                flags=clean_flags,
+                menu_entry=menu_entry,
+                save_to_menu=True,
+                dish_status=None,
+                collected_ingredients=[],
+                detected_flags=[],
+                intent="traduccion",
+            )
+        logger.warning(
+            "drafting_save_no_card_in_history",
+            extra={"message": msg_stripped[:80]},
         )
 
     if _EDIT_RE.match(msg_stripped):
@@ -374,6 +411,143 @@ def _handle_drafting(
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _normalize_user_message(message: str) -> str:
+    s = message.strip().lower()
+    s = "".join(
+        c for c in unicodedata.normalize("NFD", s)
+        if unicodedata.category(c) != "Mn"
+    )
+    return " ".join(s.split())
+
+
+def _is_save_request(message: str) -> bool:
+    stripped = message.strip()
+    if not stripped:
+        return False
+    if _APPROVAL_RE.match(stripped) and any(
+        phrase in _normalize_user_message(stripped) for phrase in _SAVE_PHRASES
+    ):
+        return True
+    norm = _normalize_user_message(stripped)
+    return any(phrase in norm for phrase in _SAVE_PHRASES)
+
+
+def _is_affirmative(message: str) -> bool:
+    stripped = message.strip()
+    if not stripped:
+        return False
+    if _is_save_request(stripped):
+        return False
+    return bool(_AFFIRMATIVE_RE.match(stripped))
+
+
+def _history_has_draft_card(history: list[dict[str, str]]) -> bool:
+    for turn in reversed(history):
+        if turn.get("role") == "agent":
+            text = str(turn.get("text", "")).strip()
+            if text.startswith("**") and "🎉" in text:
+                return True
+    return False
+
+
+def _save_draft_from_history(
+    session_state: dict,
+    history: list[dict[str, str]],
+    message: str,
+) -> GenResult:
+    current_dish: str = session_state["current_dish"]
+    companions: list[str] = session_state["companions"]
+    collected: list[str] = list(session_state.get("collected_ingredients") or [])
+
+    with timing.stage("router.flags"):
+        raw_flags = _compute_flags(current_dish, companions, collected)
+    clean_flags = _clean_flags(raw_flags)
+    menu_entry = _build_menu_entry_from_history(history, clean_flags)
+
+    if menu_entry:
+        logger.info(
+            "drafting_save_from_history",
+            extra={"dish_status": session_state.get("dish_status"), "message": message[:40]},
+        )
+        return GenResult(
+            response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
+            current_dishes=[],
+            buttons=[],
+            flags=clean_flags,
+            menu_entry=menu_entry,
+            save_to_menu=True,
+            dish_status=None,
+            collected_ingredients=[],
+            detected_flags=[],
+            intent="traduccion",
+        )
+
+    logger.warning("save_request_without_parsable_card", extra={"message": message[:80]})
+    kb_data = retrieval.get_dish_data(current_dish) or {}
+    detected_flags: list[str] = list(session_state.get("detected_flags") or [])
+    return _start_drafting(
+        current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
+    )
+
+
+def _kb_variable_option_values(kb_data: dict) -> set[str]:
+    values: set[str] = set()
+    for opts in (kb_data.get("variable_opciones") or {}).values():
+        if not isinstance(opts, list):
+            continue
+        for opt in opts:
+            norm = gen_module._normalize_ingredient(str(opt))
+            if norm:
+                values.add(norm)
+    return values
+
+
+def _user_stated_ingredients(
+    collected: list[str],
+    message: str,
+    current_dish: str,
+    companions: list[str],
+    kb_data: dict,
+) -> set[str]:
+    prefilled = gen_module.prefill_collected(message, collected, kb_data)
+    stated: set[str] = set()
+    for item in prefilled:
+        norm = gen_module._normalize_ingredient(item)
+        if norm:
+            stated.add(norm)
+    for entity in [current_dish] + companions:
+        entity_data = retrieval.get_dish_data(entity) or {}
+        for ing in entity_data.get("ingredientes_base_default") or []:
+            norm = gen_module._normalize_ingredient(str(ing))
+            if norm:
+                stated.add(norm)
+    msg_norm = gen_module._normalize_ingredient(message)
+    for opt_norm in _kb_variable_option_values(kb_data):
+        if opt_norm in msg_norm:
+            stated.add(opt_norm)
+    return stated
+
+
+def _filter_hidden_allergen_triggers(
+    triggers: list[str],
+    user_stated: set[str],
+    kb_data: dict,
+) -> list[str]:
+    """Allergen triggers the user has not already mentioned and are not dish variable choices."""
+    option_values = _kb_variable_option_values(kb_data)
+    hidden: list[str] = []
+    for trigger in triggers:
+        t_norm = gen_module._normalize_ingredient(trigger)
+        if not t_norm:
+            continue
+        if t_norm in user_stated:
+            continue
+        if t_norm in option_values:
+            continue
+        hidden.append(trigger)
+    return hidden
+
 
 def _compute_flags(
     current_dish: str,

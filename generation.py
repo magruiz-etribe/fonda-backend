@@ -601,6 +601,26 @@ def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
     return result
 
 
+def variables_satisfied(collected: list[str], kb_data: dict) -> bool:
+    """True when every variables_requeridas entry is covered by collected ingredients."""
+    variables_requeridas = list(kb_data.get("variables_requeridas") or [])
+    if not variables_requeridas:
+        return True
+    variable_opciones = kb_data.get("variable_opciones") or {}
+    base_defaults = list(kb_data.get("ingredientes_base_default") or [])
+    return (
+        _find_first_missing_variable(
+            collected, variables_requeridas, variable_opciones, base_defaults
+        )
+        is None
+    )
+
+
+def prefill_collected(message: str, collected: list[str], kb_data: dict) -> list[str]:
+    """Merge session collected with KB option values mentioned in the user message."""
+    return _prefill_collected_from_message(message, collected, kb_data)
+
+
 def _finalize_extracting_result(
     result: GenResult,
     *,
@@ -630,18 +650,13 @@ def _finalize_extracting_result(
             buttons=[],
         )
 
-    needs_normalize = (
-        len(result.response) != 1
-        or not result.response
-        or result.variables_complete
+    det = _build_extracting_deterministic_fallback(
+        current_dish=current_dish,
+        collected_ingredients=collected,
+        kb_data=kb_data,
     )
-    if needs_normalize:
-        det = _build_extracting_deterministic_fallback(
-            current_dish=current_dish,
-            collected_ingredients=collected,
-            kb_data=kb_data,
-        )
-        if det is not None and not det.variables_complete:
+    if det is not None:
+        if det.response or not det.variables_complete:
             logger.info(
                 "gen_extracting_question_normalized",
                 extra={
@@ -650,7 +665,7 @@ def _finalize_extracting_result(
                     "llm_bubbles": len(result.response),
                 },
             )
-            return det
+        return _fill_extracting_buttons(det, kb_data) if not det.variables_complete else det
 
     return _fill_extracting_buttons(result, kb_data)
 
