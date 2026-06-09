@@ -1,61 +1,28 @@
 canonical_name: pozole
 common_names:
   - pozole
-  - pozole blanco
   - pozole rojo
   - pozole verde
+  - pozole blanco
+  - pozole guerrero
+  - pozole de cerdo
+  - pozole de pollo
 category: caldo
-base_ingredients:
-  - maiz_cacahuazintle
-  - carne_de_cerdo
+base_description: "Caldo [tipo_de_caldo] de maíz cacahuazintle con [tipo_de_carne]."
+variables_requeridas:
+  - tipo_de_caldo
+  - tipo_de_carne
+variable_opciones:
+  tipo_de_caldo:
+    - blanco
+    - rojo
+    - verde
+  tipo_de_carne:
+    - pollo
+    - puerco
+
+ingredientes_base_default:
+  - maíz cacahuazintle
   - ajo
   - cebolla
-  - sal
-variants:
-  blanco:
-    name_es: Pozole Blanco
-    name_en: White pozole
-    extra_ingredients:
-      - lechuga
-      - rabano
-      - oregano_seco
-      - limon
-      - tostadas
-    technique: cocción lenta de maíz y carne en caldo claro sin chile base
-    description_es: >
-      maíz cacahuazintle nixtamalizado cocido, junto con carne de cerdo o pollo, en un caldo claro sin chile en su base.
-    description_en: >
-      Hominy and pork (or chicken) in a clear, mild broth — garnished with shredded cabbage, radish, oregano, and lime at the table.
-  rojo:
-    name_es: Pozole Rojo
-    name_en: Red pozole
-    extra_ingredients:
-      - chile_guajillo
-      - chile_ancho
-      - chile_pasilla
-      - lechuga
-      - rabano
-      - oregano_seco
-      - limon
-      - tostadas
-    technique: caldo de chile guajillo y ancho hidratados, cocción lenta
-    description_es: >
-      maíz cacahuazintle nixtamalizado cocido y carne de cerdo o pollo, cocidos en un caldo al que se añade una salsa de chiles secos, principalmente guajillo, ancho o pasilla, previamente hidratados y molidos
-    description_en: >
-      Hominy and pork cooked in a rich red broth of rehydrated guajillo and ancho chiles — deep, slightly smoky, and boldly flavored.
-  verde:
-    name_es: Pozole Verde
-    name_en: green pozole
-    extra_ingredients:
-      - tomatillo
-      - chile_serrano
-      - pepita_de_calabaza
-      - cilantro
-      - lechuga
-      - rabano
-      - limon
-    technique: salsa verde con pepitas tostadas, cocción lenta del maíz y carne
-    description_es: >
-      maíz cacahuazintle nixtamalizado cocido y carne (generalmente cerdo o pollo), cocidos en un caldo al que se incorpora una salsa verde hecha a base de tomatillo, chile verde, pepitas (semillas de calabaza), cilantro y otras hierbas.
-    description_en: >
-      Hominy and pork in a green tomatillo and pumpkin seed broth — fresh, herbal, and mildly tangy.
+  - orégano

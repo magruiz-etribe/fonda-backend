@@ -11,7 +11,23 @@
       "Bash(python -m pytest tests/ -q)",
       "Bash(python -c \"import retrieval; entities = retrieval.get_entities_with_variants\\(\\); print\\(f'Total entidades con variantes: {len\\(entities\\)}'\\); print\\(entities\\)\")",
       "Bash(python -c \"import os; os.environ['NOVA_2_LITE_MODEL_ID']='x'; os.environ['NOVA_PRO_MODEL_ID']='x'; os.environ['DDB_TABLE_NAME']='x'; import retrieval; entities = retrieval.get_entities_with_variants\\(\\); print\\(f'Total entidades con variantes: {len\\(entities\\)}'\\); print\\(sorted\\(entities\\)\\)\")",
-      "Bash(python -m pytest tests/ -x -q)"
+      "Bash(python -m pytest tests/ -x -q)",
+      "Bash(Remove-Item \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\\\\kb\\\\platillos\\\\frijoles_de_olla.yaml\", \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\\\\kb\\\\platillos\\\\frijoles_refritos.yaml\", \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\\\\kb\\\\platillos\\\\caldo_de_res.yaml\", \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\\\\kb\\\\platillos\\\\caldo_de_pollo.yaml\", \"c:\\\\Users\\\\migue\\\\OneDrive\\\\Documentos\\\\GitHub\\\\fonda-backend\\\\kb\\\\platillos\\\\arroz_rojo.yaml\")",
+      "Bash(python -c \"import ast, sys; files = ['classifier.py','retrieval.py','generation.py','router.py','handler.py']; [print\\(f'✓ {f}'\\) or ast.parse\\(open\\(f\\).read\\(\\)\\) for f in files]; print\\('All files parse OK'\\)\")",
+      "Bash(python -c \"import ast; files = ['classifier.py','retrieval.py','generation.py','router.py','handler.py']; [ast.parse\\(open\\(f\\).read\\(\\)\\) for f in files]; print\\('All files parse OK'\\)\")",
+      "Bash(python -c \"import ast; [ast.parse\\(open\\(f, encoding='utf-8'\\).read\\(\\)\\) for f in ['router.py','generation.py','classifier.py','retrieval.py']]; print\\('OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('generation.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "Bash(python -c \"import router, generation, handler, classifier; print\\('OK'\\)\")",
+      "Bash(python -m py_compile router.py)",
+      "Bash(python -m py_compile generation.py)",
+      "Bash(python -m py_compile handler.py)",
+      "Bash(python -m py_compile classifier.py)",
+      "Bash(python -m py_compile router.py handler.py)",
+      "Bash(python -m py_compile router.py classifier.py llm_schemas.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(python -m py_compile router.py classifier.py)",
+      "Bash(python -m py_compile classifier.py router.py)",
+      "Bash(python -m py_compile classifier.py router.py generation.py)"
     ]
   }
 }

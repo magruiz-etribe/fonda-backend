@@ -3,26 +3,25 @@ common_names:
   - birria
   - birria de res
   - birria de chivo
-category: platillo_principal
-base_ingredients:
-  - carne_de_res
-  - chiles_secos
+  - birria de borrego
+  - birria jalisciense
+  - tacos de birria
+  - quesabirria
+category: caldo
+base_description: "Estofado de [tipo_de_carne] en adobo de chiles secos y especias."
+variables_requeridas:
+  - tipo_de_carne
+variable_opciones:
+  tipo_de_carne:
+    - res
+    - chivo
+    - borrego
+    - pollo
+ingredientes_base_default:
+  - chile guajillo
+  - chile ancho
+  - vinagre
   - ajo
   - cebolla
-  - vinagre
-  - especias
-  - sal
-variants:
-  birria:
-    name_es: Birria
-    name_en: Traditional Birria Stew
-    extra_ingredients:
-      - cebolla
-      - cilantro
-      - oregano
-      - comino
-    technique: marinado en adobo de chile, cocción lenta en caldo
-    description_es: >
-      Carne cocida en caldo de chiles y especias
-    description_en: >
-      Beef (or goat) marinated in dried chile adobo and slow-braised in broth until fall-apart tender — served in its rich consommé with onion, cilantro, and lime.
+  - comino
+  - canela

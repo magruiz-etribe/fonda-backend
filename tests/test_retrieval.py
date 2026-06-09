@@ -103,6 +103,54 @@ class TestYamlContextPreference:
         assert len(ctx) > 0
 
 
+class TestFilteredContext:
+    def test_tamales_unresolved_uses_compact_summary(self):
+        full = retrieval.get_dish_context("tamales")
+        filtered = retrieval.get_context_for_dishes(["tamales"])
+        assert "Variantes (resumen)" in filtered
+        assert len(filtered) < len(full) * 0.2
+        assert filtered.count("### ") == 0
+
+    def test_tamales_resolved_includes_single_variant_detail(self):
+        data = retrieval.get_dish_data("tamales")
+        if not data or not data.get("variants"):
+            return
+        key = next(iter(data["variants"]))
+        ctx = retrieval.get_context_for_dishes(
+            ["tamales"],
+            resolved_variants={"tamales": key},
+        )
+        assert "Variantes (resumen)" not in ctx
+        assert "Descripción ES:" in ctx
+        assert ctx.count("### ") == 1
+
+    def test_mole_negro_resolved_excludes_other_variants(self):
+        ctx = retrieval.get_context_for_dishes(
+            ["mole"],
+            resolved_variants={"mole": "negro"},
+        )
+        assert "Mole negro" in ctx or "negro" in ctx
+        assert "Mole Poblano" not in ctx
+        assert "Mole Verde" not in ctx
+
+    def test_pending_variant_entity_uses_compact_mode(self):
+        ctx = retrieval.get_context_for_dishes(
+            ["tamales"],
+            pending_variant_entities={"tamales"},
+        )
+        assert "Variantes (resumen)" in ctx
+
+    def test_small_dish_still_includes_all_variants(self):
+        ctx = retrieval.get_context_for_dishes(["pozole"])
+        assert "Variantes" in ctx
+        assert "Variantes (resumen)" not in ctx
+        assert ctx.count("### ") >= 3
+
+    def test_variant_keys_for_slot_caps_tamales(self):
+        keys = retrieval.get_variant_keys_for_slot("tamales")
+        assert len(keys) <= 24
+
+
 class TestGetEntitiesIndex:
     def test_returns_dict(self):
         idx = retrieval.get_entities_index()

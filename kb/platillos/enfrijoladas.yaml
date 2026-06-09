@@ -1,0 +1,28 @@
+canonical_name: enfrijoladas
+common_names:
+  - enfrijoladas
+  - enfrijoladas de queso
+  - enfrijoladas de pollo
+  - enchiladas de frijol
+  - tacos de frijol
+category: antojito
+base_description: "Tortillas de maíz dobladas, bañadas en salsa de frijol negro, con [relleno]."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - Pollo deshebrado
+   - Queso fresco o queso panela
+   - Huevo (revueltos o cocidos picados)
+   - Chorizo
+   - Carne deshebrada
+   - Frijoles refritos para una versión más sencilla
+   - Champiñones salteados
+   - Flor de calabaza
+   - Rajas con crema
+   - Aguacate combinado con queso
+ingredientes_base_default:
+  - tortilla de maíz
+  - frijol negro
+  - cebolla
+  - ajo

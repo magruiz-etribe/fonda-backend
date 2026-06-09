@@ -1,0 +1,27 @@
+canonical_name: enmoladas
+common_names:
+  - enmoladas
+  - enmoladas de pollo
+  - enmoladas de queso
+  - enchiladas de mole
+category: antojito
+base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en mole."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - Pollo deshebrado (la opción más clásica)
+   - Pavo deshebrado
+   - Queso fresco o queso panela
+   - Carne de res deshebrada
+   - Cerdo deshebrado
+   - Chorizo con papa
+   - Champiñones salteados
+   - Flor de calabaza con queso
+   - Rajas poblanas con crema
+ingredientes_base_default:
+  - tortilla de maíz
+  - chiles secos
+  - chocolate
+  - cacahuate
+  - caldo

@@ -1,0 +1,29 @@
+canonical_name: entomatadas
+common_names:
+  - entomatadas
+  - entomatadas de queso
+  - entomatadas de pollo
+  - enchiladas de tomate
+  - tacos de tomate
+category: antojito
+base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en salsa de jitomate."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - Pollo deshebrado
+   - Queso fresco o queso panela
+   - Huevo (revueltos o cocidos picados)
+   - Carne de res deshebrada
+   - Cerdo deshebrado
+   - Chorizo con papa
+   - Frijoles refritos
+   - Champiñones salteados
+   - Rajas poblanas con queso
+   - Atún
+ingredientes_base_default:
+  - tortilla de maíz
+  - jitomate
+  - chile serrano
+  - cebolla
+  - ajo

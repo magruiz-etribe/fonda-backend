@@ -1,0 +1,17 @@
+canonical_name: bistec_a_la_mexicana
+common_names:
+  - bistec a la mexicana
+  - bistec mexicano
+  - bistec con salsa
+  - carne a la mexicana
+  - bistec guisado
+category: plato_fuerte
+base_description: "Bistec de res en salsa de jitomate, chile serrano y cebolla."
+variables_requeridas: []
+ingredientes_base_default:
+  - bistec de res
+  - jitomate
+  - chile serrano
+  - cebolla
+  - ajo
+  - aceite

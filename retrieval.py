@@ -18,6 +18,11 @@ _CUSTOM_ENTITY: Final[str] = "custom"
 _STOP_TOKENS: Final[frozenset[str]] = frozenset(
     {"de", "con", "en", "la", "el", "y", "a", "los", "las", "del", "al"}
 )
+# Include full variant detail (descriptions, ingredients) up to this count.
+_MAX_FULL_VARIANTS: Final[int] = 8
+# Cap variant keys sent as pending-slot options when a dish has many variants.
+_MAX_SLOT_OPTIONS: Final[int] = 24
+_MAX_COMPACT_VARIANTS: Final[int] = 24
 
 try:
     import yaml as _yaml
@@ -27,7 +32,7 @@ except ImportError:
     _YAML_AVAILABLE = False
 
 
-@lru_cache(maxsize=128)
+@lru_cache(maxsize=512)
 def get_dish_data(entity: str) -> dict | None:
     """Returns parsed YAML data for a dish, or None if YAML is unavailable or missing."""
     if entity == _CUSTOM_ENTITY or not _YAML_AVAILABLE:
@@ -46,7 +51,7 @@ def get_dish_data(entity: str) -> dict | None:
 
 @lru_cache(maxsize=128)
 def get_dish_context(entity: str) -> str:
-    """Returns KB context string for a dish. Prefers YAML, falls back to .txt."""
+    """Returns full KB context string for a dish (uncached filter — tests/admin)."""
     if entity == _CUSTOM_ENTITY:
         return ""
     data = get_dish_data(entity)
@@ -55,80 +60,207 @@ def get_dish_context(entity: str) -> str:
     return _read_text(os.path.join("platillos", f"{entity}.txt"))
 
 
-@lru_cache(maxsize=8)
-def get_static(topic: StaticTopic) -> str:
-    if topic not in _STATIC_TOPICS:
+def get_variant_keys_for_slot(entity: str, limit: int = _MAX_SLOT_OPTIONS) -> list[str]:
+    """Variant keys for pending-slot buttons; capped when the dish has many variants."""
+    data = get_dish_data(entity)
+    if not data:
+        return []
+    keys = sorted((data.get("variants") or {}).keys())
+    if len(keys) <= limit:
+        return keys
+    return keys[:limit]
+
+
+@lru_cache(maxsize=1)
+def _load_topics_raw() -> str:
+    return _read_text("topics.md")
+
+
+def get_topic(intent: str, platform: str | None = None) -> tuple[str, list[dict]]:
+    """Returns (context_text, links) for the given intent from topics.md.
+
+    Links are filtered by platform when provided; intents with no platform
+    sub-sections return their universal link list regardless of platform value.
+    """
+    raw = _load_topics_raw()
+    if not raw:
+        return "", []
+
+    section = _extract_topic_section(raw, intent)
+    if not section:
+        return "", []
+
+    parts = re.split(r"^### links\s*$", section, maxsplit=1, flags=re.MULTILINE)
+    text = parts[0].strip()
+    links: list[dict] = _parse_topic_links(parts[1], platform) if len(parts) > 1 else []
+    return text, links
+
+
+def _extract_topic_section(raw: str, intent: str) -> str:
+    m = re.search(r"^## " + re.escape(intent) + r"\s*$", raw, re.MULTILINE)
+    if not m:
         return ""
     return _read_text(f"{topic}.txt")
 
 
 @lru_cache(maxsize=1)
 def get_entities_index() -> dict[str, str]:
-    full = os.path.join(config.KB_PATH, "entities_index.json")
+    """Build alias → canonical_name index from YAML common_names fields."""
+    platillos_dir = os.path.join(config.KB_PATH, "platillos")
+    index: dict[str, str] = {}
+    if not _YAML_AVAILABLE:
+        return index
     try:
-        with open(full, encoding="utf-8") as f:
-            data = json.load(f)
-    except FileNotFoundError:
-        logger.warning("entities_index_missing", extra={"path": full})
-        return {}
-    except json.JSONDecodeError as e:
-        logger.error("entities_index_invalid_json", extra={"path": full, "error": str(e)})
-        return {}
+        for fname in sorted(os.listdir(platillos_dir)):
+            if not fname.endswith(".yaml"):
+                continue
+            canonical = fname[:-5]
+            path = os.path.join(platillos_dir, fname)
+            try:
+                with open(path, encoding="utf-8") as f:
+                    data = _yaml.safe_load(f)
+                if not isinstance(data, dict):
+                    continue
+                index[canonical] = canonical
+                for alias in data.get("common_names") or []:
+                    alias_normalized = str(alias).strip().lower()
+                    if alias_normalized:
+                        index[alias_normalized] = canonical
+            except (_yaml.YAMLError, OSError):
+                pass
+    except OSError:
+        logger.warning("platillos_dir_missing", extra={"path": platillos_dir})
+    return index
 
-    if not isinstance(data, dict):
-        return {}
+
+def get_new_schema_context(entity: str) -> dict:
+    """Return new-schema fields for flag computation and description generation."""
+    data = get_dish_data(entity) or {}
     return {
-        str(k): str(v)
-        for k, v in data.items()
-        if isinstance(k, str) and isinstance(v, str)
+        "base_description": str(data.get("base_description") or ""),
+        "variables_requeridas": list(data.get("variables_requeridas") or []),
+        "ingredientes_base_default": list(data.get("ingredientes_base_default") or []),
     }
 
 
 @lru_cache(maxsize=1)
 def get_entities_with_variants() -> list[str]:
-    """Returns canonical entity names with variants (YAML first, .txt fallback)."""
+    """Returns canonical entity names that have variants.
+
+    YAML platillos are listed by filename only (no per-file parse) — every
+    platillo YAML in the KB defines a variants block. Legacy .txt entries are
+    scanned for a ## Variantes section when no YAML exists for that entity.
+    """
     platillos_dir = os.path.join(config.KB_PATH, "platillos")
     result: list[str] = []
+    yaml_entities: set[str] = set()
     try:
         for fname in sorted(os.listdir(platillos_dir)):
-            entity: str | None = None
-            has_variants = False
-
             if fname.endswith(".yaml") and _YAML_AVAILABLE:
                 entity = fname[:-5]
-                data = get_dish_data(entity)
-                has_variants = bool(data and data.get("variants"))
-
-            elif fname.endswith(".txt"):
-                entity = fname[:-4]
-                # Skip .txt when a YAML already covers this entity
-                if get_dish_data(entity) is not None:
-                    continue
-                full = os.path.join(platillos_dir, fname)
-                try:
-                    with open(full, encoding="utf-8") as f:
-                        has_variants = "## Variantes" in f.read()
-                except OSError:
-                    pass
-
-            if entity and has_variants and entity not in result:
+                yaml_entities.add(entity)
                 result.append(entity)
+                continue
+
+            if not fname.endswith(".txt"):
+                continue
+
+            entity = fname[:-4]
+            if entity in yaml_entities:
+                continue
+
+            full = os.path.join(platillos_dir, fname)
+            try:
+                with open(full, encoding="utf-8") as f:
+                    if "## Variantes" in f.read():
+                        result.append(entity)
+            except OSError:
+                pass
 
     except OSError:
         logger.warning("platillos_dir_missing", extra={"path": platillos_dir})
     return sorted(result)
 
 
-def get_context_for_dishes(dishes: list[str]) -> str:
-    """Concatenates KB context for all dishes in the list."""
+def get_context_for_dishes(
+    dishes: list[str],
+    *,
+    resolved_variants: dict[str, str] | None = None,
+    pending_variant_entities: set[str] | frozenset[str] | None = None,
+    conversation: str = "",
+) -> str:
+    """Concatenates KB context for dishes, filtering variants when possible."""
+    resolved = resolved_variants or {}
+    pending = pending_variant_entities or frozenset()
     parts: list[str] = []
     for dish in dishes:
         if dish == _CUSTOM_ENTITY:
             continue
-        ctx = get_dish_context(dish)
+        ctx = _build_filtered_dish_context(dish, resolved, pending, conversation)
         if ctx:
             parts.append(f"## {dish.capitalize()}\n{ctx}")
     return "\n\n".join(parts)
+
+
+def _build_filtered_dish_context(
+    entity: str,
+    resolved_variants: dict[str, str],
+    pending_variant_entities: set[str] | frozenset[str],
+    conversation: str,
+) -> str:
+    data = get_dish_data(entity)
+    if data is not None:
+        variants = data.get("variants") or {}
+        selected, compact = _select_variants_for_context(
+            entity, variants, resolved_variants, pending_variant_entities, conversation
+        )
+        return _yaml_to_context_str(data, variants_subset=selected, compact_variants=compact)
+    return _read_text(os.path.join("platillos", f"{entity}.txt"))
+
+
+def _normalize_variant_key(raw: str | None, variants: dict) -> str | None:
+    if not raw or not variants:
+        return None
+    if raw in variants:
+        return raw
+    normalized = raw.replace(" ", "_")
+    if normalized in variants:
+        return normalized
+    accent_norm = _normalize_text(raw).replace(" ", "_")
+    if accent_norm in variants:
+        return accent_norm
+    return None
+
+
+def _select_variants_for_context(
+    entity: str,
+    variants: dict,
+    resolved_variants: dict[str, str],
+    pending_variant_entities: set[str] | frozenset[str],
+    conversation: str,
+) -> tuple[dict, bool]:
+    """Return (variants_to_include, use_compact_format)."""
+    if not variants:
+        return {}, False
+
+    resolved_key = _normalize_variant_key(resolved_variants.get(entity), variants)
+    if resolved_key:
+        return {resolved_key: variants[resolved_key]}, False
+
+    if conversation:
+        matched = match_variant_in_text(variants, conversation)
+        if matched:
+            return {matched: variants[matched]}, False
+
+    n = len(variants)
+    if entity in pending_variant_entities or n > _MAX_FULL_VARIANTS:
+        keys = sorted(variants.keys())
+        if n > _MAX_COMPACT_VARIANTS:
+            subset = {k: variants[k] for k in keys[:_MAX_COMPACT_VARIANTS]}
+            return subset, True
+        return variants, True
+
+    return variants, False
 
 
 def conversation_text(message: str, history: list[dict[str, str]]) -> str:
@@ -301,7 +433,12 @@ def _ingredient_mentioned(ingredient: str, conversation: str) -> bool:
     return tokens.issubset(conversation_tokens)
 
 
-def _yaml_to_context_str(data: dict) -> str:
+def _yaml_to_context_str(
+    data: dict,
+    *,
+    variants_subset: dict | None = None,
+    compact_variants: bool = False,
+) -> str:
     """Converts YAML dish data to a context string for the LLM."""
     lines: list[str] = []
 
@@ -312,26 +449,45 @@ def _yaml_to_context_str(data: dict) -> str:
     if base := data.get("base_ingredients"):
         lines.append(f"Ingredientes base: {', '.join(base)}")
 
-    variants = data.get("variants") or {}
-    if variants:
-        lines.append("\n## Variantes")
+    all_variants = data.get("variants") or {}
+    variants = variants_subset if variants_subset is not None else all_variants
+    if not variants:
+        return "\n".join(lines)
+
+    total = len(all_variants)
+    shown = len(variants)
+
+    if compact_variants:
+        lines.append("\n## Variantes (resumen)")
+        if total > shown:
+            lines.append(
+                f"({shown} de {total} variantes mostradas — pregunta al fondero cuál prepara)"
+            )
         for key, v in variants.items():
             if not isinstance(v, dict):
                 continue
             name_es = v.get("name_es", key)
-            lines.append(f"\n### {name_es} ({key})")
-            if name_en := v.get("name_en"):
-                lines.append(f"- Nombre EN: {name_en}")
-            if extras := v.get("extra_ingredients"):
-                lines.append(f"- Ingredientes extra: {', '.join(extras)}")
-            if tech := v.get("technique"):
-                lines.append(f"- Técnica: {tech}")
-            if desc_es := v.get("description_es"):
-                lines.append(f"- Descripción ES: {desc_es.strip()}")
-            if desc_en := v.get("description_en"):
-                lines.append(f"- Descripción EN: {desc_en.strip()}")
-            if sides := v.get("typical_sides"):
-                lines.append(f"- Acompañamientos típicos: {', '.join(sides)}")
+            lines.append(f"- {name_es} ({key})")
+        return "\n".join(lines)
+
+    lines.append("\n## Variantes")
+    for key, v in variants.items():
+        if not isinstance(v, dict):
+            continue
+        name_es = v.get("name_es", key)
+        lines.append(f"\n### {name_es} ({key})")
+        if name_en := v.get("name_en"):
+            lines.append(f"- Nombre EN: {name_en}")
+        if extras := v.get("extra_ingredients"):
+            lines.append(f"- Ingredientes extra: {', '.join(extras)}")
+        if tech := v.get("technique"):
+            lines.append(f"- Técnica: {tech}")
+        if desc_es := v.get("description_es"):
+            lines.append(f"- Descripción ES: {desc_es.strip()}")
+        if desc_en := v.get("description_en"):
+            lines.append(f"- Descripción EN: {desc_en.strip()}")
+        if sides := v.get("typical_sides"):
+            lines.append(f"- Acompañamientos típicos: {', '.join(sides)}")
 
     return "\n".join(lines)
 

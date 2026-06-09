@@ -1,0 +1,17 @@
+canonical_name: huevos_rancheros
+common_names:
+  - huevos rancheros
+  - huevo ranchero
+  - huevos con salsa ranchera
+  - huevos en salsa
+category: desayuno
+base_description: "Huevos estrellados sobre tortilla de maíz con salsa ranchera."
+variables_requeridas: []
+ingredientes_base_default:
+  - huevo
+  - tortilla de maíz
+  - jitomate
+  - chile serrano
+  - cebolla
+  - ajo
+  - aceite

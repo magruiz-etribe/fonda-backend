@@ -1,0 +1,18 @@
+canonical_name: sopa_azteca
+common_names:
+  - sopa azteca
+  - sopa de tortilla
+  - sopa tarasca
+  - sopa de tiras de tortilla
+  - crema azteca
+category: sopa
+base_description: "Caldo de jitomate con tiras de tortilla frita, chile pasilla y epazote."
+variables_requeridas: []
+ingredientes_base_default:
+  - jitomate
+  - tortilla de maíz
+  - aceite
+  - chile pasilla
+  - epazote
+  - crema
+  - queso

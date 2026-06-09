@@ -1,0 +1,18 @@
+canonical_name: menudo
+common_names:
+  - menudo
+  - menudo rojo
+  - pancita
+  - caldo de panza
+  - mondongo
+  - pancita de res
+category: caldo
+base_description: "Caldo de panza de res con chile colorado."
+variables_requeridas: []
+ingredientes_base_default:
+  - panza de res
+  - chile colorado
+  - cebolla
+  - ajo
+  - orégano
+  - limón

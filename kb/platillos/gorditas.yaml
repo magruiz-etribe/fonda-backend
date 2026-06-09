@@ -1,0 +1,28 @@
+canonical_name: gorditas
+common_names:
+  - gorditas
+  - gordita
+  - gorditas de chicharrón
+  - gorditas de frijol
+  - gorditas de queso
+  - gorditas de papa
+  - gorditas rellenas
+category: antojito
+base_description: "Masa de maíz gruesa rellena de [relleno], cocinada en comal."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - Frijoles refritos (el más tradicional)
+   - Queso fresco o queso Oaxaca
+   - Chicharrón prensado (muy típico en CDMX)
+   - Picadillo
+   - Pollo deshebrado
+   - Papa con chorizo
+   - Rajas con crema
+   - Hongos guisados
+   - Nopales guisados
+   - Tinga de pollo
+ingredientes_base_default:
+  - masa de maíz
+  - sal

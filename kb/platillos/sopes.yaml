@@ -1,25 +1,32 @@
 canonical_name: sopes
 common_names:
   - sopes
+  - sope
+  - sopes de chorizo
+  - sopes de frijoles
+  - sopes de pollo
+  - sopes de carne
+  - gordas de maíz
 category: antojito
-base_ingredients:
-  - masa_de_maiz
-  - frijoles
-  - aceite
-variants:
-  sopes:
-    name_es: Sopes
-    name_en: Fried Sopes
-    extra_ingredients:
-      - lechuga
-      - crema
-      - queso
-      - carne
-      - pollo
-      - salsa
-      - cebolla
-    technique: 
-    description_es: >
-      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.
-    description_en: >
-      Base gruesa de masa de maíz ligeramente frita, con bordes levantados, cubierta con frijoles, carne, crema, queso y salsa.
+base_description: "Base de masa de maíz con [guiso], decorada con lechuga, crema y queso."
+variables_requeridas:
+  - guiso
+variable_opciones:
+  guiso:
+   - Frijoles refritos (como primera capa clásica)
+   - Carne deshebrada
+   - Pollo deshebrado
+   - Picadillo
+   - Chorizo con papa
+   - Tinga de pollo (muy popular)
+   - Chicharrón prensado
+   - Rajas con crema
+   - Hongos guisados
+   - Nopales guisados
+   - Cochinita pibil (muy común en el sureste)
+ingredientes_base_default:
+  - masa de maíz
+  - lechuga
+  - crema
+  - queso
+  - salsa

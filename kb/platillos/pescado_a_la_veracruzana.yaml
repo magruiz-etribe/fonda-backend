@@ -1,0 +1,18 @@
+canonical_name: pescado_a_la_veracruzana
+common_names:
+  - pescado a la veracruzana
+  - pescado veracruzano
+  - huachinango a la veracruzana
+  - filete a la veracruzana
+  - pescado en salsa veracruzana
+category: plato_fuerte
+base_description: "Filete de pescado en salsa de jitomate con aceitunas, alcaparras y chile güero."
+variables_requeridas: []
+ingredientes_base_default:
+  - filete de pescado
+  - jitomate
+  - aceitunas
+  - alcaparras
+  - chile güero
+  - cebolla
+  - ajo

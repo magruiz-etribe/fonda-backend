@@ -4,49 +4,24 @@ common_names:
   - arroz rojo
   - arroz blanco
   - arroz verde
+  - arroz amarillo
   - arroz mexicano
+  - arroz de la fonda
+  - arroz guisado
   - arroz a la mexicana
 category: guarnicion
-base_ingredients:
+base_description: "Arroz [tipo_de_arroz]."
+variables_requeridas:
+  - tipo_de_arroz
+variable_opciones:
+  tipo_de_arroz:
+    - rojo
+    - blanco
+    - verde
+    - amarillo
+ingredientes_base_default:
   - arroz
-  - agua
-  - sal
-  - aceite
-  - ajo
+  - caldo
   - cebolla
-variants:
-  rojo:
-    name_es: Arroz Rojo
-    name_en: Mexican Red Rice
-    extra_ingredients:
-      - jitomate
-      - zanahoria
-      - chicharos
-    technique: sofrito de arroz con jitomate licuado y cocción en caldo
-    description_es: >
-      Arroz frito con jitomate y caldo de pollo, plato típico de comida corrida mexicana.
-    description_en: >
-      Mexican red rice cooked in blended tomato with garlic and onion — the classic fonda side dish, savory and vibrant.
-  blanco:
-    name_es: Arroz Blanco
-    name_en: White Rice
-    extra_ingredients:
-      - perejil
-    technique: sofrito sencillo sin jitomate, cocción en caldo claro
-    description_es: >
-      Arroz cocido con un toque de ajo y cebolla; acompañamiento neutro.
-    description_en: >
-      Plain white rice cooked in a light broth with garlic and onion — a neutral side that pairs well with saucy dishes.
-  verde:
-    name_es: Arroz Verde
-    name_en: Green Rice
-    extra_ingredients:
-      - chile_poblano
-      - espinaca
-      - cilantro
-      - perejil
-    technique: licuado de hierbas y chile poblano, cocción en caldo
-    description_es: >
-      Arroz cocido con chile poblano molido y cilantro, color verde característico.
-    description_en: >
-      Green rice blended with poblano chile, spinach, and fresh herbs — vibrant color and a mild herbal flavor.
+  - ajo
+  - aceite

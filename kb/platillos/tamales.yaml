@@ -1,22 +1,39 @@
 canonical_name: tamales
 common_names:
   - tamales
+  - tamal
+  - tamal de pollo
+  - tamal de cerdo
+  - tamal de frijol
+  - tamal de rajas
+  - tamal de elote
+  - tamal de mole
+  - tamal de chorizo
+  - tamal verde
+  - tamal rojo
+  - tamal de queso
 category: antojito
-base_ingredients:
-  - masa_de_maiz
-  - manteca
-  - hoja_de_maiz_o_platano
+base_description: "Masa de maíz rellena de [relleno], envuelta en hoja de maíz y cocida al vapor."
+variables_requeridas:
   - relleno
-  - salsa_dependiendo_de_la_preparacion
-variants:
-  tamales:
-    name_es: Tamales
-    name_en: tamales
-    extra_ingredients:
-      - salsa_verde_o_roja
-      - pollo_cerdo_queso_o_rajas
-    technique: 
-    description_es: >
-      Masa de maíz rellena y cocida en hojas de maíz o plátano.
-    description_en: >
-      Masa de maíz rellena y cocida en hojas de maíz o plátano.
+variable_opciones:
+  relleno:
+   - Pollo en mole
+   - Puerco en salsa roja
+   - Rajas con queso
+   - Chile verde con carne de cerdo
+   - Chicharrón en salsa verde
+   - Tinga de pollo
+   - Barbacoa
+   - Cochinita pibil
+   - Frijoles refritos (muy común en versiones sencillas o veganas)
+   - Dulce de piña
+   - Pasas
+   - Fresa
+   - Chocolate
+   - Elote dulce (muy tradicional)
+   - Cajeta
+ingredientes_base_default:
+  - masa de maíz
+  - manteca
+  - caldo

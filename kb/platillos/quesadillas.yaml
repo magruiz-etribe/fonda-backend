@@ -1,34 +1,31 @@
 canonical_name: quesadillas
 common_names:
+  - quesadillas
   - quesadilla
-  - quesadilla frita
+  - quesadillas de queso
+  - quesadillas de huitlacoche
+  - quesadillas de flor de calabaza
+  - quesadillas de hongos
+  - quesadillas de chorizo
+  - quesadillas de rajas
+  - quesadillas fritas
 category: antojito
-base_ingredients:
-  - masa_de_maiz
+base_description: "Tortilla de maíz doblada con queso fundido y [relleno], cocinada en comal."
+variables_requeridas:
   - relleno
-  - aceite
-variants:
-  frita:
-    name_es: Quesadilla Frita
-    name_en: Fried Quesadilla
-    extra_ingredients:
-      - relleno_a_elegir
-      - salsa
-      - queso
-    technique: 
-    description_es: >
-      Tortilla de maíz doblada y rellena normalmente de queso, papa, hongos o carne. Se fríe en aceite hasta quedar dorada y crujiente.
-    description_en: >
-      Tortilla de maíz doblada y rellena normalmente de queso, papa, hongos o carne. Se fríe en aceite hasta quedar dorada y crujiente.
-  clasica:
-    name_es: Quesadilla
-    name_en: Quesadillas
-    extra_ingredients:
-      - relleno_a_elegir
-      - salsa
-      - queso
-    technique: 
-    description_es: >
-      Tortilla doblada con queso o guisos.
-    description_en: >
-      Tortilla doblada con queso o guisos.
+variable_opciones:
+  relleno:
+   - Queso Oaxaca o queso Chihuahua (los más clásicos)
+   - Hongos salteados
+   - Flor de calabaza (muy tradicional)
+   - Rajas con crema
+   - Chicharrón prensado
+   - Papa con chorizo
+   - Tinga de pollo
+   - Pollo deshebrado
+   - Picadillo
+   - Huitlacoche (muy mexicano y muy tradicional)
+   - Nopales
+ingredientes_base_default:
+  - tortilla de maíz
+  - queso

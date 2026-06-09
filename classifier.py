@@ -8,27 +8,41 @@ import json
 
 import bedrock_client
 import config
+import llm_schemas
+import timing
 from prompt_loader import load_prompt
-from retrieval import get_dish_data, get_entities_index, get_entities_with_variants
+from retrieval import get_entities_index
 
 logger = logging.getLogger(__name__)
 
-_PROMPT: Final[str] = "classifier_system.txt"
-_VALID_INTENTS: Final[frozenset[str]] = frozenset(
-    {"traduccion", "maps", "higiene", "fallback"}
-)
+_CLASSIFIER_PROMPT: Final[str] = "classifier_system.txt"
+_EXTRACTOR_PROMPT: Final[str] = "extractor_system.txt"
+
+_VALID_INTENTS: Final[frozenset[str]] = frozenset({
+    "traduccion", "maps", "yelp", "tripadvisor", "higiene",
+    "fundacion_placemaking", "menu_del_dia", "organizaciones_participantes",
+    "primera_edicion", "talleres", "beneficios_negocio", "contacto",
+    "out_of_domain", "fallback",
+})
+_VALID_PLATFORMS: Final[frozenset[str]] = frozenset({"google_maps", "yelp", "tripadvisor"})
 
 
 @dataclass
 class PendingSlot:
+    """Kept for backward compat — non-traduccion path in generation._build_user_text."""
     entity: str
-    slot_name: str  # "variant" | "filling" | "sauce" | "protein" | "accompaniment"
+    slot_name: str
     options: list[str] = field(default_factory=list)
 
 
 @dataclass
 class ClassifierResult:
     intent: str
+    intent2: str = ""
+    # New traduccion fields
+    current_dish: str = ""
+    companions: list[str] = field(default_factory=list)
+    # Legacy fields — used by non-traduccion generation path
     current_dishes: list[str] = field(default_factory=list)
     translate_now: bool = False
     pending_slots: list[PendingSlot] = field(default_factory=list)
@@ -47,40 +61,122 @@ class ClassifierResult:
 
 def classify(
     message: str,
-    current_dishes: list[str],
+    current_dish: str,
     history: list[dict[str, str]],
-    dish_context: dict | None = None,
+    dish_status: str | None = None,
 ) -> ClassifierResult:
-    entities_index = get_entities_index()
-    entities_with_variants = get_entities_with_variants()
-    user_text = _build_user_text(message, current_dishes, history, entities_index, entities_with_variants, dish_context)
-    system = load_prompt(_PROMPT)
+    intent, intent2, platform = _classify_intent(message, history)
+
+    if intent == "traduccion":
+        return _extract_traduccion(message, current_dish, history, intent, dish_status)
+
+    return ClassifierResult(intent=intent, intent2=intent2, platform=platform)
+
+
+# ── Stage 1: intent classification ───────────────────────────────────────────
+
+def _classify_intent(
+    message: str,
+    history: list[dict[str, str]],
+) -> tuple[str, str, str]:
+    user_text = _build_classifier_text(message, history)
+    system = load_prompt(_CLASSIFIER_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
     try:
-        raw = bedrock_client.converse(
+        data = bedrock_client.converse_json(
             config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
-            inference_config={
-                "maxTokens": config.CLASSIFIER_MAX_TOKENS,
-                "temperature": 0.0,
-            },
+            schema=llm_schemas.CLASSIFIER_INTENT,
+            tool_name="classify_intent",
+            tool_description="Classify the user message intent",
+            inference_config={"maxTokens": 256, "temperature": 0.0},
+            stage="classifier_intent",
         )
     except bedrock_client.BedrockError as e:
         logger.warning("classifier_bedrock_error", extra={"error": str(e)})
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
+        return "fallback", "", ""
 
-    return _parse(raw, current_dishes)
+    intent = str(data.get("intent", "fallback")).strip().lower()
+    if intent not in _VALID_INTENTS:
+        logger.warning("classifier_unknown_intent", extra={"raw_intent": intent[:64]})
+        intent = "fallback"
+
+    intent2 = str(data.get("intent2", "")).strip().lower()
+    if intent2 and intent2 not in _VALID_INTENTS:
+        intent2 = ""
+    # A second intent only makes sense for non-translation informational topics.
+    if intent2 in ("traduccion", "out_of_domain", intent, ""):
+        intent2 = ""
+
+    platform = ""
+    if intent == "maps":
+        raw_platform = str(data.get("platform", "")).strip().lower()
+        platform = raw_platform if raw_platform in _VALID_PLATFORMS else ""
+
+    logger.info("classifier_intent", extra={"intent": intent, "intent2": intent2,
+                                            "platform": platform,
+                                            "reasoning": str(data.get("reasoning", ""))[:300]})
+    return intent, intent2, platform
 
 
-def _build_user_text(
+def _build_classifier_text(message: str, history: list[dict[str, str]]) -> str:
+    hist_lines: list[str] = []
+    for h in history[-6:]:
+        role = "usuario" if h.get("role") == "user" else "agente"
+        text = str(h.get("text", "")).strip().replace("\n", " ")
+        if len(text) > 300:
+            text = text[:297] + "…"
+        hist_lines.append(f"  {role}: {text}")
+    hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
+
+    return (
+        f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
+        f"Mensaje actual del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+
+
+# ── Stage 2: traduccion extraction ───────────────────────────────────────────
+
+def _extract_traduccion(
     message: str,
-    current_dishes: list[str],
+    current_dish: str,
+    history: list[dict[str, str]],
+    intent: str,
+    dish_status: str | None = None,
+) -> ClassifierResult:
+    with timing.stage("classifier.kb_load"):
+        entities_index = get_entities_index()
+        user_text = _build_extractor_text(message, current_dish, history, entities_index, dish_status)
+    system = load_prompt(_EXTRACTOR_PROMPT)
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        data = bedrock_client.converse_json(
+            config.NOVA_2_LITE_MODEL_ID,
+            system,
+            messages,
+            schema=llm_schemas.EXTRACTOR_TRADUCCION,
+            tool_name="extract_traduccion",
+            tool_description="Extract dish and companions from the user message",
+            inference_config={"maxTokens": config.CLASSIFIER_MAX_TOKENS, "temperature": 0.0},
+            stage="extractor",
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("extractor_bedrock_error", extra={"error": str(e)})
+        return ClassifierResult(intent=intent, current_dish=current_dish)
+
+    return _parse_extraction_data(data, current_dish, intent)
+
+
+def _build_extractor_text(
+    message: str,
+    current_dish: str,
     history: list[dict[str, str]],
     entities_index: dict[str, str],
-    entities_with_variants: list[str],
-    dish_context: dict | None = None,
+    dish_status: str | None = None,
 ) -> str:
     hist_lines: list[str] = []
     for h in history[-6:]:
@@ -91,128 +187,87 @@ def _build_user_text(
         hist_lines.append(f"  {role}: {text}")
     hist_block = "\n".join(hist_lines) if hist_lines else "(sin historial)"
 
-    canonicals = sorted(set(entities_index.values()))
-    entities_block = ", ".join(canonicals) if canonicals else "(ninguno)"
-    variants_block = ", ".join(entities_with_variants) if entities_with_variants else "(ninguno)"
+    # Build canonical → sorted aliases map for the extractor
+    canonical_to_aliases: dict[str, list[str]] = {}
+    for alias, canonical in entities_index.items():
+        canonical_to_aliases.setdefault(canonical, [])
+        if alias != canonical:
+            canonical_to_aliases[canonical].append(alias)
+    entities_lines: list[str] = []
+    for canonical in sorted(canonical_to_aliases.keys()):
+        aliases = sorted(canonical_to_aliases[canonical])
+        alias_str = ", ".join(aliases) if aliases else ""
+        entities_lines.append(
+            f"  {canonical}: {alias_str}" if alias_str else f"  {canonical}"
+        )
+    entities_block = "\n".join(entities_lines) if entities_lines else "  (ninguno)"
 
-    dish_ctx_block = ""
-    if dish_context:
-        dc = dish_context
-        rv = json.dumps(dc.get("resolved_variants") or {}, ensure_ascii=False)
-        extras = ", ".join(dc.get("extra_ingredients") or []) or "(ninguno)"
-        dish_ctx_block = (
-            "[CONTEXTO DEL PLATILLO EN CURSO — fuente de verdad]\n"
-            f"Platillo principal: {dc.get('main_dish', '')}\n"
-            f"Variantes confirmadas: {rv}\n"
-            f"Ingredientes extras confirmados: {extras}\n\n"
+    current_dish_block = ""
+    if current_dish:
+        current_dish_block = (
+            f"Platillo en curso (NO lo cambies salvo que el usuario mencione uno diferente): "
+            f"{current_dish}\n\n"
+        )
+
+    # When there is an active translation flow, warn the extractor to be conservative
+    # about changing the current dish — the user may be answering a variable question
+    # even if the most recent history turn was a digression (general question answer).
+    active_flow_hint = ""
+    if current_dish and dish_status in ("EXTRACTING", "CONFIRMING_FLAGS", "EDITING"):
+        active_flow_hint = (
+            f"AVISO: el sistema está en etapa {dish_status} recopilando datos para '{current_dish}'. "
+            f"Si el mensaje parece ser una respuesta sobre ingredientes, preparación o variantes "
+            f"(ej: 'de pollo', 'con queso', 'rojo', 'sin relleno') → devuelve current_dish = \"\" "
+            f"para conservar el platillo en curso. Solo devuelve un nuevo platillo si el usuario "
+            f"claramente quiere cambiar de tema.\n\n"
         )
 
     return (
-        f"{dish_ctx_block}"
-        f"Platillos en contexto actual (current_dishes): {current_dishes}\n\n"
-        f"Entidades canónicas en KB: {entities_block}\n\n"
-        f"Entidades con variantes en KB: {variants_block}\n\n"
+        f"{active_flow_hint}"
+        f"{current_dish_block}"
+        f"Platillos en KB (canónico: alias1, alias2, …):\n{entities_block}\n\n"
         f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"
         f"Mensaje actual del usuario: \"{message}\"\n\n"
         "Devuelve únicamente el JSON."
     )
 
 
-def _parse(raw: str, current_dishes: list[str]) -> ClassifierResult:
-    try:
-        data = bedrock_client.parse_json_strict(raw)
-    except Exception as e:
-        logger.warning(
-            "classifier_parse_error",
-            extra={"error": str(e), "raw": raw[:200]},
-        )
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
-
+def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> ClassifierResult:
     if not isinstance(data, dict):
-        return ClassifierResult(intent="fallback", current_dishes=current_dishes)
+        return ClassifierResult(intent=intent, current_dish=current_dish)
 
-    intent = data.get("intent", "fallback")
-    if intent not in _VALID_INTENTS:
-        logger.warning(
-            "classifier_unknown_intent",
-            extra={"raw_intent": str(intent)[:64]},
-        )
-        intent = "fallback"
+    new_dish = str(data.get("current_dish", "")).strip().lower()
 
-    if intent == "maps":
-        raw_platform = data.get("platform", "")
-        platform = str(raw_platform).strip().lower() if raw_platform else ""
-        if platform not in ("google_maps", "yelp", "tripadvisor"):
-            platform = ""
-        return ClassifierResult(intent=intent, current_dishes=[], platform=platform)
-
-    if intent != "traduccion":
-        return ClassifierResult(intent=intent, current_dishes=[])
-
-    raw_dishes = data.get("current_dishes") or []
-    dishes: list[str] = []
-    if isinstance(raw_dishes, list):
-        for d in raw_dishes:
-            if not isinstance(d, str):
-                continue
-            d_clean = d.strip().lower()
-            if d_clean:
-                dishes.append(d_clean)
-
-    translate_now = bool(data.get("translate_now", False))
-
-    # Parse pending_slots — options are code-populated from YAML, not from the LLM
-    raw_slots = data.get("pending_slots") or []
-    pending_slots: list[PendingSlot] = []
-    if isinstance(raw_slots, list):
-        for slot_data in raw_slots:
-            if not isinstance(slot_data, dict):
-                continue
-            entity = slot_data.get("entity", "")
-            if not isinstance(entity, str) or not entity.strip():
-                continue
-            entity = entity.strip().lower()
-            slot_name = str(slot_data.get("slot_name", "variant")).lower().strip()
-            options: list[str] = []
-            if slot_name == "variant":
-                dish_data = get_dish_data(entity)
-                if dish_data:
-                    options = list(dish_data.get("variants", {}).keys())
-            pending_slots.append(PendingSlot(entity=entity, slot_name=slot_name, options=options))
-
-    # Parse resolved_variants
-    raw_rv = data.get("resolved_variants") or {}
-    resolved_variants: dict[str, str] = {}
-    if isinstance(raw_rv, dict):
-        for k, v in raw_rv.items():
-            if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
-                resolved_variants[k.lower().strip()] = v.lower().strip()
-
-    # Parse extra_user_ingredients
-    raw_eui = data.get("extra_user_ingredients") or []
-    extra_user_ingredients: list[str] = []
-    if isinstance(raw_eui, list):
-        for ing in raw_eui:
-            if isinstance(ing, str) and ing.strip():
-                extra_user_ingredients.append(ing.strip().lower())
+    raw_companions = data.get("companions") or []
+    companions: list[str] = []
+    if isinstance(raw_companions, list):
+        for c in raw_companions:
+            if isinstance(c, str) and c.strip():
+                companions.append(c.strip().lower())
 
     logger.info(
         "classifier_result",
         extra={
             "intent": intent,
-            "current_dishes": dishes,
-            "translate_now": translate_now,
-            "pending_slots": [(s.entity, s.slot_name) for s in pending_slots],
-            "resolved_variants": resolved_variants,
-            "reasoning": str(data.get("reasoning", ""))[:500],
+            "current_dish": new_dish,
+            "companions": companions,
+            "reasoning": str(data.get("reasoning", ""))[:300],
         },
     )
 
     return ClassifierResult(
         intent=intent,
-        current_dishes=dishes,
-        translate_now=translate_now,
-        pending_slots=pending_slots,
-        resolved_variants=resolved_variants,
-        extra_user_ingredients=extra_user_ingredients,
+        current_dish=new_dish,
+        companions=companions,
+        current_dishes=[new_dish] if new_dish else [],
     )
+
+
+def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierResult:
+    """Backward-compatible wrapper for tests that pass raw JSON strings."""
+    try:
+        data = bedrock_client.parse_json_strict(raw)
+    except Exception as e:
+        logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
+        return ClassifierResult(intent=intent, current_dish=current_dish)
+    return _parse_extraction_data(data, current_dish, intent)
