@@ -177,6 +177,8 @@ def _handle_traduccion(
         return _handle_extracting(effective_session, message, history)
     if current_status == "CONFIRMING_FLAGS":
         return _handle_confirming_flags(effective_session, message, history)
+    if current_status == "EDITING":
+        return _handle_editing(effective_session, message, history)
     if current_status == "DRAFTING":
         return _handle_drafting(effective_session, message, history)
 
@@ -308,9 +310,9 @@ def _handle_confirming_flags(
             current_dishes=[current_dish] + companions,
             buttons=[],
             flags=clean_flags,
-            dish_status="EXTRACTING",
-            collected_ingredients=[],
-            detected_flags=[],
+            dish_status="EDITING",
+            collected_ingredients=collected,
+            detected_flags=detected_flags,
             intent="traduccion",
         )
 
@@ -324,6 +326,54 @@ def _handle_confirming_flags(
     return _start_drafting(
         current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
     )
+
+
+def _handle_editing(
+    session_state: dict,
+    message: str,
+    history: list[dict[str, str]],
+) -> GenResult:
+    """User is adjusting a draft — merge new details without re-asking KB variables."""
+    current_dish: str = session_state["current_dish"]
+    companions: list[str] = session_state["companions"]
+    collected: list[str] = list(session_state.get("collected_ingredients") or [])
+    detected_flags: list[str] = list(session_state.get("detected_flags") or [])
+    kb_data = retrieval.get_dish_data(current_dish) or {}
+    vars_locked = gen_module.variables_satisfied(collected, kb_data)
+
+    with timing.stage("router.generation"):
+        result = gen_module.generate_extracting(
+            current_dish=current_dish,
+            companions=companions,
+            collected_ingredients=collected,
+            message=message,
+            history=history,
+            kb_data=kb_data,
+        )
+
+    new_collected = gen_module._merge_collected_ingredients(
+        collected,
+        result.collected_ingredients or [],
+    )
+
+    if vars_locked or result.variables_complete:
+        logger.info(
+            "editing_merge_to_draft",
+            extra={
+                "dish": current_dish,
+                "vars_locked": vars_locked,
+                "collected": new_collected,
+            },
+        )
+        return _transition_to_flags_or_draft(
+            current_dish, companions, new_collected, message, history, kb_data
+        )
+
+    result.dish_status = "EXTRACTING"
+    result.collected_ingredients = new_collected
+    result.current_dishes = [current_dish] + companions
+    result.intent = "traduccion"
+    return result
 
 
 def _start_drafting(
@@ -397,9 +447,9 @@ def _handle_drafting(
             current_dishes=[current_dish] + companions,
             buttons=[],
             flags=clean_flags,
-            dish_status="EXTRACTING",
-            collected_ingredients=[],
-            detected_flags=[],
+            dish_status="EDITING",
+            collected_ingredients=collected,
+            detected_flags=detected_flags,
             intent="traduccion",
         )
 

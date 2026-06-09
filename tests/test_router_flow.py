@@ -195,6 +195,72 @@ class TestEnchiladasFlow:
         assert mock_json.call_args.kwargs.get("stage") == "gen_drafting"
 
 
+class TestPozoleEditing:
+    @patch("router.cls_module.classify", return_value=_cr("pozole"))
+    @patch("flag_llm.compute_flags_for_dish")
+    def test_edit_click_preserves_collected_ingredients(self, mock_flags, _mock_cls):
+        mock_flags.return_value = {
+            "allergens": False,
+            "allergen_triggers": [],
+            "gluten_free": True,
+            "gluten_triggers": [],
+            "vegetarian": True,
+            "vegan": True,
+            "spicy_level": "none",
+            "spicy_triggers": [],
+        }
+        session = _session(dish="pozole", status="DRAFTING", collected=["blanco", "pollo"])
+
+        result = router.handle("✏️ Hacer cambios", session, [])
+
+        assert result.dish_status == "EDITING"
+        assert result.collected_ingredients == ["blanco", "pollo"]
+
+    @patch("router.cls_module.classify", return_value=_cr("pozole"))
+    @patch("flag_llm.compute_flags_for_dish")
+    @patch("bedrock_client.converse_json")
+    def test_edit_does_not_reask_caldo_when_vars_already_collected(
+        self, mock_json, mock_flags, _mock_cls,
+    ):
+        mock_flags.return_value = {
+            "allergens": False,
+            "allergen_triggers": [],
+            "gluten_free": True,
+            "gluten_triggers": [],
+            "vegetarian": True,
+            "vegan": True,
+            "spicy_level": "none",
+            "spicy_triggers": [],
+        }
+        mock_json.side_effect = [
+            {
+                "response": ["¿Qué tipo de caldo usas para pozole?"],
+                "variables_complete": False,
+                "collected_ingredients": ["lechuga", "cebolla"],
+                "buttons": [],
+            },
+            {
+                "response": [
+                    "**Pozole**\nCaldo blanco con pollo y guarniciones.\n\n"
+                    "**Pozole**\nWhite stew with chicken.\n\n🎉 ¡Listo!",
+                ],
+                "buttons": ["✅ Guardar en menú", "✏️ Hacer cambios"],
+                "current_dishes": ["pozole"],
+            },
+        ]
+        session = _session(dish="pozole", status="EDITING", collected=["blanco", "pollo"])
+
+        result = router.handle(
+            "le pongo lechuga, cebolla, rabano y aguacate",
+            session,
+            [],
+        )
+
+        assert result.dish_status == "DRAFTING"
+        assert result.response[0].startswith("**Pozole")
+        assert "blanco" in result.collected_ingredients or "pollo" in result.collected_ingredients
+
+
 class TestMessageDetection:
     def test_is_save_request_matches_button_label(self):
         assert router._is_save_request("✅ Guardar en menú")
