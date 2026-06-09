@@ -88,30 +88,22 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             menu_del_dia = menu_del_dia + [result.menu_entry]
 
         if result.intent == "traduccion":
-            if result.save_to_menu:
-                new_state: dict = {
-                    "menu_del_dia": menu_del_dia,
-                    "current_dish": None,
-                    "companions": [],
-                    "dish_status": None,
-                    "collected_ingredients": [],
-                    "detected_flags": [],
-                    "current_dishes": [],
-                }
-            else:
-                current_dish_out = result.current_dishes[0] if result.current_dishes else None
-                # Guard: if there is no active dish, dish_status must also be cleared to
-                # prevent an orphaned state where status is set but current_dish is None.
-                dish_status_out = result.dish_status if current_dish_out else None
-                new_state = {
-                    "menu_del_dia": menu_del_dia,
-                    "current_dish": current_dish_out,
-                    "companions": list(result.current_dishes[1:]),
-                    "dish_status": dish_status_out,
-                    "collected_ingredients": list(result.collected_ingredients or []),
-                    "detected_flags": list(result.detected_flags or []),
-                    "current_dishes": list(result.current_dishes),
-                }
+            # State is always determined by what the router returns explicitly.
+            # save_to_menu only affects menu_del_dia — it no longer resets dish state,
+            # because drafts are auto-saved and the flow stays in DRAFTING for editing.
+            current_dish_out = result.current_dishes[0] if result.current_dishes else None
+            # Guard: if there is no active dish, dish_status must also be cleared to
+            # prevent an orphaned state where status is set but current_dish is None.
+            dish_status_out = result.dish_status if current_dish_out else None
+            new_state: dict = {
+                "menu_del_dia": menu_del_dia,
+                "current_dish": current_dish_out,
+                "companions": list(result.current_dishes[1:]),
+                "dish_status": dish_status_out,
+                "collected_ingredients": list(result.collected_ingredients or []),
+                "detected_flags": list(result.detected_flags or []),
+                "current_dishes": list(result.current_dishes),
+            }
         else:
             # Non-traduccion: preserve existing dish state
             new_state = {

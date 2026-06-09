@@ -909,8 +909,7 @@ def _parse_confirming_flags_data(data: dict) -> GenResult:
 
     raw_response = data.get("response") or []
     response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
-    if not response:
-        return GenResult(**_FALLBACK)
+    # Empty response is valid: LLM signals nothing to confirm; caller will skip to drafting.
 
     raw_buttons = data.get("buttons") or []
     buttons = [b.strip() for b in raw_buttons if isinstance(b, str) and b.strip()]
@@ -918,25 +917,11 @@ def _parse_confirming_flags_data(data: dict) -> GenResult:
     return GenResult(response=response, buttons=buttons)
 
 
-_DEFAULT_DRAFTING_BUTTONS: Final[list[str]] = ["✅ Guardar en menú", "✏️ Hacer cambios"]
+_DEFAULT_DRAFTING_BUTTONS: Final[list[str]] = ["🍽️ Ayúdame con otro platillo"]
 
 
-def generate_drafting(
-    *,
-    current_dish: str,
-    companions: list[str],
-    collected_ingredients: list[str],
-    detected_flags: list[str],
-    message: str,
-    history: list[dict[str, str]],
-    kb_data: dict,
-) -> GenResult:
-    system = load_prompt("drafting_system.txt")
-    user_text = _build_drafting_text(
-        current_dish, companions, collected_ingredients, detected_flags, message, history, kb_data
-    )
+def _call_drafting_llm(system: str, user_text: str, current_dish: str, companions: list[str]) -> GenResult:
     messages = [{"role": "user", "content": [{"text": user_text}]}]
-
     for attempt, temperature in enumerate([0.5, 0.0]):
         try:
             data = bedrock_client.converse_json(
@@ -959,12 +944,48 @@ def generate_drafting(
                 logger.info("gen_drafting_retry_ok", extra={"attempt": attempt})
             return result
 
-        logger.warning(
-            "gen_drafting_parse_error",
-            extra={"attempt": attempt, "raw": str(data)[:200]},
-        )
+        logger.warning("gen_drafting_parse_error", extra={"attempt": attempt, "raw": str(data)[:200]})
 
     return GenResult(**_FALLBACK)
+
+
+def generate_drafting(
+    *,
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    message: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> GenResult:
+    system = load_prompt("drafting_system.txt")
+    user_text = _build_drafting_text(
+        current_dish, companions, collected_ingredients, detected_flags, message, history, kb_data
+    )
+    return _call_drafting_llm(system, user_text, current_dish, companions)
+
+
+def generate_draft_edit(
+    *,
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    detected_flags: list[str],
+    edit_instruction: str,
+    previous_card: str,
+    history: list[dict[str, str]],
+    kb_data: dict,
+) -> GenResult:
+    """Re-draft applying a free-form edit instruction to the previous card."""
+    system = load_prompt("drafting_system.txt")
+    user_text = _build_drafting_text(
+        current_dish, companions, collected_ingredients, detected_flags,
+        edit_instruction, history, kb_data,
+        edit_instruction=edit_instruction,
+        previous_card=previous_card,
+    )
+    return _call_drafting_llm(system, user_text, current_dish, companions)
 
 
 def _build_drafting_text(
@@ -975,6 +996,9 @@ def _build_drafting_text(
     message: str,
     history: list[dict[str, str]],
     kb_data: dict,
+    *,
+    edit_instruction: str = "",
+    previous_card: str = "",
 ) -> str:
     hist_lines: list[str] = []
     for h in history[-6:]:
@@ -989,7 +1013,16 @@ def _build_drafting_text(
     flags_str = ", ".join(detected_flags) if detected_flags else "(ninguno)"
     base_desc = kb_data.get("base_description") or ""
 
+    edit_block = ""
+    if edit_instruction and previous_card:
+        edit_block = (
+            f"MODO EDICIÓN — aplica solo los cambios indicados:\n"
+            f"Tarjeta anterior:\n{previous_card}\n\n"
+            f"Instrucción de edición: \"{edit_instruction}\"\n\n"
+        )
+
     return (
+        f"{edit_block}"
         f"current_dish: {current_dish}\n"
         f"companions: {comp_str}\n"
         f"base_description: {base_desc}\n"

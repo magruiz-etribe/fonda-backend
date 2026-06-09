@@ -41,6 +41,10 @@ _NEGATION_RE: re.Pattern[str] = re.compile(
     r"^(❌|no\b|nope\b|negativo|ninguno|para\s*nada|no\s+lleva|no\s+tiene|tampoco)",
     re.IGNORECASE,
 )
+_NEW_DISH_RE: re.Pattern[str] = re.compile(
+    r"otro\s+platillo|nuevo\s+platillo|empezar\s+(de\s+)?nuevo|🍽️",
+    re.IGNORECASE,
+)
 _SAVE_PHRASES: Final[frozenset[str]] = frozenset({
     "guardar en menu",
     "guardar en menú",
@@ -142,11 +146,6 @@ def _handle_traduccion(
         }
 
     effective_dish = effective_session["current_dish"]
-
-    if _is_save_request(message) and _history_has_draft_card(history):
-        return _save_draft_from_history(
-            effective_session, history, message,
-        )
 
     if not effective_dish:
         return GenResult(
@@ -437,6 +436,7 @@ def _start_drafting(
     result.current_dishes = [current_dish] + companions
     result.flags = clean_flags
     result.intent = "traduccion"
+    _attach_menu_entry(result, clean_flags)
     return result
 
 
@@ -456,46 +456,67 @@ def _handle_drafting(
 
     msg_stripped = message.strip()
 
-    if _is_save_request(msg_stripped):
-        menu_entry = _build_menu_entry_from_history(history, clean_flags)
-        if menu_entry:
-            return GenResult(
-                response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
-                current_dishes=[],
-                buttons=[],
-                flags=clean_flags,
-                menu_entry=menu_entry,
-                save_to_menu=True,
-                dish_status=None,
-                collected_ingredients=[],
-                detected_flags=[],
-                intent="traduccion",
-            )
-        logger.warning(
-            "drafting_save_no_card_in_history",
-            extra={"user_message": msg_stripped[:80]},
-        )
-
-    if _EDIT_RE.match(msg_stripped):
+    # "Otro platillo" button or equivalent → reset state
+    if _NEW_DISH_RE.search(msg_stripped):
         return GenResult(
-            response=["Claro, vamos a ajustarlo. ¿Qué cambiamos? 😊"],
-            current_dishes=[current_dish] + companions,
+            response=["¡Con gusto! Cuéntame, ¿qué platillo quieres adaptar ahora? 😊"],
+            current_dishes=[],
             buttons=[],
-            flags=clean_flags,
-            dish_status="EDITING",
-            collected_ingredients=collected,
-            detected_flags=detected_flags,
+            dish_status=None,
+            collected_ingredients=[],
+            detected_flags=[],
             intent="traduccion",
         )
 
-    # Any other message → regenerate drafting card
+    # Any other message → edit the draft in place (add, remove, rephrase)
     kb_data = retrieval.get_dish_data(current_dish) or {}
-    return _start_drafting(
-        current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
-    )
+    previous_card = _get_last_draft_card(history)
+    with timing.stage("router.generation"):
+        result = gen_module.generate_draft_edit(
+            current_dish=current_dish,
+            companions=companions,
+            collected_ingredients=collected,
+            detected_flags=detected_flags,
+            edit_instruction=msg_stripped,
+            previous_card=previous_card,
+            history=history,
+            kb_data=kb_data,
+        )
+    result.dish_status = "DRAFTING"
+    result.collected_ingredients = collected
+    result.detected_flags = detected_flags
+    result.current_dishes = [current_dish] + companions
+    result.flags = clean_flags
+    result.intent = "traduccion"
+    _attach_menu_entry(result, clean_flags)
+    return result
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _attach_menu_entry(result: GenResult, clean_flags: dict) -> None:
+    """Parse the card from result.response[0] and attach it as a menu entry for auto-save."""
+    if not result.response:
+        return
+    card_text = result.response[0].strip()
+    if not card_text.startswith("**"):
+        return
+    entry = _parse_bilingual_card(card_text, clean_flags)
+    if entry.get("name_es"):
+        result.menu_entry = entry
+        result.save_to_menu = True
+
+
+def _get_last_draft_card(history: list[dict[str, str]]) -> str:
+    """Return the card portion of the most recent draft turn from history."""
+    for turn in reversed(history):
+        if turn.get("role") == "agent":
+            text = turn.get("text", "").strip()
+            if text.startswith("**") and "🎉" in text:
+                idx = text.find("\n\n🎉")
+                return text[:idx].strip() if idx >= 0 else text
+    return ""
+
 
 def _normalize_user_message(message: str) -> str:
     s = message.strip().lower()
@@ -525,55 +546,6 @@ def _is_affirmative(message: str) -> bool:
     if _is_save_request(stripped):
         return False
     return bool(_AFFIRMATIVE_RE.match(stripped))
-
-
-def _history_has_draft_card(history: list[dict[str, str]]) -> bool:
-    for turn in reversed(history):
-        if turn.get("role") == "agent":
-            text = str(turn.get("text", "")).strip()
-            if text.startswith("**") and "🎉" in text:
-                return True
-    return False
-
-
-def _save_draft_from_history(
-    session_state: dict,
-    history: list[dict[str, str]],
-    message: str,
-) -> GenResult:
-    current_dish: str = session_state["current_dish"]
-    companions: list[str] = session_state["companions"]
-    collected: list[str] = list(session_state.get("collected_ingredients") or [])
-
-    with timing.stage("router.flags"):
-        raw_flags = _compute_flags(current_dish, companions, collected)
-    clean_flags = _clean_flags(raw_flags)
-    menu_entry = _build_menu_entry_from_history(history, clean_flags)
-
-    if menu_entry:
-        logger.info(
-            "drafting_save_from_history",
-            extra={"dish_status": session_state.get("dish_status"), "user_message": message[:40]},
-        )
-        return GenResult(
-            response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
-            current_dishes=[],
-            buttons=[],
-            flags=clean_flags,
-            menu_entry=menu_entry,
-            save_to_menu=True,
-            dish_status=None,
-            collected_ingredients=[],
-            detected_flags=[],
-            intent="traduccion",
-        )
-
-    logger.warning("save_request_without_parsable_card", extra={"user_message": message[:80]})
-    kb_data = retrieval.get_dish_data(current_dish) or {}
-    detected_flags: list[str] = list(session_state.get("detected_flags") or [])
-    return _start_drafting(
-        current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
-    )
 
 
 def _kb_variable_option_values(kb_data: dict) -> set[str]:
@@ -798,21 +770,6 @@ def _extract_card_parts(bubble: str) -> tuple[str, str]:
             break  # confirmation separator
         desc_lines.append(stripped)
     return name, "\n".join(desc_lines).strip()
-
-
-def _build_menu_entry_from_history(
-    history: list[dict[str, str]],
-    clean_flags: dict,
-) -> dict | None:
-    for turn in reversed(history):
-        if turn.get("role") == "agent":
-            text = turn.get("text", "")
-            stripped = text.strip()
-            # Require both a card start AND the 🎉 confirmation bubble so we only
-            # match complete draft turns (not stray bold lines from other stages).
-            if stripped.startswith("**") and "🎉" in stripped:
-                return _parse_bilingual_card(stripped, clean_flags)
-    return None
 
 
 def _parse_bilingual_card(card: str, flags: dict) -> dict:
