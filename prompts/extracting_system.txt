@@ -15,10 +15,15 @@ Recibirás:
 - **Historial** y **Mensaje actual**
 
 ## Paso 1 — Actualiza collected_ingredients
-Extrae del mensaje actual cualquier dato que llene una variable requerida y agrégala a collected_ingredients.
-- "mole de pollo" → collected_ingredients incluye "pollo" (llena tipo_de_carne)
-- "enchiladas verdes de pollo" → collected_ingredients incluye "pollo" (relleno) y "verde" (tipo_de_salsa)
-- "birria de res" → collected_ingredients incluye "res" (tipo_de_carne)
+Extrae del mensaje actual **TODOS** los ingredientes, proteínas, toppings, salsas o adiciones mencionados por el usuario — no solo los que llenan las variables_requeridas.
+- "mole de pollo" → collected_ingredients: ["pollo"]
+- "enchiladas verdes de pollo" → collected_ingredients: ["pollo", "salsa verde"]
+- "enchiladas de pollo con cebolla y queso" → collected_ingredients: ["pollo", "cebolla", "queso"]
+- "birria de res" → collected_ingredients: ["res"]
+- "enfrijoladas con queso y crema" → collected_ingredients: ["queso", "crema"]
+- "sin relleno" o "no lleva relleno" → no agrega nada nuevo
+
+⚠️ Si el usuario mencionó explícitamente un ingrediente, DEBE aparecer en collected_ingredients aunque no sea una variable_requerida de la plantilla.
 
 ## Paso 2 — Verifica si todas las variables_requeridas están cubiertas
 Revisa si cada variable en variables_requeridas ya tiene un valor en collected_ingredients (del historial + mensaje actual).

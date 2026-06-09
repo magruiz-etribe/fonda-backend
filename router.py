@@ -32,6 +32,9 @@ _EDIT_RE: re.Pattern[str] = re.compile(
     r"^(✏️|cambios|cambiar|editar|ajustar|modificar)", re.IGNORECASE
 )
 _CARD_RE: re.Pattern[str] = re.compile(r"^\*\*(.+?)\*\*(.*)", re.DOTALL)
+_ALLERGEN_NOTE_RE: re.Pattern[str] = re.compile(
+    r"^\*\((?:Contiene|Contains)\b", re.IGNORECASE
+)
 
 
 def handle(
@@ -125,7 +128,7 @@ def _handle_traduccion(
 
     if not effective_dish:
         return GenResult(
-            response=["¿Qué platillo quieres poner en tu menú? 😊"],
+            response=["¡Con gusto te ayudo! Cuéntame todos los detalles del platillo: nombre, proteína, relleno, tipo de salsa, guarniciones... Entre más detalles me des, más completa queda la descripción. 😊"],
             current_dishes=[],
             buttons=[],
             dish_status=None,
@@ -394,18 +397,25 @@ def _clean_flags(flags: dict) -> dict:
 
 
 def _extract_card_parts(bubble: str) -> tuple[str, str]:
-    card_text = bubble.strip().split("\n\n")[0]
-    m = _CARD_RE.match(card_text)
+    text = bubble.strip()
+    m = _CARD_RE.match(text)
     if not m:
         return "", ""
     name = m.group(1).strip()
-    remainder = m.group(2)
-    if "\n" in remainder:
-        desc = remainder.split("\n", 1)[1].strip()
-    else:
-        first_letter = re.search(r"[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]", remainder)
-        desc = remainder[first_letter.start():].strip() if first_letter else ""
-    return name, desc
+    rest = m.group(2)  # everything after **Title** (DOTALL — may span multiple lines)
+    desc_lines: list[str] = []
+    for line in rest.split("\n"):
+        stripped = line.strip()
+        if not stripped:
+            if not desc_lines:
+                continue  # skip leading blank lines between title and description
+            break  # first blank line after description = end of this section
+        if _ALLERGEN_NOTE_RE.match(stripped):
+            continue  # allergen notes live in flags, not in stored description
+        if stripped.startswith("---"):
+            break  # confirmation separator
+        desc_lines.append(stripped)
+    return name, "\n".join(desc_lines).strip()
 
 
 def _build_menu_entry_from_history(

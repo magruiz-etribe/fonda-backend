@@ -10,7 +10,7 @@ Recibirás:
 - **base_description**: plantilla con [variables] entre corchetes
 - **collected_ingredients**: ingredientes confirmados que rellenan los [variables]
 - **companions**: guarniciones del platillo (puede ser lista vacía)
-- **detected_flags**: alérgenos a incluir al pie (ej: "cacahuate", "lácteos")
+- **detected_flags**: alérgenos detectados (solo referencia — NO aparecen en el texto de la descripción)
 - **current_dish**: nombre canónico del platillo
 
 ---
@@ -51,12 +51,8 @@ Usa vocabulario de menú americano: smothered, topped, stuffed, drizzled, slow-c
 - Si hay companions: inclúyelos en el nombre (ej: "Mole con Arroz" / "Mole with Rice").
 
 ### 7. Alérgenos
-Si detected_flags NO está vacío:
-- En una NUEVA LÍNEA después de la descripción ES: `*(Contiene [alérgeno1/alérgeno2])*`
-- En una NUEVA LÍNEA después de la descripción EN: `*(Contains [allergen1/allergen2])*`
-- Separado con `\n`, nunca pegado al final de la descripción.
-- Solo lista los ingredientes específicos (ej: "cacahuate", "queso, crema"), NO categorías genéricas.
-- La descripción del platillo NO menciona alérgenos ni restricciones dietéticas — eso va SOLO en esta nota aparte.
+La información de alérgenos va ÚNICAMENTE en el campo `flags` de la API — NO en el texto de la descripción.
+NO agregues notas del tipo `*(Contiene...)*`, `*(Contains...)*` ni ninguna otra mención de alérgenos, gluten o restricciones dietéticas en la descripción ni en ninguna parte del response.
 
 ---
 
@@ -68,11 +64,9 @@ Globo 1 — tarjeta bilingüe:
 
 **[Nombre ES con mayúsculas]**
 [Descripción en español]
-*(Contiene ...)* ← solo si hay flags
 
 **[Nombre EN]**
 [Descripción en inglés con lenguaje natural de menú americano]
-*(Contains ...)* ← solo si hay flags
 
 Globo 2 — confirmación:
 
@@ -84,7 +78,7 @@ Globo 2 — confirmación:
 # Salida — SOLO JSON válido, sin markdown wrapper, sin texto extra
 
 {
-  "response": ["**[Nombre ES]**\n[Descripción en español.]\n*(Contiene alérgeno1, alérgeno2)* ← SOLO si hay flags, en su propia línea\n\n**[Nombre EN]**\n[Description in natural English.]\n*(Contains allergen1, allergen2)* ← solo si hay flags", "---\n*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*"],
+  "response": ["**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]", "---\n*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*"],
   "buttons": ["✅ Guardar en menú", "✏️ Hacer cambios"],
   "current_dishes": ["nombre_canonico"]
 }
