@@ -1,11 +1,3 @@
-## etribe
-
-eTribe es una consultora tecnológica especializada en Data, Analytics e Inteligencia Artificial. Diseña arquitecturas que llevan a las empresas líderes de México a operar en tiempo real.
-
-eTribe colabora en el proyecto Menú del Día mediante el desarrollo de una herramienta de Inteligencia Artificial orientada a apoyar a los locatarios de mercados en la adaptación de sus menús al inglés, así como en la identificación de alérgenos en los alimentos. El objetivo es mejorar la accesibilidad de la información para visitantes nacionales e internacionales, fortaleciendo la experiencia del usuario y promoviendo prácticas de comunicación más inclusivas y seguras.
-
-### links
-[{"label": "¿Qué es eTribe?", "url": "https://etribe.mx/", "type": "page"}]
 
 ## maps
 
@@ -171,7 +163,7 @@ Si deseas conocer más sobre este tema, puedes visitar www.placemaking.mx o escr
 
 ## organizaciones_participantes
 
-Menú del Día es posible gracias a la colaboración de organizaciones nacionales e internacionales comprometidas con el fortalecimiento de las fondas, cocinas tradicionales y pequeños negocios de alimentos de la Ciudad de México. Cada una aporta recursos, experiencia, capacitación y acompañamiento para impulsar el desarrollo de los negocios participantes.
+Menú del Día es posible gracias a la colaboración de organizaciones nacionales e internacionales comprometidas con el fortalecimiento de las fondas, cocinas tradicionales y pequeños negocios de alimentos de la Ciudad de México.
 
 Iniciativa de:
 - International Downtown Association Foundation (IDA Foundation)
@@ -186,12 +178,13 @@ Implementada por:
 - Mi Mercado Público
 - Fondo Mixto de Promoción Turística de la Ciudad de México
 
-Estas organizaciones trabajan de manera conjunta para brindar capacitación, herramientas prácticas y acompañamiento que contribuyan al crecimiento y fortalecimiento de las fondas y pequeños negocios participantes.
+Desarrollo tecnológico:
+eTribe es una consultora especializada en Data, Analytics e Inteligencia Artificial. Diseñó y desarrolló Huevito, la herramienta de IA que ayuda a los fonderos a adaptar sus menús al inglés e identificar alérgenos, mejorando la accesibilidad para visitantes nacionales e internacionales.
 
 Para más información: https://www.placemaking.mx/menu-del-dia o escribir a hola@placemaking.mx.
 
 ### links
-[{"label": "IDA Foundation", "url": "https://downtown.org/backing-international-small-restaurants-grant-program/", "type": "page"}, {"label": "The Place Institute", "url": "https://www.theplaceinstitute.org/", "type": "page"}, {"label": "American Express México", "url": "https://www.americanexpress.com/es-mx/", "type": "page"}, {"label": "Fundación Placemaking", "url": "https://www.placemaking.mx/", "type": "page"}, {"label": "SEDECO CDMX", "url": "https://www.sedeco.cdmx.gob.mx/", "type": "page"}, {"label": "Mi Mercado Público", "url": "https://x.com/MiMercadoCDMX", "type": "page"}, {"label": "Fondo Mixto de Promoción Turística", "url": "https://www.fmpt.cdmx.gob.mx/", "type": "page"}]
+[{"label": "IDA Foundation", "url": "https://downtown.org/backing-international-small-restaurants-grant-program/", "type": "page"}, {"label": "The Place Institute", "url": "https://www.theplaceinstitute.org/", "type": "page"}, {"label": "American Express México", "url": "https://www.americanexpress.com/es-mx/", "type": "page"}, {"label": "Fundación Placemaking", "url": "https://www.placemaking.mx/", "type": "page"}, {"label": "SEDECO CDMX", "url": "https://www.sedeco.cdmx.gob.mx/", "type": "page"}, {"label": "Mi Mercado Público", "url": "https://x.com/MiMercadoCDMX", "type": "page"}, {"label": "Fondo Mixto de Promoción Turística", "url": "https://www.fmpt.cdmx.gob.mx/", "type": "page"}, {"label": "eTribe", "url": "https://etribe.mx/", "type": "page"}]
 
 ## primera_edicion
 
