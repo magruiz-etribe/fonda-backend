@@ -388,7 +388,7 @@ def _handle_drafting(
             )
         logger.warning(
             "drafting_save_no_card_in_history",
-            extra={"message": msg_stripped[:80]},
+            extra={"user_message": msg_stripped[:80]},
         )
 
     if _EDIT_RE.match(msg_stripped):
@@ -468,7 +468,7 @@ def _save_draft_from_history(
     if menu_entry:
         logger.info(
             "drafting_save_from_history",
-            extra={"dish_status": session_state.get("dish_status"), "message": message[:40]},
+            extra={"dish_status": session_state.get("dish_status"), "user_message": message[:40]},
         )
         return GenResult(
             response=["¡Perfecto! Lo guardé en tu menú. ¿Quieres traducir otro platillo? 😊"],
@@ -483,7 +483,7 @@ def _save_draft_from_history(
             intent="traduccion",
         )
 
-    logger.warning("save_request_without_parsable_card", extra={"message": message[:80]})
+    logger.warning("save_request_without_parsable_card", extra={"user_message": message[:80]})
     kb_data = retrieval.get_dish_data(current_dish) or {}
     detected_flags: list[str] = list(session_state.get("detected_flags") or [])
     return _start_drafting(
