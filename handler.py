@@ -81,10 +81,15 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         menu_del_dia: list = session_state.get("menu_del_dia", [])
         if result.save_to_menu and result.menu_entry:
             name_en = result.menu_entry.get("name_en", "")
-            menu_del_dia = (
-                [e for e in menu_del_dia if e.get("name_en") != name_en]
-                if name_en else menu_del_dia
-            )
+            canonical = result.menu_entry.get("canonical_dish", "")
+            # Remove the previous version of this dish. Match on English name (unchanged
+            # edits) OR on canonical dish id (edits that changed the protein/name, so the
+            # English title differs but it is still the same KB dish being worked on).
+            menu_del_dia = [
+                e for e in menu_del_dia
+                if e.get("name_en") != name_en
+                and (not canonical or e.get("canonical_dish") != canonical)
+            ]
             menu_del_dia = menu_del_dia + [result.menu_entry]
 
         if result.intent == "traduccion":

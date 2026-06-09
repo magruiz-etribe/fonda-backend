@@ -27,6 +27,17 @@ _OUT_OF_DOMAIN_RESPONSE: Final[str] = (
     "¿Te ayudo con algo de eso? 😊"
 )
 
+_DISH_INFO_RESPONSE: Final[str] = (
+    "No puedo darte información sobre los platillos, pero lo que sí puedo hacer es "
+    "ayudarte a crear la descripción en inglés para tu menú. "
+    "Si quieres, dime el nombre del platillo y te ayudo a adaptarlo. 😊"
+)
+
+_DISH_INFO_RE: re.Pattern[str] = re.compile(
+    r"^¿?\s*qu[eé]\s+es\b",
+    re.IGNORECASE,
+)
+
 _APPROVAL_RE: re.Pattern[str] = re.compile(
     r"^(✅|sí\b|si\b|guardar|listo|correcto|exacto)", re.IGNORECASE
 )
@@ -75,6 +86,20 @@ def handle(
                 current_dishes=session_state.get("current_dishes", []),
                 buttons=[],
                 intent="out_of_domain",
+            )
+
+        # Deflect "¿qué es X?" dish-info questions when there is no active translation flow.
+        # During an active flow (EXTRACTING, DRAFTING, etc.) these go through normally so
+        # the conversation context handles them without interrupting the user's work.
+        if (
+            _DISH_INFO_RE.match(message.strip())
+            and not session_state.get("dish_status")
+        ):
+            return GenResult(
+                response=[_DISH_INFO_RESPONSE],
+                current_dishes=session_state.get("current_dishes", []),
+                buttons=[],
+                intent="fallback",
             )
 
         if cr.intent != "traduccion":
@@ -503,6 +528,10 @@ def _attach_menu_entry(result: GenResult, clean_flags: dict) -> None:
         return
     entry = _parse_bilingual_card(card_text, clean_flags)
     if entry.get("name_es"):
+        # Tag with canonical dish id so that edits which change the protein/name
+        # (and therefore the English title) still replace the previous version.
+        if result.current_dishes:
+            entry["canonical_dish"] = result.current_dishes[0]
         result.menu_entry = entry
         result.save_to_menu = True
 
