@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Any, Final
 
@@ -402,11 +403,18 @@ _VARIABLE_QUESTION_TEMPLATES: Final[dict[str, str]] = {
     "tipo_de_salsa": "¿Con qué tipo de salsa preparas {dish}?",
     "tipo_de_carne": "¿Qué proteína llevas en {dish}?",
     "tipo_de_caldo": "¿Qué tipo de caldo usas para {dish}?",
+    "acompañamiento": "¿Con qué acompañas los {dish}?",
+    "acompanamiento": "¿Con qué acompañas los {dish}?",
 }
 
 
 def _normalize_ingredient(s: str) -> str:
-    return " ".join(s.strip().lower().replace("_", " ").split())
+    s = s.strip().lower().replace("_", " ")
+    s = "".join(
+        c for c in unicodedata.normalize("NFD", s)
+        if unicodedata.category(c) != "Mn"
+    )
+    return " ".join(s.split())
 
 
 def _ingredient_matches_option(ingredient: str, option: str) -> bool:
@@ -421,14 +429,23 @@ def _variable_covered(
     variable: str,
     collected: list[str],
     options: list[str],
+    base_defaults: list[str] | None = None,
 ) -> bool:
-    for ing in collected:
-        for opt in options:
-            if _ingredient_matches_option(ing, opt):
+    if options:
+        for ing in collected:
+            for opt in options:
+                if _ingredient_matches_option(ing, opt):
+                    return True
+        var_label = _normalize_ingredient(variable)
+        for ing in collected:
+            if _ingredient_matches_option(ing, var_label):
                 return True
-    var_label = _normalize_ingredient(variable)
+        return False
+
+    defaults = {_normalize_ingredient(d) for d in (base_defaults or [])}
     for ing in collected:
-        if _ingredient_matches_option(ing, var_label):
+        normalized = _normalize_ingredient(ing)
+        if normalized and normalized not in defaults:
             return True
     return False
 
@@ -437,6 +454,7 @@ def _find_first_missing_variable(
     collected: list[str],
     variables_requeridas: list[str],
     variable_opciones: dict,
+    base_defaults: list[str] | None = None,
 ) -> str | None:
     for var in variables_requeridas:
         raw_options = variable_opciones.get(var) or []
@@ -445,7 +463,7 @@ def _find_first_missing_variable(
             if isinstance(raw_options, list)
             else []
         )
-        if not _variable_covered(var, collected, options):
+        if not _variable_covered(var, collected, options, base_defaults):
             return var
     return None
 
@@ -486,8 +504,11 @@ def _build_extracting_deterministic_fallback(
         return None
 
     variable_opciones = kb_data.get("variable_opciones") or {}
+    base_defaults = list(kb_data.get("ingredientes_base_default") or [])
     collected = list(collected_ingredients)
-    missing = _find_first_missing_variable(collected, variables_requeridas, variable_opciones)
+    missing = _find_first_missing_variable(
+        collected, variables_requeridas, variable_opciones, base_defaults
+    )
 
     if missing is None:
         return GenResult(
@@ -513,6 +534,42 @@ def _build_extracting_deterministic_fallback(
     )
 
 
+def _merge_collected_ingredients(*sources: list[str]) -> list[str]:
+    merged: list[str] = []
+    seen: set[str] = set()
+    for source in sources:
+        for item in source:
+            normalized = _normalize_ingredient(item)
+            if normalized and normalized not in seen:
+                seen.add(normalized)
+                merged.append(normalized)
+    return merged
+
+
+def _prefill_collected_from_message(
+    message: str,
+    collected: list[str],
+    kb_data: dict,
+) -> list[str]:
+    """Capture KB option values explicitly mentioned in the user's message."""
+    merged = _merge_collected_ingredients(collected)
+    seen = set(merged)
+    message_norm = _normalize_ingredient(message)
+    if not message_norm:
+        return merged
+
+    for options in (kb_data.get("variable_opciones") or {}).values():
+        if not isinstance(options, list):
+            continue
+        for opt in options:
+            opt_norm = _normalize_ingredient(str(opt))
+            if opt_norm and opt_norm in message_norm and opt_norm not in seen:
+                seen.add(opt_norm)
+                merged.append(opt_norm)
+
+    return merged
+
+
 def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
     """Inject KB option buttons when the LLM asks a question but omits buttons."""
     if result.buttons or result.variables_complete or not result.response:
@@ -520,9 +577,12 @@ def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
 
     variables_requeridas = list(kb_data.get("variables_requeridas") or [])
     variable_opciones = kb_data.get("variable_opciones") or {}
+    base_defaults = list(kb_data.get("ingredientes_base_default") or [])
     collected = list(result.collected_ingredients or [])
 
-    missing = _find_first_missing_variable(collected, variables_requeridas, variable_opciones)
+    missing = _find_first_missing_variable(
+        collected, variables_requeridas, variable_opciones, base_defaults
+    )
     if not missing:
         return result
 
@@ -541,6 +601,60 @@ def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
     return result
 
 
+def _finalize_extracting_result(
+    result: GenResult,
+    *,
+    current_dish: str,
+    kb_data: dict,
+) -> GenResult:
+    """Reconcile LLM output with KB rules: one question, correct completion, buttons."""
+    collected = list(result.collected_ingredients or [])
+    variables_requeridas = list(kb_data.get("variables_requeridas") or [])
+    variable_opciones = kb_data.get("variable_opciones") or {}
+    base_defaults = list(kb_data.get("ingredientes_base_default") or [])
+
+    missing = _find_first_missing_variable(
+        collected, variables_requeridas, variable_opciones, base_defaults
+    )
+
+    if missing is None:
+        if result.response or not result.variables_complete:
+            logger.info(
+                "gen_extracting_force_complete_from_collected",
+                extra={"collected": collected, "dish": current_dish},
+            )
+        return GenResult(
+            response=[],
+            variables_complete=True,
+            collected_ingredients=collected,
+            buttons=[],
+        )
+
+    needs_normalize = (
+        len(result.response) != 1
+        or not result.response
+        or result.variables_complete
+    )
+    if needs_normalize:
+        det = _build_extracting_deterministic_fallback(
+            current_dish=current_dish,
+            collected_ingredients=collected,
+            kb_data=kb_data,
+        )
+        if det is not None and not det.variables_complete:
+            logger.info(
+                "gen_extracting_question_normalized",
+                extra={
+                    "dish": current_dish,
+                    "missing": missing,
+                    "llm_bubbles": len(result.response),
+                },
+            )
+            return det
+
+    return _fill_extracting_buttons(result, kb_data)
+
+
 # ── New state-machine generation functions ────────────────────────────────────
 
 def generate_extracting(
@@ -552,9 +666,12 @@ def generate_extracting(
     history: list[dict[str, str]],
     kb_data: dict,
 ) -> GenResult:
+    effective_collected = _prefill_collected_from_message(
+        message, collected_ingredients, kb_data
+    )
     system = load_prompt("extracting_system.txt")
     user_text = _build_extracting_text(
-        current_dish, companions, collected_ingredients, message, history, kb_data
+        current_dish, companions, effective_collected, message, history, kb_data
     )
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
@@ -578,9 +695,15 @@ def generate_extracting(
             logger.warning("gen_extracting_bedrock_error", extra={"error": str(e)})
             return GenResult(**_FALLBACK)
 
-        result = _fill_extracting_buttons(
-            _parse_extracting_data(data, collected_ingredients),
-            kb_data,
+        parsed = _parse_extracting_data(data, effective_collected)
+        parsed.collected_ingredients = _merge_collected_ingredients(
+            effective_collected,
+            parsed.collected_ingredients,
+        )
+        result = _finalize_extracting_result(
+            parsed,
+            current_dish=current_dish,
+            kb_data=kb_data,
         )
         if result.response or result.variables_complete:
             if attempt > 0:

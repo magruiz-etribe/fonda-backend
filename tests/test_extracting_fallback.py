@@ -11,9 +11,19 @@ from unittest.mock import patch
 import generation
 import retrieval
 
+retrieval.get_dish_data.cache_clear()
 
 _ENCHILADAS_KB = retrieval.get_dish_data("enchiladas") or {}
 _BIRRIA_KB = retrieval.get_dish_data("birria") or {}
+_HUEVOS_KB = retrieval.get_dish_data("huevos_revueltos") or {}
+
+
+class TestPrefillCollected:
+    def test_message_huevo_con_jamon_prefills_jamon(self):
+        prefilled = generation._prefill_collected_from_message(
+            "huevo con jamon", [], _HUEVOS_KB
+        )
+        assert "jamon" in prefilled
 
 
 class TestExtractingDeterministicFallback:
@@ -126,3 +136,73 @@ class TestGenerateExtractingUsesFallback:
         )
 
         assert result.buttons == ["Pollo", "Queso", "Res", "Frijoles"]
+
+    @patch("bedrock_client.converse_json")
+    def test_huevos_con_jamon_skips_redundant_questions(self, mock_converse_json):
+        mock_converse_json.return_value = {
+            "response": [
+                "¿Con qué preparas los huevos revueltos?",
+                "¿Qué más le pones a los huevos revueltos?",
+            ],
+            "variables_complete": False,
+            "collected_ingredients": ["huevo", "jamón"],
+            "buttons": [],
+        }
+
+        result = generation.generate_extracting(
+            current_dish="huevos_revueltos",
+            companions=[],
+            collected_ingredients=["huevo", "jamón"],
+            message="huevos con jamón",
+            history=[],
+            kb_data=_HUEVOS_KB,
+        )
+
+        assert result.variables_complete is True
+        assert result.response == []
+        assert result.collected_ingredients == ["huevo", "jamon"]
+
+    @patch("bedrock_client.converse_json")
+    def test_huevos_sin_acompanamiento_asks_once_with_buttons(self, mock_converse_json):
+        mock_converse_json.return_value = {
+            "response": ["¿Con qué acompañas los huevos?"],
+            "variables_complete": False,
+            "collected_ingredients": ["huevo"],
+            "buttons": [],
+        }
+
+        result = generation.generate_extracting(
+            current_dish="huevos_revueltos",
+            companions=[],
+            collected_ingredients=["huevo"],
+            message="huevos revueltos",
+            history=[],
+            kb_data=_HUEVOS_KB,
+        )
+
+        assert result.variables_complete is False
+        assert len(result.response) == 1
+        assert "acompañ" in result.response[0].lower()
+        assert "Jamón" in result.buttons
+
+    @patch("bedrock_client.converse_json")
+    def test_huevos_con_jamon_in_message_even_if_llm_misses_jamon(self, mock_converse_json):
+        mock_converse_json.return_value = {
+            "response": ["¿Con qué acompañas los huevos revueltos?"],
+            "variables_complete": False,
+            "collected_ingredients": ["huevo"],
+            "buttons": [],
+        }
+
+        result = generation.generate_extracting(
+            current_dish="huevos_revueltos",
+            companions=[],
+            collected_ingredients=[],
+            message="huevo con jamon",
+            history=[],
+            kb_data=_HUEVOS_KB,
+        )
+
+        assert result.variables_complete is True
+        assert result.response == []
+        assert "jamon" in result.collected_ingredients
