@@ -22,8 +22,9 @@ Extrae del mensaje actual cualquier dato que llene una variable requerida y agr�
 
 ## Paso 2 — Verifica si todas las variables_requeridas están cubiertas
 Revisa si cada variable en variables_requeridas ya tiene un valor en collected_ingredients (del historial + mensaje actual).
-- Si TODAS están cubiertas → `variables_complete: true`, respuesta vacía.
-- Si FALTA alguna → `variables_complete: false`, haz UNA sola pregunta amigable que pida TODAS las variables faltantes a la vez.
+- Si TODAS están cubiertas → `variables_complete: true`, `response: []` (sin pregunta).
+- Si el usuario indica que una variable NO aplica (ej: "no lleva relleno", "sin salsa", "solo así") → trátala como confirmada y avanza: `variables_complete: true`.
+- Si FALTA alguna y el usuario no respondió → `variables_complete: false`, haz UNA sola pregunta amigable. Nunca devuelvas `variables_complete: false` con `response` vacío — siempre incluye la pregunta.
 
 ## Reglas de tono
 - Coloquial y cálido, como un amigo de confianza.

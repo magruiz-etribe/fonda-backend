@@ -104,9 +104,18 @@ def _handle_traduccion(
             "detected_flags": [],
         }
     else:
+        # Once inside a dish flow, freeze companions from session — the extractor
+        # can mis-classify ingredients/toppings as companions (e.g. "queso y crema").
+        # Only the initial dish detection sets companions; the EXTRACTING LLM handles
+        # subsequent ingredient mentions.
+        preserve_companions = dish_status is not None
         effective_session = {
             "current_dish": session_current_dish or cr.current_dish,
-            "companions": cr.companions or session_state.get("companions", []),
+            "companions": (
+                session_state.get("companions", [])
+                if preserve_companions
+                else (cr.companions or session_state.get("companions", []))
+            ),
             "dish_status": dish_status,
             "collected_ingredients": list(session_state.get("collected_ingredients") or []),
             "detected_flags": list(session_state.get("detected_flags") or []),

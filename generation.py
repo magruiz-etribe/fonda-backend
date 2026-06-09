@@ -489,6 +489,11 @@ def _parse_extracting(raw: str, fallback_collected: list[str]) -> GenResult:
     if not collected:
         collected = list(fallback_collected)
 
+    # Guard: if no question was generated but variables still incomplete, fallback
+    if not response and not variables_complete:
+        logger.warning("gen_extracting_empty_question", extra={"data": str(data)[:300]})
+        return GenResult(**_FALLBACK)
+
     logger.info("gen_extracting_ok", extra={"variables_complete": variables_complete, "collected": collected})
 
     return GenResult(
