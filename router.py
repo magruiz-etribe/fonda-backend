@@ -5,7 +5,7 @@ import re
 from typing import Final
 
 import classifier as cls_module
-import flags as flags_module
+import flag_llm
 import generation as gen_module
 import retrieval
 import timing
@@ -197,9 +197,7 @@ def _transition_to_flags_or_draft(
     kb_data: dict,
 ) -> GenResult:
     with timing.stage("router.flags"):
-        all_ingredients = _build_all_ingredients(current_dish, companions, collected)
-        raw_flags = flags_module.compute_flags(all_ingredients) if all_ingredients else {}
-        raw_flags = _normalize_flags(raw_flags)
+        raw_flags = _compute_flags(current_dish, companions, collected)
 
     all_detected = _extract_detected_flag_names(raw_flags)
     clean_flags = _clean_flags(raw_flags)
@@ -247,9 +245,7 @@ def _handle_confirming_flags(
     detected_flags: list[str] = list(session_state.get("detected_flags") or [])
 
     with timing.stage("router.flags"):
-        all_ingredients = _build_all_ingredients(current_dish, companions, collected)
-        raw_flags = flags_module.compute_flags(all_ingredients) if all_ingredients else {}
-        raw_flags = _normalize_flags(raw_flags)
+        raw_flags = _compute_flags(current_dish, companions, collected)
     clean_flags = _clean_flags(raw_flags)
 
     # Let the user back out and edit instead of confirming allergens
@@ -311,9 +307,7 @@ def _handle_drafting(
     detected_flags: list[str] = list(session_state.get("detected_flags") or [])
 
     with timing.stage("router.flags"):
-        all_ingredients = _build_all_ingredients(current_dish, companions, collected)
-        raw_flags = flags_module.compute_flags(all_ingredients) if all_ingredients else {}
-        raw_flags = _normalize_flags(raw_flags)
+        raw_flags = _compute_flags(current_dish, companions, collected)
     clean_flags = _clean_flags(raw_flags)
 
     msg_stripped = message.strip()
@@ -353,6 +347,30 @@ def _handle_drafting(
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _compute_flags(
+    current_dish: str,
+    companions: list[str],
+    collected: list[str],
+) -> dict:
+    kb_map: dict[str, list[str]] = {}
+    for entity in [current_dish] + companions:
+        data = retrieval.get_dish_data(entity) or {}
+        defaults = [
+            str(i).strip()
+            for i in (data.get("ingredientes_base_default") or [])
+            if str(i).strip()
+        ]
+        if defaults:
+            kb_map[entity] = defaults
+    raw = flag_llm.compute_flags_for_dish(
+        current_dish=current_dish,
+        companions=companions,
+        collected_ingredients=collected,
+        kb_ingredients_per_dish=kb_map,
+    )
+    return _normalize_flags(raw)
+
 
 def _build_all_ingredients(
     current_dish: str,

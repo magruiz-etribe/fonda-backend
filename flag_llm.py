@@ -94,6 +94,28 @@ def _build_system_prompt() -> str:
     )
 
 
+def compute_flags_for_dish(
+    current_dish: str,
+    companions: list[str],
+    collected_ingredients: list[str],
+    kb_ingredients_per_dish: dict[str, list[str]],
+) -> dict:
+    """Convenience wrapper for the new state-machine context shape."""
+    dishes = [d for d in [current_dish] + companions if d]
+    kb_lines = [
+        f"{dish}: {', '.join(ingr)}"
+        for dish, ingr in kb_ingredients_per_dish.items()
+        if ingr
+    ]
+    return compute_flags_llm(
+        current_dishes=dishes,
+        resolved_variants={},
+        extra_user_ingredients=list(collected_ingredients),
+        conversation="",
+        kb_context="\n".join(kb_lines) or "(sin KB)",
+    )
+
+
 def compute_flags_llm(
     current_dishes: list[str],
     resolved_variants: dict[str, str],
