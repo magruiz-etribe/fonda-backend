@@ -34,10 +34,20 @@ Si no hay guarniciones separadas → `[]`.
 
 ---
 
+# Tarea 3 — custom_dish_known
+Solo aplica cuando `current_dish = "custom"` (el platillo no está en la lista canónica).
+Determina si el nombre mencionado corresponde a un platillo o comida real:
+- `true` — existe en la gastronomía mexicana u otra: "peneques", "tlayuda", "sopa azteca", "buñuelos", "tamales de rajas", "huaraches", "memelas", "quesadillas de huitlacoche".
+- `false` — el nombre no tiene contexto culinario conocido, parece inventado o incomprensible: "Rueda de carreta horneada", "platillo espacial 2000", "comida del futuro mágico".
+- Si `current_dish` NO es `"custom"` → siempre `true`.
+
+---
+
 # Salida — SOLO JSON, sin markdown, sin texto extra
 
 {
   "reasoning": "<CoT breve: qué platillo detectas y por qué companions sí/no>",
   "current_dish": "nombre_canonico_o_vacio",
-  "companions": ["guarnicion1", "guarnicion2"]
+  "companions": ["guarnicion1", "guarnicion2"],
+  "custom_dish_known": true
 }

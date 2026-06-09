@@ -137,6 +137,26 @@ def _handle_traduccion(
 
     current_status = effective_session["dish_status"]
 
+    # Custom dish (not in KB): handle before entering the normal state machine
+    if effective_dish == "custom" and current_status is None:
+        if not cr.custom_dish_known:
+            return GenResult(
+                response=["Por el momento no tengo información sobre ese platillo para adaptarlo al menú. ¿Tienes otro platillo que quieras poner? 😊"],
+                current_dishes=[],
+                buttons=[],
+                dish_status=None,
+                intent="traduccion",
+            )
+        return GenResult(
+            response=["¡Con gusto! No tengo ese platillo en mi base de conocimiento, pero si me describes cómo lo preparas — ingredientes principales, tipo de salsa, proteína, guarnición — yo te ayudo con la descripción para el menú. 😊"],
+            current_dishes=["custom"],
+            buttons=[],
+            dish_status="EXTRACTING",
+            collected_ingredients=[],
+            detected_flags=[],
+            intent="traduccion",
+        )
+
     if current_status is None or current_status == "EXTRACTING":
         return _handle_extracting(effective_session, message, history)
     if current_status == "CONFIRMING_FLAGS":
@@ -159,7 +179,9 @@ def _handle_extracting(
     kb_data = retrieval.get_dish_data(current_dish) or {}
     variables_requeridas: list[str] = kb_data.get("variables_requeridas") or []
 
-    if not variables_requeridas:
+    # Short-circuit only for KB dishes with no variables — not for custom dishes,
+    # which need the EXTRACTING LLM to pull collected_ingredients from the description.
+    if not variables_requeridas and current_dish != "custom":
         return _transition_to_flags_or_draft(
             current_dish, companions, collected, message, history, kb_data
         )

@@ -49,6 +49,10 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         logger.warning("bad_request", extra={"request_id": request_id, "error": str(e)})
         return _response(400, {"error": str(e)})
 
+    if len(message) > 250:
+        logger.warning("message_too_long", extra={"request_id": request_id, "msg_len": len(message)})
+        return _response(400, {"error": "Mensaje demasiado largo. Máximo 250 caracteres."})
+
     logger.info(
         "request_in",
         extra={
