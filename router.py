@@ -224,10 +224,14 @@ def _transition_to_flags_or_draft(
     all_detected = _extract_detected_flag_names(raw_flags)
     clean_flags = _clean_flags(raw_flags)
 
-    # Only ask CONFIRMING_FLAGS for triggers that the user has NOT already stated.
-    # If the user explicitly said "enfrijoladas con queso y crema", queso/crema are
-    # already in collected_ingredients — asking again is redundant and confusing.
+    # Only ask CONFIRMING_FLAGS for triggers that the user has NOT already stated
+    # AND that are not obvious defaults of the dish (e.g. asking "¿llevan huevo?" for
+    # huevos_revueltos is absurd — huevo is a KB default ingredient).
     user_stated = {i.replace("_", " ").lower() for i in collected}
+    for entity in [current_dish] + companions:
+        entity_data = retrieval.get_dish_data(entity) or {}
+        for ing in (entity_data.get("ingredientes_base_default") or []):
+            user_stated.add(str(ing).strip().lower().replace("_", " "))
     hidden_triggers = [
         t for t in all_detected
         if t.lower() not in user_stated and t.replace(" ", "_").lower() not in user_stated

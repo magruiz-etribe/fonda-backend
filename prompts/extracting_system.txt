@@ -22,9 +22,11 @@ Extrae del mensaje actual **TODOS** los ingredientes, proteínas, toppings, sals
 - "enchiladas de pollo con cebolla y queso" → collected_ingredients: ["pollo", "cebolla", "queso"]
 - "birria de res" → collected_ingredients: ["res"]
 - "enfrijoladas con queso y crema" → collected_ingredients: ["queso", "crema"]
+- "huevo con jamón" (platillo: huevos_revueltos) → collected_ingredients: ["huevo", "jamón"]
 - "sin relleno" o "no lleva relleno" → no agrega nada nuevo
 
 ⚠️ Si el usuario mencionó explícitamente un ingrediente, DEBE aparecer en collected_ingredients aunque no sea una variable_requerida de la plantilla.
+⚠️ Aunque una palabra coincida con el nombre del platillo (ej. "huevo" en "huevo con jamón" → huevos_revueltos), si el usuario la dijo → captúrala en collected_ingredients. No la omitas por ser parte del nombre.
 
 ## Paso 2 — Verifica si todas las variables_requeridas están cubiertas
 Revisa si cada variable en variables_requeridas ya tiene un valor en collected_ingredients (del historial + mensaje actual).
