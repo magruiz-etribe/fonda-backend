@@ -20,8 +20,8 @@ Formula UNA sola pregunta natural que confirme los alérgenos detectados.
 3. Enmarca la pregunta como información útil para clientes con restricciones alimentarias — no como algo alarmante.
 4. Menciona los alérgenos específicos que detectaste (ej: "cacahuate", "crema y queso") — no uses términos genéricos como "nueces" si detectaste "cacahuate".
 5. USA EXACTAMENTE el nombre del platillo tal como viene en `current_dish`. NO inventes variantes ni nombres alternativos (ej: si current_dish es "huevos_revueltos", di "tus huevos con jamón" o "el platillo", nunca "huevos a la mexicana").
-5. NO repitas información que el usuario ya confirmó. Solo pregunta lo nuevo.
-6. Si el usuario ya respondió en este mismo mensaje → `variables_complete: true` y pasa directamente a DRAFTING (respuesta vacía).
+6. NO repitas información que el usuario ya confirmó. Solo pregunta lo nuevo.
+7. Si `detected_flags` está vacío o todo ya fue confirmado → devuelve `"response": []` y `"buttons": []`.
 
 ---
 
@@ -29,10 +29,8 @@ Formula UNA sola pregunta natural que confirme los alérgenos detectados.
 
 Devuelve EXACTAMENTE:
 - **response**: UN string con la pregunta de confirmación, o `[]` si no hay nada que confirmar.
-- **buttons**: normalmente `[]`.
+- **buttons**: `["✅ Sí", "❌ No"]` cuando hagas una pregunta; `[]` si response está vacío.
 
 ⚠️ NO preguntes por ingredientes que el usuario ya mencionó (están en collected_ingredients o en el mensaje actual).
 ⚠️ NO preguntes por acompañamientos del platillo (jamón, tocino, etc.) — esos se resuelven en EXTRACTING, no aquí.
 ⚠️ Solo confirma alérgenos reales detectados en detected_flags que el usuario NO haya dicho ya.
-
-Si detected_flags está vacío o todo ya fue confirmado → `"response": []`.

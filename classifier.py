@@ -60,11 +60,12 @@ def classify(
     message: str,
     current_dish: str,
     history: list[dict[str, str]],
+    dish_status: str | None = None,
 ) -> ClassifierResult:
     intent, platform = _classify_intent(message, history)
 
     if intent == "traduccion":
-        return _extract_traduccion(message, current_dish, history, intent)
+        return _extract_traduccion(message, current_dish, history, intent, dish_status)
 
     return ClassifierResult(intent=intent, platform=platform)
 
@@ -133,10 +134,11 @@ def _extract_traduccion(
     current_dish: str,
     history: list[dict[str, str]],
     intent: str,
+    dish_status: str | None = None,
 ) -> ClassifierResult:
     with timing.stage("classifier.kb_load"):
         entities_index = get_entities_index()
-        user_text = _build_extractor_text(message, current_dish, history, entities_index)
+        user_text = _build_extractor_text(message, current_dish, history, entities_index, dish_status)
     system = load_prompt(_EXTRACTOR_PROMPT)
     messages = [{"role": "user", "content": [{"text": user_text}]}]
 
@@ -163,6 +165,7 @@ def _build_extractor_text(
     current_dish: str,
     history: list[dict[str, str]],
     entities_index: dict[str, str],
+    dish_status: str | None = None,
 ) -> str:
     hist_lines: list[str] = []
     for h in history[-6:]:
@@ -195,7 +198,21 @@ def _build_extractor_text(
             f"{current_dish}\n\n"
         )
 
+    # When there is an active translation flow, warn the extractor to be conservative
+    # about changing the current dish — the user may be answering a variable question
+    # even if the most recent history turn was a digression (general question answer).
+    active_flow_hint = ""
+    if current_dish and dish_status in ("EXTRACTING", "CONFIRMING_FLAGS", "EDITING"):
+        active_flow_hint = (
+            f"AVISO: el sistema está en etapa {dish_status} recopilando datos para '{current_dish}'. "
+            f"Si el mensaje parece ser una respuesta sobre ingredientes, preparación o variantes "
+            f"(ej: 'de pollo', 'con queso', 'rojo', 'sin relleno') → devuelve current_dish = \"\" "
+            f"para conservar el platillo en curso. Solo devuelve un nuevo platillo si el usuario "
+            f"claramente quiere cambiar de tema.\n\n"
+        )
+
     return (
+        f"{active_flow_hint}"
         f"{current_dish_block}"
         f"Platillos en KB (canónico: alias1, alias2, …):\n{entities_block}\n\n"
         f"Historial (cronológico, más antiguo arriba):\n{hist_block}\n\n"

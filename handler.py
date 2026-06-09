@@ -99,11 +99,15 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                     "current_dishes": [],
                 }
             else:
+                current_dish_out = result.current_dishes[0] if result.current_dishes else None
+                # Guard: if there is no active dish, dish_status must also be cleared to
+                # prevent an orphaned state where status is set but current_dish is None.
+                dish_status_out = result.dish_status if current_dish_out else None
                 new_state = {
                     "menu_del_dia": menu_del_dia,
-                    "current_dish": result.current_dishes[0] if result.current_dishes else None,
+                    "current_dish": current_dish_out,
                     "companions": list(result.current_dishes[1:]),
-                    "dish_status": result.dish_status,
+                    "dish_status": dish_status_out,
                     "collected_ingredients": list(result.collected_ingredients or []),
                     "detected_flags": list(result.detected_flags or []),
                     "current_dishes": list(result.current_dishes),

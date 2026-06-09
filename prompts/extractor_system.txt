@@ -37,9 +37,19 @@ Si no hay guarniciones separadas → `[]`.
 
 # Tarea 3 — custom_dish_known
 Solo aplica cuando `current_dish = "custom"` (el platillo no está en la lista canónica).
-Determina si el nombre mencionado corresponde a un platillo o comida real:
-- `true` — existe en la gastronomía mexicana u otra: "peneques", "tlayuda", "sopa azteca", "buñuelos", "tamales de rajas", "huaraches", "memelas", "quesadillas de huitlacoche".
-- `false` — el nombre no tiene contexto culinario conocido, parece inventado o incomprensible: "Rueda de carreta horneada", "platillo espacial 2000", "comida del futuro mágico".
+Evalúa si el **ingrediente o preparación PRINCIPAL** del nombre es un alimento real.
+
+**`false`** — cuando el sustantivo principal NO es comida reconocida:
+- "Llanta quemada en salsa verde" → "llanta" = neumático, no comida → `false`
+- "Rueda de llanta al horno" → "rueda de llanta" = parte de vehículo → `false`
+- "Sopa de zapato" → "zapato" no es comida → `false`
+- "Platillo espacial 2000", "xyzabc con salsa" → inventado/sin sentido → `false`
+
+⚠️ No te dejes engañar por ingredientes reales en el resto del nombre. "Llanta... **en salsa verde**" — "salsa verde" es real, pero "llanta" no es comida → `false`.
+
+**`true`** — el platillo tiene contexto culinario legítimo aunque no esté en el KB:
+- "Peneques", "tlayuda", "sopa azteca", "memelas", "huaraches", "chocoflan", "chiles en nogada", "tinga".
+
 - Si `current_dish` NO es `"custom"` → siempre `true`.
 
 ---
@@ -47,7 +57,7 @@ Determina si el nombre mencionado corresponde a un platillo o comida real:
 # Salida — SOLO JSON, sin markdown, sin texto extra
 
 {
-  "reasoning": "<CoT breve: qué platillo detectas y por qué companions sí/no>",
+  "reasoning": "<CoT breve: qué platillo detectas, por qué companions sí/no, y si es custom explica por qué custom_dish_known es true o false>",
   "current_dish": "nombre_canonico_o_vacio",
   "companions": ["guarnicion1", "guarnicion2"],
   "custom_dish_known": true

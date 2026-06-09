@@ -37,6 +37,10 @@ _AFFIRMATIVE_RE: re.Pattern[str] = re.compile(
 _EDIT_RE: re.Pattern[str] = re.compile(
     r"^(✏️|cambios|cambiar|editar|ajustar|modificar)", re.IGNORECASE
 )
+_NEGATION_RE: re.Pattern[str] = re.compile(
+    r"^(❌|no\b|nope\b|negativo|ninguno|para\s*nada|no\s+lleva|no\s+tiene|tampoco)",
+    re.IGNORECASE,
+)
 _SAVE_PHRASES: Final[frozenset[str]] = frozenset({
     "guardar en menu",
     "guardar en menú",
@@ -57,7 +61,9 @@ def handle(
         current_dish = session_state.get("current_dish") or ""
 
         with timing.stage("router.classify"):
-            cr = cls_module.classify(message, current_dish, history)
+            cr = cls_module.classify(
+                message, current_dish, history, session_state.get("dish_status")
+            )
 
         if cr.intent == "out_of_domain":
             return GenResult(
@@ -153,25 +159,29 @@ def _handle_traduccion(
 
     current_status = effective_session["dish_status"]
 
-    # Custom dish (not in KB): handle before entering the normal state machine
-    if effective_dish == "custom" and current_status is None:
+    # Custom dish (not in KB): gate before the normal state machine.
+    # Runs on first encounter (status=None) AND whenever the extractor explicitly
+    # signals the dish isn't real (new_dish_from_cr may be False when both old and
+    # new dish are "custom", so we check custom_dish_known regardless of status).
+    if effective_dish == "custom":
         if not cr.custom_dish_known:
             return GenResult(
-                response=["Por el momento no tengo información sobre ese platillo para adaptarlo al menú. ¿Tienes otro platillo que quieras poner? 😊"],
+                response=["No reconozco ese como un platillo real, así que no puedo ayudarte a adaptarlo al menú. Si tienes otro platillo de tu fonda — tacos, pozole, enchiladas, lo que prepares — con gusto te ayudo. 😊"],
                 current_dishes=[],
                 buttons=[],
                 dish_status=None,
                 intent="traduccion",
             )
-        return GenResult(
-            response=["¡Con gusto! No tengo ese platillo en mi base de conocimiento, pero si me describes cómo lo preparas — ingredientes principales, tipo de salsa, proteína, guarnición — yo te ayudo con la descripción para el menú. 😊"],
-            current_dishes=["custom"],
-            buttons=[],
-            dish_status="EXTRACTING",
-            collected_ingredients=[],
-            detected_flags=[],
-            intent="traduccion",
-        )
+        if current_status is None:
+            return GenResult(
+                response=["¡Con gusto! No tengo ese platillo en mi base de conocimiento, pero si me describes cómo lo preparas — ingredientes principales, tipo de salsa, proteína, guarnición — yo te ayudo con la descripción para el menú. 😊"],
+                current_dishes=["custom"],
+                buttons=[],
+                dish_status="EXTRACTING",
+                collected_ingredients=[],
+                detected_flags=[],
+                intent="traduccion",
+            )
 
     if current_status is None or current_status == "EXTRACTING":
         return _handle_extracting(effective_session, message, history)
@@ -244,6 +254,20 @@ def _transition_to_flags_or_draft(
     history: list[dict[str, str]],
     kb_data: dict,
 ) -> GenResult:
+    # Custom dishes have no KB template — require at least some ingredient data before
+    # drafting, otherwise the generated card will be generic and unusable.
+    if current_dish == "custom" and not collected:
+        return GenResult(
+            response=["Para describir tu platillo correctamente necesito saber más: "
+                      "¿qué ingredientes principales lleva y cómo se prepara?"],
+            current_dishes=["custom"],
+            buttons=[],
+            dish_status="EXTRACTING",
+            collected_ingredients=[],
+            detected_flags=[],
+            intent="traduccion",
+        )
+
     with timing.stage("router.flags"):
         raw_flags = _compute_flags(current_dish, companions, collected)
 
@@ -316,13 +340,22 @@ def _handle_confirming_flags(
             intent="traduccion",
         )
 
+    kb_data = retrieval.get_dish_data(current_dish) or {}
+
     if _is_affirmative(message) or _is_save_request(message):
-        kb_data = retrieval.get_dish_data(current_dish) or {}
         return _start_drafting(
             current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
         )
 
-    kb_data = retrieval.get_dish_data(current_dish) or {}
+    # Explicit denial: user says the detected allergens are NOT in the dish.
+    # Clear detected_flags and override allergen flags so the menu entry is correct.
+    if _NEGATION_RE.match(message.strip()):
+        denied_flags = {**clean_flags, "allergens": False, "gluten_free": True}
+        return _start_drafting(
+            current_dish, companions, collected, [], denied_flags, message, history, kb_data
+        )
+
+    # Ambiguous response — proceed to draft keeping current flags.
     return _start_drafting(
         current_dish, companions, collected, detected_flags, clean_flags, message, history, kb_data
     )
@@ -369,7 +402,9 @@ def _handle_editing(
             current_dish, companions, new_collected, message, history, kb_data
         )
 
-    result.dish_status = "EXTRACTING"
+    # Stay in EDITING (not EXTRACTING) so the next turn routes back here and
+    # does not re-ask base KB variables that were already answered before the edit.
+    result.dish_status = "EDITING"
     result.collected_ingredients = new_collected
     result.current_dishes = [current_dish] + companions
     result.intent = "traduccion"
@@ -772,8 +807,11 @@ def _build_menu_entry_from_history(
     for turn in reversed(history):
         if turn.get("role") == "agent":
             text = turn.get("text", "")
-            if text.strip().startswith("**"):
-                return _parse_bilingual_card(text, clean_flags)
+            stripped = text.strip()
+            # Require both a card start AND the 🎉 confirmation bubble so we only
+            # match complete draft turns (not stray bold lines from other stages).
+            if stripped.startswith("**") and "🎉" in stripped:
+                return _parse_bilingual_card(stripped, clean_flags)
     return None
 
 
