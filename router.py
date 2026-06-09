@@ -6,6 +6,7 @@ from typing import Final
 
 import classifier as cls_module
 import flag_llm
+import flags as rule_flags
 import generation as gen_module
 import retrieval
 import timing
@@ -389,13 +390,17 @@ def _compute_flags(
         ]
         if defaults:
             kb_map[entity] = defaults
-    raw = flag_llm.compute_flags_for_dish(
+
+    ingredients = _build_all_ingredients(current_dish, companions, collected)
+    deterministic = rule_flags.compute_flags(ingredients)
+
+    llm_raw = flag_llm.compute_flags_for_dish(
         current_dish=current_dish,
         companions=companions,
         collected_ingredients=collected,
         kb_ingredients_per_dish=kb_map,
     )
-    return _normalize_flags(raw)
+    return _normalize_flags(_merge_flags(llm_raw, deterministic))
 
 
 def _build_all_ingredients(
@@ -427,6 +432,67 @@ def _extract_detected_flag_names(flags: dict) -> list[str]:
                 seen.add(name)
                 names.append(name)
     return names
+
+
+_SPICY_ORDER: Final[dict[str, int]] = {
+    "none": 0,
+    "mild": 1,
+    "medium": 2,
+    "hot": 3,
+}
+
+
+def _merge_trigger_lists(*sources: list[str] | None) -> list[str]:
+    seen: set[str] = set()
+    merged: list[str] = []
+    for source in sources:
+        for trigger in source or []:
+            normalized = str(trigger).strip().lower().replace("_", " ")
+            if normalized and normalized not in seen:
+                seen.add(normalized)
+                merged.append(normalized)
+    return sorted(merged)
+
+
+def _merge_flags(llm: dict, rule: dict) -> dict:
+    """Union KB/rule triggers with LLM triggers so obvious allergens are never dropped."""
+    allergen_triggers = _merge_trigger_lists(
+        llm.get("allergen_triggers"),
+        rule.get("allergen_triggers"),
+    )
+    gluten_triggers = _merge_trigger_lists(
+        llm.get("gluten_triggers"),
+        rule.get("gluten_triggers"),
+    )
+    spicy_triggers = _merge_trigger_lists(
+        llm.get("spicy_triggers"),
+        rule.get("spicy_triggers"),
+    )
+
+    llm_spicy = str(llm.get("spicy_level", "none")).lower()
+    rule_spicy = str(rule.get("spicy_level", "none")).lower()
+    if llm_spicy not in _SPICY_ORDER:
+        llm_spicy = "none"
+    if rule_spicy not in _SPICY_ORDER:
+        rule_spicy = "none"
+    spicy_level = (
+        llm_spicy
+        if _SPICY_ORDER[llm_spicy] >= _SPICY_ORDER[rule_spicy]
+        else rule_spicy
+    )
+    if not spicy_triggers:
+        spicy_level = "none"
+
+    return {
+        "allergens": bool(allergen_triggers),
+        "allergen_triggers": allergen_triggers,
+        "gluten_free": not bool(gluten_triggers),
+        "gluten_triggers": gluten_triggers,
+        "vegetarian": bool(rule.get("vegetarian", True)) and bool(llm.get("vegetarian", True)),
+        "vegan": bool(rule.get("vegan", True)) and bool(llm.get("vegan", True)),
+        "spicy_level": spicy_level,
+        "spicy_triggers": spicy_triggers,
+    }
 
 
 def _normalize_flags(flags: dict) -> dict:
