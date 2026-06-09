@@ -52,8 +52,11 @@ Usa vocabulario de menú americano: smothered, topped, stuffed, drizzled, slow-c
 
 ### 7. Alérgenos
 Si detected_flags NO está vacío:
-- Al final de la descripción ES: `*(Contiene [alérgeno1/alérgeno2])*`
-- Al final de la descripción EN: `*(Contains [allergen1/allergen2])*`
+- En una NUEVA LÍNEA después de la descripción ES: `*(Contiene [alérgeno1/alérgeno2])*`
+- En una NUEVA LÍNEA después de la descripción EN: `*(Contains [allergen1/allergen2])*`
+- Separado con `\n`, nunca pegado al final de la descripción.
+- Solo lista los ingredientes específicos (ej: "cacahuate", "queso, crema"), NO categorías genéricas.
+- La descripción del platillo NO menciona alérgenos ni restricciones dietéticas — eso va SOLO en esta nota aparte.
 
 ---
 
@@ -81,7 +84,7 @@ Globo 2 — confirmación:
 # Salida — SOLO JSON válido, sin markdown wrapper, sin texto extra
 
 {
-  "response": ["**[Nombre ES]**\n[Desc ES]\n*(Contiene ...)* opcional", "---\n*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*"],
+  "response": ["**[Nombre ES]**\n[Descripción en español.]\n*(Contiene alérgeno1, alérgeno2)* ← SOLO si hay flags, en su propia línea\n\n**[Nombre EN]**\n[Description in natural English.]\n*(Contains allergen1, allergen2)* ← solo si hay flags", "---\n*¡Listo! Así quedó la descripción bien directa para sus clientes. ¿Lo guardamos así?*"],
   "buttons": ["✅ Guardar en menú", "✏️ Hacer cambios"],
   "current_dishes": ["nombre_canonico"]
 }

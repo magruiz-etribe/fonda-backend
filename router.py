@@ -198,29 +198,38 @@ def _transition_to_flags_or_draft(
         raw_flags = flags_module.compute_flags(all_ingredients) if all_ingredients else {}
         raw_flags = _normalize_flags(raw_flags)
 
-    detected_flags = _extract_detected_flag_names(raw_flags)
+    all_detected = _extract_detected_flag_names(raw_flags)
     clean_flags = _clean_flags(raw_flags)
 
-    if detected_flags:
+    # Only ask CONFIRMING_FLAGS for triggers that the user has NOT already stated.
+    # If the user explicitly said "enfrijoladas con queso y crema", queso/crema are
+    # already in collected_ingredients — asking again is redundant and confusing.
+    user_stated = {i.replace("_", " ").lower() for i in collected}
+    hidden_triggers = [
+        t for t in all_detected
+        if t.lower() not in user_stated and t.replace(" ", "_").lower() not in user_stated
+    ]
+
+    if hidden_triggers:
         with timing.stage("router.generation"):
             result = gen_module.generate_confirming_flags(
                 current_dish=current_dish,
                 companions=companions,
                 collected_ingredients=collected,
-                detected_flags=detected_flags,
+                detected_flags=hidden_triggers,
                 message=message,
                 history=history,
             )
         result.dish_status = "CONFIRMING_FLAGS"
         result.collected_ingredients = collected
-        result.detected_flags = detected_flags
+        result.detected_flags = all_detected  # store all triggers for the menu entry
         result.current_dishes = [current_dish] + companions
         result.flags = clean_flags
         result.intent = "traduccion"
         return result
 
     return _start_drafting(
-        current_dish, companions, collected, [], clean_flags, message, history, kb_data
+        current_dish, companions, collected, all_detected, clean_flags, message, history, kb_data
     )
 
 
