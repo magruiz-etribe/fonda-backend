@@ -297,6 +297,20 @@ _METADATA_LEAK_RE: re.Pattern[str] = re.compile(
 )
 
 
+def _fix_char_split(items: list[str]) -> list[str]:
+    """Collapse character-by-character arrays that the LLM occasionally produces.
+
+    When every element is ≤2 chars AND there are more than 5 elements, the LLM
+    treated the string as an iterable of characters instead of a single bubble.
+    Join them back into one string.
+    """
+    if len(items) > 5 and all(len(s) <= 2 for s in items):
+        joined = "".join(items).strip()
+        logger.warning("generation_char_split_collapsed", extra={"length": len(items), "preview": joined[:60]})
+        return [joined] if joined else []
+    return items
+
+
 def _parse_data(data: dict) -> GenResult:
     if not isinstance(data, dict):
         return GenResult(**_FALLBACK)
@@ -304,7 +318,7 @@ def _parse_data(data: dict) -> GenResult:
     raw_response = data.get("response") or []
     response: list[str] = []
     if isinstance(raw_response, list):
-        for r in raw_response:
+        for r in _fix_char_split(raw_response):
             if isinstance(r, str) and r.strip():
                 bubble = r.strip()
                 if _METADATA_LEAK_RE.match(bubble):
@@ -826,7 +840,9 @@ def _parse_extracting_data(raw: dict | str, fallback_collected: list[str]) -> Ge
         return GenResult(**_FALLBACK)
 
     raw_response = data.get("response") or []
-    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not isinstance(raw_response, list):
+        raw_response = []
+    response = [r.strip() for r in _fix_char_split(raw_response) if isinstance(r, str) and r.strip()]
 
     variables_complete = bool(data.get("variables_complete", False))
 
@@ -921,7 +937,9 @@ def _parse_confirming_flags_data(data: dict) -> GenResult:
         return GenResult(**_FALLBACK)
 
     raw_response = data.get("response") or []
-    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not isinstance(raw_response, list):
+        raw_response = []
+    response = [r.strip() for r in _fix_char_split(raw_response) if isinstance(r, str) and r.strip()]
     # Empty response is valid: LLM signals nothing to confirm; caller will skip to drafting.
 
     raw_buttons = data.get("buttons") or []
@@ -1063,7 +1081,9 @@ def _try_parse_drafting_data(
         return None
 
     raw_response = data.get("response") or []
-    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not isinstance(raw_response, list):
+        raw_response = []
+    response = [r.strip() for r in _fix_char_split(raw_response) if isinstance(r, str) and r.strip()]
     if not response:
         return None
 
