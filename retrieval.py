@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import unicodedata
 from functools import lru_cache
 from typing import Final, Literal
@@ -100,7 +101,47 @@ def _extract_topic_section(raw: str, intent: str) -> str:
     m = re.search(r"^## " + re.escape(intent) + r"\s*$", raw, re.MULTILINE)
     if not m:
         return ""
-    return _read_text(f"{topic}.txt")
+    start = m.end()
+    next_m = re.search(r"^## ", raw[start:], re.MULTILINE)
+    if next_m:
+        return raw[start : start + next_m.start()].strip()
+    return raw[start:].strip()
+
+
+def _parse_topic_links(links_section: str, platform: str | None = None) -> list[dict]:
+    if not links_section:
+        return []
+    platform_headers = re.findall(r"^#### (\w+)\s*$", links_section, re.MULTILINE)
+    if not platform_headers:
+        return _parse_json_links(links_section)
+    subsections = re.split(r"^#### \w+\s*$", links_section, flags=re.MULTILINE)
+    if platform:
+        for header, content in zip(platform_headers, subsections[1:]):
+            if header.lower() == platform.lower():
+                return _parse_json_links(content)
+        return []
+    all_links: list[dict] = []
+    seen_urls: set[str] = set()
+    for content in subsections[1:]:
+        for link in _parse_json_links(content):
+            url = link.get("url", "")
+            if url not in seen_urls:
+                seen_urls.add(url)
+                all_links.append(link)
+    return all_links
+
+
+def _parse_json_links(text: str) -> list[dict]:
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("["):
+            try:
+                data = json.loads(stripped)
+                if isinstance(data, list):
+                    return [item for item in data if isinstance(item, dict)]
+            except (json.JSONDecodeError, ValueError):
+                pass
+    return []
 
 
 @lru_cache(maxsize=1)
