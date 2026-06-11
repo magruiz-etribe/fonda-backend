@@ -1,0 +1,20 @@
+canonical_name: alambre
+common_names:
+  - alambre de res
+  - alambre de pollo
+  - alambre mixto
+  - alambre hawaiano
+category: plato_fuerte
+base_description: " Carne de [tipo_de_proteina] salteada con vegetales y queso"
+variables_requeridas:
+ - tipo_de_proteina
+variable_opciones:
+  tipo_de_proteina:
+    - res
+    - pollo
+ingredientes_base_default:
+  - Carne
+  - cebolla
+  - pimiento
+  - queso
+

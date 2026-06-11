@@ -3,9 +3,10 @@ common_names:
   - milanesa
   - milanesa de res
   - milanesa de pollo
-  - filete empanizado
   - milanesa empanizada
   - carne empanizada
+  - milanesa napolitana
+  - torta de milanesa
 category: plato_fuerte
 base_description: "Filete de [tipo_de_carne] empanizado y frito."
 variables_requeridas:
@@ -19,3 +20,4 @@ ingredientes_base_default:
   - huevo
   - harina
   - aceite
+  - leche

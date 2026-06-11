@@ -1,0 +1,22 @@
+canonical_name: champiñones
+common_names:
+  - champiñones al ajillo
+  - champiñones a la mexicana
+  - champiñones con epazote
+  - champiñones con queso
+  - champiñones con chile
+category: plato_fuerte, guarnición
+base_description: "Champiñones guisados/salteados con [complemento]."
+variables_requeridas:
+  - complemento
+variable_opciones:
+  complemento:
+    - ajo
+    - chile
+    - queso
+    - epazote
+    - jitomate
+ingredientes_base_default:
+  - Champiñones
+  - cebolla
+  - sal

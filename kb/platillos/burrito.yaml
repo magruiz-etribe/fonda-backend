@@ -1,0 +1,26 @@
+canonical_name: burrito
+common_names:
+  - burrito
+  - burritos
+  - burrito de res
+  - burrito de pollo
+  - burrito de chorizo
+  - burrito vegetariano
+  - burrito de carne molida
+  - burrito de chilorio
+category: antojito
+base_description: "TTortilla de harina enrollada con [relleno]"
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - carne de res
+   - pollo
+   - chorizo
+   - verduras
+   - carne molida
+   - chilorio
+ingredientes_base_default:
+  - Tortilla de harina
+  - carne
+  - frijoles.

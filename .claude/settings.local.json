@@ -28,7 +28,8 @@
       "Bash(python -m py_compile router.py classifier.py)",
       "Bash(python -m py_compile classifier.py router.py)",
       "Bash(python -m py_compile classifier.py router.py generation.py)",
-      "Bash(python -m py_compile retrieval.py classifier.py router.py generation.py handler.py)"
+      "Bash(python -m py_compile retrieval.py classifier.py router.py generation.py handler.py)",
+      "Bash(python scripts/update_entities_index.py)"
     ]
   }
 }

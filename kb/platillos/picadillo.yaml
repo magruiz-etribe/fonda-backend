@@ -5,6 +5,9 @@ common_names:
   - picadillo mexicano
   - carne molida guisada
   - carne molida con papa
+  - picadillo con aceitunas
+  - picadillo con pasas
+  - picadillo con chipotle
 category: plato_fuerte
 base_description: "Carne de res molida guisada con papa, zanahoria y jitomate."
 variables_requeridas: []
@@ -15,3 +18,4 @@ ingredientes_base_default:
   - jitomate
   - cebolla
   - ajo
+

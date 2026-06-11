@@ -1,0 +1,14 @@
+canonical_name: macarrones
+common_names:
+  - macarrones con queso
+  - macarrones con crema
+  - macarrones con jamón
+category: sopa
+base_description: "Pasta cortada preparada con salsa o crema"
+variables_requeridas: []
+ingredientes_base_default:
+  - Pasta
+  - crema
+  - queso
+  - jamón
+  

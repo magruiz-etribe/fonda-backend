@@ -1,0 +1,13 @@
+canonical_name: calabacitas_guisadas
+common_names:
+  - calabacitas a la mexicana
+  - calabacitas con queso
+  - calabacitas con elote
+  - calabacitas rellenas con carne molida
+category: plato_fuerte
+base_description: "Calabaza cocinada con verduras o carne"
+variables_requeridas: []
+ingredientes_base_default:
+  - Calabaza
+  - jitomate
+  - cebolla

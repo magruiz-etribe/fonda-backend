@@ -9,7 +9,7 @@ common_names:
   - arroz de la fonda
   - arroz guisado
   - arroz a la mexicana
-category: guarnicion
+category: guarnicion, sopa
 base_description: "Arroz [tipo_de_arroz]."
 variables_requeridas:
   - tipo_de_arroz

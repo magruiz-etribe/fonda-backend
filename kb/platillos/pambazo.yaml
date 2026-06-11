@@ -1,0 +1,22 @@
+canonical_name: pambazo
+common_names:
+  - pambazo
+  - pambazos
+  - pambazo de tinga de pollo
+  - pambazo de papa con chorizo
+  - pambazo tradicional
+  - pambazo de pollo
+category: antojito
+base_description: "Pan bañado en salsa de chile guajillo y relleno de [topping]"
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+  - pollo
+  - tinga de pollo
+  - papa con chorizo
+ingredientes_base_default:
+  - Pan
+  - papa
+  - chorizo
+  - chile guajillo

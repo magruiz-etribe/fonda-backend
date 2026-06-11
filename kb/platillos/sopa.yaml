@@ -1,0 +1,15 @@
+canonical_name: sopas_vegetarianas
+common_names:
+  - sopa de lenteja
+  - sopa de haba
+  - sopa de verduras
+  - sopa de garbanzo
+category: sopa
+base_description: "sopa preparada a base de agua con verduras o leguminosas cocidas"
+variables_requeridas: []
+ingredientes_base_default:
+  - agua
+  - ajo
+  - cebolla
+  - verduras 
+  - leguminosas

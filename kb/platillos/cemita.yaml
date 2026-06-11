@@ -1,0 +1,22 @@
+canonical_name: cemita
+common_names:
+  - cemita
+  - cemitas
+  - cemita poblana
+category: antojito
+base_description: "Sándwich poblano servido en pan de cemita relleno de [topping]."
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+  - Milanesa de res o de cerdo
+  - Carne enchilada
+  - Pata de res en vinagre
+  - Carnitas
+  - Quesillo o queso fresco.
+  - Jamón 
+  - Pollo deshebrado.
+ingredientes_base_default:
+  - Pan cemita
+  - quesillo
+  - carne.

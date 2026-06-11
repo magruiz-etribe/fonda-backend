@@ -5,7 +5,7 @@ common_names:
   - enfrijoladas de pollo
   - enchiladas de frijol
   - tacos de frijol
-category: antojito
+category: plato_fuerte
 base_description: "Tortillas de maíz dobladas, bañadas en salsa de frijol negro, con [relleno]."
 variables_requeridas:
   - relleno

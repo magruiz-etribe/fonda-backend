@@ -7,7 +7,7 @@ common_names:
   - birria jalisciense
   - tacos de birria
   - quesabirria
-category: caldo
+category: plato_fuerte, caldo
 base_description: "Estofado de [tipo_de_carne] en adobo de chiles secos y especias."
 variables_requeridas:
   - tipo_de_carne

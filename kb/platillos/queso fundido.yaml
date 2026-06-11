@@ -1,0 +1,22 @@
+canonical_name: queso_fundido
+common_names:
+  - queso fundido
+  - queso fundido con chorizo
+  - queso fundido con champiñones
+  - queso fundido con camarones
+  - queso fundido con carne
+  - queso fundido con pollo
+category: antojito
+base_description: "Queso derretido servido con [topping] para acompañar con tortillas de harina o maiz"
+variables_requeridas:
+  - topping
+variable_opciones:
+  toping:
+   - chorizo
+   - champiñones
+   - camarones
+   - carne
+   - pollo
+ingredientes_base_default:
+  - Queso Oaxaca 
+  - queso manchego

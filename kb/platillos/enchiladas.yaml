@@ -7,7 +7,7 @@ common_names:
   - enchiladas suizas
   - enchiladas con crema
   - enchiladas potosinas
-category: antojito
+category: plato_fuerte
 base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en salsa [tipo_de_salsa], cubierta con crema y queso."
 variables_requeridas:
   - relleno

@@ -1,0 +1,11 @@
+canonical_name: papas_con_chorizo
+common_names:
+  - papas con chorizo
+category: plato_fuerte
+base_description: " Papas salteadas con chorizo"
+variables_requeridas: []
+ingredientes_base_default:
+  - papas
+  - chorizo
+  - cebolla
+  - aceite

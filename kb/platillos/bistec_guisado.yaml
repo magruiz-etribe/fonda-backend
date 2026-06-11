@@ -1,0 +1,16 @@
+canonical_name: bistec_guisado
+common_names:
+  - bistec a la mexicana
+  - bistec ranchero
+  - bistec encebollado
+  - bistec con nopales
+  - bistec con salsa
+category: plato_fuerte
+base_description: "Bistec preparado con diferentes salsas y acompañamientos."
+variables_requeridas: []
+ingredientes_base_default:
+  - bistec de res
+  - aceite
+  - jitomate
+  - cebolla
+  - chile

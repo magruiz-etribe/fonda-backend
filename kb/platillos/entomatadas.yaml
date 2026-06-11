@@ -5,7 +5,7 @@ common_names:
   - entomatadas de pollo
   - enchiladas de tomate
   - tacos de tomate
-category: antojito
+category: plato_fuerte
 base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en salsa de jitomate."
 variables_requeridas:
   - relleno

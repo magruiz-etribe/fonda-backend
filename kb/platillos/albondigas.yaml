@@ -1,0 +1,25 @@
+canonical_name: albondigas
+common_names:
+  - de res
+  - de pollo
+  - mixtas
+category: plato_fuerte
+base_description: "Bolas de carne cocidas en caldo o salsa."
+variables_requeridas:
+ - salsa
+ - relleno
+variable_opciones:
+  salsa:
+    - caldillo
+    - chipotle
+    - poblano
+  relleno:
+    - huevo
+    - queso
+ingredientes_base_default:
+  - Carne molida
+  - arroz
+  - huevo
+  - jitomate
+  - pan molido
+

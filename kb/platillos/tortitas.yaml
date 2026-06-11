@@ -1,0 +1,33 @@
+canonical_name: tortitas
+common_names:
+  - Tortitas de huauzontle
+  - Tortitas de papa
+  - Tortitas de atún
+  - Tortitas de camarón
+  - tortitas de carne
+  - tortitas de pollo
+category: plato_fuerte
+base_description: "Preparaciones fritas hechas con [topping] mezclados con huevo, cubiertas de salsa [tipo_de_salsa]."
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+   - queso
+   - carne de res
+   - pollo
+   - huauzontle
+   - papa
+   - atún
+   - camarón
+  tipo_de_salsa:
+  - verde
+  - roja
+  - jitomate
+  - guajillo
+ingredientes_base_default:
+  - Huevo
+  - Cebolla 
+  - Ajo
+  - Aceite 
+  - harina de trigo
+  

@@ -1,0 +1,16 @@
+canonical_name: ejotes_a_la_mexicana
+common_names:
+  - ejotes
+  - ejotes a la mexicana
+category: plato_fuerte, guarnición
+base_description: " Ejotes cocinados con jitomate y cebolla, pueden acompañarse de [complemento]."
+variables_requeridas: 
+- complemento
+variable_opciones:
+  complemento:
+    - huevo
+    - queso
+ingredientes_base_default:
+  - Ejotes
+  - jitomate
+  - cebolla.

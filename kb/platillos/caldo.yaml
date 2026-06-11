@@ -9,6 +9,7 @@ common_names:
   - caldo de gallina
   - caldo de costilla
   - cocido
+  - consomé
 category: caldo
 base_description: "Caldo [tipo_de_caldo] con verduras de temporada."
 variables_requeridas:

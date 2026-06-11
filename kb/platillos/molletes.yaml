@@ -5,6 +5,9 @@ common_names:
   - molletes con frijoles
   - pan con frijoles y queso
   - mollete de frijol
+  - molletes con jamóm
+  - molletes con chorizo
+  - molletes con tocino
 category: desayuno
 base_description: "Pan bolillo tostado con frijoles refritos y queso fundido."
 variables_requeridas: []

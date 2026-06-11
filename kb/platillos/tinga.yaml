@@ -1,0 +1,21 @@
+canonical_name: tinga
+common_names:
+  - tostadas
+  - tacos
+  - tortas
+  - sopes
+category: plato_fuerte
+base_description: "Guiso preparado con carne de [tipo_de_carne] deshebrada cocinada en salsa de jitomate y chipotle."
+variables_requeridas:
+  - tipo_de_carne
+variable_opciones:
+  tipo_de_carne:
+    - pollo 
+    - res
+    - cerdo
+ingredientes_base_default:
+  - Carne
+  - jitomate
+  - cebolla
+  - chipotle.
+
