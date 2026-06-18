@@ -1,0 +1,13 @@
+canonical_name: ropa vieja
+common_names:
+  - ropa vieja
+  - trapos viejos
+  - carne con verduras
+category: plato_fuerte
+base_description: "Carne deshebrada cocinada con verduras."
+variables_requeridas: []
+ingredientes_base_default:
+  - Res
+  - jitomate
+  - cebolla
+  - papas

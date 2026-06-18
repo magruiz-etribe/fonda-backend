@@ -1,0 +1,11 @@
+canonical_name: estofado
+common_names:
+  - estofado de res
+  - estofado de pollo
+category: plato_fuerte
+base_description: "Carne cocinada en salsa espesa con verduras"
+variables_requeridas: []
+ingredientes_base_default:
+  - carne
+  - papa
+  - zanahoria

@@ -1,0 +1,19 @@
+canonical_name: guisado_con_papas
+common_names:
+  - guisado de res con papas 
+  - guisado de cerdo con papas
+category: plato_fuerte
+base_description: " Carne de [proteina] cocida con papas en salsa [tipo_de_salsa]"
+variables_requeridas:
+- proteina
+variable_opciones:
+  proteina:
+   - res
+   - cerdo
+  tipo_de_salsa:
+   - verde
+   - roja
+ingredientes_base_default:
+  - carne
+  - papa
+  - jitomate

@@ -1,0 +1,23 @@
+canonical_name: gringas
+common_names:
+  - gringas
+  - gringa
+  - gringa de pastor
+  - gringa de bistec
+  - gringa de pollo
+  - gringa de costilla
+  - sincronizadas
+category: plato_fuerte
+base_description: "Tortillas de harina rellenas de [proteina] y queso"
+variables_requeridas: 
+- proteina
+variable_opciones:
+  proteina:
+    - bistec
+    - pollo
+    - pastor
+    - costilla
+ingredientes_base_default:
+  - queso
+  - tortilla de harina
+  - carne

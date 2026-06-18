@@ -1,0 +1,12 @@
+canonical_name: pollo_asado
+common_names:
+  - pollo asado
+  - pollo a las brasas
+  - pollo adobado
+category: plato_fuerte
+base_description: " Pollo cocinado al horno o a las brasas"
+variables_requeridas: []
+ingredientes_base_default:
+  - Pollo
+  - especias
+

@@ -499,6 +499,8 @@ def _invoke(
             )
             return text
         except _RETRYABLE as e:
+            if isinstance(e, ClientError) and e.response["Error"]["Code"] == "ValidationException":
+                raise BedrockError(f"bedrock validation error (not retryable): {e}") from e
             last = e
             logger.warning(
                 "bedrock_converse_retryable_error",

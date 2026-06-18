@@ -1,0 +1,31 @@
+canonical_name: ensalada
+common_names:
+  - ensalada
+  - ensaladas
+  - ensalada de pollo
+  - ensalada rusa
+  - ensalada de coditos
+  - sensalada de atún
+  - ensalada de nopales
+  - ensalada césar
+  - ensalada verde
+category: guarnición, plato_fuerte
+base_description: " Mezcla fresca de vegetales, usualmente acompañado de [topping]"
+variables_requeridas:
+  - topping
+variable_opciones:
+  guiso:
+   - pollo
+   - jamón
+   - atún
+   - pasta
+   - aguacate
+   - manzana
+   - camarón
+   
+ingredientes_base_default:
+  - masa de maíz
+  - lechuga
+  - crema
+  - queso
+  - salsa

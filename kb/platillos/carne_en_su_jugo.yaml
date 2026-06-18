@@ -1,0 +1,12 @@
+canonical_name: carne_en_su_jugo
+common_names:
+  - carne en su jugo
+  - jugo de carne
+category: plato_fuerte
+base_description: "Carne de res cocinada en caldo concentrado."
+variables_requeridas: []
+ingredientes_base_default:
+  - Res
+  - tocino
+  - frijoles
+

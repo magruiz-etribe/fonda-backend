@@ -1,0 +1,10 @@
+canonical_name: barbacoa
+common_names:
+  - barbacoa
+  - consomé de barbacoa
+category: caldo, antojito, plato_fuerte
+base_description: "Carne de borrego o res cocida al vapor o en horno."
+variables_requeridas: []
+ingredientes_base_default:
+  - Borrego o res
+  - especias.

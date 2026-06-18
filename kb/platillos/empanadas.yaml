@@ -1,0 +1,36 @@
+canonical_name: empanadas
+common_names:
+  - empanadas
+  - empanada
+  - empanada de queso
+  - empanada de atún
+  - empanada de flor de calabaza
+  - empanada de hongos
+  - empanada de chorizo
+  - empanada de rajas
+  - empanada de Tinga
+  - empanada de pollo
+  - empanada de carne
+  - molotes
+category: antojito
+base_description: "Tortilla de maíz doblada rellena de [relleno], cocinada en comal."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+   - Queso Oaxaca 
+   - queso Chihuahua 
+   - Hongos salteados
+   - Flor de calabaza 
+   - Rajas con crema
+   - Chicharrón prensado
+   - Papa con chorizo
+   - Tinga de pollo
+   - Pollo deshebrado
+   - Picadillo
+   - Huitlacoche
+   - Nopales
+   - flor de calabaza
+ingredientes_base_default:
+  - tortilla de maíz
+  - queso

@@ -1,0 +1,23 @@
+canonical_name: pescados_y_mariscos
+common_names:
+  - filete de pescado frito
+  - filete de pescado empanizado
+  - filete de pescado en salsa
+  - mojarra frita
+  - pescado a la veracruzana
+  - ceviche de pescado
+  - atún a la mexicana
+  - croquetas de atún
+  - pescado al mojo de ajo
+category: plato_fuerte
+base_description: "pescado frito o guisado"
+variables_requeridas: []
+ingredientes_base_default:
+  - pescado
+  - especias
+  - aceite
+  - limón
+  - jitomate
+  - cebolla
+  - chile
+
