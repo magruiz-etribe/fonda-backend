@@ -238,6 +238,14 @@ def _handle_traduccion(
             intent="traduccion",
         )
 
+    # Guard: if the LLM skipped rule 4 and returned a name not in KB, force custom.
+    if effective_dish != "custom" and retrieval.get_dish_data(effective_dish) is None:
+        logger.warning(
+            "dish_not_in_kb",
+            extra={"effective_dish": effective_dish},
+        )
+        effective_dish = "custom"
+
     current_status = effective_session["dish_status"]
 
     # Dish not in KB → stop here, offer alternatives.
