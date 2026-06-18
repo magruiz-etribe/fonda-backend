@@ -1,0 +1,27 @@
+canonical_name: cerdo_en_salsa
+common_names:
+  - cerdo en salsa verde
+  - cerdo en salsa roja
+  - cerdo con nopales
+  - cerdo con papas
+category: plato_fuerte
+base_description: "Carne de cerdo cocinada en salsa [tipo_de_salsa] acompañada de [verdura]"
+variables_requeridas:
+  - tipo_de_salsa
+  - verdura
+variable_opciones:
+  tipo_de_salsa:
+    -verde
+    -roja
+  verdura:
+   - nopales
+   - papas
+   - zanahoria
+ingredientes_base_default:
+  - chile poblano
+  - huevo
+  - harina
+  - jitomate
+  - cebolla
+  - ajo
+  - aceite

@@ -1,0 +1,19 @@
+ccanonical_name: pechuga_rellena
+common_names:
+  - pechuga rellena
+  - pechuga gordon bleu
+  - pechuga rellena de espinaca
+  - pechuga rellena de queso
+  - pechuga rellena de jamón
+category: plato_fuerte
+base_description: "Pechuga de pollo rellena de [relleno]."
+variables_requeridas:
+  - relleno
+variable_opciones:
+  relleno:
+    - espinacas
+    - queso
+    - Jamón
+ingredientes_base_default:
+  - Pechuga de pollo
+  - relleno (queso, jamón, espinacas)

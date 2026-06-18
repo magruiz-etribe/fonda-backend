@@ -1,0 +1,18 @@
+canonical_name: huevos_al_gusto
+common_names:
+  - huevos a la mexicana
+  - huevos rancheros
+  - huevos divorciados (salsa verde y roja)
+  - machaca con huevos
+  - huevos al albañil
+  - huevos motuleños
+  - huevos en salsa verde
+  - huevos en salsa roja
+  - omelette
+category: desayuno
+base_description: "Platillos a base de huevo preparados de distintas maneras"
+variables_requeridas: []
+ingredientes_base_default:
+  - huevo
+  - aceite
+  - sal

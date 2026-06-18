@@ -1,0 +1,20 @@
+canonical_name: aguacate_relleno
+common_names:
+  - aguacate relleno
+  - aguacate relleno de ensalada
+  - aguacate relleno de atún
+  - aguacate relleno de pollo
+  - aguacate relleno de camarones
+category: entrada, guarnición, plato _fuerte
+base_description: "Mitades de aguacate rellenas de [toping] "
+variables_requeridas: 
+  - topping
+variable_opciones:
+  toping:
+   - ensalada
+   - atún
+   - pollo
+   - camarones
+ingredientes_base_default:
+  - aguacate
+

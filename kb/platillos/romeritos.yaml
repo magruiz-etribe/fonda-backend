@@ -1,0 +1,16 @@
+canonical_name: romeritos
+common_names:
+  - romeritos
+  - romeritos con camarón
+category: plato_fuerte
+base_description: "Platillo tradicional preparado con mole y romeritos, puede incluir [proteina]"
+variables_requeridas:
+  - proteina
+variable_opciones:
+  proteina:
+   - camarones
+   - tortitas de camarón
+ingredientes_base_default:
+  - Romeritos
+  - mole
+  - camarón seco

@@ -1,0 +1,14 @@
+canonical_name: nopales_guisados
+common_names:
+  - nopales en salsa roja
+  - nopales en salsa verde
+  - nopales con queso
+category: Plato_fuerte, guarnicion
+base_description: "Nopales preparados en diferentes salsas"
+variables_requeridas: []
+ingredientes_base_default:
+  - nopal
+  - sal
+  - chile
+  - ajo
+  - cebolla

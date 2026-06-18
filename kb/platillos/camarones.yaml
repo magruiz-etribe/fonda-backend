@@ -1,0 +1,19 @@
+canonical_name: camarones
+common_names:
+  - camarones al mojo de ajo
+  - camarones a la diabla
+  - coctel de camarón
+  - ceviche de camarón
+  - aguachile
+category: plato_fuerte
+base_description: "Mariscos preparados
+variables_requeridas: []
+ingredientes_base_default:
+  - camarón
+  - limón
+  - cebolla
+  - ajo
+  - cilantro
+  - cebolla
+  - perejil
+  

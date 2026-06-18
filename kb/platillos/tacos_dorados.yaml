@@ -1,4 +1,4 @@
-canonical_name: tacos
+canonical_name: tacos_dorados
 common_names:
   - tacos
   - taco
@@ -16,27 +16,17 @@ common_names:
   - tacos de suadero
   - tacos de tripa
 category: antojito
-base_description: "Tortilla de maíz doblada rellena de [tipo_de_guiso]."
+base_description: "Tortilla de maíz rellenos y fritos de [relleno]."
 variables_requeridas:
-  - tipo_de_guiso
+  - relleno
 variable_opciones:
   tipo de guiso:
-   - Carne asada
-   - Pollo deshebrado
-   - Carnitas
-   - Chicharrón prensado
-   - Chorizo
-   - Pastor
-   - Barbacoa
-   - Birria 
-   - Lengua
-   - Picadillo
-   - Nopales
-   - Rajas con crema
-   - Pescado empanizado 
-   - chicharron prensado
-   - longaniza
+   - pollo
+   - papa
+   - carne deshabrada
+   - requesón
+   - barbacoa
+   - carne molida
 ingredientes_base_default:
   - tortilla de maíz
-  - cebolla
-  - cilantro
+  - relleno

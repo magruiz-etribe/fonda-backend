@@ -4,7 +4,7 @@ common_names:
   - enmoladas de pollo
   - enmoladas de queso
   - enchiladas de mole
-category: antojito
+category: plato_fuerte
 base_description: "Tortilla de maíz doblada rellena de [relleno], bañada en mole."
 variables_requeridas:
   - relleno

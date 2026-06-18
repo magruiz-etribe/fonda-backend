@@ -1,0 +1,16 @@
+canonical_name: verdolagas
+common_names:
+  - verdolagas
+  - verdolagas con cerdo
+  - verdolagas con pollo
+category: plato_fuerte
+base_description: "Verdolagas cocidas en salsa tradicional con [proteina]."
+variables_requeridas:
+  - proteina
+variable_opciones:
+  proteina:
+   - cerdo
+   - pollo
+ingredientes_base_default:
+  - Verdolagas
+  - chile verde

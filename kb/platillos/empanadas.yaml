@@ -1,16 +1,19 @@
-canonical_name: quesadillas
+canonical_name: empanadas
 common_names:
-  - quesadillas
-  - quesadilla
-  - quesadillas de queso
-  - quesadillas de huitlacoche
-  - quesadillas de flor de calabaza
-  - quesadillas de hongos
-  - quesadillas de chorizo
-  - quesadillas de rajas
-  - quesadillas fritas
+  - empanadas
+  - empanada
+  - empanada de queso
+  - empanada de atún
+  - empanada de flor de calabaza
+  - empanada de hongos
+  - empanada de chorizo
+  - empanada de rajas
+  - empanada de Tinga
+  - empanada de pollo
+  - empanada de carne
+  - molotes
 category: antojito
-base_description: "Tortilla de maíz doblada con queso fundido y [relleno], cocinada en comal."
+base_description: "Tortilla de maíz doblada rellena de [relleno], cocinada en comal."
 variables_requeridas:
   - relleno
 variable_opciones:

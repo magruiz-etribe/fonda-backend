@@ -8,6 +8,7 @@ common_names:
   - frijoles fritos
   - frijoles de la olla
   - frijoles machucados
+  - frijoles bayos
 category: guarnicion
 base_description: "Frijoles [tipo_de_frijoles]."
 variables_requeridas:

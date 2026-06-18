@@ -18,6 +18,7 @@ variable_opciones:
     - pollo
     - guajolote
     - res
+    - cerdo
 ingredientes_base_default:
   - chiles secos
   - chocolate

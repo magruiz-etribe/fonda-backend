@@ -1,0 +1,18 @@
+canonical_name: huaraches
+common_names:
+  - huaraches
+  - huarache
+category: antojito
+base_description: "Base alargada de masa con frijoles y guisados."
+variables_requeridas:
+  - guisado
+variable_opciones:
+  guisado:
+   - Bistec
+   - cecina
+   - chorizo
+   - nopales
+   - pollo
+ingredientes_base_default:
+  - masa de maíz
+  - frijoles

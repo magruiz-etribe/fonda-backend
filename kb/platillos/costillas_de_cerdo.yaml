@@ -1,0 +1,21 @@
+canonical_name: costillas_de_cerdo
+common_names:
+  - costillas de cerdo en salsa verde
+  - costillas de cerdo en salsa roja
+  - costillas de cerdo con nopales
+  - costillas de cerdo con papas
+category: plato_fuerte
+base_description: "Costillas cocinadas en salsa [tipo_de_salsa] acompañadas de [verdura]"
+variables_requeridas:
+  - tipo_de_salsa
+  - verdura
+variable_opciones:
+  tipo_de_salsa:
+    -verde
+    -roja
+  verdura:
+   - nopales
+   - papas
+ingredientes_base_default:
+  - Costillas de cerdo
+  - salsa.

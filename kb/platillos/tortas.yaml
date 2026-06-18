@@ -1,0 +1,31 @@
+canonical_name: torta
+common_names:
+  - torta
+  - tortas
+  - torta de milanesa
+  - torta de jamón
+  - torta de pierna
+  - torta de pollo
+  - torta de huevo
+  - torta de chorizo
+  - torta cubana
+  - torta de salchicha
+  - torta de queso
+category: antojito
+base_description: "Pan relleno con [topping]."
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+   - milanesa
+   - jamón
+   - pierna
+   - pollo
+   - huevo
+   - chorizo
+   - salchicha
+   - queso
+ingredientes_base_default:
+  - Bolillo o telera
+  - proteína
+  - verduras.

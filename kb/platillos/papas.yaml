@@ -1,0 +1,12 @@
+canonical_name: papas
+common_names:
+  - papas a la francesa
+  - papas con rajas
+  - puré de papa
+  - ensalada de papas
+category: guarnición
+base_description: "papas cocidas o fritas como guarnición"
+variables_requeridas: []
+ingredientes_base_default:
+  - papas
+  - sal

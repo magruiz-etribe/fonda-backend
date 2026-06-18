@@ -9,14 +9,21 @@ common_names:
   - chilaquiles con huevo
   - chilaquiles con crema
 category: desayuno
-base_description: "Totopos de maíz bañados en salsa [tipo_de_salsa], cubiertos con crema y queso."
+base_description: "Totopos de maíz bañados en salsa [tipo_de_salsa], acompañados con crema, queso, cebolla y alguna proteína opcional"
 variables_requeridas:
   - tipo_de_salsa
+  - tipo_de_proteina
 variable_opciones:
   tipo_de_salsa:
     - verde
     - roja
     - divorciados
+  tipo_de_proteina:
+    - pollo
+    - huevo
+    - bistec
+    - cecina
+    - salchicha
 ingredientes_base_default:
   - tortilla de maíz
   - aceite

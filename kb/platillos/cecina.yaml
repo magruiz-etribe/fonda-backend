@@ -1,0 +1,9 @@
+canonical_name: cecina
+common_names:
+  - cecina natural
+  - cecina enchilada
+category: plato_fuerte
+base_description: "Carne salada y secada parcialmente que se cocina a la plancha."
+variables_requeridas: []
+ingredientes_base_default:
+  - Cecina de res.

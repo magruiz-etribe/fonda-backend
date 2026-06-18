@@ -1,0 +1,20 @@
+canonical_name: garnachas
+common_names:
+  - Garnachas
+  - Garnachas veracruzanas
+  - Picaditas
+category: antojito
+base_description: "Antojitos mexicanos de masa frita con [topping]."
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+   - Frijoles refritos
+   - Carne deshebrada
+   - pollo
+   - chorizo
+   - picadillo
+ingredientes_base_default:
+  - masa de maíz
+  - salsa
+

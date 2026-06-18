@@ -1,0 +1,22 @@
+canonical_name: costra_de_queso
+common_names:
+  - costra de queso
+  - costra de queso natural
+  - costra de queso con bistec
+  - costra de queso con pollo
+  - costra de queso con pastor
+  - costra de queso con costilla
+category: plato_fuerte, antojito
+base_description: "Queso dorado servido como base solo o acompañado de [proteina]"
+variables_requeridas: 
+- proteina
+variable_opciones:
+  proteina:
+    - bistec
+    - pollo
+    - pastor
+    - costilla
+ingredientes_base_default:
+  - queso
+  - tortilla de harina
+

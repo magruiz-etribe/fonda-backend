@@ -1,0 +1,20 @@
+canonical_name: sopa_de_pasta
+common_names:
+  - sopa aguada
+  - sopa de pasta seca
+  - sopa de pasta con pollo
+  - sopa de letras
+  - sopa de conchas
+  - sopa de coditos
+  - sopa de fideo
+  - sopa de munición
+  - sopa con crema
+  - Espagueti
+category: sopa
+base_description: "Pasta cortada de diferentes formas, cocida en caldo de jitomate o con crema."
+variables_requeridas: []
+ingredientes_base_default:
+  - sopa de pasta seca
+  - jitomate
+  - ajo
+  - cebolla

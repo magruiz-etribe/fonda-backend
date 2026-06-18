@@ -1,0 +1,14 @@
+canonical_name: rajas_con_crema
+common_names:
+  - rajas con crema
+  - rajas con crema y queso
+  - rajas con crema gratinadas
+category: guarnición
+base_description: "Tiras de chile poblano cocinadas en crema"
+variables_requeridas: []
+ingredientes_base_default:
+  - Chile poblano
+  - crema
+  - elote
+  - cebolla
+  - sal

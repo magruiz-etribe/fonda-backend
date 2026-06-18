@@ -1,0 +1,13 @@
+canonical_name: chayotes_guisados
+common_names:
+  - chayotes guisados
+  - guiso de chayotes
+  - Chayotes con crema
+  - chayotes con queso
+category: plato_fuerte
+base_description: " Chayotes preparados con verduras y especias"
+variables_requeridas: []
+ingredientes_base_default:
+  - Chayote
+  - jitomate
+  - cebolla

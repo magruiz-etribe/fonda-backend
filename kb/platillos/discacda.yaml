@@ -1,0 +1,14 @@
+canonical_name: discada
+common_names:
+  - discada
+  - carne a la discada
+  - discada norteña
+  - tacos de discada
+  - discada mixta
+category: plato_fuerte
+base_description: "Mezcla de carnes cocinadas en disco metálico."
+variables_requeridas: []
+ingredientes_base_default:
+  - Res
+  - cerdo
+  - chorizo.

@@ -1,0 +1,11 @@
+canonical_name: col_con_carne
+common_names:
+  - guiso de col
+  - col con carne
+  - col guisada
+category: plato_fuerte
+base_description: " Guiso de col cocinada con carne"
+variables_requeridas: []
+ingredientes_base_default:
+  - Col
+  - carne de res
