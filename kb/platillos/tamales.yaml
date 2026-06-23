@@ -13,7 +13,7 @@ common_names:
   - tamal rojo
   - tamal de queso
 category: antojito
-base_description: "Masa de maíz rellena de [relleno], envuelta en hoja de maíz y cocida al vapor."
+base_description: "Masa de maíz rellena de [relleno], envuelta en hoja de maíz o de plátano y cocida al vapor."
 variables_requeridas:
   - relleno
 variable_opciones:

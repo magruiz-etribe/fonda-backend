@@ -8,7 +8,7 @@ common_names:
   - gorditas de papa
   - gorditas rellenas
 category: antojito
-base_description: "Masa de maíz gruesa rellena de [relleno], cocinada en comal."
+base_description: "Masa de maíz gruesa rellena de [relleno], cocinada en comal o frita en aceite."
 variables_requeridas:
   - relleno
 variable_opciones:

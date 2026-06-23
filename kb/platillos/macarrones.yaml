@@ -4,7 +4,7 @@ common_names:
   - macarrones con crema
   - macarrones con jamón
 category: sopa
-base_description: "Pasta cortada preparada con salsa o crema"
+base_description: "Pasta cortada preparada con salsa de tomate o crema"
 variables_requeridas: []
 ingredientes_base_default:
   - Pasta

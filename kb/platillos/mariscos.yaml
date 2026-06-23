@@ -6,7 +6,7 @@ common_names:
   - ceviche de camarón
   - aguachile
 category: plato_fuerte
-base_description: "Mariscos preparados
+base_description: "Mariscos preparados"
 variables_requeridas: []
 ingredientes_base_default:
   - camarón

@@ -4,7 +4,7 @@ common_names:
   - de pollo
   - mixtas
 category: plato_fuerte
-base_description: "Bolas de carne cocidas en caldo o salsa."
+base_description: "Bolas de carne cocidas en [salsa] rellenas de [relleno]."
 variables_requeridas:
  - salsa
  - relleno
