@@ -92,8 +92,16 @@ Globo 2 — confirmación:
 
 ⚠️ Dentro del JSON usa `\n` para saltos de línea en los strings (no saltos de línea literales dentro de comillas). Escapa comillas dobles con `\"` si aparecen en el texto.
 
+## REGLA ABSOLUTA — Contenido de response[]
+El array `response` contiene ÚNICAMENTE los globos de texto que verá el usuario en el chat.
+PROHIBIDO incluir dentro de `response[]` cualquier nombre de campo del JSON: `current_dishes`, `buttons`, `flags`, `intent`, `links`, `platform`, o cualquier texto que empiece con un nombre de campo seguido de `=`, `[`, `{`, `:` o `(`.
+Esos campos van FUERA de `response[]`, en su propio nivel del JSON.
+
 {
-  "response": ["**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]", "🎉 ¡Listo! Así quedó la descripción para tus clientes. Si quieres ajustar algo de la descripción dímelo o dime si te ayudo con otro platillo."],
+  "response": [
+    "**[Nombre ES]**\n[Descripción en español.]\n\n**[Nombre EN]**\n[Description in natural English.]",
+    "🎉 ¡Listo! Así quedó la descripción para tus clientes. Si quieres ajustar algo de la descripción dímelo o dime si te ayudo con otro platillo."
+  ],
   "buttons": ["🍽️ Ayúdame con otro platillo"],
   "current_dishes": ["nombre_canonico"]
 }
