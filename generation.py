@@ -66,7 +66,7 @@ def generate(
 
     try:
         data = bedrock_client.converse_json(
-            config.NOVA_PRO_MODEL_ID,
+            config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
             schema=llm_schemas.GENERATION,
@@ -710,7 +710,7 @@ def generate_extracting(
     for attempt, temperature in enumerate([0.3, 0.0]):
         try:
             data = bedrock_client.converse_json(
-                config.NOVA_PRO_MODEL_ID,
+                config.NOVA_2_LITE_MODEL_ID,
                 system,
                 messages,
                 schema=llm_schemas.EXTRACTING,
@@ -869,7 +869,7 @@ def generate_confirming_flags(
 
     try:
         data = bedrock_client.converse_json(
-            config.NOVA_PRO_MODEL_ID,
+            config.NOVA_2_LITE_MODEL_ID,
             system,
             messages,
             schema=llm_schemas.CONFIRMING_FLAGS,
@@ -938,7 +938,7 @@ def _call_drafting_llm(system: str, user_text: str, current_dish: str, companion
     for attempt, temperature in enumerate([0.5, 0.0]):
         try:
             data = bedrock_client.converse_json(
-                config.NOVA_PRO_MODEL_ID,
+                config.NOVA_2_LITE_MODEL_ID,
                 system,
                 messages,
                 schema=llm_schemas.DRAFTING,
@@ -1047,6 +1047,16 @@ def _build_drafting_text(
     )
 
 
+def _fix_char_split(items: list) -> list:
+    """Reassemble bubbles when the LLM emits individual characters as separate list items."""
+    if not items:
+        return items
+    single_char = sum(1 for item in items if isinstance(item, str) and len(item) == 1)
+    if single_char > len(items) // 2:
+        return ["".join(str(item) for item in items)]
+    return items
+
+
 def _try_parse_drafting_data(
     data: dict | str,
     current_dish: str,
@@ -1063,7 +1073,17 @@ def _try_parse_drafting_data(
         return None
 
     raw_response = data.get("response") or []
-    response = [r.strip() for r in raw_response if isinstance(r, str) and r.strip()]
+    if not isinstance(raw_response, list):
+        raw_response = []
+    response: list[str] = []
+    for r in _fix_char_split(raw_response):
+        if not isinstance(r, str) or not r.strip():
+            continue
+        bubble = r.strip()
+        if _METADATA_LEAK_RE.match(bubble):
+            logger.warning("gen_drafting_metadata_leak_dropped", extra={"bubble": bubble[:80]})
+            continue
+        response.append(bubble)
     if not response:
         return None
 
