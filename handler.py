@@ -49,7 +49,8 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         logger.warning("bad_request", extra={"request_id": request_id, "error": str(e)})
         return _response(400, {"error": str(e)})
 
-    user_id = _optional_str(body, "user", default="guest")
+    _raw_user = _optional_str(body, "user", default="guest")
+    user_id = "guest" if _raw_user == "guest" else f"CLIENTE#{_raw_user}"
 
     if len(message) > 250:
         logger.warning("message_too_long", extra={"request_id": request_id, "msg_len": len(message)})
