@@ -840,7 +840,7 @@ def _extract_card_parts(bubble: str) -> tuple[str, str]:
 
 def _parse_bilingual_card(card: str, flags: dict) -> dict:
     card = card.strip()
-    en_start = re.search(r"\n\n\*\*", card)
+    en_start = re.search(r"\n+\*\*", card)
     if en_start:
         es_text = card[:en_start.start()].strip()
         en_text = card[en_start.start():].strip()

@@ -1,0 +1,20 @@
+canonical_name: carne con chile
+common_names:
+  - carne con chile
+  - carne en chile rojo
+  - carne en salsa roja
+  - guisado de res
+  - carne en chile colorado
+  - carne enchilada
+  - carne en chile pasilla
+  - adobo
+category: plato_fuerte
+base_description: "Trozos de carne de res en salsa de chile."
+variables_requeridas: []
+ingredientes_base_default:
+  - carne de res
+  - chile guajillo
+  - chile ancho
+  - cebolla
+  - ajo
+  - comino

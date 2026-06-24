@@ -12,7 +12,7 @@ common_names:
   - torta de salchicha
   - torta de queso
 category: antojito
-base_description: "Pan relleno con [topping]."
+base_description: "Pan relleno con [topping], y verdura en julianas (jitomate, cebolla y aguacate)."
 variables_requeridas:
   - topping
 variable_opciones:

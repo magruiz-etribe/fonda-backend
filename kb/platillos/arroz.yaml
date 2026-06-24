@@ -19,6 +19,7 @@ variable_opciones:
     - blanco
     - verde
     - amarillo
+    - a la mexicana
 ingredientes_base_default:
   - arroz
   - caldo

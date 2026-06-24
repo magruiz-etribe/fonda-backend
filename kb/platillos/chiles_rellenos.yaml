@@ -7,7 +7,7 @@ common_names:
   - chiles rellenos de picadillo
   - chiles capeados
 category: plato_fuerte
-base_description: "Chile poblano relleno de [relleno], capoteado en huevo y frito, bañado en salsa de jitomate."
+base_description: "Chile poblano relleno de [relleno], capeado en huevo y frito, bañado en salsa de jitomate."
 variables_requeridas:
   - relleno
 variable_opciones:

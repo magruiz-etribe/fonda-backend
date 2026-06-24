@@ -4,7 +4,7 @@ common_names:
   - mixiote de cerdo
   - mixiote de carnero
 category: plato_fuerte, antojito
-base_description: "Carne cocida envuelta en película de maguey."
+base_description: "Carne cocida envuelta en planta de maguey."
 variables_requeridas: []
 ingredientes_base_default:
   - Carne

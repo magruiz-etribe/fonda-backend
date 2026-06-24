@@ -49,6 +49,8 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         logger.warning("bad_request", extra={"request_id": request_id, "error": str(e)})
         return _response(400, {"error": str(e)})
 
+    user_id = _optional_str(body, "user", default="guest")
+
     if len(message) > 250:
         logger.warning("message_too_long", extra={"request_id": request_id, "msg_len": len(message)})
         return _response(400, {"error": "Mensaje demasiado largo. Máximo 250 caracteres."})
@@ -58,6 +60,7 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         extra={
             "request_id": request_id,
             "session_id": session_id,
+            "user_id": user_id,
             "msg_len": len(message),
         },
     )
@@ -121,13 +124,13 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "current_dishes": session_state.get("current_dishes", []),
             }
         with timing.stage("ddb.set_session_state"):
-            history_store.set_session_state(session_id, new_state)
+            history_store.set_session_state(session_id, new_state, user_id=user_id)
 
         with timing.stage("ddb.append_turns"):
             history_store.append_turns(session_id, [
                 {"role": "user", "text": message},
                 {"role": "agent", "text": "\n\n".join(result.response)},
-            ])
+            ], user_id=user_id)
 
         pt.log_summary(intent=result.intent)
 
@@ -177,6 +180,13 @@ def _parse_body(event: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise _BadRequest("body debe ser un objeto JSON")
     return data
+
+
+def _optional_str(body: dict[str, Any], key: str, default: str = "") -> str:
+    val = body.get(key)
+    if isinstance(val, str) and val.strip():
+        return val.strip()
+    return default
 
 
 def _require_str(body: dict[str, Any], key: str) -> str:

@@ -17,13 +17,14 @@ variable_opciones:
   tipo_de_salsa:
     - verde
     - roja
-    - divorciados
+    - divorciados (salsa verde y roja)
   tipo_de_proteina:
     - pollo
     - huevo
     - bistec
     - cecina
     - salchicha
+    - arrachera
 ingredientes_base_default:
   - tortilla de maíz
   - aceite

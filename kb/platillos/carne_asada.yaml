@@ -1,0 +1,10 @@
+canonical_name: carne asada
+common_names:
+  - carne asada
+  - bistec asado
+  - costilla asada
+category: plato_fuerte
+base_description: "Trozos de carne de res asado."
+variables_requeridas: []
+ingredientes_base_default:
+  - carne de res

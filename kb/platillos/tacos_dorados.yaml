@@ -16,7 +16,7 @@ common_names:
   - tacos de suadero
   - tacos de tripa
 category: antojito
-base_description: "Tortilla de maíz rellenos y fritos de [relleno]."
+base_description: "Tortilla de maíz enrollada, rellena de [relleno] y frita en aceite."
 variables_requeridas:
   - relleno
 variable_opciones:

@@ -8,6 +8,7 @@ common_names:
   - huevos con longaniza
   - huevos con carne
   - huevos con nopales
+  - huevos a la mexicana
 category: desayuno
 base_description: "Huevos revueltos con [acompañamiento]."
 variables_requeridas:
@@ -21,6 +22,7 @@ variable_opciones:
     - longaniza
     - nopales
     - carne
+    - a la mexicana (Con jitomate, cebolla y chile de arbol)
 ingredientes_base_default:
   - huevo
   - aceite
