@@ -89,7 +89,7 @@ def get_session_state(session_id: str) -> dict:
         return {}
 
 
-def set_session_state(session_id: str, state: dict) -> None:
+def set_session_state(session_id: str, state: dict, user_id: str = "guest") -> None:
     """Persists session_state to DynamoDB (upserts the item if needed)."""
     if not session_id:
         return
@@ -97,9 +97,10 @@ def set_session_state(session_id: str, state: dict) -> None:
         _client.update_item(
             TableName=config.DDB_TABLE_NAME,
             Key={"session_id": {"S": session_id}},
-            UpdateExpression="SET session_state = :s",
+            UpdateExpression="SET session_state = :s, user_id = :uid",
             ExpressionAttributeValues={
                 ":s": {"S": json.dumps(state, ensure_ascii=False)},
+                ":uid": {"S": user_id},
             },
         )
     except (ClientError, BotoCoreError) as e:
@@ -109,7 +110,7 @@ def set_session_state(session_id: str, state: dict) -> None:
         )
 
 
-def append_turns(session_id: str, new_turns: list[dict[str, str]]) -> None:
+def append_turns(session_id: str, new_turns: list[dict[str, str]], user_id: str = "guest") -> None:
     if not session_id or not new_turns:
         return
 
@@ -135,10 +136,15 @@ def append_turns(session_id: str, new_turns: list[dict[str, str]]) -> None:
         _client.update_item(
             TableName=config.DDB_TABLE_NAME,
             Key={"session_id": {"S": session_id}},
-            UpdateExpression="SET turns = list_append(if_not_exists(turns, :empty), :new)",
+            # user_id only set on first write (if_not_exists) so a session keeps its original owner
+            UpdateExpression=(
+                "SET turns = list_append(if_not_exists(turns, :empty), :new), "
+                "user_id = if_not_exists(user_id, :uid)"
+            ),
             ExpressionAttributeValues={
                 ":empty": {"L": []},
                 ":new": {"L": items},
+                ":uid": {"S": user_id},
             },
         )
     except (ClientError, BotoCoreError) as e:
