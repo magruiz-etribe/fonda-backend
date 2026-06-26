@@ -1,0 +1,17 @@
+canonical_name: jericalla
+common_names:
+  - jericallas
+category: postre
+base_description: "Postre individual horneado tipico similar a un flan o natilla ligera hecha con huevo y leche, cuya superficie se quema directamente en el horno para darle costra y un sabor tostado caracteristico."
+variables_requeridas:
+  - presentacion
+variable_opciones:
+  presentacion:
+    - tradicional_en_flanera_de_barro
+    - en_vaso_plastico
+ingredientes_base_default:
+  - Leche entera
+  - Huevo
+  - Azucar
+  - Canela en raja
+  - Esencia de vainilla

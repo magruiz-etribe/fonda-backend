@@ -10,6 +10,9 @@ common_names:
   - caldo de costilla
   - cocido
   - consomé
+  - caldo de camaron
+  - consomé de barbacoa
+  - caldo de barbacoa
 category: caldo
 base_description: "Caldo [tipo_de_caldo] con verduras de temporada."
 variables_requeridas:

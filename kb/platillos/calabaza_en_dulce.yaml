@@ -1,0 +1,18 @@
+canonical_name: calabaza_en_dulce
+common_names:
+  - calabaza de castilla dulce
+  - dulce de calabaza
+category: postre
+base_description: "Trozos grandes de calabaza de Castilla cocidos a fuego lento en un jarabe espeso y oscuro de piloncillo, canela y frutas de temporada."
+variables_requeridas:
+  - frutas_acompanantes
+variable_opciones:
+  frutas_acompanantes:
+    - con_cana_de_azucar
+    - con_tejocotes
+    - con_guayabas
+ingredientes_base_default:
+  - Calabaza de Castilla(Chilacayota)
+  - Piloncillo
+  - Canela en raja
+  - Agua

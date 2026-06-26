@@ -1,0 +1,23 @@
+canonical_name: chiles_em_escabeche
+common_names:
+  - sopes
+  - sope
+  - sopes de chorizo
+  - sopes de frijoles
+  - sopes de pollo
+  - sopes de carne
+  - gordas de maíz
+category: antojito
+base_description: "chiles jalapeños o cuaresmeños conservados en una mezcla de vinagre, agua, especias y verduras"
+variables_requeridas:
+  - topping
+variable_opciones: []
+ingredientes_base_default:
+  - chile cuaresmeño o jalapeño
+  - zanahoria
+  - cebolla
+  - ajo
+  - laurel
+  - orégano
+  - coliflor
+  - papas

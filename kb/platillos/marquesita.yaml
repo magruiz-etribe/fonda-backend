@@ -1,0 +1,16 @@
+canonical_name: marquesita
+common_names:
+  - marquesitas yucatecas
+category: postre
+base_description: "Postre callejero originario de Yucatan. Barquilla delgada, crujiente y caliente, untada con ingredientes dulces y rellena de queso de bola rallado que se enrolla como un taco largo."
+variables_requeridas:
+  - untable_dulce
+variable_opciones:
+  untable_dulce:
+    - cajeta
+    - crema_de_avellanas
+    - leche_condensada
+    - mermelada_de_fresa
+ingredientes_base_default:
+  - Masa de barquillo crujiente (harina, mantequilla, huevo)
+  - Queso de bola (Queso Edam)

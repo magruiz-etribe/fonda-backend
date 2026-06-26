@@ -1,0 +1,18 @@
+canonical_name: fresas_con_crema
+common_names:
+  - fresas de mercado
+category: postre
+base_description: "Fresas naturales lavadas, desinfectadas y picadas que se sumergen en una crema densa y dulce, servidas en un vaso acompanadas con nueces o pasas."
+variables_requeridas:
+  - topping_extra
+variable_opciones:
+  topping_extra:
+    - con_granola
+    - con_chispas_de_chocolate
+    - con_nuez_picada
+    - con_pasitas
+ingredientes_base_default:
+  - Fresas frescas
+  - Crema acida
+  - Leche condensada
+  - Esencia de vainilla

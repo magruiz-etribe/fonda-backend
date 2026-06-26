@@ -1,0 +1,20 @@
+canonical_name: gorditas_de_nata
+common_names:
+  - gorditas de feria
+  - gorditas de mercado
+category: postre
+base_description: "Gorditas de pan dulce delgados y esponjosos hechos mezclando harina con nata fresca de leche de vaca, se cocinan al comal casi sin grasa."
+variables_requeridas:
+  - estilo_relleno
+variable_opciones:
+  estilo_relleno:
+    - tradicionales_sencillas
+    - rellenas_de_cajeta
+    - rellenas_de_crema_de_avellana
+    - rellenas_de_leche_condensada
+ingredientes_base_default:
+  - Harina de trigo
+  - Nata fresca de leche
+  - Azucar
+  - Huevo
+  - Esencia de vainilla

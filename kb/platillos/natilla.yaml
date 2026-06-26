@@ -1,0 +1,22 @@
+canonical_name: natilla
+common_names:
+  - natilla de fonda
+  - postre de vainilla
+category: postre
+base_description: "Postre de cuchara de consistencia cremosa y semiliquida, elaborado mediante la coccion lenta de leche endulzada y espesada con yemas de huevo o fecula de maiz, aromatizada tradicionalmente con especias dulces."
+variables_requeridas:
+  - sabor_predominante
+variable_opciones:
+  sabor_predominante:
+    - vainilla_con_canela
+    - chocolate_de_mesa
+    - rompope
+  toppings_al_servir:
+    - galleta_maria_entera
+    - pasitas
+    - nuez_picada
+ingredientes_base_default:
+  - Leche entera
+  - Azucar de cana
+  - Fecula de maíz o yemas de huevo
+  - Raja de canela

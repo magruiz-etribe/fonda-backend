@@ -1,0 +1,25 @@
+canonical_name: tlayuda
+common_names:
+  - sopes
+  - sope
+  - sopes de chorizo
+  - sopes de frijoles
+  - sopes de pollo
+  - sopes de carne
+  - gordas de maíz
+category: antojito
+base_description: "Tortilla de maíz de gran tamaño, ligeramente tostada, untada con frijoles refritos y quesillo o queso Oaxaca, y se complementan con [topping]"
+variables_requeridas:
+  - topping
+variable_opciones:
+  topping:
+   - tasajo
+   - cecina
+   - chorizo
+   - pollo
+   - nopales
+   - aguacate
+   - jitomate
+   - lechuga o col rallada.
+ingredientes_base_default:
+  - masa de maíz

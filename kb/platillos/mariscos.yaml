@@ -1,10 +1,13 @@
 canonical_name: mariscos
 common_names:
-  - camarones al mojo de ajo
-  - camarones a la diabla
-  - coctel de camarón
-  - ceviche de camarón
-  - aguachile
+  - pulpo al mojo de ajo
+  - pulpo a la diabla
+  - ceviche de pulpo
+  - pulpo a las brazas
+  - pulpo al ajillo
+  - 7 mares (sopa de mariscos)
+  - tostadas de jaiba
+  - vuelve a la vida
 category: plato_fuerte
 base_description: "Mariscos preparados"
 variables_requeridas: []

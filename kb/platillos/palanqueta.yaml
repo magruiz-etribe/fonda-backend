@@ -1,0 +1,19 @@
+canonical_name: palanqueta
+common_names:
+  - palanqueta de semillas
+  - dulce de cacahuate
+category: postre
+base_description: "Cacahuates tostado y limpios que luego se vierten en un caramelo caliente y denso de piloncillo o azucar; la mezcla se extiende, se nivela y se corta en barras antes de que se enfrie y endurezca por completo."
+variables_requeridas:
+  - semilla_principal
+variable_opciones:
+  semilla_principal:
+    - cacahuate_tradicional
+    - pepita_de_calabaza
+    - semilla_de_girasol
+    - mixta (cacahuate, pepita y nuez)
+ingredientes_base_default:
+  - Cacahuates pelados y tostados
+  - Piloncillo o azucar de cana
+  - Agua
+  - Un toque de mantequilla o margarina

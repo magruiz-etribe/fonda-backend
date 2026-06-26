@@ -1,0 +1,19 @@
+canonical_name: dulce_de_tejocote
+common_names:
+  - tejocotes en dulce
+  - tejocote en almibar
+  - tejocotes de la abuela
+category: postre
+base_description: "Tejocotes pelados hervidos brevemente que se cuecen a fuego lento en un almibar ligero y aromatico perfumado con canela."
+variables_requeridas:
+  - adicion_aromatica
+variable_opciones:
+  adicion_aromatica:
+    - tradicional_canela
+    - con_clavo_de_olor
+    - con_cascara_de_naranja
+ingredientes_base_default:
+  - Tejocotes frescos
+  - Piloncillo o azucar
+  - Canela en raja
+  - Agua

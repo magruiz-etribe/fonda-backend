@@ -1,0 +1,21 @@
+canonical_name: dulce_de_camote
+common_names:
+  - camotes de puebla
+  - camote de carrito
+category: postre
+base_description: "Postre tradicional de textura puré consistente o moldeado, elaborado cociendo camote nixtamalizado y machacándolo con almíbar de azúcar hasta lograr una pasta suave y dulce."
+variables_requeridas:
+  - estilo_preparacion
+variable_opciones:
+  estilo_preparacion:
+    - de_carrito (servido caliente con leche condensada)
+    - de_convento (moldeado en cilindros secos aromatizados)
+  sabor_aroma:
+    - natural_con_canela
+    - fresa
+    - naranja
+    - pina
+ingredientes_base_default:
+  - Camote (blanco, morado o amarillo)
+  - Azúcar o piloncillo
+  - Agua

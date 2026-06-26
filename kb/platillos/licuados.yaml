@@ -1,0 +1,34 @@
+canonical_name: licuados_de_jugueria
+common_names:
+  - licuado preparado
+  - batido
+category: bebida
+base_description: "Bebida espesa y energética preparada al momento hecha a base de leche entera fría con frutas frescas, endulzantes y complementos."
+variables_requeridas:
+  - ingrediente_principal
+variable_opciones:
+  ingrediente_principal:
+    - platano
+    - fresa
+    - mamey
+    - papaya
+    - guayaba
+    - melon
+    - chocolate
+    - vainilla
+  complementos_opcionales:
+    - huevo_crudo
+    - avena
+    - granola
+    - pasas
+    - almendras
+    - miel_de_abeja
+    - coco rallado
+    - arandanos
+    - nueces
+    - esencia_de_vainilla
+ingredientes_base_default:
+  - Leche entera
+  - Azucar
+  - fruta
+  - saborizante

@@ -1,0 +1,18 @@
+canonical_name: tapioca_en_leche_de_vaso
+common_names:
+  - postre de tapioca
+  - natilla de perlas
+category: postre
+base_description: "Postre a base de perlas de almidon de tapioca hidratadas y hervidas en una base dulce de leches sazonadas, similar al arroz con leche pero con una textura esferica y masticable."
+variables_requeridas:
+  - sabor_infusion
+variable_opciones:
+  sabor_infusion:
+    - tradicional_vainilla_y_canela
+    - con_leche_de_coco
+    - saborizado_con_te_verde (matcha)
+ingredientes_base_default:
+  - Perlas de tapioca pura
+  - Leche evaporada o entera
+  - Leche condensada
+  - Raja de canela

@@ -1,0 +1,15 @@
+canonical_name: gelatina_con_rompope
+common_names:
+  - gelatina de agua con licor
+category: postre
+base_description: "Gelatina firme de agua (comunmente de sabor jerez o fresa) servida en un vaso o plato hondo, banada generosamente al momento con un chorro de rompope espeso."
+variables_requeridas:
+  - sabor_gelatina
+variable_opciones:
+  sabor_gelatina:
+    - jerez
+    - fresa
+    - vainilla
+ingredientes_base_default:
+  - Gelatina de sabor base agua
+  - Rompope artesanal o comercial

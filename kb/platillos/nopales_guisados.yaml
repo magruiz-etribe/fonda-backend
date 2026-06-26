@@ -3,8 +3,9 @@ common_names:
   - nopales en salsa roja
   - nopales en salsa verde
   - nopales con queso
+  - nopales en escabeche
 category: Plato_fuerte, guarnicion
-base_description: "Nopales preparados en diferentes salsas"
+base_description: "Nopales preparados"
 variables_requeridas: []
 ingredientes_base_default:
   - nopal

@@ -1,0 +1,30 @@
+canonical_name: nieve
+common_names:
+  - nieve de garrafa
+  - nieve de mercado
+category: postre
+base_description: "Helado artesanal de textura ligera y cristalina, elaborado mediante el batido manual de ingredientes naturales dentro de un bote de acero rodeado de hielo y sal en tinas de madera."
+variables_requeridas:
+  - tipo_base
+  - sabor_tradicional
+variable_opciones:
+  tipo_base:
+    - base_agua
+    - base_leche
+  sabor_tradicional:
+    - limon
+    - mamey
+    - zapote_negro
+    - beso_oaxaqueno
+    - queso_con_zarzamora
+    - tres_leches
+    - sandia
+    - mandarina
+    - grosella
+    - sorbete
+    - leche_quemada_con_tuna
+ingredientes_base_default:
+  - Hielo
+  - Sal de grano (para el proceso de congelación)
+  - Azúcar
+  - Fruta natural o base láctea

@@ -1,0 +1,21 @@
+canonical_name: ate_con_queso
+common_names:
+  - ate de fruta
+  - postre de la abuela
+category: postre
+base_description: "Rebanada de pasta de fruta densa y azucarada (jalea compacta de origen virreinal) servida junto a una rebanada identica de queso fresco o salado para crear un contraste agridulce."
+variables_requeridas:
+  - fruta_ate
+  - tipo_queso
+variable_opciones:
+  fruta_ate:
+    - membrillo
+    - guayaba
+    - peron
+  tipo_queso:
+    - queso_manchego_mexicano
+    - queso_panela
+    - queso_fresco_de_rancho
+ingredientes_base_default:
+  - Ate de fruta moldeado
+  - Queso

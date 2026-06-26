@@ -1,0 +1,18 @@
+canonical_name: arroz_con_leche
+common_names:
+  - arroz con dulce
+category: postre
+base_description: "Arroz blanco cocido a fuego lento en agua con canela hasta que suaviza, espesado con una mezcla de leches y servido frio o tibio, espolvoreado con canela."
+variables_requeridas:
+  - aroma_extra
+variable_opciones:
+  aroma_extra:
+    - pasitas
+    - cascara_de_limon
+    - cascara_de_naranja
+    - esencia_de_vainilla
+ingredientes_base_default:
+  - Arroz
+  - Leche entera
+  - Leche condensada
+  - Raja de canela

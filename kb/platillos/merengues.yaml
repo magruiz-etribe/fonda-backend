@@ -1,0 +1,22 @@
+canonical_name: merengues
+common_names:
+  - merengue de carrito
+  - duquesas y suspiros
+category: postre
+base_description: "Preparacion dulce y ligera basada en el batido intensivo de claras de huevo con un jarabe de azucar a alta temperatura."
+variables_requeridas:
+  - formato_presentacion
+  - acabado_color
+variable_opciones:
+  formato_presentacion:
+    - duquesa 
+    - suspiro 
+    - hilo_de_merengue 
+  acabado_color:
+    - blanco_tradicional
+    - tenido_rosa_mexicano
+ingredientes_base_default:
+  - Claras de huevo
+  - Azucar blanca refinada
+  - Agua
+  - Gotas de jugo de limon 
