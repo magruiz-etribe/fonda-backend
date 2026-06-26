@@ -1,0 +1,21 @@
+canonical_name: platanos_fritos_con_crema
+common_names:
+  - platanos fritos
+  - platanos de carrito
+category: postre
+base_description: "Platano macho rebanado, frito en aceite o manteca, cubierto con aderezos dulces al momento de servir."
+variables_requeridas:
+  - estilo_coccion
+variable_opciones:
+  estilo_coccion:
+    - fritos_en_aceite (textura crujiente por fuera)
+    - horneados_al_vapor (estilo carrito de camote, textura muy suave)
+  toppings_seleccionados:
+    - crema_y_lechera
+    - mermelada_de_fresa
+    - chispas_de_chocolate
+ingredientes_base_default:
+  - Platano macho maduro
+  - Aceite vegetal para freir
+  - Crema acida de rancho
+  - Leche condensada

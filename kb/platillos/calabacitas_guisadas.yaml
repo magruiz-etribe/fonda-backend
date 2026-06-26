@@ -4,6 +4,7 @@ common_names:
   - calabacitas con queso
   - calabacitas con elote
   - calabacitas rellenas con carne molida
+  - calabacitas al vapor
 category: plato_fuerte
 base_description: "Calabaza cocinada con verduras o carne"
 variables_requeridas: []

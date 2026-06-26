@@ -1,0 +1,19 @@
+canonical_name: bunuelos
+common_names:
+  - bunuelos de molde
+  - bunuelos de feria
+  - bunuelos de viento
+category: postre
+base_description: "Postre crujiente y ligero elaborado sumergiendo un molde de hierro con formas geometricas en una masa liquida de harina y huevo, que luego se frie en aceite hirviendo hasta que se desprende y queda crujiente, pasandose de inmediato por azucar."
+variables_requeridas:
+  - acabado_azucar
+variable_opciones:
+  acabado_azucar:
+    - azucar_con_canela
+    - azucar_blanca_refinada
+ingredientes_base_default:
+  - Harina de trigo
+  - Huevo
+  - Leche o agua
+  - Aceite vegetal para freir
+  - Azucar

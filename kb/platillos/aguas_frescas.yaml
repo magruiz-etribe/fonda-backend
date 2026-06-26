@@ -1,0 +1,30 @@
+canonical_name: aguas_frescas
+common_names:
+  - agua del dia
+  - agua de sabor
+  - agua fresca
+category: bebida
+base_description: "Bebida ligera y refrescante preparada al momento con [sabor_fruta] a base de agua, azucar e ingredientes naturales molidos o infusionados, servida con abundante hielo."
+variables_requeridas:
+  - sabor_fruta
+variable_opciones:
+  sabor_fruta:
+    - horchata_de_arroz
+    - jamaica
+    - tamarindo
+    - limon
+    - limon_con_chia
+    - alfalfa_con_pina
+    - alfalfa con limón
+    - melon
+    - sandia
+    - fresa
+    - guayaba
+    - naranja
+    - mango
+    - pepino
+    - guanabana
+ingredientes_base_default:
+  - Agua potable
+  - Azucar de cana
+  - Hielo

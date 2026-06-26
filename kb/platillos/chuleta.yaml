@@ -1,0 +1,28 @@
+canonical_name: chuleta
+common_names:
+  - chuleta ahumada
+  - Chuletas en salsa verde
+  - Chuletas en salsa roja
+  - Chuletas a la mexicana
+  - Chuletas en adobo
+  - Chuletas con papas
+  - Chuletas en salsa de chipotle
+  - Chuletas encebolladas
+  - Chuletas en salsa de piña
+category: plato_fuerte
+base_description: "Chuleta preparada en [tipo_de_salsa]. acompañada de [verdura]"
+variables_requeridas:
+ tipo_de_salsa:
+    -salsa verde
+    -salsa roja
+    -salsa a la mexicana
+    -adobo
+    -salsa de chipotle
+    -salsa de piña
+ verdura:
+   - nopales
+   - papas
+ingredientes_base_default:
+  - chuleta
+  - Chile de arbol, serrano o chipotle
+  - Jitomate o tomate

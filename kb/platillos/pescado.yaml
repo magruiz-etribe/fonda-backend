@@ -1,16 +1,22 @@
-canonical_name: pescados_y_mariscos
+canonical_name: pescado
 common_names:
   - filete de pescado frito
   - filete de pescado empanizado
   - filete de pescado en salsa
+  - filete de pescado a la plancha
   - mojarra frita
+  - pescado empapelado
   - pescado a la veracruzana
   - ceviche de pescado
   - atún a la mexicana
   - croquetas de atún
   - pescado al mojo de ajo
+  - filete de salmón
+  - salmón al vino blanco
+  - salmón relleno de mariscos en salsa de chipotle
+  - ceviche peruano
 category: plato_fuerte
-base_description: "pescado frito o guisado"
+base_description: "pescado preparado"
 variables_requeridas: []
 ingredientes_base_default:
   - pescado

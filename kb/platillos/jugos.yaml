@@ -1,0 +1,19 @@
+canonical_name: jugo_natural
+common_names:
+  - jugo de extractor
+  - jugo de mercado
+category: bebida
+base_description: "Bebida preparada al instante utilizando extractores industriales a partir de frutas y verduras frescas de temporada."
+variables_requeridas:
+  - combinacion_estilo
+variable_opciones:
+  combinacion_estilo:
+    - naranja_puro
+    - toronja_puro
+    - verde (nopal, apio, pina, perejil)
+    - vampiro (betabel, zanahoria, apio, pina)
+    - antigripal (guayaba, pina, miel, limon_entero)
+    - zanahoria_con_alfalfa
+ingredientes_base_default:
+  - Frutas frescas de temporada
+  - Verduras frescas de temporada

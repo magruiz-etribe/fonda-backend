@@ -1,20 +1,14 @@
 canonical_name: tacos_dorados
 common_names:
-  - tacos
-  - taco
-  - tacos de guisado
-  - tacos de canasta
-  - tacos al pastor
-  - tacos de barbacoa
-  - tacos de carnitas
-  - tacos de pollo
-  - tacos de res
-  - tacos de chorizo
-  - tacos de papa
-  - tacos de chicharrón
-  - tacos de longaniza
-  - tacos de suadero
-  - tacos de tripa
+  - tacos dorados
+  - taco dorado
+  - tacos dorados de papa
+  - tacos dorados de barbacoa
+  - tacos dorados de carnitas
+  - tacos dorados de pollo
+  - tacos dorados de carne molida
+  - tacos dorados de papa con chorizo
+  - tacos dorados de carne deshebrada
 category: antojito
 base_description: "Tortilla de maíz enrollada, rellena de [relleno] y frita en aceite."
 variables_requeridas:

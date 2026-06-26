@@ -1,13 +1,14 @@
 canonical_name: tortitas
 common_names:
-  - Tortitas de huauzontle
-  - Tortitas de papa
-  - Tortitas de atún
-  - Tortitas de camarón
-  - tortitas de carne
-  - tortitas de pollo
+  - Tortitas capeadas de huauzontle
+  - Tortitas capeadas de papa
+  - Tortitas capeadas de atún
+  - Tortitas capeadas de camarón
+  - tortitas capeadas de carne
+  - tortitas capeadas de pollo
+  - toritas capeadas de coliflor
 category: plato_fuerte
-base_description: "Preparaciones fritas hechas con [topping] mezclados con huevo, cubiertas de salsa [tipo_de_salsa]."
+base_description: "Preparaciones fritas hechas con [topping] mezclados con huevo (capeadas), cubiertas de salsa [tipo_de_salsa]."
 variables_requeridas:
   - topping
 variable_opciones:
@@ -19,6 +20,7 @@ variable_opciones:
    - papa
    - atún
    - camarón
+   - coliflor
   tipo_de_salsa:
   - verde
   - roja

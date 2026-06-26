@@ -1,0 +1,18 @@
+canonical_name: cocada_horneada
+common_names:
+  - cocada de mercado
+  - dulce de coco
+category: postre
+base_description: "Dulce típico hecho de coco rallado maduro cocido con almíbar de azúcar y yemas de huevo, que se hornea en porciones individuales o bloques hasta que la superficie adquiere un color dorado oscuro y una textura masticable."
+variables_requeridas:
+  - estilo_color
+variable_opciones:
+  estilo_color:
+    - blanca_tradicional
+    - amarilla (con mas yema de huevo)
+    - bicolor (adornada con pintura vegetal rosa)
+ingredientes_base_default:
+  - Coco seco rallado
+  - Azúcar de caña
+  - Agua
+  - Yemas de huevo

@@ -1,0 +1,20 @@
+canonical_name: pastel_de_tres_leches
+common_names:
+  - pastel de vitrina
+  - tres leches de fonda
+category: postre
+base_description: "Bizcocho esponjoso horneado que se pincha y se bana por completo con una mezcla de tres tipos de leche hasta quedar completamente saturado y jugoso, decorado tradicionalmente con crema batida."
+variables_requeridas:
+  - sabor_bizcocho
+variable_opciones:
+  sabor_bizcocho:
+    - vainilla_tradicional
+    - chocolate
+    - con_rompope
+    - con_cajeta
+ingredientes_base_default:
+  - Bizcocho de harina y huevo
+  - Leche evaporada
+  - Leche condensada
+  - Media crema
+  - Crema para batir 

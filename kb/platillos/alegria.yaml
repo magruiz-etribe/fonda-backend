@@ -1,0 +1,21 @@
+canonical_name: alegrias_de_amaranto
+common_names:
+  - dulce de amaranto
+  - palanqueta de amaranto
+  - alegrias
+category: postre
+base_description: "Semillas de amaranto tostadas, compactada con [elemento_aglutinante] acompañado de [toppings_incluidos] que se comen como colación o postre."
+variables_requeridas:
+  - elemento_aglutinante
+variable_opciones:
+  elemento_aglutinante:
+    - miel_de_piloncillo_tradicional
+    - miel_de_abeja
+    - chocolate_oscuro (variante moderna)
+  toppings_incluidos:
+    - cacahuates_y_pasas
+    - pepitas_de_calabaza
+    - nuez_picada
+ingredientes_base_default:
+  - Semilla de amaranto reventada
+  - Piloncillo o miel

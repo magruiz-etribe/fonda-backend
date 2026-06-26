@@ -1,0 +1,21 @@
+canonical_name: panque_de_elote
+common_names:
+  - pastel de elote
+  - pan de elote de fonda
+category: postre
+base_description: "Panque elaborado con granos de elote fresco y tierno con huevos y leche condensada, con un intenso sabor a maiz dulce."
+variables_requeridas:
+  - estilo_textura
+variable_opciones:
+  estilo_textura:
+    - rustico_con_granos_enteros
+    - terso_licuado_fino
+  toppings_al_servir:
+    - banado_con_leche_condensada
+    - con_un_toque_de_rompope
+ingredientes_base_default:
+  - Granos de elote tierno 
+  - Huevo
+  - Leche condensada
+  - Mantequilla derretida
+  - Polvo para hornear

@@ -1,0 +1,18 @@
+canonical_name: capirotada
+common_names:
+  - capirotada de vigilia
+category: postre
+base_description: "Postre tradicional de cazuela hecho con capas de pan de bolillo anejo dorado, banadas en un jarabe espeso y cubiertas con ingredientes salados y dulces que contrastan."
+variables_requeridas:
+  - tipo_jarabe
+variable_opciones:
+  tipo_jarabe:
+    - piloncillo_y_especias
+    - infusion_de_leche_endulzada
+ingredientes_base_default:
+  - Pan bolillo anejo
+  - Canela
+  - Clavo de olor
+  - Queso cotija rallado
+  - Cacahuates
+  - Pasas

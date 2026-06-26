@@ -1,10 +1,13 @@
 canonical_name: camarones
 common_names:
   - camarones al mojo de ajo
+  - camarones al ajillo
   - camarones a la diabla
   - coctel de camarón
   - ceviche de camarón
   - aguachile
+  - camarones empanizados
+  - tostada de camarones
 category: plato_fuerte
 base_description: "Camarones preparados"
 variables_requeridas: []

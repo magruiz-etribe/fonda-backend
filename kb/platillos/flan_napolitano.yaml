@@ -1,0 +1,18 @@
+canonical_name: flan_napolitano
+common_names:
+  - flan de la casa
+  - flan casero
+category: postre
+base_description: "Postre horneado a bano Maria a base de huevo y leches, de textura densa y cremosa, cubierto por una capa liquida de caramelo ambar brillante."
+variables_requeridas:
+  - sabor_base
+variable_opciones:
+  sabor_base:
+    - tradicional
+    - cajeta_quemada
+ingredientes_base_default:
+  - Huevo
+  - Leche condensada
+  - Leche evaporada
+  - Queso crema
+  - Azucar

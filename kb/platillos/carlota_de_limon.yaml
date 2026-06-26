@@ -1,0 +1,18 @@
+canonical_name: carlota_de_limon
+common_names:
+  - pay de limon de refrigerador
+  - carlota de galleta maria
+category: postre
+base_description: "Postre frio de ensamblaje rustico que no requiere horneado. Se estructura alternando capas de galletas de trigo comerciales de sabor vainilla con una crema densa y acida obtenida al licuar leche condensada, leche evaporada y jugo de limon verde fresco, refrigerandose hasta que las galletas absorben la humedad y adquieren consistencia de pastel."
+variables_requeridas:
+  - estilo_presentacion
+variable_opciones:
+  estilo_presentacion:
+    - en_refractario_familiar 
+    - individual_en_vaso_plastico 
+    - con_capa_de_galleta_molida_arriba
+ingredientes_base_default:
+  - Galletas de vainilla
+  - Leche condensada
+  - Leche evaporada
+  - Jugo de limon verde fresco

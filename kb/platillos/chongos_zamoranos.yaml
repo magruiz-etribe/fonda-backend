@@ -1,0 +1,17 @@
+canonical_name: chongos_zamoranos
+common_names:
+  - chongos
+category: postre
+base_description: "Postre de origen virreinal elaborado a base de leche cortada mediante pastillas de cuajo, la cual se cuece lentamente con azucar y canela hasta formar nudos suaves flotando en un almibar translucido."
+variables_requeridas:
+  - presentacion
+variable_opciones:
+  presentacion:
+    - tradicional_en_almibar
+    - con_licor_de_canela
+ingredientes_base_default:
+  - Leche entera de vaca
+  - Azucar
+  - Canela en raja
+  - Cuajo liquido o en pastilla
+

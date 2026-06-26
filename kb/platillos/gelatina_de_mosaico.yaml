@@ -1,0 +1,19 @@
+canonical_name: gelatina_de_mosaico
+common_names:
+  - gelatina de cuadritos
+  - gelatina de fonda
+category: postre
+base_description: "Cubos firmes de gelatina de agua de diferentes sabores y colores (fresa, limon, pina, uva) suspendidos en una base cremosa de gelatina de leche condensada."
+variables_requeridas:
+  - base_lactea
+variable_opciones:
+  base_lactea:
+    - tradicional_leche_condensada
+    - con_rompope
+    - mezcla_de_tres_leches
+ingredientes_base_default:
+  - Gelatinas de agua de sabores
+  - Leche condensada
+  - Leche evaporada
+  - Media crema
+  - Grenetina pura

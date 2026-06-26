@@ -1,0 +1,18 @@
+canonical_name: higos_en_almibar
+common_names:
+  - higos dulces
+  - higos de feria
+category: postre
+base_description: "Higos enteros y verdes picados y cocidos en un jarabe espeso de azucar hasta que la fruta absorbe el dulce, volviendose brillante por fuera y sumamente suave y jugosa por dentro."
+variables_requeridas:
+  - acompanamiento_platillo
+variable_opciones:
+  acompanamiento_platillo:
+    - solos_en_su_miel
+    - acompanados_con_queso_crema
+    - acompanados_con_requeson_fresco
+ingredientes_base_default:
+  - Higos verdes frescos
+  - Azucar refinada o piloncillo
+  - Agua
+  - Una pizca de bicarbonato de sodio 

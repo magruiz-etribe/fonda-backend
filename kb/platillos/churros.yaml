@@ -1,0 +1,20 @@
+canonical_name: churros
+common_names:
+  - churros de carrito
+  - churros de la villa
+category: postre
+base_description: "Es una masa de harina de trigo frita al momento en aceite hirviendo utilizando una extrusora con boquilla de estrella, cortada en tiras largas que se pasan de inmediato por una mezcla de azucar y canela."
+variables_requeridas:
+  - estilo_relleno
+variable_opciones:
+  estilo_relleno:
+    - tradicionales_sencillos
+    - rellenos_de_cajeta
+    - rellenos_de_lechera
+    - rellenos_de_chocolate
+ingredientes_base_default:
+  - Harina de trigo
+  - Agua
+  - Aceite vegetal para freir
+  - Azucar
+  - Canela en polvo
