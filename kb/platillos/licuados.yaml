@@ -3,7 +3,7 @@ common_names:
   - licuado preparado
   - batido
 category: bebida
-base_description: "Bebida espesa y energética preparada al momento hecha a base de leche entera fría con frutas frescas, endulzantes y complementos."
+base_description: "Bebida espesa preparada al momento hecha a base de leche entera fria con [ingrediente_principal], endulzantes y [complementos_opcionales]."
 variables_requeridas:
   - ingrediente_principal
 variable_opciones:
@@ -16,6 +16,7 @@ variable_opciones:
     - melon
     - chocolate
     - vainilla
+    - Manzana
   complementos_opcionales:
     - huevo_crudo
     - avena
@@ -27,6 +28,8 @@ variable_opciones:
     - arandanos
     - nueces
     - esencia_de_vainilla
+    - amaranto
+    - rompope
 ingredientes_base_default:
   - Leche entera
   - Azucar

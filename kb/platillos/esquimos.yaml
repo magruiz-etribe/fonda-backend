@@ -1,0 +1,28 @@
+canonical_name: esquimos
+common_names:
+  - esquimos
+  - frappe
+  - nevados
+category: bebida
+base_description: "bebida fría y cremosa elaborada principalmente con leche, hielo y [saborizante]"
+variables_requeridas:
+  - sabor_fruta
+variable_opciones:
+  saborizante:
+   - Plátano
+   - Limón
+   - Guanábana
+   - Moka
+   - Rompope
+   - Chicle
+   - Fresa
+   - Coco
+   - Chocolate
+   - Nescafé
+   - Vainilla
+   - Pistache
+   - Nuez
+   - Tres Leches (leche entera, leche evaporada y leche condensada)
+ingredientes_base_default:
+  - leche
+  - hielo

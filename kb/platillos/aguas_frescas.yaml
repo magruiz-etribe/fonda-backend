@@ -24,6 +24,10 @@ variable_opciones:
     - mango
     - pepino
     - guanabana
+    - Papaya
+    - Avena
+    - Piña
+    - Combinadas
 ingredientes_base_default:
   - Agua potable
   - Azucar de cana
