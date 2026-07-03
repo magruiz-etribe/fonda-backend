@@ -10,12 +10,17 @@ Reglas (en orden de precedencia):
 1. Si el usuario está respondiendo a una pregunta del agente sobre un platillo ya en curso (ej. dando tipo de carne, tipo de salsa, relleno, ingredientes) → devuelve `""`. NO cambies el platillo en curso.
 2. Si el platillo coincide exactamente con el nombre canónico O con cualquiera de sus alias (ignorando acentos, singular/plural) → usa el nombre canónico exacto.
    Ejemplo: "huevo con jamon" → alias de `huevos_revueltos` → devuelve `"huevos_revueltos"`.
-3. Si el nombre es una **variante personal de un platillo conocido** — es decir, contiene como base un platillo de la lista más un modificador del fondero (especial, de la casa, estilo X, mi versión, con un toque de...) → usa el canónico de ese platillo base.
-   Ejemplos:
+3. Si el nombre es una **variante personal o combinación de un platillo conocido** — es decir, contiene como base un platillo de la lista más un modificador del fondero (especial, de la casa, estilo X, mi versión, con un toque de..., o simplemente con ingredientes/sabores adicionales) → usa el canónico de ese platillo base.
+   Ejemplos personalizaciones:
    - "enchilada especial" → base = enchiladas → `"enchiladas"`
    - "mi pozole de la casa" → base = pozole → `"pozole"`
    - "tacos estilo norteño" → base = tacos → `"tacos"`
    - "mole de mi abuela" → base = mole → `"mole"`
+   Ejemplos combinaciones (bebidas u otros platillos con ingredientes adicionales):
+   - "jugo de naranja con zanahoria" → base = jugo_natural → `"jugo_natural"`
+   - "jugo de piña con pepino y limón" → base = jugo_natural → `"jugo_natural"`
+   - "licuado de fresa con avena y miel" → base = licuados_de_jugueria → `"licuados_de_jugueria"`
+   - "esquimo de limón con chicle" → base = esquimos → `"esquimos"`
    El fondero describirá los detalles en los pasos siguientes; no necesitas capturarlos aquí.
 4. Si el platillo mencionado NO tiene ninguna base reconocible en la lista → usa `"custom"`.
    Solo llega aquí cuando el sustantivo principal del platillo no corresponde a ningún canónico conocido (ej: "peneques", "tlayuda", "huaraches" — platillos reales pero fuera del KB actual).
