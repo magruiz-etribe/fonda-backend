@@ -1,8 +1,25 @@
 canonical_name: esquimos
 common_names:
   - esquimos
+  - esquimo
   - frappe
+  - frappé
   - nevados
+  - nevado
+  - esquimo de fresa
+  - esquimo de chocolate
+  - esquimo de vainilla
+  - esquimo de limón
+  - esquimo de limon
+  - esquimo de plátano
+  - esquimo de platano
+  - esquimo de guanábana
+  - esquimo de coco
+  - esquimo de moka
+  - esquimo de rompope
+  - esquimo de pistache
+  - esquimo de nuez
+  - esquimo de tres leches
 category: bebida
 base_description: "bebida fría y cremosa elaborada principalmente con leche, hielo y [saborizante]"
 variables_requeridas:

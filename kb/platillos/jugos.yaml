@@ -2,6 +2,32 @@ canonical_name: jugo_natural
 common_names:
   - jugo de extractor
   - jugo de mercado
+  - jugo natural
+  - jugo fresco
+  - jugo
+  - jugos
+  - jugo de naranja
+  - jugo de zanahoria
+  - jugo de betabel
+  - jugo de piña
+  - jugo de pina
+  - jugo de papaya
+  - jugo de guayaba
+  - jugo de fresa
+  - jugo de mango
+  - jugo de manzana
+  - jugo de pepino
+  - jugo de apio
+  - jugo de nopal
+  - jugo verde
+  - jugo vampiro
+  - jugo antigripal
+  - jugo detox
+  - jugo energético
+  - jugo digestivo
+  - jugo inmunológico
+  - fresh juice
+  - natural juice
 category: bebida
 base_description: "Bebida preparada al instante utilizando extractores industriales a partir de [combinacion_estilo]"
 variables_requeridas:
