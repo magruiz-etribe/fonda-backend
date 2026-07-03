@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import base64
 import json
@@ -86,6 +86,22 @@ def structured_tool_config(
     }
 
 
+def _sanitize_strings(obj: Any) -> Any:
+    """Recursively strip U+FFFD replacement characters from all string values.
+
+    Nova constrained decoding occasionally emits U+FFFD instead of accented
+    characters (e.g. ó → �).  Dropping the character is better than
+    surfacing garbage bytes in the API response.
+    """
+    if isinstance(obj, str):
+        return obj.replace("�", "")
+    if isinstance(obj, dict):
+        return {k: _sanitize_strings(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_sanitize_strings(item) for item in obj]
+    return obj
+
+
 def converse_json(
     model_id: str,
     system: str,
@@ -138,7 +154,7 @@ def converse_json(
 
         parsed = _try_parse_structured_response(resp, tool_name, stage)
         if parsed is not None:
-            return parsed
+            return _sanitize_strings(parsed)
 
         structured_error = BedrockError(f"structured output missing toolUse for {tool_name}")
         logger.warning(
@@ -171,7 +187,7 @@ def converse_json(
         )
         parsed = parse_json_lenient(text)
         if isinstance(parsed, dict):
-            return parsed
+            return _sanitize_strings(parsed)
     except Exception as e:
         structured_error = structured_error or e
 
