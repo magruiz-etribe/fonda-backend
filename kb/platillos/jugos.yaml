@@ -29,7 +29,7 @@ common_names:
   - fresh juice
   - natural juice
 category: bebida
-base_description: "Bebida preparada al instante utilizando extractores industriales a partir de [combinacion_estilo]"
+base_description: "Jugo natural preparado al momento con [combinacion_estilo], hecho con ingredientes naturales y frescos."
 variables_requeridas:
   - combinacion_estilo
 variable_opciones:
