@@ -3,17 +3,64 @@ common_names:
   - jugo de extractor
   - jugo de mercado
 category: bebida
-base_description: "Bebida preparada al instante utilizando extractores industriales a partir de frutas y verduras frescas de temporada."
+base_description: "Bebida preparada al instante utilizando extractores industriales a partir de [combinacion_estilo]"
 variables_requeridas:
   - combinacion_estilo
 variable_opciones:
   combinacion_estilo:
-    - naranja_puro
-    - toronja_puro
+    - naranja
+    - toronja
     - verde (nopal, apio, pina, perejil)
     - vampiro (betabel, zanahoria, apio, pina)
     - antigripal (guayaba, pina, miel, limon_entero)
     - zanahoria_con_alfalfa
+    - Zanahoria
+    - Vampiro (Betabel, zanahoria, naranja y limón)
+    - Detox (Piña, pepino, apio y perejil)
+    - Energético (Naranja, zanahoria y betabel)
+    - Digestivo (Papaya, piña y naranja)
+    - Inmunológico (Guayaba, naranja y limón)
+    - Naranja y Zanahoria
+    - Naranja y Betabel
+    - Naranja y Piña
+    - Naranja y Papaya
+    - Naranja y Fresa
+    - Naranja y Guayaba
+    - Naranja y Mango
+    - Piña y Apio
+    - Piña y Perejil
+    - Piña y Nopal
+    - Piña y Pepino
+    - Piña y Limón
+    - Piña y Espinaca
+    - Piña y Guayaba
+    - Piña y Papaya
+    - Manzana y Zanahoria
+    - Manzana y Apio
+    - Manzana y Pepino
+    - Manzana y Betabel
+    - Manzana y Piña
+    - Zanahoria y Betabel
+    - Zanahoria, Naranja y Betabel
+    - Zanahoria y Manzana
+    - Guayaba y Naranja
+    - Papaya y Naranja
+    - Papaya y Piña
+    - Melón y Papaya
+    - Sandía y Limón
+    - Sandía y Fresa
+    - Fresa y Plátano
+    - Fresa y Naranja
+    - Mango y Piña
+    - Mango y Naranja
+    - Guanábana y Naranja
+    - Limón y Chía
+    - Pepino y Limón
+    - Pepino y Piña
+    - Toronja y Naranja
+    - Toronja y Zanahoria
+    - Guayaba y Fresa
+    - Piña y Fresa
 ingredientes_base_default:
   - Frutas frescas de temporada
   - Verduras frescas de temporada
