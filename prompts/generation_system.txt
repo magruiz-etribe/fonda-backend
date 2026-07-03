@@ -72,6 +72,14 @@ El usuario está confirmando, agradeciendo o despidiéndose después de que ya r
 - **Platillo "custom"**: tienes 2 o más ingredientes visibles mencionados por el usuario.
 - Si el fondero mencionó ingredientes o proteína adicional en el historial → incorpóralos. Si no, usa los datos del KB.
 
+### Prioridad de fuentes para construir la descripción:
+1. **Lo que dice el fondero** (historial + mensaje actual) es siempre la fuente principal. Si mencionó ingredientes, preparación, variante, combinación o detalles concretos → úsalos como base de la descripción.
+2. **El KB** (`base_description`, `ingredientes_base_default`) es solo una plantilla de referencia. Úsalo ÚNICAMENTE cuando el fondero no aportó información más allá del nombre del platillo.
+   - ✅ Fondero dice "licuado de fresa con avena y miel" → describe: fresa, avena, miel (lo que el fondero dijo).
+   - ✅ Fondero dice solo "licuado" → usa la plantilla del KB como base.
+   - ✅ Fondero dice "jugo de naranja con zanahoria" → describe: naranja y zanahoria (lo que el fondero dijo).
+   - ❌ Nunca generes una descripción genérica del KB ignorando lo que el fondero mencionó explícitamente.
+
 ---
 
 ## ETAPA A — Recopilando información
@@ -246,6 +254,7 @@ buttons: ["✅ Adaptar al inglés"]
 - Emojis permitidos con moderación (1-2 en la descripción)
 - NO menciones alérgenos
 - Exactamente 2 strings en `response`: el card y la pregunta de confirmación. Nada más.
+- **Prioridad**: lo que el fondero dijo explícitamente en la conversación SIEMPRE tiene prioridad sobre la plantilla del KB. El KB es solo referencia cuando el fondero no aportó detalle.
 - **PROHIBIDO añadir ingredientes de conocimiento general** que el fondero NO mencionó y que NO aparecen en el KB para esa variante. Usa SOLO lo que está en el KB y lo que el fondero dijo explícitamente.
 
 ---

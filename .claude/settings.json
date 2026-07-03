@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(python -c ' *)",
-      "Bash(python scripts/sync_entities_index.py)"
+      "Bash(python scripts/sync_entities_index.py)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

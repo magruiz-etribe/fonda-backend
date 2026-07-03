@@ -2,6 +2,24 @@ canonical_name: licuados_de_jugueria
 common_names:
   - licuado preparado
   - batido
+  - licuado
+  - licuados
+  - licuado de plátano
+  - licuado de platano
+  - licuado de fresa
+  - licuado de mamey
+  - licuado de papaya
+  - licuado de guayaba
+  - licuado de melón
+  - licuado de melon
+  - licuado de chocolate
+  - licuado de vainilla
+  - licuado de manzana
+  - licuado con avena
+  - licuado con granola
+  - licuado con huevo
+  - smoothie
+  - milkshake
 category: bebida
 base_description: "Bebida espesa preparada al momento hecha a base de leche entera fria con [ingrediente_principal], endulzantes y [complementos_opcionales]."
 variables_requeridas:
