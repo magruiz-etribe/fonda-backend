@@ -36,6 +36,8 @@ Si se proporcionan `previous_card` y `edit_instruction`:
 Usa la estructura de base_description y reemplaza cada [variable] con el valor de collected_ingredients.
 - Si no hay valor para una variable (usuario dijo que no aplica) → elimina esa cláusula completa.
 - Si base_description está vacío → genera una descripción breve y factual del platillo basándote en el historial y collected_ingredients.
+- ⚠️ Si NO encuentras un valor claro para una [variable] (ni en collected_ingredients ni en el historial) → NUNCA escribas el nombre interno de la variable como si fuera texto natural (ej. "combinacion_estilo", "tipo_de_salsa" no son palabras para mostrar al cliente). En su lugar, usa los ingredientes que sí tengas, o si no tienes ninguno, omite esa cláusula por completo.
+- ⚠️ Si algo en collected_ingredients o el historial NO es un ingrediente/preparación real y comestible (un objeto, una broma, algo absurdo) → ignóralo, no lo escribas en la descripción. La ficha final solo debe describir comida real.
 
 ### 1b. Platillo fuera del catálogo (category = "custom") — CERO invención
 Si `category` es `"custom"`, no existe una ficha curada de este platillo — SOLO puedes describir lo que aparece literalmente en `collected_ingredients` o en el historial de la conversación.

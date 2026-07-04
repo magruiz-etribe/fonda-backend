@@ -43,6 +43,12 @@ category: bebida
 base_description: "Jugo natural con [combinacion_estilo], preparado al momento con frutas y verduras frescas de temporada."
 variables_requeridas:
   - combinacion_estilo
+# combinacion_estilo is open-ended (any fruit/veg combo a fondero prepares) — the
+# list below is suggested quick-reply buttons, not an exhaustive enum. Marking it
+# here means any ingredient the user mentions satisfies it, instead of requiring
+# an exact match against one of these phrases (see generation._variable_covered).
+variables_libres:
+  - combinacion_estilo
 variable_opciones:
   combinacion_estilo:
     - naranja

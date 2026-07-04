@@ -448,8 +448,19 @@ def _variable_covered(
     collected: list[str],
     options: list[str],
     base_defaults: list[str] | None = None,
+    *,
+    free_text: bool = False,
 ) -> bool:
-    if options:
+    """Is `variable` answered by what's in `collected`?
+
+    `free_text=True` marks a variable whose `variable_opciones` are suggested
+    quick-reply buttons only, not an exhaustive enum (e.g. jugos'
+    combinacion_estilo — "any fruit/veg combo the fondero prepares" can't be
+    fully enumerated). For those, ANY user-provided ingredient counts, same as
+    a variable with no options at all — we never reject what the user actually
+    said just because it doesn't match one of the suggested phrases.
+    """
+    if options and not free_text:
         for ing in collected:
             for opt in options:
                 if _ingredient_matches_option(ing, opt):
@@ -468,11 +479,17 @@ def _variable_covered(
     return False
 
 
+def _free_variables(kb_data: dict) -> frozenset[str]:
+    """Variable names whose variable_opciones are suggestions, not a strict enum."""
+    return frozenset(str(v) for v in (kb_data.get("variables_libres") or []))
+
+
 def _find_first_missing_variable(
     collected: list[str],
     variables_requeridas: list[str],
     variable_opciones: dict,
     base_defaults: list[str] | None = None,
+    free_variables: frozenset[str] = frozenset(),
 ) -> str | None:
     for var in variables_requeridas:
         raw_options = variable_opciones.get(var) or []
@@ -481,7 +498,9 @@ def _find_first_missing_variable(
             if isinstance(raw_options, list)
             else []
         )
-        if not _variable_covered(var, collected, options, base_defaults):
+        if not _variable_covered(
+            var, collected, options, base_defaults, free_text=var in free_variables
+        ):
             return var
     return None
 
@@ -525,7 +544,7 @@ def _build_extracting_deterministic_fallback(
     base_defaults = list(kb_data.get("ingredientes_base_default") or [])
     collected = list(collected_ingredients)
     missing = _find_first_missing_variable(
-        collected, variables_requeridas, variable_opciones, base_defaults
+        collected, variables_requeridas, variable_opciones, base_defaults, _free_variables(kb_data)
     )
 
     if missing is None:
@@ -599,7 +618,7 @@ def _fill_extracting_buttons(result: GenResult, kb_data: dict) -> GenResult:
     collected = list(result.collected_ingredients or [])
 
     missing = _find_first_missing_variable(
-        collected, variables_requeridas, variable_opciones, base_defaults
+        collected, variables_requeridas, variable_opciones, base_defaults, _free_variables(kb_data)
     )
     if not missing:
         return result
@@ -628,7 +647,7 @@ def variables_satisfied(collected: list[str], kb_data: dict) -> bool:
     base_defaults = list(kb_data.get("ingredientes_base_default") or [])
     return (
         _find_first_missing_variable(
-            collected, variables_requeridas, variable_opciones, base_defaults
+            collected, variables_requeridas, variable_opciones, base_defaults, _free_variables(kb_data)
         )
         is None
     )
@@ -652,7 +671,7 @@ def _finalize_extracting_result(
     base_defaults = list(kb_data.get("ingredientes_base_default") or [])
 
     missing = _find_first_missing_variable(
-        collected, variables_requeridas, variable_opciones, base_defaults
+        collected, variables_requeridas, variable_opciones, base_defaults, _free_variables(kb_data)
     )
 
     if missing is None:

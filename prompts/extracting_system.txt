@@ -36,6 +36,11 @@ Extrae del mensaje actual **TODOS** los ingredientes, proteínas, toppings, sals
 ⚠️ Si el usuario mencionó explícitamente un ingrediente, DEBE aparecer en collected_ingredients aunque no sea una variable_requerida de la plantilla.
 ⚠️ Aunque una palabra coincida con el nombre del platillo (ej. "huevo" en "huevo con jamón" → huevos_revueltos), si el usuario la dijo → captúrala en collected_ingredients. No la omitas por ser parte del nombre.
 
+⚠️ FILTRO DE REALISMO — solo captura ingredientes/preparaciones comestibles y plausibles con tu conocimiento de comida real. Si el usuario menciona algo que NO es un ingrediente real (un objeto, una broma, algo no comestible) → NO lo agregues a collected_ingredients, ignóralo como si no lo hubiera dicho.
+- "jugo de naranja con zapato mojado" → collected_ingredients: ["naranja"] (zapato mojado no es un ingrediente, se descarta)
+- "tacos de piedra" → collected_ingredients: [] (piedra no es un ingrediente real)
+Esto NO es lo mismo que rechazar el platillo — sigues avanzando la conversación normalmente, solo ignoras la parte que no es comida real. Ante la duda de si algo es un ingrediente real (platillos regionales poco comunes, nombres que no reconoces) → inclúyelo; el filtro es solo para lo evidentemente no comestible o absurdo.
+
 ## Paso 2 — Verifica si todas las variables_requeridas están cubiertas
 Revisa si cada variable en variables_requeridas ya tiene un valor en collected_ingredients (del historial + mensaje actual).
 - Si `variables_requeridas` es `[]` (lista vacía) → SIEMPRE `variables_complete: true`, `response: []`.
