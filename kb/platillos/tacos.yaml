@@ -17,8 +17,6 @@ common_names:
   - tacos de tripa
   - tacos de bistec
   - tacos de arrachera
-  - chicharrón prensado
-  - chicharron prensado
 category: antojito
 base_description: "Tortilla de maíz doblada rellena de [tipo_de_guiso]."
 variables_requeridas:
@@ -37,8 +35,7 @@ variable_opciones:
    - Picadillo
    - Nopales
    - Rajas con crema
-   - Pescado empanizado 
-   - chicharron prensado
+   - Pescado empanizado
    - longaniza
 ingredientes_base_default:
   - tortilla de maíz

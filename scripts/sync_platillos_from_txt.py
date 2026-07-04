@@ -17,7 +17,6 @@ TXT_TO_YAML = {
     "chuleta frita": "chuleta_frita",
     "chimichanga": "chimichanga",
     "chiles": "chiles_rellenos",
-    "chicharron prensado": "chicharron_prensado",
     "chicharron en salsa": "chicharron_en_salsa",
     "chapulines": "chapulines",
     "ceviche": "ceviche",

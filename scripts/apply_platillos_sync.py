@@ -17,7 +17,6 @@ TXT_TO_YAML = {
     "chuleta frita": "chuleta_frita",
     "chimichanga": "chimichanga",
     "chiles": "chiles_rellenos",
-    "chicharron prensado": "chicharron_prensado",
     "chicharron en salsa": "chicharron_en_salsa",
     "chapulines": "chapulines",
     "ceviche": "ceviche",
@@ -63,10 +62,6 @@ VARIANT_KEY_MAP: dict[str, dict[str, str]] = {
         "chiles en nogada": "en_nogada",
         "chiles rellenos de queso": "relleno_de_queso",
         "chiles rellenos de carne o picadillo": "relleno_de_picadillo",
-    },
-    "chicharron_prensado": {
-        "chicharrón prensado": "chicharron_prensado",
-        "chicharron prensado": "chicharron_prensado",
     },
     "chicharron_en_salsa": {
         "chicharrón en salsa roja": "roja",
@@ -181,8 +176,6 @@ VARIANT_KEY_MAP: dict[str, dict[str, str]] = {
         "tacos dorados de requeson": "requeson",
         "tacos dorados de camarón": "camaron",
         "tacos dorados de camaron": "camaron",
-        "tacos dorados de chicharrón prensado": "chicharron_prensado",
-        "tacos dorados de chicharron prensado": "chicharron_prensado",
     },
     "carne_asada": {
         "carne asada con guarniciones": "con_guarniciones",
