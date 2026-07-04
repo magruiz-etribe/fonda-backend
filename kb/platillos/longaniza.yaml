@@ -1,0 +1,23 @@
+canonical_name: longaniza
+common_names:
+  - longaniza
+  - longaniza frita
+  - longaniza guisada
+  - longaniza en salsa morita
+  - longaniza en salsa verde
+  - longaniza en salsa roja
+  - longaniza con papas
+category: plato_fuerte
+base_description: "Longaniza frita y cocinada en salsa [tipo_de_salsa]."
+variables_requeridas:
+  - tipo_de_salsa
+variable_opciones:
+  tipo_de_salsa:
+    - morita
+    - verde
+    - roja
+ingredientes_base_default:
+  - longaniza
+  - cebolla
+  - ajo
+  - chile

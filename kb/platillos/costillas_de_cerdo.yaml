@@ -11,8 +11,8 @@ variables_requeridas:
   - verdura
 variable_opciones:
   tipo_de_salsa:
-    -verde
-    -roja
+    - verde
+    - roja
   verdura:
    - nopales
    - papas

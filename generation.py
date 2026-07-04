@@ -10,6 +10,7 @@ from typing import Any, Final
 import bedrock_client
 import config
 import llm_schemas
+import retrieval
 from classifier import ClassifierResult
 from prompt_loader import load_prompt
 
@@ -418,6 +419,10 @@ _VARIABLE_QUESTION_TEMPLATES: Final[dict[str, str]] = {
     "tipo_de_caldo": "¿Qué tipo de caldo usas para {dish}?",
     "acompañamiento": "¿Con qué acompañas los {dish}?",
     "acompanamiento": "¿Con qué acompañas los {dish}?",
+    # Placeholder variable for dishes accepted through the custom-dish gate
+    # (see retrieval._build_custom_dish_data) — there's no known KB shape yet,
+    # so ask broadly instead of the generic "¿Qué preparacion llevas...?" template.
+    "preparacion": "¡Con gusto! Cuéntame cómo preparas {dish}: qué ingredientes lleva y cómo lo haces 😊",
 }
 
 
@@ -798,9 +803,11 @@ def _build_extracting_text(
     base_desc = kb_data.get("base_description") or ""
     var_opciones = kb_data.get("variable_opciones") or {}
     opciones_str = json.dumps(var_opciones, ensure_ascii=False) if var_opciones else "{}"
+    category = kb_data.get("category") or ""
 
     return (
-        f"current_dish: {current_dish}\n"
+        f"current_dish: {retrieval.display_label(current_dish)}\n"
+        f"category: {category}\n"
         f"companions: {comp_str}\n"
         f"variables_requeridas: {vars_req}\n"
         f"variable_opciones: {opciones_str}\n"
@@ -906,7 +913,7 @@ def _build_confirming_flags_text(
     flags_str = ", ".join(detected_flags) if detected_flags else "(ninguno)"
 
     return (
-        f"current_dish: {current_dish}\n"
+        f"current_dish: {retrieval.display_label(current_dish)}\n"
         f"companions: {comp_str}\n"
         f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"
         f"detected_flags: {flags_str}\n\n"
@@ -1025,6 +1032,7 @@ def _build_drafting_text(
     comp_str = ", ".join(companions) if companions else "(ninguno)"
     flags_str = ", ".join(detected_flags) if detected_flags else "(ninguno)"
     base_desc = kb_data.get("base_description") or ""
+    category = kb_data.get("category") or ""
 
     edit_block = ""
     if edit_instruction and previous_card:
@@ -1036,7 +1044,8 @@ def _build_drafting_text(
 
     return (
         f"{edit_block}"
-        f"current_dish: {current_dish}\n"
+        f"current_dish: {retrieval.display_label(current_dish)}\n"
+        f"category: {category}\n"
         f"companions: {comp_str}\n"
         f"base_description: {base_desc}\n"
         f"collected_ingredients: {json.dumps(collected_ingredients, ensure_ascii=False)}\n"

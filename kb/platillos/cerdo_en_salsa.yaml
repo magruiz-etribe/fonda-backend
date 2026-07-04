@@ -4,6 +4,9 @@ common_names:
   - cerdo en salsa roja
   - cerdo con nopales
   - cerdo con papas
+  - carne de puerco
+  - carne de cerdo
+  - puerco en salsa
 category: plato_fuerte
 base_description: "Carne de cerdo cocinada en salsa [tipo_de_salsa] acompañada de [verdura]"
 variables_requeridas:
@@ -11,17 +14,16 @@ variables_requeridas:
   - verdura
 variable_opciones:
   tipo_de_salsa:
-    -verde
-    -roja
+    - verde
+    - roja
   verdura:
    - nopales
    - papas
    - zanahoria
 ingredientes_base_default:
-  - chile poblano
-  - huevo
-  - harina
+  - carne de cerdo
+  - chile guajillo
+  - chile ancho
   - jitomate
   - cebolla
   - ajo
-  - aceite

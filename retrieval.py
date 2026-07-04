@@ -13,6 +13,7 @@ import config
 logger = logging.getLogger(__name__)
 
 _CUSTOM_ENTITY: Final[str] = "custom"
+_CUSTOM_DISH_PREFIX: Final[str] = "custom:"
 _STOP_TOKENS: Final[frozenset[str]] = frozenset(
     {"de", "con", "en", "la", "el", "y", "a", "los", "las", "del", "al"}
 )
@@ -30,11 +31,58 @@ except ImportError:
     _YAML_AVAILABLE = False
 
 
+def is_custom_entity(entity: str) -> bool:
+    """True for a plausible-but-unlisted dish accepted via the custom-dish gate."""
+    return entity.startswith(_CUSTOM_DISH_PREFIX)
+
+
+def custom_entity_id(display_name: str) -> str:
+    """Build the internal entity id for a dish accepted through the custom-dish gate."""
+    return f"{_CUSTOM_DISH_PREFIX}{display_name.strip().lower()}"
+
+
+def custom_display_name(entity: str) -> str:
+    """Recover the human-readable name from a custom-dish entity id."""
+    return entity[len(_CUSTOM_DISH_PREFIX):].strip()
+
+
+def display_label(entity: str) -> str:
+    """Human-readable label for any entity id — strips the internal custom-dish prefix.
+
+    Use this whenever an entity id is interpolated directly into LLM-facing prompt
+    text, so the "custom:" bookkeeping prefix never leaks into what the model reads.
+    """
+    return custom_display_name(entity) if is_custom_entity(entity) else entity
+
+
+def _build_custom_dish_data(display_name: str) -> dict:
+    """Synthetic KB entry for a plausible dish accepted via the custom-dish gate.
+
+    Shaped like a real platillo YAML with exactly one free-form variable and no
+    KB-curated defaults, so the existing EXTRACTING → CONFIRMING_FLAGS → DRAFTING
+    pipeline (entirely driven by variables_requeridas/variable_opciones) handles it
+    unmodified: `_variable_covered` in generation.py treats any collected ingredient
+    as satisfying a variable that has no options and no base defaults, so the flow
+    naturally asks exactly one open question before proceeding.
+    """
+    return {
+        "canonical_name": display_name,
+        "common_names": [display_name],
+        "category": "custom",
+        "base_description": "",
+        "variables_requeridas": ["preparacion"],
+        "variable_opciones": {},
+        "ingredientes_base_default": [],
+    }
+
+
 @lru_cache(maxsize=512)
 def get_dish_data(entity: str) -> dict | None:
     """Returns parsed YAML data for a dish, or None if YAML is unavailable or missing."""
     if entity == _CUSTOM_ENTITY or not _YAML_AVAILABLE:
         return None
+    if is_custom_entity(entity):
+        return _build_custom_dish_data(custom_display_name(entity))
     path = os.path.join(config.KB_PATH, "platillos", f"{entity}.yaml")
     try:
         with open(path, encoding="utf-8") as f:

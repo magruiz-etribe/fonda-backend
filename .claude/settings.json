@@ -3,7 +3,11 @@
     "allow": [
       "Bash(python -c ' *)",
       "Bash(python scripts/sync_entities_index.py)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('kb/entities_index.json', encoding='utf-8'\\)\\); print\\(len\\(d\\)\\)\")",
+      "Bash(python -m pytest tests/ -q)",
+      "Bash(python -m pytest tests/test_router_flow.py -q)",
+      "Bash(git mv *)"
     ]
   }
 }

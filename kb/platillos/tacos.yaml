@@ -17,12 +17,14 @@ common_names:
   - tacos de tripa
   - tacos de bistec
   - tacos de arrachera
+  - chicharrón prensado
+  - chicharron prensado
 category: antojito
 base_description: "Tortilla de maíz doblada rellena de [tipo_de_guiso]."
 variables_requeridas:
   - tipo_de_guiso
 variable_opciones:
-  tipo de guiso:
+  tipo_de_guiso:
    - Carne asada
    - Pollo deshebrado
    - Carnitas

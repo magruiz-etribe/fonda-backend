@@ -60,9 +60,26 @@ EXTRACTOR_TRADUCCION: Final[dict[str, Any]] = {
     "properties": {
         "reasoning": {"type": "string", "description": "Brief extraction reasoning"},
         "current_dish": {"type": "string", "description": "Canonical dish name, 'custom' if not in KB, or empty string"},
+        "custom_dish_name": {
+            "type": "string",
+            "description": "Only when current_dish is 'custom': the clean dish/drink name as the user said it, no filler words. Empty string otherwise.",
+        },
         "companions": _string_array("Side dishes served separately"),
     },
-    "required": ["reasoning", "current_dish", "companions"],
+    "required": ["reasoning", "current_dish", "custom_dish_name", "companions"],
+    "additionalProperties": False,
+}
+
+DISH_PLAUSIBILITY: Final[dict[str, Any]] = {
+    "type": "object",
+    "properties": {
+        "reasoning": {"type": "string", "description": "Brief reasoning in Spanish"},
+        "is_plausible_dish": {
+            "type": "boolean",
+            "description": "True if the name plausibly refers to a real, edible dish or beverage, even if unfamiliar/regional/misspelled",
+        },
+    },
+    "required": ["reasoning", "is_plausible_dish"],
     "additionalProperties": False,
 }
 
@@ -169,6 +186,7 @@ TRANSLATION_CARD: Final[dict[str, Any]] = {
 ALL_SCHEMAS: Final[dict[str, dict[str, Any]]] = {
     "CLASSIFIER_INTENT": CLASSIFIER_INTENT,
     "EXTRACTOR_TRADUCCION": EXTRACTOR_TRADUCCION,
+    "DISH_PLAUSIBILITY": DISH_PLAUSIBILITY,
     "EXTRACTING": EXTRACTING,
     "CONFIRMING_FLAGS": CONFIRMING_FLAGS,
     "DRAFTING": DRAFTING,

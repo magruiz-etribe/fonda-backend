@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import logging
+import re
+import unicodedata
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import Final
 
 import bedrock_client
@@ -15,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 _CLASSIFIER_PROMPT: Final[str] = "classifier_system.txt"
 _EXTRACTOR_PROMPT: Final[str] = "extractor_system.txt"
+_PLAUSIBILITY_PROMPT: Final[str] = "plausibility_system.txt"
 
 _VALID_INTENTS: Final[frozenset[str]] = frozenset({
     "traduccion", "maps", "yelp", "tripadvisor", "higiene",
@@ -39,6 +43,7 @@ class ClassifierResult:
     intent2: str = ""
     # New traduccion fields
     current_dish: str = ""
+    custom_dish_name: str = ""
     companions: list[str] = field(default_factory=list)
     # Legacy fields — used by non-traduccion generation path
     current_dishes: list[str] = field(default_factory=list)
@@ -56,12 +61,59 @@ class ClassifierResult:
         return None
 
 
+def _normalize_for_match(text: str) -> str:
+    s = text.strip().lower()
+    s = "".join(
+        c for c in unicodedata.normalize("NFD", s)
+        if unicodedata.category(c) != "Mn"
+    )
+    s = re.sub(r"[^\w\s]", "", s)
+    return " ".join(s.split())
+
+
+@lru_cache(maxsize=1)
+def _normalized_entities_index() -> dict[str, str]:
+    return {
+        key: canonical
+        for alias, canonical in get_entities_index().items()
+        if (key := _normalize_for_match(alias))
+    }
+
+
+def match_known_dish(message: str) -> str | None:
+    """Exact accent/case/punctuation-insensitive alias lookup.
+
+    Bypasses the LLM entirely for messages that are unambiguously just a known
+    dish/alias name (e.g. "Jugo de zanahoria", "Vampiro") — this avoids relying
+    on a small model to re-derive a match that's already a literal KB alias,
+    and avoids intent misclassification (e.g. "Vampiro" alone read as
+    out-of-domain gibberish) since it short-circuits before intent classification.
+    """
+    key = _normalize_for_match(message)
+    if not key:
+        return None
+    return _normalized_entities_index().get(key)
+
+
 def classify(
     message: str,
     current_dish: str,
     history: list[dict[str, str]],
     dish_status: str | None = None,
 ) -> ClassifierResult:
+    # Only short-circuit at the start of a conversation — once a dish flow is
+    # active, an exact alias match could actually be an answer to a variable
+    # question (e.g. a variant name), which the extractor must still handle.
+    if not current_dish:
+        quick_match = match_known_dish(message)
+        if quick_match:
+            logger.info("classifier_quick_match", extra={"dish": quick_match})
+            return ClassifierResult(
+                intent="traduccion",
+                current_dish=quick_match,
+                current_dishes=[quick_match],
+            )
+
     intent, intent2, platform = _classify_intent(message, history)
 
     if intent == "traduccion":
@@ -234,6 +286,7 @@ def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> Classi
         return ClassifierResult(intent=intent, current_dish=current_dish)
 
     new_dish = str(data.get("current_dish", "")).strip().lower()
+    custom_dish_name = str(data.get("custom_dish_name", "")).strip() if new_dish == "custom" else ""
 
     raw_companions = data.get("companions") or []
     companions: list[str] = []
@@ -247,6 +300,7 @@ def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> Classi
         extra={
             "intent": intent,
             "current_dish": new_dish,
+            "custom_dish_name": custom_dish_name,
             "companions": companions,
             "reasoning": str(data.get("reasoning", ""))[:300],
         },
@@ -255,6 +309,7 @@ def _parse_extraction_data(data: dict, current_dish: str, intent: str) -> Classi
     return ClassifierResult(
         intent=intent,
         current_dish=new_dish,
+        custom_dish_name=custom_dish_name,
         companions=companions,
         current_dishes=[new_dish] if new_dish else [],
     )
@@ -268,3 +323,57 @@ def _parse_extraction(raw: str, current_dish: str, intent: str) -> ClassifierRes
         logger.warning("extractor_parse_error", extra={"error": str(e), "raw": raw[:200]})
         return ClassifierResult(intent=intent, current_dish=current_dish)
     return _parse_extraction_data(data, current_dish, intent)
+
+
+# ── Custom-dish plausibility gate ────────────────────────────────────────────
+
+def check_dish_plausibility(
+    dish_name: str,
+    message: str,
+    history: list[dict[str, str]],
+) -> bool:
+    """LLM gate: does this unrecognized name plausibly refer to real food/drink?
+
+    Runs only when the extractor couldn't match anything in the KB. Biased to
+    accept on ambiguity (see plausibility_system.txt): a false accept just costs
+    one clarifying question in the custom-dish flow, while a false reject repeats
+    the old hard "not found" decline for a real dish the KB doesn't cover yet.
+    On a Bedrock error, default to False — keep today's decline behavior rather
+    than drafting a menu card we couldn't actually vet.
+    """
+    if not dish_name.strip():
+        return False
+
+    system = load_prompt(_PLAUSIBILITY_PROMPT)
+    user_text = (
+        f"Nombre candidato: \"{dish_name.strip()}\"\n"
+        f"Mensaje original del usuario: \"{message}\"\n\n"
+        "Devuelve únicamente el JSON."
+    )
+    messages = [{"role": "user", "content": [{"text": user_text}]}]
+
+    try:
+        data = bedrock_client.converse_json(
+            config.NOVA_2_LITE_MODEL_ID,
+            system,
+            messages,
+            schema=llm_schemas.DISH_PLAUSIBILITY,
+            tool_name="check_dish_plausibility",
+            tool_description="Decide if a name plausibly refers to a real dish or drink",
+            inference_config={"maxTokens": 200, "temperature": 0.0},
+            stage="dish_plausibility",
+        )
+    except bedrock_client.BedrockError as e:
+        logger.warning("dish_plausibility_bedrock_error", extra={"error": str(e)})
+        return False
+
+    is_plausible = bool(data.get("is_plausible_dish")) if isinstance(data, dict) else False
+    logger.info(
+        "dish_plausibility_result",
+        extra={
+            "dish_name": dish_name,
+            "is_plausible": is_plausible,
+            "reasoning": str(data.get("reasoning", ""))[:300] if isinstance(data, dict) else "",
+        },
+    )
+    return is_plausible

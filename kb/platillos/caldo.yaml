@@ -13,6 +13,8 @@ common_names:
   - caldo de camaron
   - consomé de barbacoa
   - caldo de barbacoa
+  - caldo de pescado
+  - caldo de mariscos
 category: caldo
 base_description: "Caldo [tipo_de_caldo] con verduras de temporada."
 variables_requeridas:
@@ -21,6 +23,8 @@ variable_opciones:
   tipo_de_caldo:
     - res
     - pollo
+    - pescado
+    - mariscos
 ingredientes_base_default:
   - cebolla
   - ajo

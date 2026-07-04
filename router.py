@@ -88,10 +88,13 @@ def handle(
 ) -> GenResult:
     try:
         current_dish = session_state.get("current_dish") or ""
+        # The extractor prompt only needs a human-readable dish name — strip the
+        # internal "custom:" bookkeeping prefix before it reaches any LLM text.
+        current_dish_label = retrieval.display_label(current_dish)
 
         with timing.stage("router.classify"):
             cr = cls_module.classify(
-                message, current_dish, history, session_state.get("dish_status")
+                message, current_dish_label, history, session_state.get("dish_status")
             )
 
         if cr.intent == "out_of_domain":
@@ -239,24 +242,43 @@ def _handle_traduccion(
         )
 
     # Guard: if the LLM skipped rule 4 and returned a name not in KB, force custom.
-    if effective_dish != "custom" and retrieval.get_dish_data(effective_dish) is None:
+    if (
+        effective_dish != "custom"
+        and not retrieval.is_custom_entity(effective_dish)
+        and retrieval.get_dish_data(effective_dish) is None
+    ):
         logger.warning(
             "dish_not_in_kb",
             extra={"effective_dish": effective_dish},
         )
         effective_dish = "custom"
 
-    current_status = effective_session["dish_status"]
-
-    # Dish not in KB → stop here, offer alternatives.
+    # Dish not in our KB → before declining, check whether it's still a plausible
+    # real dish/drink (only re-run the gate on the turn that actually named it;
+    # a "custom" that already made it through has an effective_dish encoded as
+    # "custom:<name>" above and never re-enters this branch).
     if effective_dish == "custom":
-        return GenResult(
-            response=[_DISH_NOT_FOUND_RESPONSE],
-            current_dishes=[],
-            buttons=list(_CTA_BUTTONS),
-            dish_status=None,
-            intent="traduccion",
-        )
+        custom_name = cr.custom_dish_name.strip() if new_dish_from_cr else ""
+        with timing.stage("router.plausibility"):
+            is_plausible = bool(custom_name) and cls_module.check_dish_plausibility(
+                custom_name, message, history
+            )
+        if is_plausible:
+            effective_dish = retrieval.custom_entity_id(custom_name)
+            effective_session["current_dish"] = effective_dish
+            effective_session["dish_status"] = None
+            logger.info("custom_dish_accepted", extra={"dish_name": custom_name})
+        else:
+            logger.info("custom_dish_declined", extra={"dish_name": custom_name})
+            return GenResult(
+                response=[_DISH_NOT_FOUND_RESPONSE],
+                current_dishes=[],
+                buttons=list(_CTA_BUTTONS),
+                dish_status=None,
+                intent="traduccion",
+            )
+
+    current_status = effective_session["dish_status"]
 
     if current_status is None or current_status == "EXTRACTING":
         return _handle_extracting(effective_session, message, history)
@@ -690,8 +712,8 @@ def _compute_flags(
     deterministic = rule_flags.compute_flags(ingredients)
 
     llm_raw = flag_llm.compute_flags_for_dish(
-        current_dish=current_dish,
-        companions=companions,
+        current_dish=retrieval.display_label(current_dish),
+        companions=[retrieval.display_label(c) for c in companions],
         collected_ingredients=collected,
         kb_ingredients_per_dish=kb_map,
     )

@@ -12,6 +12,7 @@ Recibirás:
 - **companions**: guarniciones del platillo (puede ser lista vacía)
 - **detected_flags**: alérgenos detectados (solo referencia — NO aparecen en el texto de la descripción)
 - **current_dish**: nombre canónico del platillo
+- **category**: categoría del platillo según el catálogo interno (puede ser `custom` — ver regla 1b)
 
 Además, **opcionalmente** puedes recibir:
 - **previous_card**: la tarjeta bilingüe generada anteriormente (en MODO EDICIÓN)
@@ -35,6 +36,12 @@ Si se proporcionan `previous_card` y `edit_instruction`:
 Usa la estructura de base_description y reemplaza cada [variable] con el valor de collected_ingredients.
 - Si no hay valor para una variable (usuario dijo que no aplica) → elimina esa cláusula completa.
 - Si base_description está vacío → genera una descripción breve y factual del platillo basándote en el historial y collected_ingredients.
+
+### 1b. Platillo fuera del catálogo (category = "custom") — CERO invención
+Si `category` es `"custom"`, no existe una ficha curada de este platillo — SOLO puedes describir lo que aparece literalmente en `collected_ingredients` o en el historial de la conversación.
+- PROHIBIDO agregar ingredientes, técnicas o guarniciones "típicas" de ese platillo por conocimiento general si el fondero no las mencionó.
+- Si `collected_ingredients` es mínimo (ej. solo repite el nombre del platillo, sin detalle real de preparación) → genera una descripción breve usando ÚNICAMENTE el nombre del platillo tal cual lo dio el fondero, sin inventar ingredientes ni técnica de preparación.
+- Ante la duda entre inventar un detalle o dejarlo fuera → siempre déjalo fuera.
 
 ### 2. Regla de guarniciones
 Si companions NO está vacío:
